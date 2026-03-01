@@ -102,7 +102,7 @@ const roundnessToClass = computed(() => {
 const sizeToIconSize = computed(() => {
     switch (props.size) {
         case 'sm':
-            return '1.25em'
+            return '1.5em'
         case 'lg':
             return '2.25em'
         case 'md':
