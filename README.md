@@ -339,6 +339,17 @@ Used by the workflow:
 - `PROJECT_URL`: The GitHub repository URL (e.g. `https://github.com/username/repo`)
 - `PROJECT_TOKEN`: A GitHub token with permissions to read the repository and create releases. You can use the default `GITHUB_TOKEN` provided by GitHub Actions, but it has some limitations (e.g. it cannot trigger other workflows). For more advanced use cases, you can create a custom token in your GitHub account settings.
 
+#### Creating a GitHub Personal Access Token (PAT)
+
+- GitHub => `Settings` => `Developer settings` => `Personal access tokens` => `Tokens (classic)`
+- Generate new token => select the following scopes:
+  - `repo` (Full control of private repositories)
+  - `read:repo_hook` (Read repository hooks)
+  - `write:repo_hook` (Write repository hooks)
+  - `read:org` (Read org and team membership)
+  - `read:project` (Read project boards)
+- Copy the generated token and add it to your GitHub repository secrets as `PROJECT_TOKEN`.
+
 ### Server environment
 
 Ensure that the user specified in `PREPROD_SSH_USER` and `PROD_SSH_USER` is in the `docker` group on the server to allow Docker commands without `sudo`:

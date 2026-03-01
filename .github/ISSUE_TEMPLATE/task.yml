@@ -1,4 +1,4 @@
-name: technical Task
+name: Technical Task
 description: Refactoring, technical debt, config, infra
 labels: ['technical']
 body:

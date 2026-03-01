@@ -1,4 +1,4 @@
-name: bug
+name: Bug
 description: Report a bug in the project
 labels: ['bug']
 body:
