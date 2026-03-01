@@ -6,7 +6,7 @@
                     <AppStarryVillage />
                 </div>
                 <h2 class="title-main mb-6">
-                    Borrèze, Village Étoilé
+                    Borrèze, village Étoilé
                 </h2>
                 <p class="text-lg text-dark mb-8">
                     Notre commune est labellisée "Village Étoilé" pour son engagement dans la préservation

@@ -13,7 +13,7 @@
             </div>
             <div class="px-6 pb-6 pt-4">
                 <div class="mb-2 text-sm text-gray-500">{{ formatDateRelativeNice(post?.published_at) }} </div>
-                <h3 class="mb-3 text-xl century-gothic-bold text-dark group-hover:text-primary transition line-clamp-1">
+                <h3 class="mb-3 text-xl font-semibold text-dark group-hover:text-primary transition line-clamp-1">
                     {{ post?.title }}
                 </h3>
                 <p class="text-gray-600 line-clamp-2">
