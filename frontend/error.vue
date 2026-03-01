@@ -2,8 +2,8 @@
   <div class="flex min-h-screen items-center justify-center bg-gray-50">
     <div class="w-full max-w-md space-y-8 text-center">
       <div>
-        <h1 class="text-9xl font-bold text-gray-300">{{ error.statusCode }}</h1>
-        <h2 class="mt-8 text-3xl font-extrabold text-gray-900">
+        <h1 class="text-9xl text-gray-300 century-gothic-bold">{{ error.statusCode }}</h1>
+        <h2 class="text-3xl text-dark mt-8 century-gothic-bold">
           {{ title }}
         </h2>
         <p class="mt-2 text-sm text-gray-600">

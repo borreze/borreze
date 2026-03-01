@@ -5,7 +5,7 @@
             <div class="flex items-center justify-center">
                 <AppLogo to="/admin" />
             </div>
-            <h2 class="text-center text-dark text-2xl font-semibold mt-4 mb-8">
+            <h2 class="title-submain text-center mt-4 mb-8">
                 {{ tabs[tab!].title }}
             </h2>
             <component :is="tabs[tab!].component" :setTab="setTab" />
@@ -22,9 +22,6 @@ import { isMobile } from '#imports'
 import AppLogo from '~/components/organisms/AppLogo.vue'
 
 type Tab = 'login' | 'forgot' | 'reset'
-
-const config = useRuntimeConfig()
-const project = config.public.project
 
 const tab = ref<Tab | null>('login')
 
@@ -51,8 +48,8 @@ definePageMeta({
     layout: 'blank',
     middleware: ['auth'],
     requiresAuth: false,
-        title: 'Authentification',
-        private: true,
+    title: 'Authentification',
+    private: true,
 })
 
 </script>

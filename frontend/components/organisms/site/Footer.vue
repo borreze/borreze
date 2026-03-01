@@ -7,13 +7,13 @@
                 <AppStarryVillage />
             </div>
             <div class="col-span-12 md:col-span-4 text-center md:text-left flex flex-col items-center md:items-start">
-                <h4 class="text-lg font-bold mb-3">Suivez-nous</h4>
+                <h4 class="text-lg century-gothic-bold mb-3">Suivez-nous</h4>
                 <div class="flex flex-col items-start gap-2">
                     <SocialCard v-for="social in socials" :key="social.id" :social="social" />
                 </div>
             </div>
             <div class="col-span-12 md:col-span-4 text-center md:text-left flex flex-col items-center md:items-start">
-                <h4 class="text-lg font-bold mb-3">Pages utiles</h4>
+                <h4 class="text-lg century-gothic-bold mb-3">Pages utiles</h4>
                 <div class="flex flex-col items-start gap-2">
                     <Url to="/" label="Accueil" :bold="false" />
                     <Url to="/contact" label="Contact" :bold="false" />

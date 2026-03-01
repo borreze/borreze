@@ -122,7 +122,7 @@ const variantToButtonClass = computed(() => {
         case 'outline':
             return 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white'
         case 'ghost':
-            return 'bg-transparent text-dark hover:bg-gray-100'
+            return 'bg-transparent text-gray-600 hover:bg-gray-100'
         case 'gray':
             return 'bg-gray-200 border-2 border-gray-200 text-gray-800 hover:brightness-90'
         case 'blur':
@@ -144,6 +144,7 @@ const buttonClass = computed(() => [
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark',
     'flex',
     props.position === 'left' ? 'flex-row' : 'flex-row-reverse',
+    'font-medium',
     'items-center gap-2 transition-all duration-300',
     props.center ? 'justify-center' : 'justify-between',
     sizeToButtonClass.value,

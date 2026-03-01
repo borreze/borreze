@@ -3,7 +3,7 @@
         <div class="mx-auto max-w-6xl px-4 md:px-8">
             <div class="mb-8 flex items-end justify-between">
                 <div>
-                    <h2 class="text-3xl font-bold text-dark mb-2">
+                    <h2 class="title-main mb-2">
                         Dernières actualités
                     </h2>
                     <p class="text-gray-600">

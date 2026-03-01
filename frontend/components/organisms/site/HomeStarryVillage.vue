@@ -5,7 +5,7 @@
                 <div class="mb-8 flex items-center justify-center gap-4">
                     <AppStarryVillage />
                 </div>
-                <h2 class="text-3xl font-bold mb-6">
+                <h2 class="title-main mb-6">
                     Borrèze, Village Étoilé
                 </h2>
                 <p class="text-lg text-dark mb-8">

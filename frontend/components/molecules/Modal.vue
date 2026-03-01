@@ -13,7 +13,7 @@
       <div v-if="open" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none overflow-y-auto">
         <div class="bg-white text-black rounded-lg p-6 m-3 w-[450px] shadow pointer-events-auto">
           <div class="flex justify-between items-center mb-8">
-            <h2 class="text-xl font-semibold">
+            <h2 class="title-submain">
               {{ title }}
             </h2>
             <button v-if="closable" @click="close"

@@ -115,7 +115,7 @@
         "content": "<p>This is the content of the tenth post.</p>",
         "meta_title": "Tenth Post Meta Title",
         "meta_description": "This is the meta description for the tenth post.",
-        "published_at": null,
+        "published_at": "2025-10-01T12:00:00Z",
         "schedule_start": null,
         "schedule_end": null
     },
