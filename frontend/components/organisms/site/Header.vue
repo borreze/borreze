@@ -51,7 +51,7 @@
 
                     <!-- Dropdown -->
                     <div
-                        class="absolute top-full left-0 mt-1 w-56 bg-white shadow-lg rounded-b-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        class="absolute top-full z-20 left-0 mt-1 w-56 bg-white shadow-lg rounded-b-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                         <ul class="py-2">
                             <li v-for="child in menu.children" :key="child.id">
                                 <Button as="link" :label="child.label" :href="child.url || '#'" variant="transparent"
