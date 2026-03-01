@@ -1,0 +1,205 @@
+services:
+  brz-postgres-all:
+    image: postgres:15-alpine
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1G
+    environment:
+      - DOCKERIZED=true
+      - POSTGRES_DB=${DATABASE_DB}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - brz-postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - brz-network
+
+  brz-pgadmin-dev:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    ports:
+      - "${DBMS_PORT}:80"
+    profiles:
+      - development
+    environment:
+      - DOCKERIZED=true
+      - PGADMIN_DEFAULT_EMAIL=${DBMS_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${DBMS_PASSWORD}
+    volumes:
+      - brz-pgadmin_data:/var/lib/pgadmin
+    networks:
+      - brz-network
+    depends_on:
+      - brz-postgres-all
+
+  brz-backend-dev:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - "${BACKEND_PORT}:3000"
+    environment:
+      - DOCKERIZED=true
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_INTERVAL=100
+      - NODE_ENV=development
+      - BACKEND_CORS_ORIGIN=${BACKEND_CORS_ORIGIN}
+      - BACKEND_PORT=${BACKEND_PORT}
+      - DATABASE_HOST=brz-postgres-all
+      - DATABASE_PORT=5432
+      - DATABASE_DB=${DATABASE_DB}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - BACKEND_DATABASE_LOGGING=${BACKEND_DATABASE_LOGGING}
+    depends_on:
+      - brz-postgres-all
+    restart: unless-stopped
+    networks:
+      - brz-network
+    profiles:
+      - development
+
+  brz-frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "${FRONTEND_PORT}:5173"
+    environment:
+      - DOCKERIZED=true
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - NODE_ENV=development
+      - NUXT_PUBLIC_API_BASE_URL_SSR=${FRONTEND_API_BASE_URL_SSR}
+      - NUXT_PUBLIC_API_BASE_URL_CLIENT=${FRONTEND_API_BASE_URL_CLIENT}
+      - NUXT_PUBLIC_NOINDEX=${FRONTEND_NOINDEX}
+      - NUXT_PUBLIC_URL=${FRONTEND_URL}
+    restart: unless-stopped
+    networks:
+      - brz-network
+    profiles:
+      - development
+    depends_on:
+      - brz-backend-dev
+
+  brz-pgadmin-prod:
+    image: dpage/pgadmin4
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: 256M
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${DBMS_PORT}:80"
+    profiles:
+      - production
+    environment:
+      - DOCKERIZED=true
+      - PGADMIN_DEFAULT_EMAIL=${DBMS_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${DBMS_PASSWORD}
+    volumes:
+      - brz-pgadmin_data:/var/lib/pgadmin
+    networks:
+      - brz-network
+    depends_on:
+      - brz-postgres-all
+
+  brz-backend-prod:
+    image: ${BACKEND_IMAGE:-docker.io/lalbaanthony/borreze-backend:latest}
+    deploy:
+      resources:
+        limits:
+          cpus: "0.7"
+          memory: 512M
+    ports:
+      - "127.0.0.1:${BACKEND_PORT}:3000"
+    environment:
+      - DOCKERIZED=true
+      - NODE_ENV=production
+      - BACKEND_CORS_ORIGIN=${BACKEND_CORS_ORIGIN}
+      - BACKEND_PORT=${BACKEND_PORT}
+      - DATABASE_DB=${DATABASE_DB}
+      - DATABASE_HOST=brz-postgres-all
+      - DATABASE_PORT=5432
+      - DATABASE_DB=${DATABASE_DB}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - BACKEND_DATABASE_LOGGING=${BACKEND_DATABASE_LOGGING}
+    depends_on:
+      - brz-postgres-all
+    restart: unless-stopped
+    networks:
+      - brz-network
+    profiles:
+      - production
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  brz-frontend-prod:
+    image: ${FRONTEND_IMAGE:-docker.io/lalbaanthony/borreze-frontend:latest}
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT}:3000"
+    environment:
+      - DOCKERIZED=true
+      - NODE_ENV=production
+      - NUXT_PUBLIC_API_BASE_URL_SSR=${FRONTEND_API_BASE_URL_SSR}
+      - NUXT_PUBLIC_API_BASE_URL_CLIENT=${FRONTEND_API_BASE_URL_CLIENT}
+      - NUXT_PUBLIC_NOINDEX=${FRONTEND_NOINDEX}
+      - NUXT_PUBLIC_URL=${FRONTEND_URL}
+    depends_on:
+      - brz-backend-prod
+    restart: unless-stopped
+    networks:
+      - brz-network
+    profiles:
+      - production
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  brz-postgres_data:
+  brz-pgadmin_data:
+
+networks:
+  brz-network:
+    driver: bridge

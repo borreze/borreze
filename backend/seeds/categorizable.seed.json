@@ -1,0 +1,12 @@
+[
+    {
+        "category_id": 1,
+        "categorizable_id": 120,
+        "type": "post"
+    },
+    {
+        "category_id": 2,
+        "categorizable_id": 119,
+        "type": "post"
+    }
+]

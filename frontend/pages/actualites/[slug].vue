@@ -1,0 +1,51 @@
+<template>
+    <PageHero v-if="post" :title="post?.title" image="https://picsum.photos/1200/400?random=1" />
+    <section class="safe-area">
+        <div class="mx-auto max-w-6xl">
+            <Breadcrumb :items="[
+                { name: 'Actualités', path: '/actualites' },
+                ...(post ? [{ name: post.title, path: `/actualites/${post.slug}` }] : [])
+            ]" />
+            <div v-if="post?.categories && post.categories.length > 0" class="mt-6 flex items-center flex-wrap gap-2">
+                <Pill v-for="category in post.categories" :key="category.id" :label="category.name" size="md"
+                    variant="primary" />
+            </div>
+            <Loader v-if="loading" />
+            <article v-else-if="post" class="mt-6">
+                <p v-if="post.published_at" class="text-sm text-gray-500 mt-2">
+                    {{ formatDateRelativeNice(post.published_at) }}
+                </p>
+                <p v-if="post.abstract" class="mt-4 text-gray-600 italic">{{ post.abstract }}</p>
+                <div class="mt-6 prose max-w-none" v-html="post.content" />
+            </article>
+        </div>
+    </section>
+</template>
+
+<script setup lang="ts">
+import Pill from '~/components/atoms/Pill.vue'
+import Loader from '~/components/molecules/Loader.vue'
+import Breadcrumb from '~/components/molecules/Breadcrumb.vue'
+import { usePost } from '~/composables/usePost';
+import PageHero from '~/components/organisms/site/PageHero.vue';
+import { formatDateRelativeNice } from '~/utils/date';
+
+const route = useRoute()
+const { post, loading } = await usePost(route.params.slug as string)
+
+if (!post.value) {
+    throw createError({ statusCode: 404, statusMessage: 'Actualité introuvable' })
+}
+
+useAppHead({
+    title: post.value.meta_title ?? post.value.title,
+    description: post.value.meta_description ?? post.value.abstract,
+    url: `/actualites/${post.value.slug}`,
+})
+
+definePageMeta({
+        title: 'Actualité',
+})
+
+
+</script>

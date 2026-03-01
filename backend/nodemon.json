@@ -1,0 +1,17 @@
+{
+    "watch": [
+        "src"
+    ],
+    "ext": "ts,js,json",
+    "exec": "ts-node src/server.ts",
+    "ignore": [
+        "dist",
+        "node_modules",
+        "seeds"
+    ],
+    "env": {
+        "NODE_ENV": "development",
+        "PORT": "3000"
+    },
+    "verbose": true
+}

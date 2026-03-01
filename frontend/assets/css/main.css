@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #2C2C2C;
+  --color-primary: #DB1D12;
+  --color-light: #F5F5F5;
+
+  /* Utils colors. Used for password strength meter, notifications, etc. */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #dc2626;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: var(--color-dark);
+}
+
+::selection {
+  background: var(--color-dark);
+  color: var(--color-light);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: var(--color-dark);
+  color: var(--color-light);
+  text-shadow: none;
+}
+
+/* ======================================================= */
+/* Main min height */
+/* ======================================================= */
+
+main {
+  min-height: 80vh;
+}
+
+/* ======================================================= */
+/* Forms */
+/* ======================================================= */
+
+textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* ======================================================= */
+/* Titles and text */
+/* ======================================================= */
+
+.title-hero-home {
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+@media (min-width: 768px) {
+  .title-hero-home {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .title-hero-home {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .title-hero-home {
+    font-size: 3rem;
+  }
+}
+
+.title-hero-page {
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.title-hero-page::after {
+  content: "";
+  display: block;
+  width: min(100px, 20%);
+  height: 3px;
+  background-color: var(--color-primary);
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .title-hero-page {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .title-hero-page {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .title-hero-page {
+    font-size: 2rem;
+  }
+}
+
+.title-main {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.title-submain {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+address {
+  font-style: normal;
+}
+
+/* ======================================================= */
+/* Safe-area layout styles */
+/* ======================================================= */
+
+@media (min-width: 1536px) {
+  .safe-area {
+    margin: 1.5rem 4rem;
+    padding: 1.5rem 4rem;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1535px) {
+  .safe-area {
+    margin: 1rem 3rem;
+    padding: 1rem 3rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .safe-area {
+    margin: 1rem 2rem;
+    padding: 1rem 3rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .safe-area {
+    margin: 0.5rem 1rem;
+    padding: 0.5rem 2rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .safe-area {
+    margin: 0.5rem 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .safe-area {
+    margin: 0.5rem 0.5rem;
+    padding: 0.5rem 0.5rem;
+  }
+}
+
+/* ======================================================= */
+/* Notivue styles */
+/* ======================================================= */
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 70px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-height: 72px;
+  }
+}
+
+:root {
+  --nv-root-top: calc(var(--header-height) + 10px);
+  --nv-root-left: 10px;
+}

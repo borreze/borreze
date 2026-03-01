@@ -1,0 +1,58 @@
+import { DataTypes, Model, Sequelize } from 'sequelize'
+import { PageAttributeAttributes, PageAttributeAttributesCreation } from '../types/models/pageAttribute.types'
+import { ModelConstraints } from '../types/utils/model.types'
+import { modelBuild } from '../utils/model.utils'
+
+export const PAGE_ATTRIBUTE_CONSTRAINTS = {
+  id: {
+    type: DataTypes.BIGINT,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  page_id: {
+    type: DataTypes.BIGINT,
+    required: true
+  },
+  key: {
+    type: DataTypes.STRING,
+    maxLength: 100,
+    required: true,
+    unique: true,
+    searchable: true
+  },
+  value: {
+    type: DataTypes.TEXT,
+    required: false
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    required: true,
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    required: true,
+  }
+} as const satisfies ModelConstraints<PageAttributeAttributes>
+
+export class PageAttribute extends Model<PageAttributeAttributes, PageAttributeAttributesCreation> implements PageAttributeAttributes {
+  public id!: number
+  public page_id!: number
+  public key!: string
+  public value?: string
+  public readonly created_at!: Date
+  public readonly updated_at!: Date
+}
+
+export function initPageAttributeModel(sequelize: Sequelize) {
+  PageAttribute.init(modelBuild(PAGE_ATTRIBUTE_CONSTRAINTS), {
+    sequelize,
+    timestamps: true,
+    updatedAt: 'updated_at',
+    createdAt: 'created_at',
+    tableName: 'page_attribute',
+    underscored: true,
+    indexes: [
+      { fields: ['key'] },
+    ]
+  })
+}

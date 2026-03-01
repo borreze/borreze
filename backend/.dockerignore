@@ -1,0 +1,25 @@
+# Common
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.git
+.gitignore
+README.md
+.env
+.env.development
+.env.local
+.DS_Store
+*.log
+
+# Backend specific
+dist
+build
+coverage
+.nyc_output
+
+# Frontend specific
+.nuxt
+.output
+.generated
+.cache

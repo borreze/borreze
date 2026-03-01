@@ -1,0 +1,29 @@
+import app from './app'
+import dotenv from 'dotenv'
+import path from 'path'
+import morgan from 'morgan'
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
+import { Terminal } from './utils/terminal.utils'
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
+
+if (!process.env.BACKEND_PORT) {
+    Terminal.error('BACKEND_PORT environment variable is not set. Is .env file properly configured?')
+    process.exit(1)
+}
+
+// Middleware to enhance security by setting various HTTP headers
+app.use(helmet())
+
+// Logging middleware
+app.use(morgan('combined'))
+
+// Rate limiting
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 })) // 100 requests per 15 minutes
+
+const IP = '0.0.0.0'
+const PORT = 3000 // ! Port hardcoded here: docker expects it to be 3000
+app.listen(PORT, IP, () => {
+    Terminal.success(`Server is running on internal address http://${IP}:${PORT}`)
+})

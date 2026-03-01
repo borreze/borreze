@@ -1,0 +1,48 @@
+name: bug
+description: Report a bug in the project
+labels: ['bug']
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Bug Description
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Go to...
+        2. Click on...
+        3. See the error...
+
+  - type: textarea
+    id: attendu
+    attributes:
+      label: Expected Behavior
+
+  - type: textarea
+    id: actuel
+    attributes:
+      label: Actual Behavior
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      placeholder: |
+        - Environment: local / preproduction / production
+        - Browser: Chrome 121
+        - OS: macOS 14
+
+  - type: dropdown
+    id: severite
+    attributes:
+      label: Severity
+      options:
+        - 🔴 Critical (blocking)
+        - 🟠 Major (broken functionality)
+        - 🟡 Minor (workaround possible)
+        - 🟢 Cosmetic

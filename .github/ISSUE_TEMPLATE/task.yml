@@ -1,0 +1,35 @@
+name: technical Task
+description: Refactoring, technical debt, config, infra
+labels: ['technical']
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Task Description
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context / Why
+
+  - type: textarea
+    id: work
+    attributes:
+      label: Work to be done
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      options:
+        - Frontend public
+        - Back-office
+        - API / Backend
+        - Database
+        - Infrastructure / DevOps
+        - Other

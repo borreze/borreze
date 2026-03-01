@@ -1,0 +1,47 @@
+name: New Feature
+description: Add a new feature to the project
+labels: ['feature']
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Feature
+      placeholder: "E.g. Online room booking"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context / Need
+      placeholder: "As a... I want... so that..."
+
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      options:
+        - Frontend public
+        - Back-office
+        - API / Backend
+        - Database
+        - Infrastructure / DevOps
+        - Other
+
+  - type: dropdown
+    id: priorite
+    attributes:
+      label: Priority
+      options:
+        - 🔴 Critical (blocking)
+        - 🟠 High
+        - 🟡 Medium
+        - 🟢 Low

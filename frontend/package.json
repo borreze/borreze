@@ -1,0 +1,52 @@
+{
+  "name": "borreze-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Anthony Lalba",
+  "license": "GNU GPLv3",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --host 0.0.0.0 --port 5173",
+    "lint": "echo \"No lint specified yet\" && exit 0",
+    "test": "echo \"No test specified yet\" && exit 0",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/icon": "^1.13.0",
+    "@nuxt/image": "^1.11.0",
+    "@nuxtjs/sitemap": "^7.4.3",
+    "@pinia/nuxt": "^0.10.1",
+    "@tailwindcss/vite": "^4.1.11",
+    "@tiptap/extension-image": "^3.20.0",
+    "@tiptap/extension-link": "^3.20.0",
+    "@tiptap/extension-table": "^3.20.0",
+    "@tiptap/extension-table-cell": "^3.20.0",
+    "@tiptap/extension-table-header": "^3.20.0",
+    "@tiptap/extension-table-row": "^3.20.0",
+    "@tiptap/extension-text-align": "^3.20.0",
+    "@tiptap/extension-underline": "^3.20.0",
+    "@tiptap/pm": "^3.20.0",
+    "@tiptap/starter-kit": "^3.20.0",
+    "@tiptap/vue-3": "^3.20.0",
+    "@vite-pwa/nuxt": "^1.0.4",
+    "@vueuse/core": "^14.2.1",
+    "notivue": "^2.4.5",
+    "nuxt": "^3.17.5",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.2.0",
+    "vue": "^3.5.16",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@iconify-json/ic": "^1.2.4",
+    "@nuxt/devtools": "latest",
+    "@types/leaflet": "^1.9.21",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  }
+}

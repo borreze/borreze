@@ -1,0 +1,276 @@
+/* -- Inline buttons (rendus dans le HTML stocké) --------------------------- */
+
+.wy-prose .wy-btn,
+.wy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-weight: 600;
+    font-size: 0.875em;
+    cursor: pointer;
+    transition: filter 0.15s;
+    user-select: none;
+    margin: 0 3px;
+    line-height: 1.4;
+}
+
+.wy-prose .wy-btn:hover {
+    filter: brightness(0.9);
+}
+
+.wy-prose .wy-btn--primary {
+    background: var(--color-primary);
+    color: #fff !important;
+}
+
+.wy-prose .wy-btn--gray {
+    background: #f1f5f9;
+    color: #334155 !important;
+}
+
+.wy-prose .wy-btn--outline {
+    background: transparent;
+    color: var(--color-primary) !important;
+    box-shadow: inset 0 0 0 2px var(--color-primary);
+}
+
+/* -- Typography ------------------------------------------------------------ */
+
+.wy-prose h1 {
+    font-size: 1.75em;
+    font-weight: 700;
+    margin: 0.6em 0;
+    line-height: 1.2;
+}
+
+.wy-prose h2 {
+    font-size: 1.4em;
+    font-weight: 700;
+    margin: 0.6em 0;
+    line-height: 1.3;
+}
+
+.wy-prose h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 0.6em 0;
+    line-height: 1.4;
+}
+
+.wy-prose h4 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 0.6em 0;
+    line-height: 1.5;
+}
+
+.wy-prose h5 {
+    font-size: 0.875em;
+    font-weight: 600;
+    margin: 0.6em 0;
+    line-height: 1.5;
+}
+
+.wy-prose h6 {
+    font-size: 0.75em;
+    font-weight: 600;
+    margin: 0.6em 0;
+    line-height: 1.5;
+}
+
+.wy-prose p {
+    margin: 0.4em 0;
+}
+
+/* -- Lists ----------------------------------------------------------------- */
+
+.wy-prose ul,
+.wy-prose ol {
+    padding-left: 1.4em;
+    margin: 0.5em 0;
+}
+
+.wy-prose li+li {
+    margin-top: 2px;
+}
+
+.wy-prose ul {
+    list-style-type: disc;
+}
+
+.wy-prose ol {
+    list-style-type: decimal;
+}
+
+/* -- Blockquote ------------------------------------------------------------ */
+
+.wy-prose blockquote {
+    border-left: 3px solid var(--color-primary);
+    margin: 0.75em 0;
+    padding: 0.25em 0 0.25em 1em;
+    color: #64748b;
+    font-style: italic;
+}
+
+/* -- Code ------------------------------------------------------------------ */
+
+.wy-prose pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 0.75em 0;
+    overflow-x: auto;
+    font-size: 0.875em;
+}
+
+.wy-prose code {
+    background: #f1f5f9;
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+    font-size: 0.875em;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+}
+
+.wy-prose pre code {
+    background: transparent;
+    padding: 0;
+    font-size: 1em;
+    color: inherit;
+}
+
+/* -- Links ----------------------------------------------------------------- */
+
+.wy-prose a:not(.wy-btn) {
+    cursor: pointer;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* -- Horizontal rule ------------------------------------------------------- */
+
+.wy-prose hr {
+    border: none;
+    border-top: 2px solid #e2e8f0;
+    margin: 1.25em 0;
+}
+
+/* -- Images ---------------------------------------------------------------- */
+
+.wy-prose img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    margin: 0.75em 0;
+}
+
+/* -- Table ----------------------------------------------------------------- */
+
+.wy-prose .tableWrapper {
+    overflow-x: auto;
+}
+
+.wy-prose table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.75em 0;
+    font-size: 0.9em;
+    table-layout: fixed;
+}
+
+.wy-prose table td,
+.wy-prose table th {
+    border: 1px solid #e2e8f0;
+    padding: 8px 12px;
+    vertical-align: top;
+    min-width: 60px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.wy-prose table th {
+    background: #f1f5f9;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* TipTap table selection highlight (éditeur uniquement, inoffensif ailleurs) */
+.wy-prose table .selectedCell::after {
+    z-index: 2;
+    position: absolute;
+    content: '';
+    inset: 0;
+    background: rgb(99 102 241 / 0.12);
+    pointer-events: none;
+}
+
+.wy-prose table .column-resize-handle {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    bottom: -2px;
+    width: 4px;
+    background-color: var(--color-primary);
+    pointer-events: none;
+}
+
+/* -- Resizable image NodeView wrapper (éditeur uniquement) ----------------- */
+
+.wy-prose .wy-image-wrapper {
+    display: block;
+    margin: 0.75em 0;
+}
+
+.wy-prose .wy-image-inner {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.wy-prose .wy-image-inner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.wy-prose .wy-image-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    background: var(--color-primary);
+    border-radius: 0 0 4px 0;
+    cursor: se-resize;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 10;
+}
+
+.wy-prose .wy-image-inner:hover .wy-image-handle {
+    opacity: 1;
+}
+
+/* -- Text alignment (généré par TipTap TextAlign) -------------------------- */
+
+.wy-prose [style*="text-align: left"] {
+    text-align: left;
+}
+
+.wy-prose [style*="text-align: center"] {
+    text-align: center;
+}
+
+.wy-prose [style*="text-align: right"] {
+    text-align: right;
+}
+
+.wy-prose [style*="text-align: justify"] {
+    text-align: justify;
+}

@@ -1,0 +1,171 @@
+<template>
+    <header class="sticky top-0 z-30 bg-white border-b-4 border-primary md:border-0 shadow-sm">
+        <div class="mx-auto flex items-center justify-between px-4 md:px-8 py-3">
+            <AppName to="/" />
+
+            <!-- Mobile -->
+            <div class="block md:hidden flex items-center gap-2">
+                <Button class="hidden sm:flex flex-none" as="link" label="Contact" icon="ic:baseline-email"
+                    href="/contact" variant="primary" size="sm" />
+                <Button icon="ic:search" variant="ghost" size="lg" @click="searchOpened = !searchOpened" />
+                <Button icon="ic:baseline-menu" variant="ghost" size="lg" @click="panelOpened = !panelOpened" />
+            </div>
+
+            <!-- Tablet -->
+            <div class="flex-1 max-w-xl hidden md:flex lg:hidden w-1/2 flex items-center justify-end gap-2 md:gap-4">
+                <Button class="flex-none" as="link" label="Com com" icon="material-symbols:castle"
+                    href="https://www.paysdefenelon.fr/" target="_blank" variant="outline" size="sm" />
+                <Button class="flex-none" as="link" label="Nous contacter" icon="ic:baseline-email" href="/contact"
+                    variant="primary" size="sm" />
+                <Button icon="ic:search" variant="ghost" size="lg" @click="searchOpened = !searchOpened" />
+            </div>
+
+            <!-- Desktop -->
+            <div class="hidden lg:flex items-center gap-2">
+                <Button class="flex-none" as="link" label="Communautés de communes" icon="material-symbols:castle"
+                    href="https://www.paysdefenelon.fr/" target="_blank" variant="outline" size="md" />
+                <Button class="flex-none" as="link" label="Nous contacter" icon="ic:baseline-email" href="/contact"
+                    variant="primary" size="md" />
+                <Button icon="ic:search" label="Rechercher..." variant="ghost" size="md"
+                    @click="searchOpened = !searchOpened" />
+            </div>
+        </div>
+    </header>
+
+    <div class="top-0 z-20 hidden md:flex py-1 flex items-center justify-center bg-primary text-light shadow-sm">
+        <nav class="flex items-center gap-8 text-lg font-medium">
+            <div v-for="menu in menus" :key="menu.id" class="relative group">
+                <!-- No children -->
+                <NuxtLink v-if="!menu.children || menu.children.length === 0" :to="menu.url || '#'"
+                    class="py-2 hover:text-white transition-colors">
+                    {{ menu.label }}
+                </NuxtLink>
+
+                <!-- With children -->
+                <div v-else class="relative">
+                    <button class="flex items-center gap-1 py-2 hover:text-white transition-colors">
+                        {{ menu.label }}
+                        <Icon name="ic:baseline-keyboard-arrow-down" size="1.2em"
+                            class="transition-transform group-hover:rotate-180" />
+                    </button>
+
+                    <!-- Dropdown -->
+                    <div
+                        class="absolute top-full left-0 mt-1 w-56 bg-white shadow-lg rounded-b-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        <ul class="py-2">
+                            <li v-for="child in menu.children" :key="child.id">
+                                <Button as="link" :label="child.label" :href="child.url || '#'" variant="transparent"
+                                    size="md" :center="false" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <Panel v-model:open="panelOpened">
+        <div class="flex flex-col gap-4 p-4 mb-4">
+            <Button as="link" label="Communautés de communes" icon="material-symbols:castle"
+                href="https://www.paysdefenelon.fr/" variant="outline" size="md" />
+            <Button as="link" label="Nous contacter" icon="ic:baseline-email" href="/contact" variant="primary"
+                size="md" />
+        </div>
+        <MenusPanel :menus="menus" @close="panelOpened = false" />
+    </Panel>
+
+    <Modal v-model:open="searchOpened" title="Rechercher" textConfirm="Rechercher" :onConfirm="handleSearch">
+        <Field v-model="searchQuery" name="searchModal" type="search" placeholder="Entrez votre recherche..." />
+    </Modal>
+</template>
+
+<script setup lang="ts">
+import type { MenuAttributes } from '~/types/models/menu';
+import Button from '~/components/atoms/Button.vue';
+import Field from '~/components/atoms/Field.vue';
+import Panel from '~/components/molecules/Panel.vue';
+import Modal from '~/components/molecules/Modal.vue';
+import AppName from '~/components/organisms/AppName.vue';
+import MenusPanel from '~/components/molecules/MenusPanel.vue';
+
+const panelOpened = ref(false)
+const searchOpened = ref(false)
+const searchQuery = ref('')
+
+function handleSearch() {
+    goToSearchPage(searchQuery.value)
+}
+
+function clearSearchInput() {
+    searchQuery.value = ''
+}
+
+function focusSearchInput() {
+    setTimeout(() => {
+        const input = document.querySelector('input[name="searchModal"]') as HTMLInputElement | null
+        if (input) {
+            input.focus()
+        }
+    }, 200)
+}
+
+watch(searchOpened, (opened) => {
+    if (opened) {
+        clearSearchInput()
+        focusSearchInput()
+    }
+})
+
+const menus = ref<MenuAttributes[]>([
+    {
+        id: 1,
+        label: 'Accueil',
+        url: '/',
+        order: 0,
+        is_visible: true,
+    },
+    {
+        id: 2,
+        label: 'Actualités',
+        url: '/actualites',
+        order: 1,
+        is_visible: true,
+    },
+    {
+        id: 3,
+        label: 'Projets',
+        url: '/projets',
+        order: 2,
+        is_visible: true,
+    },
+    {
+        id: 4,
+        label: 'Événements',
+        url: '/evenements',
+        order: 3,
+        is_visible: true,
+    },
+    {
+        id: 5,
+        label: 'Mairie',
+        order: 4,
+        is_visible: true,
+        children: [
+            {
+                id: 1,
+                label: 'Contact',
+                url: '/contact',
+                order: 0,
+                is_visible: true,
+            },
+            {
+                id: 2,
+                label: 'Communautés de communes',
+                url: 'https://www.paysdefenelon.fr/',
+                order: 1,
+                is_visible: true,
+            },
+        ],
+    },
+]);
+</script>

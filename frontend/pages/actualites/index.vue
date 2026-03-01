@@ -1,0 +1,51 @@
+<template>
+    <div class="safe-area">
+        <h1 class="title-main">Actualités</h1>
+        <Breadcrumb :items="[{ name: 'Actualités', path: '/actualites' }]" />
+        <div class="flex justify-between items-center mt-4 gap-4 flex-wrap">
+            <CategorySelector :categories="categories" :selected="getCategories()" @remove="removeCategory"
+                @add="addCategory" @reset="resetCategories" />
+            <OrderBy :orders="[
+                { label: 'Publiés récemment', order: ['published_at', 'DESC'] },
+                { label: 'Les plus anciens', order: ['published_at', 'ASC'] },
+                { label: 'Mise à jour récemment', order: ['updated_at', 'DESC'] },
+                { label: 'Ordre alphabétique', order: ['title', 'ASC'] },
+            ]" @select="setOrder" @reset="resetOrder" />
+        </div>
+        <Loader v-if="loading" />
+        <div v-else-if="posts" class="mt-6">
+            <Grid v-if="posts?.length > 0" :items="posts">
+                <template #item="{ item }">
+                    <PostCard :post="item" />
+                </template>
+            </Grid>
+            <NoItem v-else />
+        </div>
+        <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
+    </div>
+</template>
+
+<script setup lang="ts">
+import Grid from '~/components/molecules/Grid.vue';
+import NoItem from '~/components/molecules/NoItem.vue';
+import PostCard from '~/components/organisms/site/PostCard.vue';
+import CategorySelector from '~/components/organisms/site/CategorySelector.vue';
+import OrderBy from '~/components/organisms/site/OrderBy.vue';
+import Paging from '~/components/molecules/Paging.vue';
+import Loader from '~/components/molecules/Loader.vue';
+import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
+import { usePosts } from '~/composables/usePost';
+
+const { posts, pagination, loading, setPage, removeCategory, addCategory, resetCategories, getCategories, setOrder, resetOrder } = await usePosts()
+const { categories } = await useCategoriesByType('post')
+
+useAppHead({
+    title: 'Liste des actualités de la commune de Borrèze',
+    description: 'Liste des actualités récentes de la commune de Borrèze, informations sur les événements, les projets et la vie locale.',
+    url: `/actualites`,
+})
+
+definePageMeta({
+        title: 'Actualités',
+})
+</script>

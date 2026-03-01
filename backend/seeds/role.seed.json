@@ -1,0 +1,24 @@
+[
+    {
+        "id": 1,
+        "name": "Administrateur",
+        "permissions": [
+            "*"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Éditeur de contenu",
+        "permissions": [
+            "post.*",
+            "project.*"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Éditeur de l'école",
+        "permissions": [
+            "schoolmeal.*"
+        ]
+    }
+]

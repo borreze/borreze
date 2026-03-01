@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="660"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="660"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg2" version="1.0" width="600" height="660">
+   <metadata id="metadata49">
+      <rdf:rdf>
+         <cc:work rdf:about="">
+            <dc:format>image/svg+xml</dc:format>
+            <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+            <dc:title></dc:title>
+            <dc:date></dc:date>
+            <dc:creator>
+               <cc:agent>
+                  <dc:title></dc:title>
+               </cc:agent>
+            </dc:creator>
+            <cc:license rdf:resource="http://web.resource.org/cc/PublicDomain"></cc:license>
+            <dc:language>fr</dc:language>
+            <dc:subject>
+               <rdf:bag></rdf:bag>
+            </dc:subject>
+         </cc:work>
+         <cc:license rdf:about="http://web.resource.org/cc/PublicDomain">
+            <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"></cc:permits>
+            <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"></cc:permits>
+            <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"></cc:permits>
+         </cc:license>
+      </rdf:rdf>
+   </metadata>
+   <desc id="desc4">Flag of Canton of Valais (Wallis)</desc>
+   <defs id="defs6">
+      <linearGradient id="linearGradient2893">
+         <stop id="stop2895" offset="0" style="stop-color:white;stop-opacity:0.3137255;"></stop>
+         <stop style="stop-color:white;stop-opacity:0.25098041;" offset="0.19" id="stop2897"></stop>
+         <stop id="stop2901" offset="0.60000002" style="stop-color:#6b6b6b;stop-opacity:0.1254902;"></stop>
+         <stop id="stop2899" offset="1" style="stop-color:black;stop-opacity:0.1254902;"></stop>
+      </linearGradient>
+      <radialGradient r="300" fy="226.33101" fx="221.44487" cy="226.33101" cx="221.44487" gradientTransform="matrix(1.353218,0,0,1.348928,-77.575325,-85.74693)" gradientUnits="userSpaceOnUse" id="radialGradient3163" xlink:href="#linearGradient2893"></radialGradient>
+   </defs>
+   <g style="display:inline" id="layer3">
+      <path d="m 300.05402,658.5 c 0,0 298.50001,-112.32031 298.50001,-397.77183 0,-285.451524 0,-258.5516935 0,-258.5516935 H 1.5540249 V 260.72817 C 1.5540249,546.17969 300.05402,658.5 300.05402,658.5 Z" style="fill:#e20909;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" id="path2855"></path>
+   </g>
+   <g id="layer4">
+      <g style="fill:#ffffff" transform="translate(-0.05403097,0.5611958)" id="g69827">
+         <rect style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="rect36288" width="18.893347" height="52.565098" x="140.4922" y="18.777451"></rect>
+         <g style="fill:#ffffff;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(-1.8152913,-76.388544)" id="g36317">
+            <rect y="567.51965" x="433.67075" height="52.565098" width="18.893347" id="rect36286" style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
+            <rect y="567.51965" x="152.97598" height="52.565098" width="18.893347" id="rect36290" style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
+         </g>
+         <g style="fill:#ffffff;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(3.2511745,26.44318)" id="g36309">
+            <rect y="240.43053" x="36.802841" height="52.565098" width="18.893347" id="rect36294" style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
+            <rect y="240.43053" x="536.80286" height="52.565098" width="18.893347" id="rect36296" style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
+         </g>
+         <g style="fill:#ffffff;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(-1.3114781,3.4496341)" id="g36313">
+            <rect y="383.42407" x="71.365509" height="52.565098" width="18.893347" id="rect36292" style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
+            <rect y="383.42407" x="512.47217" height="52.565098" width="18.893347" id="rect36298" style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
+         </g>
+         <g style="fill:#ffffff;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(4.3578427,-0.9917185)" id="g36304">
+            <rect y="140.43053" x="35.69619" height="52.565098" width="18.893347" id="rect36300" style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
+            <rect y="19.769169" x="436.80286" height="52.565098" width="18.893347" id="rect36302" style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
+            <rect style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="rect36284" width="18.893347" height="52.565098" x="536.80286" y="140.43053"></rect>
+         </g>
+      </g>
+      <path d="m 233.05402,2.3279252 h 134 V 625.32793 l -67,33 -67,-33 z" style="fill:#ffffff;stroke:#000000;stroke-width:3" id="path4776"></path>
+   </g>
+   <g style="display:inline" id="layer2">
+      <path id="path2875" style="opacity:1;fill:url(#radialGradient3163);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 300.05403,658.5 c 0,0 298.5,-112.32031 298.5,-397.77183 0,-285.451504 0,-258.5516835 0,-258.5516835 H 1.5540249 V 260.72817 C 1.5540249,546.17969 300.05403,658.5 300.05403,658.5 Z"></path>
+   </g>
+   <g id="layer1">
+      <path id="path1411" style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.00000048;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 300.05402,658.50028 C 300.05402,658.50028 1.5540349,546.17992 1.5540349,260.72828 C 1.5540349,-24.723336 1.5540349,2.1764957 1.5540349,2.1764957 L 598.55402,2.1764957 L 598.55402,260.72828 C 598.55402,546.17992 300.05402,658.50028 300.05402,658.50028 z "></path>
+   </g>
+</svg></svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>

@@ -1,0 +1,45 @@
+name: Security Audit
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: npm audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Audit frontend
+        working-directory: ./frontend
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Audit backend
+        working-directory: ./backend
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Open issue si vulnérabilités
+        uses: actions/github-script@v7
+        if: failure()
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔒 NPM vulnerabilities found - ${new Date().toLocaleDateString('fr-FR')}`,
+              body: `
+                An automated security audit detected high severity vulnerabilities in npm dependencies.
+                Please review the audit reports for both frontend and backend, and address the issues as soon as possible.
+                **Note**: This issue is automatically generated and may contain false positives. Please verify the findings before taking action.
+              `,
+              labels: ['security', 'automated']
+            })
