@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dark: #2C2C2C;
   --color-primary: #DB1D12;
   --color-light: #F5F5F5;
+  --color-dark: #2C2C2C;
 
   /* Utils colors. Used for password strength meter, notifications, etc. */
   --color-success: #10b981;
