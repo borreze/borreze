@@ -102,7 +102,7 @@ const variantToButtonClass = computed(() => {
         case 'blur':
             return 'border-2 border-white bg-white/10 backdrop-blur-sm text-white'
         case 'transparent':
-            return 'bg-transparent text-gray-700'
+            return 'bg-transparent border-2 border-transparent text-gray-700'
         case 'danger':
             return 'bg-danger border-2 border-danger text-white'
         case 'warning':

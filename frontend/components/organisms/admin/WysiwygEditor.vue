@@ -1,6 +1,6 @@
 <template>
-    <div class="wysiwyg-editor">
-        <div v-if="editor" class="wysiwyg-toolbar">
+    <div ref="editorRef" class="wysiwyg-editor">
+        <div v-if="editor" :class="['wysiwyg-toolbar']" :style="{ opacity: editorToolbarVisible ? 1 : 0 }">
             <!-- Undo et Redo -->
             <div class="wysiwyg-toolbar__group">
                 <Button variant="ghost" :disabled="!editor.can().undo()" title="Annuler (Ctrl+Z)" roundness="sm"
@@ -222,8 +222,23 @@ const emit = defineEmits<{
     'change': [value: string]
 }>()
 
-function hasFeature(f: Feature) { return props.features.includes(f) }
+const editorRef = ref<HTMLElement | null>(null)
+const editorToolbarVisible = ref(true)
 
+onMounted(() => {
+    const observer = new IntersectionObserver(
+        ([entry]) => { editorToolbarVisible.value = entry.isIntersecting },
+        { threshold: 0, rootMargin: '-200px' } // le toolbar disparaît dès que le haut de l'éditeur est à moins de 100px du viewport. Permet de faire disparaître le toolbar avant qu'il ne touche le haut de l'écran, pour éviter de le cacher quand on scroll vers le bas
+    )
+    if (editorRef.value) observer.observe(editorRef.value)
+    onBeforeUnmount(() => observer.disconnect())
+})
+
+// -----------------------------------------------------------------------------
+// Feature helpers
+// -----------------------------------------------------------------------------
+
+function hasFeature(f: Feature) { return props.features.includes(f) }
 function anyFeature(...fs: Feature[]) { return fs.some(f => props.features.includes(f)) }
 
 // -----------------------------------------------------------------------------
@@ -468,12 +483,12 @@ function insertButton() {
 
 .wysiwyg-editor {
     all: unset;
+    overflow: visible;
     --wy-bg: #ffffff;
     --wy-border: #e2e8f0;
-    --wy-border-focus: var(--color-primary);
     --wy-toolbar-bg: #f8fafc;
     --wy-separator: #ced4db;
-    --wy-content-min-h: 160px;
+    --wy-content-min-h: 200px;
     --wy-radius: 8px;
 }
 
@@ -490,6 +505,12 @@ function insertButton() {
 /* -- Toolbar ----------------------------------------------------------------- */
 
 .wysiwyg-toolbar {
+    position: sticky;
+    /* Header height (68px) - 3px to hide the bottom border when the toolbar sticks to the top */
+    top: 65px;
+    z-index: 10;
+    /* Opacity transition for smooth hide/show when scrolling */
+    transition: opacity 0.1s ease;
     display: flex;
     flex-wrap: wrap;
     gap: 2px;

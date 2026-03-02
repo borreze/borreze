@@ -122,13 +122,13 @@ const variantToButtonClass = computed(() => {
         case 'outline':
             return 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white'
         case 'ghost':
-            return 'bg-transparent text-gray-600 hover:bg-gray-100'
+            return 'bg-transparent border-2 border-transparent text-gray-600 hover:bg-gray-100'
         case 'gray':
             return 'bg-gray-200 border-2 border-gray-200 text-gray-800 hover:brightness-90'
         case 'blur':
             return 'border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white/20'
         case 'transparent':
-            return 'bg-transparent text-gray-700'
+            return 'bg-transparent border-2 border-transparent text-gray-700'
         case 'danger':
             return 'bg-danger border-2 border-danger text-white hover:brightness-90'
         case 'warning':
