@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme {
+  /* Branding colors */
   --color-primary: #DB1D12;
   --color-light: #F5F5F5;
   --color-dark: #2C2C2C;
 
-  /* Utils colors. Used for password strength meter, notifications, etc. */
+  /* Utils colors */
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-danger: #dc2626;
@@ -28,13 +29,13 @@ body {
 }
 
 ::selection {
-  background: var(--color-dark);
+  background: rgba(44, 44, 44, 0.6);
   color: var(--color-light);
   text-shadow: none;
 }
 
 ::-moz-selection {
-  background: var(--color-dark);
+  background: rgba(44, 44, 44, 0.6);
   color: var(--color-light);
   text-shadow: none;
 }
