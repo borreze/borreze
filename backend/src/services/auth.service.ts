@@ -2,13 +2,30 @@ import { AuthRefreshToken, AuthPasswordResetToken } from '../models'
 import { sequelize } from '../config/database'
 import { Op } from 'sequelize'
 import { hashPassword, comparePassword, randomTokenString, randomNumericCode } from '../utils/auth.utils'
-import { signAccessToken } from '../utils/jwt.utils'
+import { signAccessToken, verifyAccessToken } from '../utils/jwt.utils'
 import { emailService } from './email.service'
 import { userService } from '../services/user.service'
 import { BadRequest, NotFound } from '../exceptions/request.exception'
 import { AuthException } from '../exceptions/auth.exception'
 
 export class AuthService {
+    public async getCurrentUser(accessToken: string) {
+        const payload = await verifyAccessToken(accessToken)
+        const user = await userService.getById(payload.user_id)
+
+        if (!user) throw new NotFound('User not found')
+
+        return {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            role_id: user.role_id,
+            status: user.status
+        }
+    }
+
     public async login(emailOrUsername: string, password: string) {
         if (!emailOrUsername || !password) throw new BadRequest('Missing credentials')
 

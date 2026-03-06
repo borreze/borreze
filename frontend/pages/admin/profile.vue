@@ -4,6 +4,11 @@
         <p><strong>Username:</strong> {{ auth.user?.username }}</p>
         <p><strong>First Name:</strong> {{ auth.user?.first_name || '-' }}</p>
         <p><strong>Last Name:</strong> {{ auth.user?.last_name || '-' }}</p>
+        <p>
+            {{ auth.accessToken }}<br>
+            {{ auth.user }}<br>
+            {{ auth.isAuthenticated }}<br>
+        </p>
         <Button :label="'Logout'" variant="danger" size="md" class="mt-4" @click="auth.logout()" />
     </div>
 </template>
@@ -14,12 +19,16 @@ import Button from '~/components/atoms/Button.vue'
 
 const auth = useAuthStore()
 
+onMounted(() => {
+    auth.fetchMe()
+})
+
 definePageMeta({
     layout: 'admin',
     middleware: ['auth'],
     requiresAuth: true,
-        title: 'Profile',
-        private: true,
+    title: 'Profile',
+    private: true,
 })
 
 </script>

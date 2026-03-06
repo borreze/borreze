@@ -3,6 +3,13 @@ import { authService } from '../services/auth.service'
 import { Return } from '../types/utils/api.types'
 
 export class AuthController {
+    public me: RequestHandler = async (req, res) => {
+        const accessToken = req.headers['authorization']?.split(' ')[1] || ''
+
+        const user = await authService.getCurrentUser(accessToken)
+        res.json({ data: user, message: 'User info retrieved' } as Return)
+    }
+
     public login: RequestHandler = async (req, res) => {
         const { identifier, password } = req.body
 

@@ -37,6 +37,30 @@ export const useAuthStore = defineStore('auth', {
 
     actions: {
         /**
+        * Fetch current user info using access token
+        */
+        async fetchMe() {
+            if (!this.accessToken) return false
+
+            this.error = null
+            this.loading = true
+
+            const api = useApiClient()
+            const { status, data } = await api.get<{ data: User }>('/admin/auth/me', { silent: true })
+
+            if (status === 200 && data) {
+                this.user = data.data
+                return true
+            }
+
+            this.error = 'Votre session a expiré, veuillez vous reconnecter'
+
+            await this.logout()
+
+            return false
+        },
+
+        /**
          * Login user
          */
         async login(identifier: string, password: string): Promise<boolean> {
@@ -58,10 +82,12 @@ export const useAuthStore = defineStore('auth', {
                 this.refreshToken = result.refreshToken
 
                 // SSR-safe persistence
-                const accessCookie = useCookie('access_token')
-                const refreshCookie = useCookie('refresh_token')
+                const accessCookie = useCookie('auth_access_token')
+                const refreshCookie = useCookie('auth_refresh_token')
+                const userCookie = useCookie<User | null>('auth_user', { default: () => null })
                 accessCookie.value = result.accessToken
                 refreshCookie.value = result.refreshToken
+                userCookie.value = result.user
 
                 return true
             }
@@ -79,7 +105,7 @@ export const useAuthStore = defineStore('auth', {
          * Refresh access token using stored refresh token
          */
         async refresh() {
-            const refreshCookie = useCookie('refresh_token')
+            const refreshCookie = useCookie('auth_refresh_token')
             if (!refreshCookie.value) return null
 
             const api = useApiClient()
@@ -92,7 +118,7 @@ export const useAuthStore = defineStore('auth', {
                 this.accessToken = tokens.accessToken
                 this.refreshToken = tokens.refreshToken
 
-                const accessCookie = useCookie('access_token')
+                const accessCookie = useCookie('auth_access_token')
                 accessCookie.value = tokens.accessToken
                 refreshCookie.value = tokens.refreshToken
 
@@ -108,7 +134,7 @@ export const useAuthStore = defineStore('auth', {
          * Logout user and revoke refresh token
          */
         async logout(redirect: string = '/') {
-            const refreshCookie = useCookie('refresh_token')
+            const refreshCookie = useCookie('auth_refresh_token')
             const api = useApiClient()
 
             if (refreshCookie.value) {
@@ -117,13 +143,16 @@ export const useAuthStore = defineStore('auth', {
                 })
             }
 
-            const accessCookie = useCookie('access_token')
+            const accessCookie = useCookie('auth_access_token')
             accessCookie.value = null
             refreshCookie.value = null
 
             this.user = null
             this.accessToken = null
             this.refreshToken = null
+
+            console.error(this.error)
+            this.error = null
 
             if (redirect) await useRouter().push(redirect)
         },
@@ -161,10 +190,12 @@ export const useAuthStore = defineStore('auth', {
          * Restore tokens from cookies on SSR/client init
          */
         loadFromCookies() {
-            const accessCookie = useCookie('access_token')
-            const refreshCookie = useCookie('refresh_token')
+            const accessCookie = useCookie('auth_access_token')
+            const refreshCookie = useCookie('auth_refresh_token')
+            const userCookie = useCookie<User | null>('auth_user')
             this.accessToken = accessCookie.value ?? null
             this.refreshToken = refreshCookie.value ?? null
+            this.user = userCookie.value ?? null
         }
     }
 })
