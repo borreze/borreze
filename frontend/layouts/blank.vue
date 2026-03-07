@@ -13,3 +13,9 @@
 import { Notivue, Notification } from 'notivue'
 
 </script>
+
+<style>
+:root {
+    --header-height: 0px !important;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
     <div
         :class="[isMobile() ? 'mx-auto mt-8 px-4' : 'min-h-[calc(100vh-4rem)] overflow-hidden flex items-center justify-center']">
-        <div class="w-full max-w-md rounded-lg p-4 shadow-lg bg-white">
+        <div class="w-full max-w-md rounded-lg p-4 bg-white sm:shadow-lg">
             <div class="flex items-center justify-center">
                 <AppLogo to="/admin" />
             </div>

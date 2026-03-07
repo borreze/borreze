@@ -12,6 +12,11 @@
   --color-danger: #dc2626;
 }
 
+:root {
+  /* Utils spacing */
+  --header-height: 72px;
+}
+
 *,
 *::before,
 *::after {
@@ -198,18 +203,6 @@ address {
 /* ======================================================= */
 /* Notivue styles */
 /* ======================================================= */
-
-@media (min-width: 768px) {
-  :root {
-    --header-height: 70px;
-  }
-}
-
-@media (max-width: 767px) {
-  :root {
-    --header-height: 72px;
-  }
-}
 
 :root {
   --nv-root-top: calc(var(--header-height) + 10px);

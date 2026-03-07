@@ -1,6 +1,5 @@
 <template>
     <Teleport to="body" :disabled="isStaticMode">
-
         <!-- Overlay : masqué en mode statique -->
         <Transition enter-active-class="transition-opacity duration-300" enter-from-class="opacity-0"
             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300"
@@ -22,7 +21,7 @@
             </aside>
         </Transition>
 
-        <!-- Panel statique (LG + alwaysDisplay) -->
+        <!-- Panel statique (lg + alwaysDisplay) -->
         <aside v-else class="relative w-80 bg-white border-gray-200 flex flex-col overflow-y-auto shrink-0"
             :class="side === 'left' ? 'border-r' : 'border-l'">
             <slot />

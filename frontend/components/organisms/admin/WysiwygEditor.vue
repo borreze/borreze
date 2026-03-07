@@ -506,8 +506,7 @@ function insertButton() {
 
 .wysiwyg-toolbar {
     position: sticky;
-    /* Header height (68px) - 3px to hide the bottom border when the toolbar sticks to the top */
-    top: 65px;
+    top: calc(var(--header-height) - 8px);
     z-index: 10;
     /* Opacity transition for smooth hide/show when scrolling */
     transition: opacity 0.1s ease;
