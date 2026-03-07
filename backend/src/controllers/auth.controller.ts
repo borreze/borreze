@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express'
 import { authService } from '../services/auth.service'
 import { Return } from '../types/utils/api.types'
+import { Log } from '../utils/log.utils'
 
 export class AuthController {
     public me: RequestHandler = async (req, res) => {
@@ -14,6 +15,7 @@ export class AuthController {
         const { identifier, password } = req.body
 
         const result = await authService.login(identifier, password)
+        Log.info(`User of email ${result.user.email} logged in`, req)
         res.json({ data: result, message: 'Login successful' } as Return)
     }
 
@@ -35,6 +37,7 @@ export class AuthController {
         const { email } = req.body
 
         await authService.sendPasswordResetCode(email)
+        Log.info(`Sent password reset code to user of email ${email}`, req)
         res.json({ message: 'Reset code sent if account exists' } as Return)
     }
 
@@ -42,6 +45,7 @@ export class AuthController {
         const { email, code, newPassword } = req.body
 
         await authService.resetPassword(email, code, newPassword)
+        Log.info(`New password set for user of email ${email}`, req)
         res.json({ message: 'Password reset successful' } as Return)
     }
 }

@@ -4,7 +4,7 @@ import { permissionMiddleware } from '../middlewares/auth.middleware'
 
 const router = Router()
 
-router.get('/admin/logs/', permissionMiddleware('log', 'read'), logController.getAll)
+router.get('/admin/logs/', logController.getAll)
 router.get('/admin/logs/clear', permissionMiddleware('log', 'delete'), logController.clear)
 router.get('/admin/logs/:id', permissionMiddleware('log', 'read'), logController.getById)
 

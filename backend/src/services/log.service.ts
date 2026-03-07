@@ -3,7 +3,6 @@ import { LogAttributes, LogAttributesCreation } from '../types/models/log.types'
 import { Transaction, WhereOptions } from 'sequelize'
 import { Op } from 'sequelize'
 import { Pagination } from '../types/utils/pagination.types'
-import { Request } from 'express'
 import { Order } from '../types/utils/request.types'
 import { searchWhere, validateAll } from '../utils/model.utils'
 import { LOG_CONSTRAINTS, LOG_RENTENTION_DAYS } from '../models/log.model'
@@ -42,34 +41,9 @@ export class LogService {
     return log
   }
 
-  // ? Main method to create a log entry
-  // ? Should be called from anywhere in the application where logging is needed
-  // ? Avoid meaningless logs by ensuring the message is clear and concise. Log only what is necessary.
-  public async make(message: string, level: LogAttributesCreation['level'] = 'info', req?: Request): Promise<Log> {
-    const data: LogAttributesCreation = {
-      message,
-      level,
-    }
+  public async create(data: LogAttributesCreation): Promise<Log> {
+    data.created_at = new Date()
 
-    if (req) {
-      data.user_agent = req.headers['user-agent']
-      data.ip_address = req.ip || req.connection.remoteAddress || ''
-      data.user_id = Number(req?.params?.user_id || 0) || null
-      data.context = {
-        url: req.originalUrl,
-        method: req.method,
-        body: req.body,
-        query: req.query,
-        params: req.params
-      }
-    }
-
-    const log = await this.create(data)
-
-    return log
-  }
-
-  private async create(data: LogAttributesCreation): Promise<Log> {
     const { valid, errors } = validateAll(data, LOG_CONSTRAINTS)
     if (!valid) throw new ValidationException(errors)
 
@@ -78,13 +52,13 @@ export class LogService {
     })
   }
 
-  private async update(): Promise<Log | null> {
+  public async update(): Promise<Log | null> {
     // ! THIS METHOD SHOULD NEVER BE IMPLEMENTED
     // ! BEING ABLE TO UPDATE LOGS DEFEATS THE PURPOSE OF HAVING LOGS
     throw new Error('Method not implemented.')
   }
 
-  private async delete(): Promise<Log | null> {
+  public async delete(): Promise<Log | null> {
     // ! THIS METHOD SHOULD NEVER BE IMPLEMENTED
     // ! BEING ABLE TO DELETE LOGS DEFEATS THE PURPOSE OF HAVING LOGS
     throw new Error('Method not implemented.')

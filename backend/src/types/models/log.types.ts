@@ -12,7 +12,6 @@ export interface LogAttributes {
     ip_address?: string | null
     user_agent?: string | null
     created_at?: Date | null
-    updated_at?: Date | null
 }
 
-export type LogAttributesCreation = Optional<LogAttributes, 'id' | 'context' | 'user_id' | 'ip_address' | 'user_agent' | 'created_at' | 'updated_at'>
+export type LogAttributesCreation = Optional<LogAttributes, 'id' | 'context' | 'user_id' | 'ip_address' | 'user_agent' | 'created_at'>

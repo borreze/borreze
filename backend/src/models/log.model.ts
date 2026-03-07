@@ -50,10 +50,6 @@ export const LOG_CONSTRAINTS = {
     type: DataTypes.DATE,
     required: true,
   },
-  updated_at: {
-    type: DataTypes.DATE,
-    required: true,
-  }
 } as const satisfies ModelConstraints<LogAttributes>
 
 export class Log extends Model<LogAttributes, LogAttributesCreation> implements LogAttributes {
@@ -65,15 +61,12 @@ export class Log extends Model<LogAttributes, LogAttributesCreation> implements 
   public ip_address?: string
   public user_agent?: string
   public readonly created_at!: Date
-  public readonly updated_at!: Date
 }
 
 export function initLogModel(sequelize: Sequelize) {
   Log.init(modelBuild(LOG_CONSTRAINTS), {
     sequelize,
-    timestamps: true,
-    updatedAt: 'updated_at',
-    createdAt: 'created_at',
+    timestamps: false, // we manage created_at manually, no need for updated_at
     tableName: 'brz_log', // cant use `log` as table name, it's a reserved keyword in PG
     underscored: true,
     indexes: [
