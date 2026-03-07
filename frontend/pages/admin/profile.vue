@@ -20,11 +20,15 @@ onMounted(() => {
     auth.fetchMe()
 })
 
+useAppHead({
+    title: 'Profil',
+})
+
 definePageMeta({
     layout: 'admin',
     middleware: ['auth'],
     requiresAuth: true,
-    title: 'Profile',
+    title: 'Profil',
     private: true,
 })
 

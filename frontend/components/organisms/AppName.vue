@@ -1,6 +1,6 @@
 <template>
     <NuxtLink :to="to" class="select-none flex-none flex items-center">
-        <NuxtImg src="/logo.svg" :alt="`Logo de ${project.name}`" class="mr-2 size-6 md:size-7 lg:size-8" />
+        <NuxtImg src="/logo.svg" :alt="`Logo de ${project.name}`" class="mr-2 mt-1 size-6 md:size-7 lg:size-8" />
         <span class="text-2xl md:text-3xl lg:text-4xl font-bold century-gothic-bold text-dark">{{ project.name
             }}</span>
     </NuxtLink>

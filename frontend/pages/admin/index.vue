@@ -11,6 +11,10 @@
 import DashboradWelcome from '~/components/organisms/admin/DashboradWelcome.vue';
 import DashboradQuicks from '~/components/organisms/admin/DashboradQuicks.vue';
 
+useAppHead({
+    title: 'Dashboard',
+})
+
 definePageMeta({
     layout: 'admin',
     middleware: ['auth'],

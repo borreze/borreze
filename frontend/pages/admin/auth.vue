@@ -42,6 +42,10 @@ const tabs = ref<Record<Tab, { title: string, component: any }>>({
     }
 })
 
+useAppHead({
+    title: 'Authentification',
+})
+
 definePageMeta({
     layout: 'blank',
     middleware: ['auth'],
