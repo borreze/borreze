@@ -11,7 +11,7 @@
             <!-- With children -->
             <div v-else>
                 <button @click="toggleMobileMenu(menu.id)"
-                    class="w-full flex items-center justify-between px-4 py-3 text-lg font-medium text-dark">
+                    class="w-full flex items-center justify-between px-4 py-3 text-lg font-medium text-dark cursor-pointer">
                     <div class="flex items-center">
                         <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
                         {{ menu.label }}
