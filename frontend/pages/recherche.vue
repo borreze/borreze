@@ -1,5 +1,5 @@
 <template>
-    <div class="safe-area">
+    <div class="safe-area-md">
         <h1 class="title-main pt-2 pb-4">Recherche</h1>
         <Breadcrumb :items="[{ name: 'Recherche', path: '/recherche' }]" />
         <div class="flex justify-center mt-8">

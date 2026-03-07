@@ -1,6 +1,6 @@
 <template>
     <PageHero v-if="post" :title="post?.title" image="https://picsum.photos/1200/400?random=1" />
-    <section class="safe-area">
+    <section class="safe-area-md">
         <div class="mx-auto max-w-6xl">
             <Breadcrumb :items="[
                 { name: 'Actualités', path: '/actualites' },

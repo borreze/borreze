@@ -3,9 +3,9 @@
         <Notivue v-slot="item">
             <Notification :item="item" />
         </Notivue>
-        <div>
+        <main>
             <slot />
-        </div>
+        </main>
     </div>
 </template>
 

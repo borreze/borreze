@@ -1,5 +1,5 @@
 <template>
-    <div class="safe-area">
+    <div class="safe-area-md">
         <WysiwygEditor v-model="content" />
         <hr>
         <WysiwygRenderer :html="content" :sanitize="true" />

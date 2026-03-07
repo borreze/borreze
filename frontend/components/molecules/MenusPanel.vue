@@ -17,7 +17,7 @@
                         {{ menu.label }}
                     </div>
                     <Icon name="ic:baseline-keyboard-arrow-down" size="1.2em"
-                        :class="{ 'rotate-180': openMobileMenus.includes(menu.id) }" class="transition-transform" />
+                        :class="['text-primary', openMobileMenus.includes(menu.id) ? 'rotate-180' : '']" class="transition-transform" />
                 </button>
 
                 <Transition enter-active-class="transition-all duration-200" enter-from-class="max-h-0 opacity-0"

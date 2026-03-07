@@ -1,5 +1,5 @@
 <template>
-    <div class="safe-area">
+    <div class="safe-area-md">
         <div v-if="auth.isAuthenticated" class="max-w-3/4 mt-6 mx-auto bg-white rounded shadow p-6">
             <p><strong>Email:</strong> {{ auth.user?.email }}</p>
             <p><strong>Username:</strong> {{ auth.user?.username }}</p>

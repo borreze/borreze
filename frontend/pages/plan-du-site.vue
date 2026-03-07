@@ -1,5 +1,5 @@
 <template>
-    <div class="safe-area">
+    <div class="safe-area-md">
         <h1 class="title-main pt-2 pb-4">Plan du site</h1>
         <Breadcrumb :items="[{ name: 'Plan du site', path: '/plan-du-site' }]" />
         <div class="mt-6 flex flex-col">

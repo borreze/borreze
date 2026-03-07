@@ -1,9 +1,9 @@
 <template>
-    <div class="safe-area">
+    <div class="safe-area-md">
         <h1 class="title-main pt-2 pb-4">Contact</h1>
         <Breadcrumb :items="[{ name: 'Contact', path: '/contact' }]" />
         <div class="contact-grid mt-6">
-            <section class="contact-form bg-white rounded-xl shadow-lg p-4 md:p-6 2xl:min-w-[500px]">
+            <section class="contact-form bg-white rounded-xl custom-shadow p-4 md:p-6 2xl:min-w-[500px]">
                 <h4 class="title-submain">Formulaire de contact</h4>
                 <div class="flex flex-col items-center justify-center space-y-4 mt-4">
                     <Field v-model="firstname" name="firstname" type="text" label="Prénom" roundness="lg"
@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </section>
-            <section class="contact-address bg-white rounded-xl shadow-lg p-4 md:p-6 2xl:max-w-[400px]">
+            <section class="contact-address bg-white rounded-xl custom-shadow p-4 md:p-6 2xl:max-w-[400px]">
                 <h4 class="title-submain">Adresse</h4>
                 <address class="flex flex-col items-start gap-3 my-2">
                     <p>Mairie de Borrèze<br>
@@ -36,7 +36,7 @@
                     <Url icon="ic:baseline-phone" to="tel:0553288338" label="05 53 28 83 38" />
                 </address>
             </section>
-            <section class="contact-map bg-white rounded-xl shadow-lg">
+            <section class="contact-map bg-white rounded-xl custom-shadow">
                 <ClientOnly>
                     <Map :zoom="15" :markers="[
                         {
