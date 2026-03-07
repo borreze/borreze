@@ -45,7 +45,10 @@
                 <!-- With children -->
                 <div v-else class="relative">
                     <button class="flex items-center gap-1 py-2 hover:text-white transition-colors">
-                        {{ menu.label }}
+                        <div class="flex items-center">
+                            <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
+                            {{ menu.label }}
+                        </div>
                         <Icon name="ic:baseline-keyboard-arrow-down" size="1.2em"
                             class="transition-transform group-hover:rotate-180" />
                     </button>

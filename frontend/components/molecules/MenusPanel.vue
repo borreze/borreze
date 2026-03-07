@@ -12,7 +12,10 @@
             <div v-else>
                 <button @click="toggleMobileMenu(menu.id)"
                     class="w-full flex items-center justify-between px-4 py-3 text-lg font-medium text-dark">
-                    {{ menu.label }}
+                    <div class="flex items-center">
+                        <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
+                        {{ menu.label }}
+                    </div>
                     <Icon name="ic:baseline-keyboard-arrow-down" size="1.2em"
                         :class="{ 'rotate-180': openMobileMenus.includes(menu.id) }" class="transition-transform" />
                 </button>

@@ -1,15 +1,17 @@
 <template>
-    <div v-if="auth.isAuthenticated" class="safe-area max-w-3/4 mt-6 mx-auto bg-white rounded shadow p-6">
-        <p><strong>Email:</strong> {{ auth.user?.email }}</p>
-        <p><strong>Username:</strong> {{ auth.user?.username }}</p>
-        <p><strong>First Name:</strong> {{ auth.user?.first_name || '-' }}</p>
-        <p><strong>Last Name:</strong> {{ auth.user?.last_name || '-' }}</p>
-        <p>
-            {{ auth.accessToken }}<br>
-            {{ auth.user }}<br>
-            {{ auth.isAuthenticated }}<br>
-        </p>
-        <Button :label="'Logout'" variant="danger" size="md" class="mt-4" @click="auth.logout()" />
+    <div class="safe-area">
+        <div v-if="auth.isAuthenticated" class="max-w-3/4 mt-6 mx-auto bg-white rounded shadow p-6">
+            <p><strong>Email:</strong> {{ auth.user?.email }}</p>
+            <p><strong>Username:</strong> {{ auth.user?.username }}</p>
+            <p><strong>First Name:</strong> {{ auth.user?.first_name || '-' }}</p>
+            <p><strong>Last Name:</strong> {{ auth.user?.last_name || '-' }}</p>
+            <p>
+                {{ auth.accessToken }}<br>
+                {{ auth.user }}<br>
+                {{ auth.isAuthenticated }}<br>
+            </p>
+            <Button :label="'Logout'" variant="danger" size="md" class="mt-4" @click="auth.logout()" />
+        </div>
     </div>
 </template>
 
