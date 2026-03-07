@@ -13,7 +13,8 @@
             leave-active-class="transition-transform duration-300" leave-from-class="translate-x-0"
             :leave-to-class="leaveToClass">
             <aside v-if="open"
-                :class="['fixed top-0 bottom-0 w-80 bg-white shadow-2xl z-50 flex flex-col overflow-y-auto', sideClass]">
+                :class="['fixed top-0 bottom-0  bg-white shadow-2xl z-50 flex flex-col overflow-y-auto', sideClass]"
+                :style="[`width: ${width}px`]">
                 <div :class="['flex items-center p-4', side === 'left' ? 'justify-end' : 'justify-start']">
                     <Button icon="ic:baseline-close" variant="ghost" size="lg" @click="close" />
                 </div>
@@ -22,8 +23,8 @@
         </Transition>
 
         <!-- Panel statique (lg + alwaysDisplay) -->
-        <aside v-else class="relative w-80 bg-white border-gray-200 flex flex-col overflow-y-auto shrink-0"
-            :class="side === 'left' ? 'border-r' : 'border-l'">
+        <aside v-else class="relative bg-white border-gray-200 flex flex-col overflow-y-auto shrink-0"
+            :class="side === 'left' ? 'border-r' : 'border-l'" :style="[`width: ${width}px`]">
             <slot />
         </aside>
     </Teleport>
@@ -32,11 +33,16 @@
 <script setup lang="ts">
 import Button from '~/components/atoms/Button.vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     open: boolean
     side?: 'left' | 'right'
     alwaysDisplay?: boolean
-}>()
+    width?: number
+}>(), {
+    side: 'right',
+    alwaysDisplay: false,
+    width: 320
+})
 
 const emit = defineEmits<{
     'update:open': [value: boolean]

@@ -21,7 +21,7 @@
                     <div class="bg-white/20 rounded-full p-2">
                         <div class="flex-1 flex gap-2">
                             <Field class="flex-1" v-model="searchQuery" name="searchHero"
-                                :placeholder="isMobile() ? 'Rechercher...' : 'Rechercher une information, une actualité...'"
+                                :placeholder="isSm() ? 'Rechercher...' : 'Rechercher une information, une actualité...'"
                                 icon="ic:baseline-search" size="md" />
                             <Button class="flex" type="button" label="Rechercher" variant="blur" size="md"
                                 roundness="full" @click="handleSearch" />

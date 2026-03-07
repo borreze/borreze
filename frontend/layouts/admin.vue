@@ -15,7 +15,7 @@
 
         <div class="flex min-h-screen">
             <Panel v-model:open="panelOpened" :always-display="true" side="left">
-                <div class="hidden lg:block px-4 py-8 flex">
+                <div class="hidden lg:block px-4 pt-8 pb-4 flex">
                     <AppName to="/admin" />
                 </div>
                 <MenusPanel :menus="menus" @close="panelOpened = false" />

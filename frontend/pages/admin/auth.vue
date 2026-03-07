@@ -1,7 +1,6 @@
 <template>
-    <div
-        :class="[isMobile() ? 'mx-auto mt-8 px-4' : 'min-h-[calc(100vh-4rem)] overflow-hidden flex items-center justify-center']">
-        <div class="w-full max-w-md rounded-lg p-4 bg-white sm:shadow-lg">
+    <div class="min-h-[calc(100vh-4rem)] overflow-hidden flex items-center justify-center">
+        <div :class="['w-full max-w-md rounded-lg p-4 bg-white', isMd() ? 'custom-shadow' : '']">
             <div class="flex items-center justify-center">
                 <AppLogo to="/admin" />
             </div>
@@ -18,7 +17,6 @@ import { ref } from 'vue'
 import AuthLogin from '~/components/organisms/admin/AuthLogin.vue'
 import AuthForgot from '~/components/organisms/admin/AuthForgot.vue'
 import AuthReset from '~/components/organisms/admin/AuthReset.vue'
-import { isMobile } from '#imports'
 import AppLogo from '~/components/organisms/AppLogo.vue'
 
 type Tab = 'login' | 'forgot' | 'reset'

@@ -19,7 +19,7 @@
             <div v-show="isOpen" :class="[
                 'absolute z-10 mt-2 rounded-md bg-white shadow-xl ring-1 ring-gray-200 ring-opacity-5 focus:outline-none',
                 positionToDropClasses,
-                minWidth,
+                minWidthClass,
                 maxHeight ? `overflow-y-auto ${maxHeight}` : '',
             ]" role="menu" :aria-orientation="'vertical'" :aria-labelledby="triggerId">
                 <div class="py-1">
@@ -64,7 +64,7 @@ const props = withDefaults(defineProps<{
     variant?: ComponentVariant
     position?: ComponentPosition
     size?: ComponentSize
-    minWidth?: string
+    minWidthClass?: string
     maxHeight?: string
     showCheckmark?: boolean
     multiple?: boolean
@@ -81,7 +81,7 @@ const props = withDefaults(defineProps<{
     variant: 'outline',
     position: 'left',
     size: 'md',
-    minWidth: 'min-w-[200px]',
+    minWidthClass: 'min-w-[200px]',
     maxHeight: 'max-h-60',
     showCheckmark: true,
     multiple: false,

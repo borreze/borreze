@@ -4,7 +4,7 @@ export default defineNuxtPlugin(() => {
     const app = useNuxtApp()
 
     app.vueApp.use(createNotivue({
-        position: 'top-left',
+        position: isInAdmin() ? 'bottom-right' : 'top-left',
         limit: 3,
         enqueue: true,
         avoidDuplicates: true,

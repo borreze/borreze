@@ -4,6 +4,11 @@ export function goToSearchPage(query: string) {
     useRouter().push(`/recherche?q=${encodeURIComponent(query)}`)
 }
 
+export function isInAdmin() {
+    const route = useRoute()
+    return route.path.startsWith('/admin')
+}
+
 export function getRoutes(options?: { publicOnly?: boolean, search?: string }): RouteRecordNormalized[] {
     const publicOnly = options?.publicOnly ?? true
     const search = options?.search ?? ''

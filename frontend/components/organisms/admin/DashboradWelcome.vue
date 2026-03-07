@@ -1,11 +1,12 @@
 <template>
     <section class="rounded-xl custom-shadow p-4 ">
         <h2 class="title-submain">Bienvenue sur votre <span class="text-primary">Back-office </span> 👋</h2>
-        <p class="mt-2 max-w-xl">Cet espace est dédié à la gestion de votre site internet. Ajoutez du contenu,
+        <p class="mt-2 max-w-[600px] text-gray-600">Cet espace est dédié à la gestion de votre site internet. Ajoutez du
+            contenu,
             modifiez vos pages
             existantes ou ajustez vos paramètres en quelques clics pour maintenir votre site à jour et
-            refléter au mieux votre activité.
-            <span class="font-medium"> Bonne utilisation ! </span>
+            refléter au mieux votre identité en ligne.
+            <span class="font-medium text-dark"> Bonne utilisation ! </span>
         </p>
         <div class="mt-2 flex items-center gap-4 mt-4">
             <Button as="link" icon="ic:baseline-settings" label="Paramètres" href="/admin/settings" variant="outline"

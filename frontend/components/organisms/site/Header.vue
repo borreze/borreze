@@ -69,13 +69,15 @@
     </div>
 
     <Panel v-model:open="panelOpened">
-        <div class="flex flex-col gap-4 p-4 mb-4">
+        <div class="flex flex-col gap-4 p-4">
             <Button as="link" label="Communautés de communes" icon="material-symbols:castle"
                 href="https://www.paysdefenelon.fr/" variant="outline" size="md" />
             <Button as="link" label="Nous contacter" icon="ic:baseline-email" href="/contact" variant="primary"
                 size="md" />
         </div>
-        <MenusPanel :menus="menus" @close="panelOpened = false" />
+        <div class="px-2">
+            <MenusPanel :menus="menus" @close="panelOpened = false" />
+        </div>
     </Panel>
 
     <Modal v-model:open="searchOpened" title="Rechercher" textConfirm="Rechercher" :onConfirm="handleSearch">
