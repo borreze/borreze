@@ -25,6 +25,11 @@ export const MENU_CONSTRAINTS = {
     type: DataTypes.BIGINT,
     required: false
   },
+  icon: {
+    type: DataTypes.STRING,
+    maxLength: 100,
+    required: true
+  },
   order: {
     type: DataTypes.INTEGER,
     required: true,
@@ -50,6 +55,7 @@ export class Menu extends Model<MenuAttributes, MenuAttributesCreation> implemen
   public label!: string
   public url?: string
   public parent_id?: number
+  public icon?: string
   public order!: number
   public is_visible!: boolean
   public readonly created_at!: Date

@@ -146,7 +146,7 @@ const buttonClass = computed(() => [
     props.position === 'left' ? 'flex-row' : 'flex-row-reverse',
     'font-medium',
     'items-center gap-2 transition-all duration-300',
-    props.center ? 'justify-center' : 'justify-between',
+    props.center ? 'justify-center' : 'justify-start',
     sizeToButtonClass.value,
     variantToButtonClass.value,
     roundnessToClass.value,

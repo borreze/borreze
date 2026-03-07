@@ -3,7 +3,8 @@
         <div v-for="menu in menus" :key="menu.id">
             <!-- No children -->
             <NuxtLink v-if="!menu.children || menu.children.length === 0" :to="menu.url || '#'"
-                class="block px-4 py-3 text-lg font-medium text-dark" @click="close()">
+                class="flex items-center justify-start px-4 py-3 text-lg font-medium text-dark" @click="close()">
+                <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
                 {{ menu.label }}
             </NuxtLink>
 
@@ -21,9 +22,9 @@
                     leave-from-class="max-h-96 opacity-100" leave-to-class="max-h-0 opacity-0">
                     <ul v-if="openMobileMenus.includes(menu.id)" class="overflow-hidden">
                         <li v-for="child in menu.children" :key="child.id">
-                            <Button as="link" :label="child.label" :href="child.url || '#'" variant="transparent"
-                                size="md" :center="false" @click="close()"
-                                class="w-full text-left px-8 py-2.5 text-base" />
+                            <Button as="link" :label="child.label" :href="child.url || '#'"
+                                :icon="child.icon || undefined" class="w-full text-left px-8 py-2.5 text-base"
+                                variant="transparent" size="md" :center="false" @click="close()" />
                         </li>
                     </ul>
                 </Transition>

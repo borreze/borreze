@@ -3,6 +3,7 @@ export interface MenuAttributes {
     label: string
     url?: string | null
     parent_id?: number | null
+    icon?: string | null
     order: number
     is_visible: boolean
     created_at?: Date | null

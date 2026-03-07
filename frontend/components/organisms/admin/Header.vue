@@ -9,7 +9,7 @@
         </div>
     </header>
 
-    <Panel v-model:open="panelOpened">
+    <Panel v-model:open="panelOpened" side="left">
         <MenusPanel :menus="menus" @close="panelOpened = false" />
     </Panel>
 </template>
@@ -26,6 +26,7 @@ const panelOpened = ref(false)
 const menus = ref<MenuAttributes[]>([
     {
         id: 1,
+        icon: 'ic:outline-laptop-windows',
         label: 'Front-office',
         url: '/',
         order: 0,
@@ -33,6 +34,7 @@ const menus = ref<MenuAttributes[]>([
     },
     {
         id: 2,
+        icon: 'ic:baseline-person',
         label: 'Profil',
         url: '/admin/profile',
         order: 1,

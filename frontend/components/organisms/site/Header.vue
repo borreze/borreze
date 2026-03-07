@@ -37,7 +37,8 @@
             <div v-for="menu in menus" :key="menu.id" class="relative group">
                 <!-- No children -->
                 <NuxtLink v-if="!menu.children || menu.children.length === 0" :to="menu.url || '#'"
-                    class="py-2 hover:text-white transition-colors">
+                    class="flex items-center justify-start py-2 hover:text-white transition-colors">
+                    <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
                     {{ menu.label }}
                 </NuxtLink>
 
@@ -55,7 +56,7 @@
                         <ul class="py-2">
                             <li v-for="child in menu.children" :key="child.id">
                                 <Button as="link" :label="child.label" :href="child.url || '#'" variant="transparent"
-                                    size="md" :center="false" />
+                                    :icon="child.icon || undefined" size="md" :center="false" />
                             </li>
                         </ul>
                     </div>
