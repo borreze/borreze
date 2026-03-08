@@ -13,7 +13,7 @@ export class PostController {
     const limit = 3
     const options = { status: 'published' as PostStatus, schedule: true }
     const order: Order[] = [['published_at', 'DESC'], ['created_at', 'DESC']]
-    const pagination: Pagination = { page, limit, total: Infinity, offset: 0 }
+    const pagination: Pagination = { page, limit, total: Infinity }
 
     const data = await postService.getAll(options, order, pagination, req?.user)
     res.json({ data, message: 'Posts retrieved successfully' } as Return)

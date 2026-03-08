@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="flex justify-between items-center gap-4 flex-wrap">
-            <h1 class="title-main">Actualités</h1>
+            <div class="flex items-center gap-2">
+                <h1 class="title-main">Actualités</h1>
+                <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="sm" />
+            </div>
             <OrderBy :orders="[
                 { label: 'Publiés récemment', order: ['published_at', 'DESC'] },
                 { label: 'Publiés il y a longtemps', order: ['published_at', 'ASC'] },
@@ -19,9 +22,12 @@
                 { key: 'published_at', label: 'Date de publication', formatter: 'date' },
                 { key: 'updated_at', label: 'Mise à jour', formatter: 'date' },
             ]" :formatters="{
-                    truncate: (value) => limitString(value as string, 40),
-                    date: (value) => value ? formatDateRelativeNice(value as string) : '-'
-                }">
+                truncate: (value) => limitString(value as string, 40),
+                date: (value) => value ? formatDateRelativeNice(value as string) : '-'
+            }" :actions="[
+                { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', handler: (item) => navigateTo(`/actualites/${item.slug}`) },
+                { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', handler: (item) => navigateTo(`/admin/actualites/${item.id}`) },
+            ]">
                 <template #cell-published="{ item }">
                     <Pill :label="item.status === 'published' ? 'Oui' : 'Non'"
                         :variant="item.status === 'published' ? 'success' : 'warning'" size="sm" />

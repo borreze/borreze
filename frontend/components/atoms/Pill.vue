@@ -20,7 +20,7 @@ import type { ComponentRoundness, ComponentSize, ComponentVariant } from '~/type
 const attrs = useAttrs()
 
 const props = withDefaults(defineProps<{
-    label?: string
+    label?: string | number
     icon?: string
     position?: 'left' | 'right'
     variant: ComponentVariant
@@ -91,7 +91,7 @@ const variantToButtonClass = computed(() => {
         case 'dark':
             return 'bg-dark border-2 border-dark text-white'
         case 'light':
-            return 'bg-gray-100 border-2 border-gray-100 text-gray-700'
+            return 'bg-primary/40 text-primary'
         case 'primary':
             return 'bg-primary border-2 border-primary text-white'
         case 'outline':
@@ -136,6 +136,7 @@ const containerClass = computed(() => [
         ? 'cursor-pointer hover:brightness-90 transition-all duration-300'
         : '',
     props.position === 'left' ? 'flex-row' : 'flex-row-reverse',
+    'font-medium',
     'items-center gap-1',
     props.center ? 'justify-center' : 'justify-start',
     sizeToButtonClass.value,

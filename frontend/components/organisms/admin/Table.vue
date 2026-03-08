@@ -4,10 +4,11 @@
         <div v-else>
             <!-- Desktop -->
             <table class="hidden lg:table w-full">
-                <thead>
+                <thead v-if="items.length > 0">
                     <tr class="text-dark bg-white text-left font-bold">
                         <th v-for="column in columns" :key="column.key" class="py-1 xl:py-2 px-5 xl:px-7">{{
                             column.label }}</th>
+                        <th v-if="actions && actions.length > 0">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody v-if="items.length > 0" class="text-sm 2xl:text-base">
@@ -24,11 +25,18 @@
                                 </template>
                             </slot>
                         </td>
+                        <td v-if="actions && actions.length > 0" class="py-1 xl:py-2 px-5 xl:px-7">
+                            <div class="flex items-center gap-2">
+                                <Button v-for="(action, aIndex) in actions" :key="aIndex"
+                                    :variant="action.variant || 'light'" :icon="action.icon" 
+                                    size="sm" @click="action.handler(item)" />
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
                 <tbody v-else>
                     <tr>
-                        <td :colspan="columns.length">
+                        <td :colspan="columns.length + (actions?.length || 0)">
                             <NoItem />
                         </td>
                     </tr>
@@ -53,6 +61,11 @@
                                 <span v-else>{{ getItemValue(item, column.key) }}</span>
                             </div>
                         </div>
+                        <div v-if="actions && actions.length > 0" class="mt-4 flex items-center justify-end gap-2">
+                            <Button v-for="(action, aIndex) in actions" :key="aIndex"
+                                :variant="action.variant || 'light'" :icon="action.icon" :label="action.label" size="sm"
+                                @click="action.handler(item)" />
+                        </div>
                     </div>
                 </div>
                 <NoItem v-if="items.length === 0" />
@@ -65,6 +78,7 @@
 import Loader from '~/components/molecules/Loader.vue';
 import NoItem from '~/components/molecules/NoItem.vue';
 import type { ComponentVariant } from '~/types/component';
+import Button from '~/components/atoms/Button.vue';
 
 interface Column {
     key: string
@@ -74,8 +88,8 @@ interface Column {
 }
 
 interface Action {
-    label: string
-    icon?: string
+    icon: string
+    label?: string
     variant?: ComponentVariant
     handler: (item: T) => void
 }

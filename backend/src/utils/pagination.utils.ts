@@ -19,7 +19,7 @@ export function paginate(page: number, limit: number, count: number): Pagination
 
     const total: number = Math.ceil(count / limit)
     const offset: number = (page - 1) * limit
-    const pagination: Pagination = { page, limit, total, offset }
+    const pagination: Pagination = { page, limit, total, offset, count }
 
     return pagination
 }

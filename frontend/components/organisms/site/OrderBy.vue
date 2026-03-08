@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center gap-2">
         <Button v-if="selectedOrder" variant="gray" size="sm" roundness="md" icon="ic:close" @click="handleReset" />
-        <Dropdown v-model="selectedOrder" :items="ordersList" label-key="label" value-key="label" placeholder="Trier"
+        <Dropdown v-model="selectedOrder" :items="ordersList" label-key="label" value-key="label" placeholder="Trier par"
             :variant="selectedOrder ? 'primary' : 'gray'" size="sm" :position="position" min-width-class="min-w-[200px]"
             @select="handleSelect" />
     </div>

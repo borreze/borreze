@@ -1,6 +1,7 @@
 export interface Pagination {
     page: number,
     limit: number,
-    total: number,
-    offset?: number | undefined
+    total?: number | undefined,
+    offset?: number | undefined,
+    count?: number | undefined
 }
