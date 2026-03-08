@@ -6,7 +6,7 @@ import { getRoutes } from '~/utils/routing'
 const DEBOUNCE_DELAY = 400
 
 export const useSearch = async (q: string) => {
-    const query = ref(q ?? '')
+    const query = ref<string>(q ?? '')
 
     const { data, status, error, execute } = await useAsyncData(
         `search`,
@@ -28,7 +28,6 @@ export const useSearch = async (q: string) => {
     )
 
     let debounceTimer: ReturnType<typeof setTimeout> | null = null
-
     watch(query, () => {
         if (debounceTimer) clearTimeout(debounceTimer)
         debounceTimer = setTimeout(() => {

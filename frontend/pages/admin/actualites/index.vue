@@ -6,8 +6,8 @@
                 <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="sm" />
             </div>
             <div class="w-full sm:w-96 flex items-center gap-2">
-                <Field class="flex-1 min-w-0" placeholder="Rechercher..." icon="ic:baseline-search" size="sm" roundness="md"
-                    @update:model-value="setSearch" />
+                <Field v-model="search" class="flex-1 min-w-0" placeholder="Rechercher..." icon="ic:baseline-search"
+                    size="sm" roundness="md" />
                 <div class="shrink-0">
                     <OrderBy :orders="[
                         { label: 'Publiés récemment', order: ['published_at', 'DESC'] },
@@ -53,6 +53,12 @@ import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
 
 const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts()
+
+const search = ref('')
+
+watch(search, (newValue) => {
+    setSearch(newValue)
+})
 
 useAppHead({
     title: 'Gestion des actualités',

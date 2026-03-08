@@ -37,7 +37,7 @@
                 <tbody v-else>
                     <tr>
                         <td :colspan="columns.length + (actions?.length || 0)">
-                            <NoItem />
+                            <NoContent />
                         </td>
                     </tr>
                 </tbody>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <NoItem v-if="items.length === 0" />
+                <NoContent v-if="items.length === 0" />
             </div>
         </div>
     </div>
@@ -80,7 +80,7 @@
 
 <script setup lang="ts" generic="T extends object">
 import Loader from '~/components/molecules/Loader.vue';
-import NoItem from '~/components/molecules/NoItem.vue';
+import NoContent from '~/components/molecules/NoContent.vue';
 import type { ComponentVariant } from '~/types/component';
 import Button from '~/components/atoms/Button.vue';
 

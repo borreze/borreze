@@ -19,7 +19,7 @@
                     <PostCard :post="item" />
                 </template>
             </Grid>
-            <NoItem v-else />
+            <NoContent v-else />
         </div>
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
     </div>
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import Grid from '~/components/molecules/Grid.vue';
-import NoItem from '~/components/molecules/NoItem.vue';
+import NoContent from '~/components/molecules/NoContent.vue';
 import PostCard from '~/components/organisms/site/PostCard.vue';
 import CategorySelector from '~/components/organisms/site/CategorySelector.vue';
 import OrderBy from '~/components/organisms/site/OrderBy.vue';

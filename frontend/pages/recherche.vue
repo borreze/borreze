@@ -14,7 +14,7 @@
                     <SearchCard :result="item" />
                 </template>
             </Grid>
-            <NoItem v-else-if="query" />
+            <NoContent v-else-if="query" />
             <div v-else class="text-center">
                 <p class="text-sm text-gray-400">
                     Entrez un terme de recherche pour trouver les informations qui vous intéressent.<br>
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import Grid from '~/components/molecules/Grid.vue'
-import NoItem from '~/components/molecules/NoItem.vue'
+import NoContent from '~/components/molecules/NoContent.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue'
 import Field from '~/components/atoms/Field.vue'

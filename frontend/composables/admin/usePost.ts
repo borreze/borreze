@@ -4,12 +4,14 @@ import type { Pagination } from '~/types/pagination'
 import { PAGINATION_DEFAULT } from '~/utils/pagination'
 import useApi from '~/composables/useApi'
 
+const DEBOUNCE_DELAY = 400
+
 export const usePosts = async () => {
     const page = ref(1)
     const order = ref<Order | null>(null)
     const search = ref<string>('')
 
-    const { data, status, error, refresh } = useLazyAsyncData(
+    const { data, status, error, refresh, execute } = useLazyAsyncData(
         `posts-page-${page.value}-search-${search.value}`,
         () => useApi().get<{ data: PostAttributes[], pagination: Pagination }>(
             '/admin/posts',
@@ -18,13 +20,21 @@ export const usePosts = async () => {
                     page: page.value,
                     limit: PAGINATION_DEFAULT.limit,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
-                    search: search.value,
+                    search: search.value.trim(),
                     status: 'all',
                 }
             }
         ).then(r => r.data),
-        { watch: [page, order, search] }
+        { watch: [page, order] }
     )
+
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null
+    watch(search, () => {
+        if (debounceTimer) clearTimeout(debounceTimer)
+        debounceTimer = setTimeout(() => {
+            execute()
+        }, DEBOUNCE_DELAY)
+    })
 
     const setOrder = (newOrder: Order) => {
         order.value = newOrder
@@ -45,7 +55,7 @@ export const usePosts = async () => {
 
     const setSearch = (newSearch: string) => {
         search.value = newSearch
-        page.value = 1
+        // page.value = 1
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
