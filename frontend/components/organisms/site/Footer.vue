@@ -20,7 +20,6 @@
                     <Url to="/plan-du-site" label="Plan du site" :bold="false" />
                     <Url to="/pages/mentions-legales" label="Mentions légales" :bold="false" />
                     <Url to="/pages/politique-de-confidentialite" label="Politique de confidentialité" :bold="false" />
-                    <Url to="/admin/auth" label="Back-office" :bold="false" />
                 </div>
             </div>
             <div class="col-span-12 md:col-span-4 flex flex-col items-center md:items-start gap-3">
