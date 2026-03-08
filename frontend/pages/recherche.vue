@@ -31,7 +31,7 @@ import NoItem from '~/components/molecules/NoItem.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue'
 import Field from '~/components/atoms/Field.vue'
-import { useSearch } from '~/composables/useSearch';
+import { useSearch } from '~/composables/site/useSearch';
 import SearchCard from '~/components/organisms/site/SearchCard.vue'
 
 const route = useRoute()

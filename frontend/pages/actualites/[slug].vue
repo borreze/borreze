@@ -26,7 +26,7 @@
 import Pill from '~/components/atoms/Pill.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue'
-import { usePost } from '~/composables/usePost';
+import { usePost } from '~/composables/site/usePost';
 import PageHero from '~/components/organisms/site/PageHero.vue';
 import { formatDateRelativeNice } from '~/utils/date';
 

@@ -21,9 +21,9 @@ interface ApiResponse<T> {
 }
 
 /**
- * useApiClient — a robust, composable API utility for Nuxt
+ * useApi — a robust, composable API utility for Nuxt
  */
-export default function useApiClient() {
+export default function useApi() {
     const config = useRuntimeConfig()
     const API_BASE_URL = import.meta.server ? config.apiBaseUrl : config.public.apiBaseUrl
 
@@ -121,7 +121,7 @@ export default function useApiClient() {
             request<T>('PUT', endpoint, options),
         patch: <T>(endpoint: string, options?: ApiRequestOptions) =>
             request<T>('PATCH', endpoint, options),
-        del: <T>(endpoint: string, options?: ApiRequestOptions) =>
+        delete: <T>(endpoint: string, options?: ApiRequestOptions) =>
             request<T>('DELETE', endpoint, options),
     }
 }

@@ -14,7 +14,7 @@
         </header>
 
         <div class="flex min-h-screen">
-            <Panel v-model:open="panelOpened" :always-display="true" side="left">
+            <Panel v-model:open="panelOpened" :always-display="true" side="left" ::width="250">
                 <div class="hidden lg:block px-4 pt-8 pb-4 flex">
                     <AppName to="/admin" />
                 </div>
@@ -72,16 +72,9 @@ const menus = ref<MenuAttributes[]>([
         children: [
             {
                 id: 5,
-                label: 'Gérer les actualités',
+                label: 'Liste des actualités',
                 url: '/admin/actualites',
                 order: 0,
-                is_visible: true,
-            },
-            {
-                id: 6,
-                label: 'Gérer les catégories',
-                url: '/admin/categories',
-                order: 1,
                 is_visible: true,
             },
         ],

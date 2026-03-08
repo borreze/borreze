@@ -1,5 +1,7 @@
 import type { RouteRecordNormalized } from 'vue-router'
 import type { SearchResult } from '~/types/models/search'
+import useApi from '~/composables/useApi'
+import { getRoutes } from '~/utils/routing'
 
 const DEBOUNCE_DELAY = 400
 
@@ -13,7 +15,7 @@ export const useSearch = async (q: string) => {
             if (!val || val.length <= 2) return null
 
             try {
-                const res = await useApiClient().get<{ data: SearchResult[] }>(
+                const res = await useApi().get<{ data: SearchResult[] }>(
                     '/global/search',
                     { params: { query: val } }
                 )

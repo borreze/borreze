@@ -1,6 +1,8 @@
 import type { PostAttributes } from '~/types/models/post'
 import type { Order } from '~/types/order'
 import type { Pagination } from '~/types/pagination'
+import useApi from '~/composables/useApi'
+import { PAGINATION_DEFAULT } from '~/utils/pagination'
 
 export const usePosts = async () => {
     const page = ref(1)
@@ -11,7 +13,7 @@ export const usePosts = async () => {
         `posts-page-${page.value}-categories-${categories.value.join(',')}`,
         async () => {
             try {
-                const res = await useApiClient().get<{ data: PostAttributes[], pagination: Pagination }>(
+                const res = await useApi().get<{ data: PostAttributes[], pagination: Pagination }>(
                     '/posts',
                     {
                         params: {
@@ -91,7 +93,7 @@ export const usePostsRecents = async () => {
         'posts-recents',
         async () => {
             try {
-                const res = await useApiClient().get<{ data: PostAttributes[] }>(
+                const res = await useApi().get<{ data: PostAttributes[] }>(
                     '/posts/recents'
                 )
                 return res.data ?? null
@@ -113,7 +115,7 @@ export const usePost = async (slug: string) => {
         `post-${slug}`,
         async () => {
             try {
-                const res = await useApiClient().get<{ data: PostAttributes }>(`/posts/${slug}`)
+                const res = await useApi().get<{ data: PostAttributes }>(`/posts/${slug}`)
                 return res.data ?? null
             } catch (e) {
                 return null

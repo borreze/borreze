@@ -1,5 +1,7 @@
 import type { CategorizableType, CategoryAttributes } from '~/types/models/category'
 import type { Pagination } from '~/types/pagination'
+import { PAGINATION_DEFAULT } from '~/utils/pagination'
+import useApi from '~/composables/useApi'
 
 export const useCategories = async () => {
     const page = ref(1)
@@ -8,7 +10,7 @@ export const useCategories = async () => {
         `categories-page-${page.value}`,
         async () => {
             try {
-                const res = await useApiClient().get<{ data: CategoryAttributes[], pagination: Pagination }>(
+                const res = await useApi().get<{ data: CategoryAttributes[], pagination: Pagination }>(
                     '/categories',
                     { params: { page: page.value, limit: PAGINATION_DEFAULT.limit } }
                 )
@@ -39,7 +41,7 @@ export const useCategoriesByType = async (type: CategorizableType) => {
         `categories-${type}`,
         async () => {
             try {
-                const res = await useApiClient().get<{ data: CategoryAttributes[] }>(`/categories/${type}`)
+                const res = await useApi().get<{ data: CategoryAttributes[] }>(`/categories/${type}`)
                 return res.data ?? null
             } catch (e) {
                 return null

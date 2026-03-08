@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <div class="grid grid-cols-1 gap-6">
-            <DashboradWelcome />
-            <DashboradQuicks />
-        </div>
+    <div class="grid grid-cols-1 gap-6">
+        <DashboradWelcome />
+        <DashboradQuicks />
     </div>
 </template>
 
@@ -19,7 +17,7 @@ definePageMeta({
     layout: 'admin',
     middleware: ['auth'],
     requiresAuth: true,
-    title: 'Administration',
+    title: 'Dashboard',
     private: true,
 })
 

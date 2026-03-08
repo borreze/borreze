@@ -400,8 +400,8 @@ useAppHead({
 
 ```vue
 <script setup lang="ts">
-// ! useApiClient doesnt need to be imported, it's globally available
-const apiClient = useApiClient()
+// ! useApi doesnt need to be imported, it's globally available
+const apiClient = useApi()
 
 apiClient.get('/posts').then((response) => {
     console.log('Posts fetched from API:', response.data)

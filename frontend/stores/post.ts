@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import useApiClient from '~/composables/useApiClient'
+import useApi from '~/composables/useApi'
 import type { PostAttributes } from '~/types/models/post'
 import type { Pagination } from '~/types/pagination'
 
@@ -51,7 +51,7 @@ export const usePostStore = defineStore('post', {
                 ...params
             }
 
-            const api = useApiClient()
+            const api = useApi()
             const { status, data, } = await api.get<{ data: PostAttributes[], pagination: Pagination }>('/posts', { params })
 
             if (status === 200 && data) {

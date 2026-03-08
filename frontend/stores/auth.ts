@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useCookie } from '#app'
-import useApiClient from '~/composables/useApiClient'
+import useApi from '~/composables/useApi'
 import type { User } from '~/types/models/user'
 
 export interface RefreshData {
@@ -45,7 +45,7 @@ export const useAuthStore = defineStore('auth', {
             this.error = null
             this.loading = true
 
-            const api = useApiClient()
+            const api = useApi()
             const { status, data } = await api.get<{ data: User }>('/admin/auth/me', { silent: true })
 
             if (status === 200 && data) {
@@ -67,7 +67,7 @@ export const useAuthStore = defineStore('auth', {
             this.error = null
             this.loading = true
 
-            const api = useApiClient()
+            const api = useApi()
             const { status, data } = await api.post<{ data: LoginData }>('/admin/auth/login', {
                 body: { identifier, password },
                 silent: true // to avoid being redirected to home on wrong credentials (handled by this action)
@@ -108,7 +108,7 @@ export const useAuthStore = defineStore('auth', {
             const refreshCookie = useCookie('auth_refresh_token')
             if (!refreshCookie.value) return null
 
-            const api = useApiClient()
+            const api = useApi()
             const { status, data } = await api.post<{ data: RefreshData }>('/admin/auth/refresh', {
                 body: { refreshToken: refreshCookie.value }
             })
@@ -135,7 +135,7 @@ export const useAuthStore = defineStore('auth', {
          */
         async logout(redirect: string = '/') {
             const refreshCookie = useCookie('auth_refresh_token')
-            const api = useApiClient()
+            const api = useApi()
 
             if (refreshCookie.value) {
                 await api.post('/admin/auth/logout', {
@@ -163,7 +163,7 @@ export const useAuthStore = defineStore('auth', {
         async sendResetCode(email: string) {
             this.loading = true
 
-            const api = useApiClient()
+            const api = useApi()
             const { status } = await api.post('/admin/auth/send-reset-code', { body: { email } })
 
             this.loading = false
@@ -177,7 +177,7 @@ export const useAuthStore = defineStore('auth', {
         async resetPassword(email: string, code: string, newPassword: string) {
             this.loading = true
 
-            const api = useApiClient()
+            const api = useApi()
             const { status } = await api.post('/admin/auth/reset-password', {
                 body: { email, code, newPassword }
             })

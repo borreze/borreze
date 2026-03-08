@@ -34,7 +34,8 @@ import OrderBy from '~/components/organisms/site/OrderBy.vue';
 import Paging from '~/components/molecules/Paging.vue';
 import Loader from '~/components/molecules/Loader.vue';
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
-import { usePosts } from '~/composables/usePost';
+import { usePosts } from '~/composables/site/usePost';
+import { useCategoriesByType } from '~/composables/site/useCategory';
 
 const { posts, pagination, loading, setPage, removeCategory, addCategory, resetCategories, getCategories, setOrder, resetOrder } = await usePosts()
 const { categories } = await useCategoriesByType('post')
