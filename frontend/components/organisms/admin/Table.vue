@@ -3,16 +3,18 @@
         <Loader v-if="loading" />
         <div v-else>
             <!-- Desktop -->
-            <div class="hidden lg:block min-w-full overflow-hidden">
-                <div class="text-dark bg-white text-left grid gap-4 px-4 py-4 rounded-lg font-semibold"
-                    :style="{ gridTemplateColumns: gridCols }">
-                    <div v-for="column in columns" :key="column.key">{{ column.label }}</div>
-                </div>
-                <div class="space-y-2">
-                    <div v-for="(item, index) in items" :key="getItemKey(item, index)"
-                        :class="index % 2 === 1 ? 'bg-white rounded-lg' : 'bg-transparent'"
-                        class="grid gap-4 px-4 py-2 text-sm 2xl:text-base" :style="{ gridTemplateColumns: gridCols }">
-                        <div v-for="column in columns" :key="column.key" :class="column.class || ''">
+            <table class="hidden lg:table w-full">
+                <thead>
+                    <tr class="text-dark bg-white text-left font-bold">
+                        <th v-for="column in columns" :key="column.key" class="py-1 xl:py-2 px-5 xl:px-7">{{
+                            column.label }}</th>
+                    </tr>
+                </thead>
+                <tbody v-if="items.length > 0" class="text-sm 2xl:text-base">
+                    <tr v-for="(item, index) in items" :key="getItemKey(item, index)"
+                        :class="index % 2 === 0 ? 'bg-gray-100' : 'bg-transparent'">
+                        <td v-for="column in columns" :key="column.key"
+                            :class="['py-1 xl:py-2 px-5 xl:px-7', column.class || '']">
                             <slot :name="`cell-${column.key}`" :item="item" :value="getItemValue(item, column.key)">
                                 <template v-if="column.formatter && formatters[column.formatter]">
                                     {{ formatters[column.formatter](getItemValue(item, column.key)) }}
@@ -21,11 +23,17 @@
                                     {{ getItemValue(item, column.key) }}
                                 </template>
                             </slot>
-                        </div>
-                    </div>
-                    <NoItem v-if="items.length === 0" />
-                </div>
-            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td :colspan="columns.length">
+                            <NoItem />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <!-- Mobile -->
             <div class="grid lg:hidden grid-cols-1 md:grid-cols-2 gap-6">
@@ -56,6 +64,7 @@
 <script setup lang="ts" generic="T extends object">
 import Loader from '~/components/molecules/Loader.vue';
 import NoItem from '~/components/molecules/NoItem.vue';
+import type { ComponentVariant } from '~/types/component';
 
 interface Column {
     key: string
@@ -64,17 +73,25 @@ interface Column {
     formatter?: string
 }
 
+interface Action {
+    label: string
+    icon?: string
+    variant?: ComponentVariant
+    handler: (item: T) => void
+}
+
 type FormatterFn = (value: unknown) => string | number
 
 const props = withDefaults(defineProps<{
     items: T[]
     columns: Column[]
-    darkKey?: string
+    actions?: Action[]
+    primaryKey?: string
     titleKey?: string
     loading?: boolean
     formatters?: Record<string, FormatterFn>
 }>(), {
-    darkKey: 'id',
+    primaryKey: 'id',
     titleKey: 'subject',
     loading: false,
     formatters: () => ({})
@@ -85,18 +102,16 @@ defineSlots<{
     [key: `cell-${string}`]: (props: { item: T; value: unknown }) => unknown
 }>()
 
-const gridCols = computed(() => `repeat(${props.columns.length}, minmax(0, 1fr))`)
-
 const mobileVisibleColumns = computed(() =>
     props.columns.filter(col =>
-        col.key !== props.darkKey &&
+        col.key !== props.primaryKey &&
         col.key !== props.titleKey
     )
 )
 
 const getItemKey = (item: T, index: number): string | number => {
     const obj = item as Record<string, unknown>
-    return (obj?.id ?? obj?.ref ?? obj?.[props.darkKey ?? 'id'] ?? index) as string | number
+    return (obj?.id ?? obj?.ref ?? obj?.[props.primaryKey ?? 'id'] ?? index) as string | number
 }
 
 const getItemValue = (item: T, key: string): unknown => {

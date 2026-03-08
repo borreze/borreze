@@ -158,24 +158,25 @@ address {
 /* safe-area layout styles */
 /* ======================================================= */
 
+
 @media (min-width: 1536px) {
   .safe-area-sm {
-    margin: 1.5rem;
-    padding: 1.5rem;
+    margin: 0.75rem;
+    padding: 0.75rem;
   }
 }
 
 @media (min-width: 1280px) and (max-width: 1535px) {
   .safe-area-sm {
-    margin: 1rem;
-    padding: 1rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
   .safe-area-sm {
-    margin: 1rem;
-    padding: 1rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
   }
 }
 
@@ -188,15 +189,15 @@ address {
 
 @media (min-width: 640px) and (max-width: 767px) {
   .safe-area-sm {
-    margin: 0.5rem;
-    padding: 0.5rem;
+    margin: 0.25rem;
+    padding: 0.25rem;
   }
 }
 
 @media (max-width: 639px) {
   .safe-area-sm {
-    margin: 0.5rem;
-    padding: 0.5rem;
+    margin: 0.25rem;
+    padding: 0.25rem;
   }
 }
 

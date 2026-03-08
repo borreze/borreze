@@ -13,17 +13,18 @@
         </div>
         <section class="rounded-xl lg:custom-shadow pb-1">
             <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" :columns="[
-                    { key: 'title', label: 'Titre' },
-                    { key: 'abstract', label: 'Résumé', formatter: 'truncate' },
-                    { key: 'status', label: 'Statut' },
-                    { key: 'published_at', label: 'Publié', formatter: 'date' },
-                    { key: 'updated_at', label: 'Mis à jour', formatter: 'date' },
-                ]" :formatters="{
+                { key: 'title', label: 'Titre' },
+                { key: 'abstract', label: 'Résumé', formatter: 'truncate' },
+                { key: 'published', label: 'Publié ?' },
+                { key: 'published_at', label: 'Date de publication', formatter: 'date' },
+                { key: 'updated_at', label: 'Mise à jour', formatter: 'date' },
+            ]" :formatters="{
                     truncate: (value) => limitString(value as string, 40),
                     date: (value) => value ? formatDateRelativeNice(value as string) : '-'
                 }">
-                <template #cell-status="{ item }">
-                    {{ item.published_at ? 'Publié' : 'Brouillon' }}
+                <template #cell-published="{ item }">
+                    <Pill :label="item.status === 'published' ? 'Oui' : 'Non'"
+                        :variant="item.status === 'published' ? 'success' : 'warning'" size="sm" />
                 </template>
             </Table>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
@@ -36,6 +37,7 @@ import OrderBy from '~/components/organisms/site/OrderBy.vue';
 import Paging from '~/components/molecules/Paging.vue';
 import { usePosts } from '~/composables/admin/usePost';
 import Table from '~/components/organisms/admin/Table.vue';
+import Pill from '~/components/atoms/Pill.vue';
 
 const { posts, pagination, loading, setPage, setOrder, resetOrder } = await usePosts()
 
