@@ -20,14 +20,16 @@
                 </div>
             </div>
         </div>
-        <section class="rounded-xl lg:custom-shadow pb-1">
+        <div class="rounded-xl lg:custom-shadow pb-1">
             <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" :columns="[
+                { key: 'id', label: 'ID', formatter: 'id' },
                 { key: 'title', label: 'Titre' },
                 { key: 'abstract', label: 'Résumé', formatter: 'truncate' },
                 { key: 'published', label: 'Publié ?' },
                 { key: 'published_at', label: 'Date de publication', formatter: 'date' },
                 { key: 'updated_at', label: 'Mise à jour', formatter: 'date' },
             ]" :formatters="{
+                id: (value) => `#${value}`,
                 truncate: (value) => limitString(value as string, 40),
                 date: (value) => value ? formatDateRelativeNice(value as string) : '-'
             }" :actions="[
@@ -40,7 +42,7 @@
                 </template>
             </Table>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
-        </section>
+        </div>
     </div>
 </template>
 

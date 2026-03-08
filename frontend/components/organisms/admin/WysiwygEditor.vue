@@ -202,7 +202,7 @@ type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
 const headingLevels: HeadingLevel[] = [1, 2, 3, 4, 5, 6]
 
 const props = withDefaults(defineProps<{
-    modelValue?: string
+    modelValue?: string | null
     features?: Feature[]
     editable?: boolean
 }>(), {
@@ -485,7 +485,7 @@ function insertButton() {
     all: unset;
     overflow: visible;
     --wy-bg: #ffffff;
-    --wy-border: #e2e8f0;
+    --wy-border: oklch(87.2% 0.01 258.338);
     --wy-toolbar-bg: #f8fafc;
     --wy-separator: #ced4db;
     --wy-content-min-h: 200px;
@@ -517,7 +517,7 @@ function insertButton() {
     padding: 6px 8px;
     background: var(--wy-toolbar-bg);
     border-radius: var(--wy-radius) var(--wy-radius) 0 0;
-    border: 1.5px solid var(--wy-border);
+    border: 2px solid var(--wy-border);
 }
 
 .wysiwyg-toolbar__group {
@@ -538,7 +538,7 @@ function insertButton() {
 .wysiwyg-content {
     min-height: var(--wy-content-min-h);
     border-radius: 0 0 var(--wy-radius) var(--wy-radius);
-    border: 1.5px solid var(--wy-border);
+    border: 2px solid var(--wy-border);
     border-top: none;
     padding: 16px;
     background: var(--wy-bg);

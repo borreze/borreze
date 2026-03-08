@@ -3,7 +3,7 @@
         <Loader v-if="loading" />
         <div v-else>
             <!-- Desktop -->
-            <table class="hidden lg:table w-full">
+            <table class="hidden xl:table w-full">
                 <thead v-if="items.length > 0">
                     <tr class="text-dark bg-white text-left font-bold">
                         <th v-for="column in columns" :key="column.key" class="py-1 xl:py-2 px-5 xl:px-7">{{
@@ -28,7 +28,7 @@
                         <td v-if="actions && actions.length > 0" class="py-1 xl:py-2 px-5 xl:px-7">
                             <div class="flex items-center gap-2">
                                 <Button v-for="(action, aIndex) in actions" :key="aIndex"
-                                    :variant="action.variant || 'light'" :icon="action.icon" size="sm"
+                                    :variant="action.variant || 'light'" :icon="action.icon" :label="action.label" size="sm"
                                     @click="action.handler(item)" />
                             </div>
                         </td>
@@ -44,7 +44,7 @@
             </table>
 
             <!-- Mobile -->
-            <div class="grid lg:hidden grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid xl:hidden grid-cols-1 md:grid-cols-2 gap-6">
                 <div v-for="(item, index) in items" :key="getItemKey(item, index)"
                     class="bg-white rounded-lg p-4 custom-shadow">
                     <div>

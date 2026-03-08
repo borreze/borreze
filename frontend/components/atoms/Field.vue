@@ -1,9 +1,14 @@
 <template>
     <div class="w-full flex flex-col gap-1">
-        <label v-if="label" :for="id" class="text-sm font-medium text-dark">
-            {{ label }}
-            <span v-if="required" class="text-red-500">*</span>
-        </label>
+        <div v-if="label || hint" class="flex justify-between flex-wrap items-center gap-1">
+            <label v-if="label" :for="id" class="text-sm font-medium text-dark">
+                {{ label }}
+                <span v-if="required" class="text-red-500">*</span>
+            </label>
+            <span v-if="hint" class="text-xs text-gray-400">
+                {{ hint }}
+            </span>    
+        </div>
 
         <textarea v-if="type === 'textarea'" v-bind="$attrs" :id="id" :name="name" :required="required"
             :placeholder="placeholder" :autocomplete="autocomplete" v-model="innerValue" :class="inputClass"
@@ -22,11 +27,12 @@ import { computed } from 'vue'
 import type { ComponentRoundness, ComponentSize } from '~/types/component'
 
 const props = withDefaults(defineProps<{
-    modelValue?: string | number
+    modelValue?: string | number | undefined | null
     id?: string
     type?: | 'text' | 'textarea' | 'password' | 'email' | 'number' | 'url' | 'tel' | 'search' | 'date' | 'datetime-local' | 'month' | 'week' | 'time' | 'color'
     name?: string
     label?: string
+    hint?: string
     placeholder?: string
     class?: string
     required?: boolean
@@ -54,7 +60,7 @@ const emit = defineEmits<{
 
 const innerValue = computed({
     get: () => props.modelValue,
-    set: (val) => emit('update:modelValue', val)
+    set: (val) => emit('update:modelValue', val as string | number | undefined)
 })
 
 const sizeToInputClass = computed(() => {

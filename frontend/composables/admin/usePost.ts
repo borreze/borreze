@@ -82,7 +82,7 @@ export const usePost = async (id: number) => {
     const { data, status, error } = await useAsyncData(
         `post-${id}`,
         () => useApi()
-            .get<{ data: PostAttributes[], pagination: Pagination }>(`/admin/posts/${id}`)
+            .get<{ data: PostAttributes, pagination: Pagination }>(`/admin/posts/${id}`)
             .then(r => r.data),
     )
 

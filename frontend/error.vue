@@ -29,10 +29,15 @@ const props = defineProps<{
 }>()
 
 const isNuxtMessage = computed(() => {
-  return props.error.statusMessage && props.error.statusMessage.toLowerCase().includes('error');
+  return props.error.statusMessage && (
+    props.error.statusMessage.toLowerCase().includes('error') ||
+    props.error.statusMessage.toLowerCase().includes('not') ||
+    props.error.statusMessage.toLowerCase().includes('nuxt')
+  );
 });
 
 const title = computed(() => {
+  console.log('Message d\'erreur reçu :', isNuxtMessage.value);
   if (!isNuxtMessage.value) { // Si le message d'erreur ne semble pas être un message générique de Nuxt, on l'affiche tel quel
     return props.error.statusMessage;
   } else {
