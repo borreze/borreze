@@ -28,8 +28,8 @@
                         <td v-if="actions && actions.length > 0" class="py-1 xl:py-2 px-5 xl:px-7">
                             <div class="flex items-center gap-2">
                                 <Button v-for="(action, aIndex) in actions" :key="aIndex"
-                                    :variant="action.variant || 'light'" :icon="action.icon" 
-                                    size="sm" @click="action.handler(item)" />
+                                    :variant="action.variant || 'light'" :icon="action.icon" size="sm"
+                                    @click="action.handler(item)" />
                             </div>
                         </td>
                     </tr>
@@ -48,17 +48,21 @@
                 <div v-for="(item, index) in items" :key="getItemKey(item, index)"
                     class="bg-white rounded-lg p-4 custom-shadow">
                     <div>
-                        <div v-if="titleKey" class="flex items-start mb-2">
-                            <h4 class="font-semibold text-dark">{{ getItemValue(item, titleKey) }}</h4>
-                        </div>
+                        <h4 v-if="titleKey" class="mb-2 font-semibold text-dark">{{ getItemValue(item, titleKey) }}</h4>
+                        <p v-if="abstractKey" class="mb-2 text-sm text-dark">{{ limitString(getItemValue(item, abstractKey) as string, 100) }}</p>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-600">
-                            <div v-for="column in mobileVisibleColumns" :key="column.key">
+                            <div v-for="column in mobileVisibleColumns" :key="column.key"
+                                class="flex flex-row gap-1 items-center">
                                 <span class="font-medium">{{ column.label }}: </span>
-                                <span v-if="column.formatter && formatters[column.formatter]">
-                                    {{ formatters[column.formatter](getItemValue(item, column.key)) }}
-                                </span>
-                                <span v-else>{{ getItemValue(item, column.key) }}</span>
+                                <slot :name="`cell-${column.key}`" :item="item" :value="getItemValue(item, column.key)">
+                                    <template v-if="column.formatter && formatters[column.formatter]">
+                                        {{ formatters[column.formatter](getItemValue(item, column.key)) }}
+                                    </template>
+                                    <template v-else>
+                                        {{ getItemValue(item, column.key) }}
+                                    </template>
+                                </slot>
                             </div>
                         </div>
                         <div v-if="actions && actions.length > 0" class="mt-4 flex items-center justify-end gap-2">
@@ -102,11 +106,13 @@ const props = withDefaults(defineProps<{
     actions?: Action[]
     primaryKey?: string
     titleKey?: string
+    abstractKey?: string
     loading?: boolean
     formatters?: Record<string, FormatterFn>
 }>(), {
     primaryKey: 'id',
-    titleKey: 'subject',
+    titleKey: 'title',
+    abstractKey: 'abstract',
     loading: false,
     formatters: () => ({})
 })
@@ -119,7 +125,8 @@ defineSlots<{
 const mobileVisibleColumns = computed(() =>
     props.columns.filter(col =>
         col.key !== props.primaryKey &&
-        col.key !== props.titleKey
+        col.key !== props.titleKey &&
+        col.key !== props.abstractKey
     )
 )
 

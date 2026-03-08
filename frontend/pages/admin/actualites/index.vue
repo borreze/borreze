@@ -5,14 +5,20 @@
                 <h1 class="title-main">Actualités</h1>
                 <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="sm" />
             </div>
-            <OrderBy :orders="[
-                { label: 'Publiés récemment', order: ['published_at', 'DESC'] },
-                { label: 'Publiés il y a longtemps', order: ['published_at', 'ASC'] },
-                { label: 'Mise à jour récemment', order: ['updated_at', 'DESC'] },
-                { label: 'Mise à jour il y a longtemps', order: ['updated_at', 'ASC'] },
-                { label: 'Ordre alphabétique', order: ['title', 'ASC'] },
-                { label: 'Ordre alphabétique inverse', order: ['title', 'DESC'] },
-            ]" @select="setOrder" @reset="resetOrder" />
+            <div class="w-full sm:w-96 flex items-center gap-2">
+                <Field class="flex-1 min-w-0" placeholder="Rechercher..." icon="ic:baseline-search" size="sm" roundness="md"
+                    @update:model-value="setSearch" />
+                <div class="shrink-0">
+                    <OrderBy :orders="[
+                        { label: 'Publiés récemment', order: ['published_at', 'DESC'] },
+                        { label: 'Publiés il y a longtemps', order: ['published_at', 'ASC'] },
+                        { label: 'Mise à jour récemment', order: ['updated_at', 'DESC'] },
+                        { label: 'Mise à jour il y a longtemps', order: ['updated_at', 'ASC'] },
+                        { label: 'Ordre alphabétique', order: ['title', 'ASC'] },
+                        { label: 'Ordre alphabétique inverse', order: ['title', 'DESC'] },
+                    ]" @select="setOrder" @reset="resetOrder" />
+                </div>
+            </div>
         </div>
         <section class="rounded-xl lg:custom-shadow pb-1">
             <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" :columns="[
@@ -44,8 +50,9 @@ import Paging from '~/components/molecules/Paging.vue';
 import { usePosts } from '~/composables/admin/usePost';
 import Table from '~/components/organisms/admin/Table.vue';
 import Pill from '~/components/atoms/Pill.vue';
+import Field from '~/components/atoms/Field.vue';
 
-const { posts, pagination, loading, setPage, setOrder, resetOrder } = await usePosts()
+const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts()
 
 useAppHead({
     title: 'Gestion des actualités',

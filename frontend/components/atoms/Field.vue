@@ -60,7 +60,7 @@ const innerValue = computed({
 const sizeToInputClass = computed(() => {
     switch (props.size) {
         case 'sm':
-            return 'px-3 py-1.5'
+            return 'px-3 py-1'
         case 'lg':
             return 'px-5 py-3'
         case 'md':
