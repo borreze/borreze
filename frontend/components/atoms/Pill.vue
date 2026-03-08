@@ -92,7 +92,7 @@ const variantToButtonClass = computed(() => {
         case 'dark':
             return 'bg-dark border-2 border-dark text-white'
         case 'light':
-            return 'bg-primary/40 text-primary'
+            return 'bg-primary/20 text-primary'
         case 'primary':
             return 'bg-primary border-2 border-primary text-white'
         case 'outline':
