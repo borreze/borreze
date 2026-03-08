@@ -1,8 +1,8 @@
 import type { PostAttributes } from '~/types/models/post'
 import type { Order } from '~/types/order'
 import type { Pagination } from '~/types/pagination'
-import useApi from '~/composables/useApi'
 import { PAGINATION_DEFAULT } from '~/utils/pagination'
+import useApi from '~/composables/useApi'
 
 export const usePosts = async () => {
     const page = ref(1)
@@ -19,6 +19,7 @@ export const usePosts = async () => {
                     limit: PAGINATION_DEFAULT.limit,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value,
+                    status: 'all',
                 }
             }
         ).then(r => r.data),

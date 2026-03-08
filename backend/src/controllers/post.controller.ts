@@ -24,7 +24,7 @@ export class PostController {
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
     const schedule = req.query.schedule === 'false' ? false : true
-    const status = String(req.query.status || 'published') as PostStatus
+    const status = String(req.query.status || 'published') as PostStatus | 'all'
     const order = parseOrder(req)
     const categories = parseArrayInteger(req.query.categories as Array<string>)
 
@@ -38,7 +38,7 @@ export class PostController {
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
-    const status = String(req.query.status || 'published') as PostStatus
+    const status = String(req.query.status || 'published') as PostStatus | 'all'
 
     const options = { status }
 

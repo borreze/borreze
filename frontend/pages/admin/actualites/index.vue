@@ -11,20 +11,17 @@
                 { label: 'Ordre alphabétique inverse', order: ['title', 'DESC'] },
             ]" @select="setOrder" @reset="resetOrder" />
         </div>
-        <section class="rounded-xl custom-shadow pb-1">
-            <Table class="mt-4" :loading="loading" :items="posts"
-                :get-item-route="(item) => `/admin/actualites/${item.id}`" :columns="[
+        <section class="rounded-xl lg:custom-shadow pb-1">
+            <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" :columns="[
                     { key: 'title', label: 'Titre' },
                     { key: 'abstract', label: 'Résumé', formatter: 'truncate' },
                     { key: 'status', label: 'Statut' },
                     { key: 'published_at', label: 'Publié', formatter: 'date' },
                     { key: 'updated_at', label: 'Mis à jour', formatter: 'date' },
-                ]"
-                :formatters="{
+                ]" :formatters="{
                     truncate: (value) => limitString(value as string, 40),
-                    date: (value) => formatDateRelativeNice(value as string)
-                }"
-                >
+                    date: (value) => value ? formatDateRelativeNice(value as string) : '-'
+                }">
                 <template #cell-status="{ item }">
                     {{ item.published_at ? 'Publié' : 'Brouillon' }}
                 </template>

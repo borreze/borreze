@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 sm:p-3 md:p-4 rounded-lg">
+    <div>
         <Loader v-if="loading" />
         <div v-else>
             <!-- Desktop -->
@@ -9,7 +9,7 @@
                     <div v-for="column in columns" :key="column.key">{{ column.label }}</div>
                 </div>
                 <div class="space-y-2">
-                    <NuxtLink v-for="(item, index) in items" :key="getItemKey(item, index)" :to="getItemRoute(item)"
+                    <div v-for="(item, index) in items" :key="getItemKey(item, index)"
                         :class="index % 2 === 1 ? 'bg-white rounded-lg' : 'bg-transparent'"
                         class="grid gap-4 px-4 py-2 text-sm 2xl:text-base" :style="{ gridTemplateColumns: gridCols }">
                         <div v-for="column in columns" :key="column.key" :class="column.class || ''">
@@ -22,34 +22,30 @@
                                 </template>
                             </slot>
                         </div>
-                    </NuxtLink>
+                    </div>
                     <NoItem v-if="items.length === 0" />
                 </div>
             </div>
 
             <!-- Mobile -->
-            <div class="block lg:hidden space-y-3">
+            <div class="grid lg:hidden grid-cols-1 md:grid-cols-2 gap-6">
                 <div v-for="(item, index) in items" :key="getItemKey(item, index)"
-                    class="bg-white rounded-lg p-4 shadow-sm">
-                    <NuxtLink :to="getItemRoute(item)" class="block">
-                        <div class="flex justify-between items-start mb-2">
-                            <div class="font-semibold text-dark">{{ getItemValue(item, darkKey) }}</div>
-                            <slot name="mobile-action" :item="item">
-                            </slot>
+                    class="bg-white rounded-lg p-4 custom-shadow">
+                    <div>
+                        <div v-if="titleKey" class="flex items-start mb-2">
+                            <h4 class="font-semibold text-dark">{{ getItemValue(item, titleKey) }}</h4>
                         </div>
-
-                        <div v-if="titleKey" class="text-sm text-gray-800 mb-2">{{ getItemValue(item, titleKey) }}</div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-600">
                             <div v-for="column in mobileVisibleColumns" :key="column.key">
-                                <span class="font-medium">{{ column.label }}:</span>
+                                <span class="font-medium">{{ column.label }}: </span>
                                 <span v-if="column.formatter && formatters[column.formatter]">
                                     {{ formatters[column.formatter](getItemValue(item, column.key)) }}
                                 </span>
                                 <span v-else>{{ getItemValue(item, column.key) }}</span>
                             </div>
                         </div>
-                    </NuxtLink>
+                    </div>
                 </div>
                 <NoItem v-if="items.length === 0" />
             </div>
@@ -73,7 +69,6 @@ type FormatterFn = (value: unknown) => string | number
 const props = withDefaults(defineProps<{
     items: T[]
     columns: Column[]
-    getItemRoute: (item: T) => string
     darkKey?: string
     titleKey?: string
     loading?: boolean
@@ -95,7 +90,7 @@ const gridCols = computed(() => `repeat(${props.columns.length}, minmax(0, 1fr))
 const mobileVisibleColumns = computed(() =>
     props.columns.filter(col =>
         col.key !== props.darkKey &&
-        col.key !== props.titleKey 
+        col.key !== props.titleKey
     )
 )
 

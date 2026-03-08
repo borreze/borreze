@@ -58,7 +58,7 @@ export class PostService {
     }
   }
 
-  public async count(options?: { search?: string; schedule?: boolean, status?: PostStatus | null, categories?: number[] | null }): Promise<number> {
+  public async count(options?: { search?: string; schedule?: boolean, status?: PostStatus | 'all' | null, categories?: number[] | null }): Promise<number> {
     const { status, search, schedule, categories } = options || {}
 
     const where: WhereOptions = {
@@ -72,7 +72,7 @@ export class PostService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; schedule?: boolean, status?: PostStatus | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
+  public async getAll(options?: { search?: string; schedule?: boolean, status?: PostStatus | 'all' | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
     const { status, search, schedule, categories } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
@@ -94,7 +94,7 @@ export class PostService {
     return posts
   }
 
-  public async getById(id: number, options?: { schedule?: boolean, status?: PostStatus | null }): Promise<PostAttributes | null> {
+  public async getById(id: number, options?: { schedule?: boolean, status?: PostStatus | 'all' | null }): Promise<PostAttributes | null> {
     const { status, schedule } = options || {}
 
     const where: WhereOptions = {
@@ -108,7 +108,7 @@ export class PostService {
     return post
   }
 
-  public async getBySlug(slug: string, options?: { schedule?: boolean, status?: PostStatus | null }): Promise<PostAttributes | null> {
+  public async getBySlug(slug: string, options?: { schedule?: boolean, status?: PostStatus | 'all' | null }): Promise<PostAttributes | null> {
     const { status, schedule } = options || {}
 
     const where: WhereOptions = {
