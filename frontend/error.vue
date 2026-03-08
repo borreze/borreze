@@ -11,8 +11,8 @@
         </p>
       </div>
       <div class="mt-10 space-y-4">
-        <Button class="w-full" label="Retour à l'accueil" variant="primary" size="md" @click="goHome()" />
-        <Button class="w-full" label="Retour" variant="ghost" size="md" @click="$router.go(-1)" />
+        <Button class="w-full" label="Retour à l'accueil" variant="primary" size="md" @click="goToHome()" />
+        <Button class="w-full" label="Retour" variant="ghost" size="md" @click="goBack()" />
       </div>
     </div>
   </div>
@@ -24,22 +24,30 @@ import Button from '~/components/atoms/Button.vue'
 const props = defineProps<{
   error: {
     statusCode: number;
-    message: string;
+    statusMessage: string;
   };
 }>()
 
+const isNuxtMessage = computed(() => {
+  return props.error.statusMessage && props.error.statusMessage.toLowerCase().includes('error');
+});
+
 const title = computed(() => {
-  switch (props.error.statusCode) {
-    case 401:
-      return "Non autorisé";
-    case 403:
-      return "Accès refusé";
-    case 404:
-      return "Page non trouvée";
-    case 500:
-      return "Erreur interne du serveur";
-    default:
-      return "Erreur inconnue";
+  if (!isNuxtMessage.value) { // Si le message d'erreur ne semble pas être un message générique de Nuxt, on l'affiche tel quel
+    return props.error.statusMessage;
+  } else {
+    switch (props.error.statusCode) {
+      case 401:
+        return "Non autorisé";
+      case 403:
+        return "Accès refusé";
+      case 404:
+        return "Élément non trouvé";
+      case 500:
+        return "Erreur interne du serveur";
+      default:
+        return "Erreur inconnue";
+    }
   }
 });
 
@@ -50,7 +58,7 @@ const description = computed(() => {
     case 403:
       return 'Vous n\'avez pas l\'autorisation d\'accéder à cette page.';
     case 404:
-      return 'La page que vous recherchez n\'existe pas ou a été déplacée.';
+      return 'L\'élément que vous recherchez n\'existe pas ou a été déplacée.';
     case 500:
       return 'Une erreur interne s\'est produite. Veuillez réessayer plus tard.';
     default:
@@ -58,11 +66,8 @@ const description = computed(() => {
   }
 });
 
-const goHome = () => {
-  window.location.href = '/';
-};
-
 useHead({
   title: `${props.error.statusCode} - ${title.value}`,
 });
+
 </script>

@@ -31,7 +31,7 @@
                 truncate: (value) => limitString(value as string, 40),
                 date: (value) => value ? formatDateRelativeNice(value as string) : '-'
             }" :actions="[
-                { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', handler: (item) => navigateTo(`/actualites/${item.slug}`) },
+                { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', handler: (item) => openInNewTab(`/actualites/${item.slug}`) },
                 { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', handler: (item) => navigateTo(`/admin/actualites/${item.id}`) },
             ]">
                 <template #cell-published="{ item }">

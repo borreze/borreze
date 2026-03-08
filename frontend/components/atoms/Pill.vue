@@ -34,6 +34,7 @@ const props = withDefaults(defineProps<{
 }>(), {
     position: 'left',
     variant: 'primary',
+    roundness: 'full',
     size: 'md',
     center: true,
     clickable: false

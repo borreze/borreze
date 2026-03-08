@@ -1,12 +1,29 @@
 import type { RouteRecordNormalized } from "vue-router"
 
+export function isInAdmin() {
+    const route = useRoute()
+    return route.path.startsWith('/admin')
+}
+
+export function goBack() {
+    useRouter().back()
+}
+
 export function goToSearchPage(query: string) {
     useRouter().push(`/recherche?q=${encodeURIComponent(query)}`)
 }
 
-export function isInAdmin() {
-    const route = useRoute()
-    return route.path.startsWith('/admin')
+export function goToHome() {
+    if (isInAdmin()) {
+        useRouter().push('/admin')
+    } else {
+        useRouter().push('/')
+    }
+}
+
+export function openInNewTab(path: string) {
+    const url = new URL(path, window.location.origin).href
+    window.open(url, '_blank')
 }
 
 export function getRoutes(options?: { publicOnly?: boolean, search?: string }): RouteRecordNormalized[] {

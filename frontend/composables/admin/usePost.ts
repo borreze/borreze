@@ -65,21 +65,6 @@ export const usePosts = async () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-    const create = async (payload: object) => {
-        await useApi().post('/admin/posts', payload)
-        await refresh()
-    }
-
-    const update = async (id: number, payload: object) => {
-        await useApi().put(`/admin/posts/${id}`, payload)
-        await refresh()
-    }
-
-    const remove = async (id: number) => {
-        await useApi().delete(`/admin/posts/${id}`)
-        await refresh()
-    }
-
     return {
         posts: computed(() => data.value?.data ?? []),
         pagination: computed(() => data.value?.pagination ?? null),
