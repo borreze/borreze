@@ -2,7 +2,7 @@ name: Security Audit
 
 on:
   schedule:
-    - cron: '0 8 * * 1'
+    - cron: '0 8 * * 1' # Every Monday at 8:00 AM
   workflow_dispatch:
 
 jobs:
