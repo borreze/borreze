@@ -1,0 +1,41 @@
+name: Project Automation
+
+on:
+  issues:
+    types: [opened, reopened, closed]
+  pull_request:
+    types: [opened, ready_for_review, closed, merged]
+
+jobs:
+  update-status:
+    name: Update Project Status
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Label PR en draft
+        if: github.event_name == 'pull_request' && github.event.pull_request.draft
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: ['WIP']
+            })
+
+      - name: Remove WIP label quand PR ready
+        if: github.event_name == 'pull_request' && github.event.action == 'ready_for_review'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              name: 'WIP'
+            })
