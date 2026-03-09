@@ -7,7 +7,6 @@
 
 ## 1. Project Context
 
-
 Full **from-scratch** rebuild of the institutional website for the commune of Borrèze (Dordogne, 24590, France).  
 Team: **1 solo developer** (Anthony Lalba) — project manager, designer, architect, developer.
 
@@ -17,7 +16,6 @@ Core objective: **total autonomy for town hall staff** to manage content, with z
 ---
 
 ## 2. Tech Stack
-
 
 | Layer                          | Technology                 | Version              |
 | ------------------------------ | -------------------------- | -------------------- |
@@ -44,7 +42,6 @@ Core objective: **total autonomy for town hall staff** to manage content, with z
 
 ## 3. Architecture
 
-
 The project is structured as **3 distinct applications** inside a monorepo:
 
 ```
@@ -56,7 +53,6 @@ The project is structured as **3 distinct applications** inside a monorepo:
 ```
 
 ### 3.1 REST API (backend)
-
 
 ```
 backend/src/
@@ -70,7 +66,6 @@ backend/src/
 
 ### 3.2 Core Architectural Principle — Single Source of Truth
 
-
 **Constraints** (max length, required fields, enum values, etc.) are defined **once** in `constraints/` and simultaneously drive:
 - Sequelize schema definitions
 - Route-level validation rules (express-validator or zod)
@@ -79,7 +74,6 @@ backend/src/
 Never duplicate a validation rule between the model and the controller. When a constraint changes, it changes in exactly one place.
 
 ### 3.3 Front-office & Back-office (frontend)
-
 
 Nuxt 4 SSR application. Every page is crawlable (SEO) with dynamic OpenGraph meta tags.
 
@@ -98,7 +92,6 @@ frontend/
 
 ## 4. Data Models
 
-
 Sequelize models located in `backend/src/models/`
 
 **JSONB convention**: use JSONB for complex structures that are never queried field-by-field (opening hours per day, canteen menu grid, homepage quick links). Do not normalize if the data is always read as a whole block.
@@ -106,7 +99,6 @@ Sequelize models located in `backend/src/models/`
 ---
 
 ## 5. Roles & Permissions (RBAC)
-
 
 3 roles, enforced via middleware at `backend/src/middlewares/rbac.ts`:
 
@@ -121,7 +113,6 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 ---
 
 ## 6. Code Conventions
-
 
 ### TypeScript
 
@@ -180,7 +171,6 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 
 ## 7. Key Features — Hard Constraints
 
-
 ### Canteen Menus
 
 - Input covers a **2-week period** (10 days × 3 columns)
@@ -217,7 +207,6 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 
 ## 8. SEO
 
-
 - SSR enabled on **all** front-office pages
 - `useHead()` / `useSeoMeta()` on every page with dynamic title and description
 - OpenGraph + Twitter Cards on detail pages (news, events)
@@ -228,25 +217,12 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 
 ## 9. Infrastructure
 
-```
-Internet
-    └─► Apache 2.4 (reverse proxy, SSL/TLS Let's Encrypt)
-            ├─► :3000  apps/front  (Nuxt SSR)
-            ├─► :3001  apps/back   (Nuxt SSR — /admin access)
-            └─► :4000  backend    (Express API)
-
-PostgreSQL 16  ←── backend
-PgAdmin        ←── SSH tunnel (production admin)
-```
-
-- **Docker Compose** orchestrates all 3 apps + PostgreSQL + PgAdmin in development
+- **Docker Compose** orchestrates all 2 apps + PostgreSQL + PgAdmin in development
 - Environment variables via `.env` — never commit `.env`
-- Daily automated backups: PostgreSQL dump + uploads directory
 
 ---
 
 ## 10. Testing
-
 
 - **Unit**: Vitest for API utils/services and front-office composables
 - **E2E**: Playwright on critical flows (BO login, news publishing, room reservation)
@@ -255,7 +231,6 @@ PgAdmin        ←── SSH tunnel (production admin)
 ---
 
 ## 11. What the Agent Must NOT Do
-
 
 - Introduce a new framework or major dependency not in the stack without explicit discussion
 - Use `any` in TypeScript
@@ -272,7 +247,6 @@ PgAdmin        ←── SSH tunnel (production admin)
 
 ## 12. Commit Conventions
 
-
 Commits follow **Conventional Commits**:
 ```
 feat(api): add canteen menu PDF generation
@@ -286,7 +260,6 @@ ESLint + Prettier configured at monorepo root — no commit passes with lint err
 ---
 
 ## 13. Permanent Watchpoints
-
 
 - **Non-technical end users**: the back-office must be usable without prior training. Every destructive action requires confirmation. Statuses are visually distinct at a glance.
 - **GDPR**: minimal personal data storage. The contact form sends by email and does not persist to the database. Cookie consent banner required.
