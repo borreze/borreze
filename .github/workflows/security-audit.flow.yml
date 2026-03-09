@@ -18,14 +18,20 @@ jobs:
           node-version: 22
 
       - name: Audit frontend
+        id: audit_frontend
         working-directory: ./frontend
         run: npm audit --audit-level=high
         continue-on-error: true
 
       - name: Audit backend
+        id: audit_backend
         working-directory: ./backend
         run: npm audit --audit-level=high
         continue-on-error: true
+
+      - name: Fail job if any audit failed
+        if: steps.audit_frontend.outcome == 'failure' || steps.audit_backend.outcome == 'failure'
+        run: exit 1
 
       - name: Open issue si vulnérabilités
         uses: actions/github-script@v7
