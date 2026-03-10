@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import Grid from '~/components/molecules/Grid.vue';
 import PostCard from './PostCard.vue';
-import { usePostsRecents } from '~/composables/site/usePost';
+import { usePostsRecents } from '~/composables/front-office/usePost';
 
 const { posts, loading } = await usePostsRecents()
 

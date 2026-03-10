@@ -178,6 +178,7 @@ useAppHead({
 
 definePageMeta({
     title: 'Contact',
+    layout: 'front-office',
 })
 
 </script>

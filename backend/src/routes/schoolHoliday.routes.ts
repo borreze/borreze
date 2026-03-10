@@ -6,6 +6,6 @@ const router = Router()
 router.get('/school-holidays', schoolHolidayController.getAll)
 router.get('/school-holidays/:year', schoolHolidayController.getFromYear)
 
-router.get('/admin/school-holidays/import', schoolHolidayController.import)
+router.get('/back-office/school-holidays/import', schoolHolidayController.import)
 
 export default router

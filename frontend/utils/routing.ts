@@ -1,8 +1,13 @@
 import type { RouteRecordNormalized } from "vue-router"
 
-export function isInAdmin() {
+export function isInBO() {
     const route = useRoute()
-    return route.path.startsWith('/admin')
+    return route.path.startsWith('/back-office')
+}
+
+export function isInFO() {
+    const route = useRoute()
+    return !route.path.startsWith('/back-office')
 }
 
 export function goBack() {
@@ -14,8 +19,8 @@ export function goToSearchPage(query: string) {
 }
 
 export function goToHome() {
-    if (isInAdmin()) {
-        useRouter().push('/admin')
+    if (isInBO()) {
+        useRouter().push('/back-office')
     } else {
         useRouter().push('/')
     }

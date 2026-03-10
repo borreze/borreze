@@ -6,15 +6,15 @@
 </template>
 
 <script setup lang="ts">
-import DashboradWelcome from '~/components/organisms/admin/DashboradWelcome.vue';
-import DashboradQuicks from '~/components/organisms/admin/DashboradQuicks.vue';
+import DashboradWelcome from '~/components/organisms/back-office/DashboradWelcome.vue';
+import DashboradQuicks from '~/components/organisms/back-office/DashboradQuicks.vue';
 
 useAppHead({
     title: 'Dashboard',
 })
 
 definePageMeta({
-    layout: 'admin',
+    layout: 'back-office',
     middleware: ['auth'],
     requiresAuth: true,
     title: 'Dashboard',

@@ -24,14 +24,9 @@ useAppHead({
     noindex: true
 })
 
-useAppHead({
-    title: 'Page de recherche de la commune de Borrèze',
-    description: 'Page de recherche de la commune de Borrèze, trouvez les informations, les événements et les actualités qui vous intéressent.',
-    url: `/recherche`,
-})
-
 definePageMeta({
     title: 'Plan du site',
+    layout: 'front-office',
 })
 
 </script>

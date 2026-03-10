@@ -14,7 +14,7 @@ export const usePosts = async () => {
     const { data, status, error, refresh, execute } = useLazyAsyncData(
         `posts-page-${page.value}-search-${search.value}`,
         () => useApi().get<{ data: PostAttributes[], pagination: Pagination }>(
-            '/admin/posts',
+            '/back-office/posts',
             {
                 params: {
                     page: page.value,
@@ -82,7 +82,7 @@ export const usePost = async (id: number) => {
     const { data, status, error } = await useAsyncData(
         `post-${id}`,
         () => useApi()
-            .get<{ data: PostAttributes, pagination: Pagination }>(`/admin/posts/${id}`)
+            .get<{ data: PostAttributes, pagination: Pagination }>(`/back-office/posts/${id}`)
             .then(r => r.data),
     )
 

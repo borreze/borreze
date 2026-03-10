@@ -18,6 +18,7 @@
                     <Url to="/" label="Accueil" :bold="false" />
                     <Url to="/contact" label="Contact" :bold="false" />
                     <Url to="/plan-du-site" label="Plan du site" :bold="false" />
+                    <Url to="/back-office/authentification" label="Back-office" :bold="false" />
                     <Url to="/pages/mentions-legales" label="Mentions légales" :bold="false" />
                     <Url to="/pages/politique-de-confidentialite" label="Politique de confidentialité" :bold="false" />
                 </div>
@@ -54,7 +55,7 @@ import Button from '~/components/atoms/Button.vue';
 import AppStarryVillage from './AppStarryVillage.vue';
 import type { ScheduleAttributes } from '~/types/models/schedule';
 import type { SocialAttributes } from '~/types/social';
-import SocialCard from '~/components/organisms/site/SocialCard.vue';
+import SocialCard from '~/components/organisms/front-office/SocialCard.vue';
 import Url from '~/components/atoms/Url.vue';
 
 const socials = ref<SocialAttributes[]>([

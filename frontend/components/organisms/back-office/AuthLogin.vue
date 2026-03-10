@@ -67,7 +67,7 @@ const handleLogin = async () => {
         push.error(authStore.error)
     } else {
         push.success('Connexion réussie!')
-        navigateTo('/admin')
+        navigateTo('/back-office')
     }
 }
 

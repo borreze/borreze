@@ -31,8 +31,8 @@ import NoContent from '~/components/molecules/NoContent.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue'
 import Field from '~/components/atoms/Field.vue'
-import { useSearch } from '~/composables/site/useSearch';
-import SearchCard from '~/components/organisms/site/SearchCard.vue'
+import { useSearch } from '~/composables/front-office/useSearch';
+import SearchCard from '~/components/organisms/front-office/SearchCard.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -66,6 +66,7 @@ useAppHead({
 
 definePageMeta({
     title: 'Recherche',
+    layout: 'front-office',
 })
 
 </script>

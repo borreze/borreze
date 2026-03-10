@@ -1,12 +1,8 @@
 <template>
     <div>
-        <Notivue v-slot="item">
-            <Notification :item="item" />
-        </Notivue>
-
         <header class="sticky lg:hidden top-0 z-30 bg-white shadow-sm">
             <div class="mx-auto flex items-center justify-between px-4 md:px-4 py-2">
-                <AppName to="/admin" />
+                <AppName to="/back-office" />
                 <div class="flex items-center gap-2">
                     <Button icon="ic:baseline-menu" variant="ghost" size="lg" @click="panelOpened = !panelOpened" />
                 </div>
@@ -16,7 +12,7 @@
         <div class="flex min-h-screen">
             <Panel v-model:open="panelOpened" :always-display="true" side="left" ::width="250">
                 <div class="hidden lg:block px-4 pt-8 pb-4 flex">
-                    <AppName to="/admin" />
+                    <AppName to="/back-office" />
                 </div>
                 <MenusPanel :menus="menus" @close="panelOpened = false" />
             </Panel>
@@ -34,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { Notivue, Notification } from 'notivue'
 import type { MenuAttributes } from '~/types/models/menu';
 import Button from '~/components/atoms/Button.vue';
 import Panel from '~/components/molecules/Panel.vue';
@@ -51,7 +46,7 @@ const menus = ref<MenuAttributes[]>([
         id: 2,
         icon: 'ic:outline-space-dashboard',
         label: 'Dashboard',
-        url: '/admin',
+        url: '/back-office',
         order: 0,
         is_visible: true,
     },
@@ -59,7 +54,7 @@ const menus = ref<MenuAttributes[]>([
         id: 3,
         icon: 'ic:baseline-person',
         label: 'Profil',
-        url: '/admin/profile',
+        url: '/back-office/profile',
         order: 1,
         is_visible: true,
     },
@@ -73,14 +68,14 @@ const menus = ref<MenuAttributes[]>([
             {
                 id: 5,
                 label: 'Liste des actualités',
-                url: '/admin/actualites',
+                url: '/back-office/actualites',
                 order: 0,
                 is_visible: true,
             },
             {
                 id: 6,
                 label: 'Créer une actualité',
-                url: '/admin/actualites/ajouter',
+                url: '/back-office/actualites/ajouter',
                 order: 1,
                 is_visible: true,
             },

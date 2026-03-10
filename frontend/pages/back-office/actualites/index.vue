@@ -34,7 +34,7 @@
                 date: (value) => value ? formatDateRelativeNice(value as string) : '-'
             }" :actions="[
                 { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', handler: (item) => openInNewTab(`/actualites/${item.slug}`) },
-                { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', handler: (item) => navigateTo(`/admin/actualites/${item.id}`) },
+                { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', handler: (item) => navigateTo(`/back-office/actualites/${item.id}`) },
             ]">
                 <template #cell-published="{ item }">
                     <Pill :label="item.status === 'published' ? 'Oui' : 'Non'"
@@ -47,10 +47,10 @@
 </template>
 
 <script setup lang="ts">
-import OrderBy from '~/components/organisms/site/OrderBy.vue';
+import OrderBy from '~/components/organisms/OrderBy.vue';
 import Paging from '~/components/molecules/Paging.vue';
-import { usePosts } from '~/composables/admin/usePost';
-import Table from '~/components/organisms/admin/Table.vue';
+import { usePosts } from '~/composables/back-office/usePost';
+import Table from '~/components/organisms/back-office/Table.vue';
 import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
 
@@ -67,7 +67,7 @@ useAppHead({
 })
 
 definePageMeta({
-    layout: 'admin',
+    layout: 'back-office',
     middleware: ['auth'],
     requiresAuth: false,
     title: 'Gestion des actualités',

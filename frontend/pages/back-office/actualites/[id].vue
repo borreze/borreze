@@ -6,7 +6,7 @@
             </div>
             <div class="flex items-center gap-2">
                 <Button label="Retour" icon="ic:baseline-arrow-back" variant="ghost" size="md"
-                    @click="navigateTo('/admin/actualites')" />
+                    @click="navigateTo('/back-office/actualites')" />
                 <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
                     @click="handleSave" />
             </div>
@@ -46,12 +46,12 @@
 </template>
 
 <script setup lang="ts">
-import { usePost } from '~/composables/admin/usePost';
+import { usePost } from '~/composables/back-office/usePost';
 import Field from '~/components/atoms/Field.vue';
 import Button from '~/components/atoms/Button.vue';
 import Loader from '~/components/molecules/Loader.vue';
-import WysiwygEditor from '~/components/organisms/admin/WysiwygEditor.vue'
-import PostCard from '~/components/organisms/site/PostCard.vue';
+import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
+import PostCard from '~/components/organisms/front-office/PostCard.vue';
 
 const route = useRoute()
 const { post, loading } = await usePost(route.params.id as unknown as number)
@@ -69,7 +69,7 @@ useAppHead({
 })
 
 definePageMeta({
-    layout: 'admin',
+    layout: 'back-office',
     middleware: ['auth'],
     requiresAuth: false,
     title: 'Gestion des actualités',

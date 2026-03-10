@@ -25,7 +25,7 @@ useAppHead({
 })
 
 definePageMeta({
-    layout: 'admin',
+    layout: 'back-office',
     middleware: ['auth'],
     requiresAuth: true,
     title: 'Profil',
