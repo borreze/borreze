@@ -13,6 +13,12 @@ Team: **1 solo developer** — project manager, designer, architect, developer.
 The site replaces an obsolete static site with no CMS and no database.  
 Core objective: **total autonomy for town hall staff** to manage content, with zero technical intervention required post-delivery.
 
+The whole project should be written in English only.
+Only **English** content is allowed in the codebase, including comments, variable names, and documentation.
+
+Public visible content must be in French.
+Nuxt routes, pages wording must be in **French**.
+
 ---
 
 ## 2. Tech Stack

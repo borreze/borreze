@@ -11,6 +11,9 @@
     "dev": "nuxt dev --host 0.0.0.0 --port 5173",
     "lint": "echo \"No lint specified yet\" && exit 0",
     "test": "echo \"No test specified yet\" && exit 0",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -44,7 +47,9 @@
   "devDependencies": {
     "@iconify-json/ic": "^1.2.4",
     "@nuxt/devtools": "latest",
+    "@playwright/test": "^1.58.2",
     "@types/leaflet": "^1.9.21",
+    "@types/node": "^25.4.0",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11"
