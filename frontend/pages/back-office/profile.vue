@@ -1,11 +1,14 @@
 <template>
-    <div class="rounded-xl custom-shadow p-4 ">
+    <div>
+        <Teleport to="#page-heading">
+            <h1 class="title-main line-clamp-1">Mon profile</h1>
+        </Teleport>
+
         <div v-if="auth.isAuthenticated">
             <p><strong>Email:</strong> {{ auth.user?.email }}</p>
             <p><strong>Username:</strong> {{ auth.user?.username }}</p>
             <p><strong>First Name:</strong> {{ auth.user?.first_name || '-' }}</p>
             <p><strong>Last Name:</strong> {{ auth.user?.last_name || '-' }}</p>
-            <Button :label="'Se déconnecter'" variant="danger" size="sm" class="mt-4" @click="auth.logout()" />
         </div>
     </div>
 </template>

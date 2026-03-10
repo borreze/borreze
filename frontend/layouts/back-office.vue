@@ -10,7 +10,7 @@
         </header>
 
         <div class="flex min-h-screen">
-            <Panel v-model:open="panelOpened" :always-display="true" side="left" ::width="250">
+            <Panel v-model:open="panelOpened" :always-display="true" side="left" :width="250">
                 <div class="hidden lg:block px-4 pt-8 pb-4 flex">
                     <AppName to="/back-office" />
                 </div>
@@ -22,7 +22,17 @@
                     <Button icon="ic:baseline-logout" variant="ghost" size="sm" @click="auth.logout()" />
                 </div>
                 <main class="safe-area-sm">
-                    <slot />
+                    <div class="flex justify-between items-center gap-4 flex-wrap mb-4">
+                        <div class="flex items-center gap-4">
+                            <Button icon="ic:baseline-arrow-back" variant="ghost" size="md" @click="goBack()" />
+                            <div id="page-heading" class="flex items-center gap-2" />
+                        </div>
+                        <div id="page-actions" class="w-full sm:w-96 flex items-center justify-end gap-2" />
+                    </div>
+
+                    <div class="rounded-xl lg:p-6 mt-4 lg:shadow-[2px_2px_10px_2px_#0000001a]">
+                        <slot />
+                    </div>
                 </main>
             </div>
         </div>
@@ -36,6 +46,7 @@ import Panel from '~/components/molecules/Panel.vue';
 import AppName from '~/components/organisms/AppName.vue';
 import MenusPanel from '~/components/molecules/MenusPanel.vue';
 import { useAuthStore } from '~/stores/auth'
+import { isMobile } from '#imports';
 
 const auth = useAuthStore()
 

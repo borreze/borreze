@@ -1,52 +1,47 @@
 <template>
     <div>
-        <div class="flex justify-between items-center gap-4 flex-wrap">
-            <div class="flex items-center gap-2">
-                <h1 class="title-main line-clamp-1">{{ editingPost?.title }}</h1>
-            </div>
-            <div class="flex items-center gap-2">
-                <Button label="Retour" icon="ic:baseline-arrow-back" variant="ghost" size="md"
-                    @click="navigateTo('/back-office/actualites')" />
-                <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
-                    @click="handleSave" />
-            </div>
-        </div>
-        <div :class="['rounded-xl lg:p-6 mt-4', !isMobile() ? 'custom-shadow' : '']">
-            <Loader v-if="loading" />
-            <div v-else-if="editingPost" class="flex flex-col gap-6 2xl:gap-10 xl:flex-row">
-                <div class="w-full xl:w-9/12 space-y-12">
-                    <section>
-                        <h4 class="title-submain mb-6">Informations générales</h4>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <Field v-model="editingPost.title" label="Titre" hint="Titre principale de l'actualité"
-                                roundness="md" />
-                            <Field v-model="editingPost.slug" label="Slug"
-                                hint="Identifiant unique de l'actualité, utilisé pour les URL" roundness="md" />
-                        </div>
-                    </section>
-                    <section>
-                        <h4 class="title-submain mb-6">SEO</h4>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <Field v-model="editingPost.meta_title" label="Meta title"
-                                hint="Titre de la page pour les moteurs de recherches" roundness="md" />
-                            <Field v-model="editingPost.meta_description" type="textarea" label="Meta description"
-                                hint="Description de la page pour les moteurs de recherches" roundness="md" />
-                        </div>
-                    </section>
-                    <section>
-                        <h4 class="title-submain mb-6">Contenu</h4>
-                        <div class="space-y-4">
-                            <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
-                                hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md" />
-                            <WysiwygEditor v-model="editingPost.content" />
-                        </div>
-                    </section>
-                </div>
-                <div class="px-auto xl:w-3/12">
-                    <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
-                        <h4 class="title-submain mb-6">Prévisualisation</h4>
-                        <PostCard :post="editingPost" class="max-w-96" />
+        <Teleport to="#page-heading">
+            <h1 class="title-main line-clamp-1">{{ editingPost?.title }}</h1>
+        </Teleport>
+        <Teleport to="#page-actions">
+            <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
+                @click="handleSave" />
+        </Teleport>
+
+        <Loader v-if="loading" />
+        <div v-else-if="editingPost" class="flex flex-col gap-6 2xl:gap-10 xl:flex-row">
+            <div class="w-full xl:w-9/12 space-y-12">
+                <section>
+                    <h4 class="title-submain mb-6">Informations générales</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <Field v-model="editingPost.title" label="Titre" hint="Titre principale de l'actualité"
+                            roundness="md" />
+                        <Field v-model="editingPost.slug" label="Slug"
+                            hint="Identifiant unique de l'actualité, utilisé pour les URL" roundness="md" />
                     </div>
+                </section>
+                <section>
+                    <h4 class="title-submain mb-6">SEO</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <Field v-model="editingPost.meta_title" label="Meta title"
+                            hint="Titre de la page pour les moteurs de recherches" roundness="md" />
+                        <Field v-model="editingPost.meta_description" type="textarea" label="Meta description"
+                            hint="Description de la page pour les moteurs de recherches" roundness="md" />
+                    </div>
+                </section>
+                <section>
+                    <h4 class="title-submain mb-6">Contenu</h4>
+                    <div class="space-y-4">
+                        <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
+                            hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md" />
+                        <WysiwygEditor v-model="editingPost.content" />
+                    </div>
+                </section>
+            </div>
+            <div class="px-auto xl:w-3/12">
+                <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
+                    <h4 class="title-submain mb-6">Prévisualisation</h4>
+                    <PostCard :post="editingPost" class="max-w-96" />
                 </div>
             </div>
         </div>
@@ -61,7 +56,6 @@ import Loader from '~/components/molecules/Loader.vue';
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import PostCard from '~/components/organisms/front-office/PostCard.vue';
 import type { PostAttributes } from '~/types/backend/post'
-import { isMobile } from '#imports';
 
 const route = useRoute()
 const { post, loading } = await usePost(route.params.id as unknown as number)

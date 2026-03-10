@@ -1,5 +1,5 @@
 <template>
-    <section class="rounded-xl custom-shadow p-4 ">
+    <section class="rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 ">
         <h4 class="title-submain">Accès rapides</h4>
         <p class="mt-2 text-gray-600">Gérez rapidement les sections les plus importantes de votre site.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 2xl:grid-cols-4 gap-4 mt-4">

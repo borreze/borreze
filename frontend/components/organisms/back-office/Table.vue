@@ -46,7 +46,7 @@
             <!-- Mobile -->
             <div class="grid xl:hidden grid-cols-1 md:grid-cols-2 gap-6">
                 <div v-for="(item, index) in items" :key="getItemKey(item, index)"
-                    class="bg-white rounded-lg p-4 custom-shadow">
+                    class="bg-white rounded-lg p-4 shadow-[2px_2px_10px_2px_#0000001a]">
                     <div>
                         <h4 v-if="titleKey" class="mb-2 font-semibold text-dark">{{ getItemValue(item, titleKey) }}</h4>
                         <p v-if="abstractKey" class="mb-2 text-sm text-dark">{{ limitString(getItemValue(item, abstractKey) as string, 100) }}</p>

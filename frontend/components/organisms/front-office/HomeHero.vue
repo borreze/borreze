@@ -5,7 +5,8 @@
             class="absolute inset-0 h-full w-full object-cover" loading="eager" />
 
         <!-- Dark overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-black/40 from-10% via-black/30 from-20% to-black/10 to-90%" />
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-black/40 from-10% via-black/30 from-20% to-black/10 to-90%" />
 
         <!-- Content -->
         <div class="relative mx-auto flex h-full max-w-6xl items-center px-4 md:px-8">
@@ -20,8 +21,7 @@
                 <div class="flex flex-col md:flex-col-reverse gap-4">
                     <div class="bg-white/20 rounded-full p-2">
                         <div class="flex-1 flex gap-2">
-                            <Field class="flex-1" v-model="searchQuery" name="searchHero"
-                                :placeholder="isMobile() ? 'Rechercher...' : 'Rechercher une information, une actualité...'"
+                            <Field class="flex-1" v-model="searchQuery" name="searchHero" placeholder="Rechercher..."
                                 icon="ic:baseline-search" size="md" />
                             <Button class="flex" type="button" label="Rechercher" variant="blur" size="md"
                                 roundness="full" @click="handleSearch" />
@@ -45,7 +45,6 @@
 <script setup lang="ts">
 import Button from '~/components/atoms/Button.vue';
 import Field from '~/components/atoms/Field.vue';
-import { isMobile } from '#imports';
 
 const searchQuery = ref('')
 

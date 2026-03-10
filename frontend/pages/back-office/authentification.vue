@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-[calc(100vh-4rem)] overflow-hidden flex items-center justify-center">
-        <div :class="['w-full max-w-md rounded-lg p-4 bg-white', isMobile() ? 'custom-shadow' : '']">
+        <div class="w-full max-w-md rounded-lg p-4 bg-white lg:shadow-[2px_2px_10px_2px_#0000001a]">
             <div class="flex items-center justify-center">
                 <AppLogo to="/back-office" />
             </div>
