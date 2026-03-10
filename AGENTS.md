@@ -8,7 +8,7 @@
 ## 1. Project Context
 
 Full **from-scratch** rebuild of the institutional website for the commune of Borrèze (Dordogne, 24590, France).  
-Team: **1 solo developer** (Anthony Lalba) — project manager, designer, architect, developer.
+Team: **1 solo developer** — project manager, designer, architect, developer.
 
 The site replaces an obsolete static site with no CMS and no database.  
 Core objective: **total autonomy for town hall staff** to manage content, with zero technical intervention required post-delivery.
@@ -17,32 +17,35 @@ Core objective: **total autonomy for town hall staff** to manage content, with z
 
 ## 2. Tech Stack
 
-| Layer                          | Technology                 | Version              |
-| ------------------------------ | -------------------------- | -------------------- |
-| Public frontend (front-office) | Nuxt.js SSR                | 3.x                  |
-| Back-office                    | Nuxt.js SSR                | 3.x                  |
-| Front-office UI                | Tailwind CSS + Headless UI | latest               |
-| Back-office UI                 | Tailwind CSS + PrimeVue    | latest               |
-| Backend API                    | Node.js LTS + Express      | latest LTS           |
-| Backend language               | TypeScript                 | 5.x                  |
-| ORM                            | Sequelize                  | latest               |
-| Database                       | PostgreSQL                 | 16                   |
-| Containerization               | Docker Compose             | latest               |
-| Reverse proxy                  | Apache 2.4                 | —                    |
-| Hosting                        | OVH VPS (Debian)           | VPS SSD 2 — 4 GB RAM |
-| CI/CD                          | GitHub Actions             | —                    |
-| Mapping                        | Leaflet.js                 | latest               |
-| PDF generation                 | PDFKit                     | latest               |
-| Email                          | SMTP OVH Mail              | —                    |
-| State management               | Pinia                      | latest               |
+| Layer                          | Technology            | Version              |
+| ------------------------------ | --------------------- | -------------------- |
+| Public frontend (front-office) | Nuxt.js SSR           | 3.x                  |
+| Back-office                    | Nuxt.js Client first  | 3.x                  |
+| Front-office UI                | Tailwind CSS          | latest               |
+| Back-office UI                 | Tailwind CSS          | latest               |
+| Backend API                    | Node.js LTS + Express | latest LTS           |
+| Backend language               | TypeScript            | 5.x                  |
+| ORM                            | Sequelize             | latest               |
+| Database                       | PostgreSQL            | 16                   |
+| Containerization               | Docker Compose        | latest               |
+| Reverse proxy                  | Apache 2.4            | —                    |
+| Hosting                        | OVH VPS (Debian)      | VPS SSD 2 — 4 GB RAM |
+| CI/CD                          | GitHub Actions        | —                    |
+| Mapping                        | Leaflet.js            | latest               |
+| PDF generation                 | PDFKit                | latest               |
+| Email                          | SMTP OVH Mail         | —                    |
+| State management               | Pinia                 | latest               |
 
-**Primary design system color** (defined in `tailwind.config.js`)
+**Primary design system color** (defined in `frontend/assets/main.css`):
+- primary: #DB1D12;
+- light: #F5F5F5;
+- dark: #2C2C2C;
 
 ---
 
 ## 3. Architecture
 
-The project is structured as **3 distinct applications** inside a monorepo:
+The project is structured as **2 distinct applications** inside a monorepo:
 
 ```
 /
@@ -81,10 +84,11 @@ Nuxt 4 SSR application. Every page is crawlable (SEO) with dynamic OpenGraph met
 frontend/
 ├── components/         # Reusable Vue 3 components (Headless UI + custom)
 |   ├── atomes/ 
-|   ├── modlecules/ 
-|   └── organisms/ 
 ├── composables/        # Reusable logic (useFetch wrappers, useSearch…)
 ├── pages/              # File-based routing (Nuxt)
+|   ├── admin/          # Back-office pages (PrimeVue components, no SSR) 
+|   ├── ...             # Front-office pages (SSR, dynamic meta tags) 
+|   └── index.vue       
 ├── stores/             # Pinia stores
 ├── assets/             # Global CSS, fonts
 └── public/             # Static files
