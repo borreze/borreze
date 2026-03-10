@@ -1,4 +1,4 @@
-import type { day, ScheduleAttributes, Time } from "~/types/models/schedule";
+import type { day, ScheduleAttributes, Time } from "~/types/backend/schedule";
 
 const days: Record<day, string> = {
     'monday': 'Lundi',

@@ -1,4 +1,4 @@
-import type { PostAttributes } from '~/types/models/post'
+import type { PostAttributes } from '~/types/backend/post'
 import type { Order } from '~/types/order'
 import type { Pagination } from '~/types/pagination'
 import useApi from '~/composables/useApi'

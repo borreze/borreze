@@ -1,4 +1,4 @@
-import type { CategorizableType, CategoryAttributes } from '~/types/models/category'
+import type { CategorizableType, CategoryAttributes } from '~/types/backend/category'
 import type { Pagination } from '~/types/pagination'
 import { PAGINATION_DEFAULT } from '~/utils/pagination'
 import useApi from '~/composables/useApi'

@@ -53,7 +53,7 @@
 import AppLogo from '~/components/organisms/AppLogo.vue'
 import Button from '~/components/atoms/Button.vue';
 import AppStarryVillage from './AppStarryVillage.vue';
-import type { ScheduleAttributes } from '~/types/models/schedule';
+import type { ScheduleAttributes } from '~/types/backend/schedule';
 import type { SocialAttributes } from '~/types/social';
 import SocialCard from '~/components/organisms/front-office/SocialCard.vue';
 import Url from '~/components/atoms/Url.vue';

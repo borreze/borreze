@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MenuAttributes } from '~/types/models/menu';
+import type { MenuAttributes } from '~/types/backend/menu';
 import Button from '~/components/atoms/Button.vue';
 import Panel from '~/components/molecules/Panel.vue';
 import AppName from '~/components/organisms/AppName.vue';
@@ -44,6 +44,7 @@ const panelOpened = ref(false)
 const menus = ref<MenuAttributes[]>([
     {
         id: 2,
+        context: 'back-office',
         icon: 'ic:outline-space-dashboard',
         label: 'Dashboard',
         url: '/back-office',
@@ -52,6 +53,7 @@ const menus = ref<MenuAttributes[]>([
     },
     {
         id: 3,
+        context: 'back-office',
         icon: 'ic:baseline-person',
         label: 'Profil',
         url: '/back-office/profile',
@@ -60,6 +62,7 @@ const menus = ref<MenuAttributes[]>([
     },
     {
         id: 4,
+        context: 'back-office',
         icon: 'ic:baseline-newspaper',
         label: 'Actualités',
         order: 1,
@@ -67,6 +70,7 @@ const menus = ref<MenuAttributes[]>([
         children: [
             {
                 id: 5,
+                context: 'back-office',
                 label: 'Liste des actualités',
                 url: '/back-office/actualites',
                 order: 0,
@@ -74,6 +78,7 @@ const menus = ref<MenuAttributes[]>([
             },
             {
                 id: 6,
+                context: 'back-office',
                 label: 'Créer une actualité',
                 url: '/back-office/actualites/ajouter',
                 order: 1,

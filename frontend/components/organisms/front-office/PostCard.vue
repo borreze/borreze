@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PostAttributes } from '~/types/models/post';
+import type { PostAttributes } from '~/types/backend/post';
 import { formatDateRelativeNice } from '~/utils/date';
 import Pill from '~/components/atoms/Pill.vue';
 

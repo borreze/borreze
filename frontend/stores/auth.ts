@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useCookie } from '#app'
 import useApi from '~/composables/useApi'
-import type { User } from '~/types/models/user'
+import type { User } from '~/types/backend/user'
 
 export interface RefreshData {
     accessToken: string

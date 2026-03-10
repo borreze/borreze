@@ -86,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MenuAttributes } from '~/types/models/menu';
+import type { MenuAttributes } from '~/types/backend/menu';
 import Button from '~/components/atoms/Button.vue';
 import Field from '~/components/atoms/Field.vue';
 import Panel from '~/components/molecules/Panel.vue';
@@ -125,6 +125,7 @@ watch(searchOpened, (opened) => {
 const menus = ref<MenuAttributes[]>([
     {
         id: 1,
+        context: 'front-office',
         label: 'Accueil',
         url: '/',
         order: 0,
@@ -132,6 +133,7 @@ const menus = ref<MenuAttributes[]>([
     },
     {
         id: 2,
+        context: 'front-office',
         label: 'Actualités',
         url: '/actualites',
         order: 1,
@@ -139,6 +141,7 @@ const menus = ref<MenuAttributes[]>([
     },
     {
         id: 3,
+        context: 'front-office',
         label: 'Projets',
         url: '/projets',
         order: 2,
@@ -146,6 +149,7 @@ const menus = ref<MenuAttributes[]>([
     },
     {
         id: 4,
+        context: 'front-office',
         label: 'Événements',
         url: '/evenements',
         order: 3,
@@ -153,12 +157,14 @@ const menus = ref<MenuAttributes[]>([
     },
     {
         id: 5,
+        context: 'front-office',
         label: 'Mairie',
         order: 4,
         is_visible: true,
         children: [
             {
                 id: 1,
+                context: 'front-office',
                 label: 'Contact',
                 url: '/contact',
                 order: 0,
@@ -166,6 +172,7 @@ const menus = ref<MenuAttributes[]>([
             },
             {
                 id: 2,
+                context: 'front-office',
                 label: 'Communautés de communes',
                 url: 'https://www.paysdefenelon.fr/',
                 order: 1,

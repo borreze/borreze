@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import Pill from '~/components/atoms/Pill.vue';
-import type { CategoryAttributes } from '~/types/models/category';
+import type { CategoryAttributes } from '~/types/backend/category';
 
 const props = defineProps<{
     categories?: CategoryAttributes[] | null,

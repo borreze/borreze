@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { MenuAttributes } from '~/types/models/menu';
+import type { MenuAttributes } from '~/types/backend/menu';
 import Button from '~/components/atoms/Button.vue';
 
 const props = defineProps<{

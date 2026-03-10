@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import type { SearchResult } from '~/types/models/search';
+import type { SearchResult } from '~/types/backend/search';
 
 const props = defineProps<{
     result: SearchResult

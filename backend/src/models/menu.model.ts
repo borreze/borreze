@@ -1,13 +1,20 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { MenuAttributes, MenuAttributesCreation } from '../types/models/menu.types'
+import { MenuAttributes, MenuAttributesCreation, MenuContext } from '../types/models/menu.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
+
+export const MENU_CONTEXTS = ['front-office', 'back-office'] as const
 
 export const MENU_CONSTRAINTS = {
   id: {
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
+  },
+  context: {
+    type: DataTypes.ENUM(...MENU_CONTEXTS),
+    enum: MENU_CONTEXTS,
+    required: true,
   },
   label: {
     type: DataTypes.STRING,
@@ -52,6 +59,7 @@ export const MENU_CONSTRAINTS = {
 
 export class Menu extends Model<MenuAttributes, MenuAttributesCreation> implements MenuAttributes {
   public id!: number
+  public context!: MenuContext
   public label!: string
   public url?: string
   public parent_id?: number
@@ -72,6 +80,7 @@ export function initMenuModel(sequelize: Sequelize) {
     underscored: true,
     indexes: [
       { fields: ['parent_id'] },
+      { fields: ['context'] },
     ]
   })
 }

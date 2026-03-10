@@ -58,7 +58,7 @@ import { push } from 'notivue';
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
 import Button from '~/components/atoms/Button.vue'
 import Field from '~/components/atoms/Field.vue'
-import type { ScheduleAttributes } from '~/types/models/schedule';
+import type { ScheduleAttributes } from '~/types/backend/schedule';
 import Url from '~/components/atoms/Url.vue';
 import Map from '~/components/molecules/Map.client.vue';
 
