@@ -71,14 +71,12 @@ backend/src/
 
 **Constraints** (max length, required fields, enum values, etc.) are defined **once** in `constraints/` and simultaneously drive:
 - Sequelize schema definitions
-- Route-level validation rules (express-validator or zod)
-- Shared TypeScript types
 
 Never duplicate a validation rule between the model and the controller. When a constraint changes, it changes in exactly one place.
 
 ### 3.3 Front-office & Back-office (frontend)
 
-Nuxt 4 SSR application. Every page is crawlable (SEO) with dynamic OpenGraph meta tags.
+Nuxt 3 SSR application. Every page is crawlable (SEO) with dynamic OpenGraph meta tags.
 
 ```
 frontend/
@@ -170,20 +168,11 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 - No raw SQL — always go through Sequelize
 - File uploads: validate MIME type + extension + size (images < 5 MB, PDFs < 10 MB)
 - Secure sessions (httpOnly, secure, sameSite)
-- Rate limiting on `/api/auth/` and the contact form endpoint
 - CORS restricted to known front-office origins
 
 ---
 
 ## 7. Key Features — Hard Constraints
-
-### Canteen Menus
-
-- Input covers a **2-week period** (10 days × 3 columns)
-- "No school" option per day (public holidays)
-- **Automatic PDF generation** via PDFKit at save time
-- PDF publicly downloadable from the front-office without authentication
-- Previous menus archived and accessible
 
 ### Global Search
 
@@ -192,29 +181,17 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 - Scope: news, events, editorial pages, projects, associations, businesses
 - Results < 1 second — no Elasticsearch, no Algolia
 
-### Town Hall Room Reservations
-
-- Status workflow: `pending` → `accepted` | `rejected`
-- Calendar view in back-office (PrimeVue Calendar)
-- Front-office calendar reflects accepted reservations in real time
-- CSV export of reservation records
-
 ### Mapping
 
 - Leaflet.js only — OpenStreetMap tiles (no Google Maps, no cost)
 - Used on: Contact page, History & Heritage, Businesses, Hiking trails
-
-### Scheduled Publishing
-
-- Posts and Events have a `scheduled_at` field
-- A cron job or read-time middleware auto-publishes when the date is reached
 
 ---
 
 ## 8. SEO
 
 - SSR enabled on **all** front-office pages
-- `useHead()` / `useSeoMeta()` on every page with dynamic title and description
+- `useAppHead()` / `useMeta()` on every page with dynamic title and description
 - OpenGraph + Twitter Cards on detail pages (news, events)
 - Auto-generated XML sitemap (`@nuxtjs/sitemap`)
 - `robots.txt`: front-office indexable, back-office (`/admin/*`) blocked
@@ -231,7 +208,7 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 ## 10. Testing
 
 - **Unit**: Vitest for API utils/services and front-office composables
-- **E2E**: Playwright on critical flows (BO login, news publishing, room reservation)
+- **E2E**: Playwright on critical flows
 - No strict TDD — prioritize coverage on: auth, RBAC, PDF generation, full-text search, reservation workflow
 
 ---
@@ -261,7 +238,7 @@ refactor(api): extract RBAC middleware to shared module
 chore(docker): update PostgreSQL image to 16.3
 ```
 
-ESLint + Prettier configured at monorepo root — no commit passes with lint errors.
+ESLint + Prettier configured at apps root — no commit passes with lint errors.
 
 ---
 
