@@ -84,6 +84,8 @@ Nuxt 4 SSR application. Every page is crawlable (SEO) with dynamic OpenGraph met
 frontend/
 ├── components/         # Reusable Vue 3 components (Headless UI + custom)
 |   ├── atomes/ 
+|   ├── molecules/
+|   └── organisms/
 ├── composables/        # Reusable logic (useFetch wrappers, useSearch…)
 ├── pages/              # File-based routing (Nuxt)
 |   ├── admin/          # Back-office pages (PrimeVue components, no SSR) 
