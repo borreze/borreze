@@ -4,7 +4,7 @@ import { AccessTokenPayload } from '../types/utils/jwt.types'
 
 dotenv.config()
 
-const JWT_SECRET: string = process.env.BACKEND_JWT_SECRET ?? 'please-change-this'
+const JWT_SECRET: string = process.env.BACKEND_JWT_SECRET as string
 const JWT_EXPIRES: jwt.SignOptions['expiresIn'] = (process.env.BACKEND_JWT_EXPIRES as jwt.SignOptions['expiresIn']) ?? '15m'
 
 export function signAccessToken(payload: AccessTokenPayload): string {

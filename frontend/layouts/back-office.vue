@@ -30,7 +30,7 @@
                         <div id="page-actions" class="w-full sm:w-96 flex items-center justify-end gap-2" />
                     </div>
 
-                    <div class="rounded-xl lg:p-6 mt-4 lg:shadow-[2px_2px_10px_2px_#0000001a]">
+                    <div class="rounded-xl xl:p-6 mt-4 xl:shadow-[2px_2px_10px_2px_#0000001a]">
                         <slot />
                     </div>
                 </main>
