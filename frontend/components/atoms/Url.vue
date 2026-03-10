@@ -1,6 +1,6 @@
 <template>
     <NuxtLink v-bind="$attrs" :to="to && !disabled ? to : '#'" :external="to?.startsWith('http')"
-        :target="to?.startsWith('http') ? '_blank' : undefined" :class="[
+        :target="(external || to?.startsWith('http')) ? '_blank' : undefined" :class="[
             'group cursor-pointer',
             (icon) ? 'flex items-center gap-2' : '',
             (disabled) ? 'opacity-60 cursor-not-allowed' : '',
@@ -24,12 +24,14 @@ const props = withDefaults(defineProps<{
     to: string,
     bold?: boolean,
     disabled?: boolean,
+    external?: boolean,
     class?: string
     iconClass?: string
 }>(), {
     label: 'lien',
     bold: true,
-    disabled: false
+    disabled: false,
+    external: false
 })
 
 </script>

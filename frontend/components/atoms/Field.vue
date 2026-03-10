@@ -1,11 +1,11 @@
 <template>
     <div class="w-full flex flex-col gap-1">
-        <div v-if="label || hint" class="flex justify-between flex-wrap items-center gap-1">
+        <div v-if="label || hint" class="flex justify-start flex-wrap items-end gap-2">
             <label v-if="label" :for="id" class="text-sm font-medium text-dark">
                 {{ label }}
                 <span v-if="required" class="text-red-500">*</span>
             </label>
-            <span v-if="hint" class="text-xs text-gray-400">
+            <span v-if="hint" class="text-[11px] text-gray-400 pb-[1px]">
                 {{ hint }}
             </span>    
         </div>

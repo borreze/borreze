@@ -12,6 +12,7 @@
 
 <script setup lang="ts">
 import { Notivue, Notification, pastelTheme } from 'notivue'
+import { useAuthStore } from '~/stores/auth'
 
 // This ensures persistence across reloads
 const auth = useAuthStore()

@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="rounded-xl lg:custom-shadow pb-1">
+        <div :class="['rounded-xl lg:p-6 mt-4', !isMobile() ? 'custom-shadow' : '']">
             <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" :columns="[
                 { key: 'id', label: 'ID', formatter: 'id' },
                 { key: 'title', label: 'Titre' },
@@ -53,6 +53,7 @@ import { usePosts } from '~/composables/back-office/usePost';
 import Table from '~/components/organisms/back-office/Table.vue';
 import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
+import { isMobile } from '#imports';
 
 const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts()
 

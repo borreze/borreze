@@ -32,7 +32,8 @@ const props = withDefaults(defineProps<{
     disabled?: boolean
     loading?: boolean
     class?: string
-    iconClass?: string
+    iconClass?: string,
+    external?: boolean,
 }>(), {
     label: '',
     type: 'button',
@@ -42,6 +43,7 @@ const props = withDefaults(defineProps<{
     size: 'md',
     roundness: 'full',
     center: true,
+    external: false,
     disabled: false,
     loading: false
 })
@@ -52,7 +54,7 @@ const componentType = computed(() => {
 
 const componentAttrs = computed(() => {
     if (props.as === 'link') {
-        const isExternal = props.href?.startsWith('http')
+        const isExternal = (props.external || props.href?.startsWith('http'))
 
         return {
             ...attrs,

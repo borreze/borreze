@@ -8,6 +8,13 @@
 <script setup lang="ts">
 import DashboradWelcome from '~/components/organisms/back-office/DashboradWelcome.vue';
 import DashboradQuicks from '~/components/organisms/back-office/DashboradQuicks.vue';
+import { useAuthStore } from '~/stores/auth'
+
+const auth = useAuthStore()
+
+onMounted(() => {
+    auth.fetchMe()
+})
 
 useAppHead({
     title: 'Dashboard',

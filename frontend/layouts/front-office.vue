@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div class="hidden lg:block">
+        <div v-if="auth.isAuthenticated">
+            <AuthBar />
+        </div>
+        <div>
             <EmergencyBar />
         </div>
         <Alert />
@@ -15,7 +18,12 @@
 <script setup lang="ts">
 import Header from '~/components/organisms/front-office/Header.vue';
 import Footer from '~/components/organisms/front-office/Footer.vue';
+import AuthBar from '~/components/organisms/front-office/AuthBar.vue'
 import EmergencyBar from '~/components/organisms/front-office/EmergencyBar.vue'
 import Alert from '~/components/organisms/front-office/Alert.vue';
+
+import { useAuthStore } from '~/stores/auth'
+
+const auth = useAuthStore()
 
 </script>

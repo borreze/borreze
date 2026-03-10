@@ -18,6 +18,7 @@
                     <Url to="/" label="Accueil" :bold="false" />
                     <Url to="/contact" label="Contact" :bold="false" />
                     <Url to="/plan-du-site" label="Plan du site" :bold="false" />
+                    <Url to="/back-office/authentification" label="Back-office" :bold="false" />
                     <Url to="/pages/mentions-legales" label="Mentions légales" :bold="false" />
                     <Url to="/pages/politique-de-confidentialite" label="Politique de confidentialité" :bold="false" />
                 </div>
