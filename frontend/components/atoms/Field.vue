@@ -7,7 +7,7 @@
             </label>
             <span v-if="hint" class="text-[11px] text-gray-400 pb-[1px]">
                 {{ hint }}
-            </span>    
+            </span>
         </div>
 
         <textarea v-if="type === 'textarea'" v-bind="$attrs" :id="id" :name="name" :required="required"
@@ -29,7 +29,7 @@ import type { ComponentRoundness, ComponentSize } from '~/types/component'
 const props = withDefaults(defineProps<{
     modelValue?: string | number | undefined | null
     id?: string
-    type?: | 'text' | 'textarea' | 'password' | 'email' | 'number' | 'url' | 'tel' | 'search' | 'date' | 'datetime-local' | 'month' | 'week' | 'time' | 'color'
+    type?: | 'text' | 'textarea' | 'password' | 'email' | 'number' | 'url' | 'tel' | 'search' | 'month' | 'week' | 'time' | 'color'
     name?: string
     label?: string
     hint?: string

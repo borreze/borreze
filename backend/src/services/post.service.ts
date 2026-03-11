@@ -35,35 +35,11 @@ export class PostService {
     }
   }
 
-  private filterSchedule(active: boolean = false): WhereOptions {
-    if (!active) return {}
-
-    const now = new Date()
-
-    return {
-      [Op.and]: [
-        {
-          [Op.or]: [
-            { schedule_start: null },
-            { schedule_start: { [Op.lte]: now } }
-          ]
-        },
-        {
-          [Op.or]: [
-            { schedule_end: null },
-            { schedule_end: { [Op.gte]: now } }
-          ]
-        }
-      ]
-    }
-  }
-
-  public async count(options?: { search?: string; schedule?: boolean, status?: PostStatus | 'all' | null, categories?: number[] | null }): Promise<number> {
-    const { status, search, schedule, categories } = options || {}
+  public async count(options?: { search?: string; status?: PostStatus | 'all' | null, categories?: number[] | null }): Promise<number> {
+    const { status, search, categories } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
-      ...this.filterSchedule(schedule),
       ...this.filterCategories(categories),
       ...searchWhere(POST_CONSTRAINTS, search)
     }
@@ -72,20 +48,18 @@ export class PostService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; schedule?: boolean, status?: PostStatus | 'all' | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
-    const { status, search, schedule, categories } = options || {}
+  public async getAll(options?: { search?: string; status?: PostStatus | 'all' | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
+    const { status, search, categories } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
     if (
-      (status && status !== 'published') ||  // only allow non-published posts if allowed to
-      (schedule === false) // only allow non-scheduled posts if allowed to
+      (status && status !== 'published') // only allow non-published posts if allowed to
     ) {
       await permissionCheck(user, 'post', 'read')
     }
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
-      ...this.filterSchedule(schedule),
       ...this.filterCategories(categories),
       ...searchWhere(POST_CONSTRAINTS, search)
     }
@@ -94,12 +68,11 @@ export class PostService {
     return posts
   }
 
-  public async getById(id: number, options?: { schedule?: boolean, status?: PostStatus | 'all' | null }): Promise<PostAttributes | null> {
-    const { status, schedule } = options || {}
+  public async getById(id: number, options?: { status?: PostStatus | 'all' | null }): Promise<PostAttributes | null> {
+    const { status } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
-      ...this.filterSchedule(schedule),
       id
     }
 
@@ -108,12 +81,11 @@ export class PostService {
     return post
   }
 
-  public async getBySlug(slug: string, options?: { schedule?: boolean, status?: PostStatus | 'all' | null }): Promise<PostAttributes | null> {
-    const { status, schedule } = options || {}
+  public async getBySlug(slug: string, options?: { status?: PostStatus | 'all' | null }): Promise<PostAttributes | null> {
+    const { status } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
-      ...this.filterSchedule(schedule),
       slug
     }
 

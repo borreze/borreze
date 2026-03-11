@@ -76,7 +76,7 @@ Dropdown
 ```vue
 <template>
     <section class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-4">15. Formulaire - Sélection multiple</h2>
+        <h2 class="text-xl font-semibold mb-4">Formulaire - Sélection multiple</h2>
         <form @submit.prevent="handleMultipleSubmit" class="space-y-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">

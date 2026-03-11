@@ -82,7 +82,13 @@ export const usePost = async (id: number) => {
     const { data, status, error } = await useAsyncData(
         `post-${id}`,
         () => useApi()
-            .get<{ data: PostAttributes, pagination: Pagination }>(`/back-office/posts/${id}`)
+            .get<{ data: PostAttributes, pagination: Pagination }>(
+                `/back-office/posts/${id}`,
+                {
+                    params: {
+                        status: 'all',
+                    }
+                })
             .then(r => r.data),
     )
 

@@ -1506,9 +1506,9 @@
         "content": "<p>This is the content of the one hundred seventeenth post.</p>",
         "meta_title": "One Hundred Seventeenth Post Meta Title",
         "meta_description": "This is the meta description for the one hundred seventeenth post.",
-        "published_at": "2026-05-28T12:00:00Z",
-        "schedule_start": null,
-        "schedule_end": null
+        "published_at": "2026-04-25T12:00:00Z",
+        "schedule_start": "2026-04-25T12:00:00Z",
+        "schedule_end": "2026-05-25T12:00:00Z"
     },
     {
         "id": 118,

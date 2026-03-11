@@ -30,6 +30,24 @@
                     </div>
                 </section>
                 <section>
+                    <h4 class="title-submain mb-6">Publication</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <Datepicker v-model="editingPost.schedule_start" :with-time="true"
+                            label="Date de début de publication" hint="Date à laquelle l'actualité sera publiée"
+                            type="date" roundness="md" />
+                        <Datepicker v-model="editingPost.schedule_end" :with-time="true"
+                            label="Date de fin de publication" hint="Date à laquelle l'actualité ne sera plus publiée"
+                            type="date" roundness="md" />
+                            {{ editingPost.status }}
+                        <Dropdown v-model="editingPost.status" variant="gray" size="md"
+                            placeholder="Status de publication" :items="[
+                                { value: 'archived', label: 'Archivée' },
+                                { value: 'published', label: 'Publiée' },
+                                { value: 'draft', label: 'Brouillon' },
+                            ]" />
+                    </div>
+                </section>
+                <section>
                     <h4 class="title-submain mb-6">Contenu</h4>
                     <div class="space-y-4">
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
@@ -56,6 +74,8 @@ import Loader from '~/components/molecules/Loader.vue';
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import PostCard from '~/components/organisms/front-office/PostCard.vue';
 import type { PostAttributes } from '~/types/backend/post'
+import Datepicker from '~/components/atoms/Datepicker.vue';
+import Dropdown from '~/components/molecules/Dropdown.vue';
 
 const route = useRoute()
 const { post, loading } = await usePost(route.params.id as unknown as number)

@@ -11,7 +11,7 @@ export class PostController {
   public getRecents: RequestHandler = async (req, res) => {
     const page = 1
     const limit = 3
-    const options = { status: 'published' as PostStatus, schedule: true }
+    const options = { status: 'published' as PostStatus}
     const order: Order[] = [['published_at', 'DESC'], ['created_at', 'DESC']]
     const pagination: Pagination = { page, limit, total: Infinity }
 
@@ -23,12 +23,11 @@ export class PostController {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
-    const schedule = req.query.schedule === 'false' ? false : true
     const status = String(req.query.status || 'published') as PostStatus | 'all'
     const order = parseOrder(req)
     const categories = parseArrayInteger(req.query.categories as Array<string>)
 
-    const options = { search, status, schedule, categories }
+    const options = { search, status, categories }
 
     const count = await postService.count(options)
     const pagination = paginate(page, limit, count)
@@ -49,7 +48,7 @@ export class PostController {
   public getBySlug: RequestHandler<{ slug: string }> = async (req, res) => {
     const slug = String(req.params.slug)
 
-    const options = { status: 'published' as PostStatus, schedule: true }
+    const options = { status: 'published' as PostStatus}
 
     const post = await postService.getBySlug(slug, options)
     res.json({ data: post, message: 'Post retrieved successfully' } as Return)

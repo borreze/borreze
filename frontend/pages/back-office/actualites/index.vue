@@ -31,8 +31,8 @@
             truncate: (value) => limitString(value as string, 40),
             date: (value) => value ? formatDateRelativeNice(value as string) : '-'
         }" :actions="[
-            { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', handler: (item) => openInNewTab(`/actualites/${item.slug}`) },
-            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', handler: (item) => navigateTo(`/back-office/actualites/${item.id}`) },
+            { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', buildLink: (item) => `/actualites/${item.slug}`, external: true },
+            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/actualites/${item.id}` },
         ]">
             <template #cell-published="{ item }">
                 <Pill :label="item.status === 'published' ? 'Oui' : 'Non'"
@@ -50,6 +50,8 @@ import { usePosts } from '~/composables/back-office/usePost';
 import Table from '~/components/organisms/back-office/Table.vue';
 import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
+import { limitString } from '~/utils/text';
+import { formatDateRelativeNice } from '~/utils/date';
 
 const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts()
 

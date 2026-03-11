@@ -27,9 +27,10 @@
                         </td>
                         <td v-if="actions && actions.length > 0" class="py-1 xl:py-2 px-5 xl:px-7">
                             <div class="flex items-center gap-2">
-                                <Button v-for="(action, aIndex) in actions" :key="aIndex"
-                                    :variant="action.variant || 'light'" :icon="action.icon" :label="action.label" size="sm"
-                                    @click="action.handler(item)" />
+                                <Button v-for="(action, aIndex) in actions" :key="aIndex" as="link"
+                                    :href="action.buildLink(item)" :external="action.external"
+                                    :variant="action.variant || 'light'" :icon="action.icon" :label="action.label"
+                                    size="sm" />
                             </div>
                         </td>
                     </tr>
@@ -49,7 +50,8 @@
                     class="bg-white rounded-lg p-4 shadow-[2px_2px_10px_2px_#0000001a]">
                     <div>
                         <h4 v-if="titleKey" class="mb-2 font-semibold text-dark">{{ getItemValue(item, titleKey) }}</h4>
-                        <p v-if="abstractKey" class="mb-2 text-sm text-dark">{{ limitString(getItemValue(item, abstractKey) as string, 100) }}</p>
+                        <p v-if="abstractKey" class="mb-2 text-sm text-dark line-clamp-1">{{ getItemValue(item,
+                            abstractKey) }}</p>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-600">
                             <div v-for="column in mobileVisibleColumns" :key="column.key"
@@ -66,9 +68,10 @@
                             </div>
                         </div>
                         <div v-if="actions && actions.length > 0" class="mt-4 flex items-center justify-end gap-2">
-                            <Button v-for="(action, aIndex) in actions" :key="aIndex"
-                                :variant="action.variant || 'light'" :icon="action.icon" :label="action.label" size="sm"
-                                @click="action.handler(item)" />
+                            <Button v-for="(action, aIndex) in actions" :key="aIndex" as="link"
+                                :href="action.buildLink(item)" :external="action.external"
+                                :variant="action.variant || 'light'" :icon="action.icon" :label="action.label"
+                                size="sm" />
                         </div>
                     </div>
                 </div>
@@ -95,7 +98,8 @@ interface Action {
     icon: string
     label?: string
     variant?: ComponentVariant
-    handler: (item: T) => void
+    buildLink: (item: T) => string
+    external?: boolean
 }
 
 type FormatterFn = (value: unknown) => string | number
@@ -124,7 +128,6 @@ defineSlots<{
 
 const mobileVisibleColumns = computed(() =>
     props.columns.filter(col =>
-        col.key !== props.primaryKey &&
         col.key !== props.titleKey &&
         col.key !== props.abstractKey
     )
