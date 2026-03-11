@@ -52,12 +52,6 @@ docker stop $(docker ps -aq) 2>$null; docker system prune -a --volumes -f; docke
 # Stop all services
 docker-compose down
 
-# Start in Development
-docker-compose --profile development up --build -d
-
-# Start in Production
-docker-compose --profile production up --build -d
-
 # Restart in development mode
 docker-compose --profile development down -v ; docker-compose --profile development up -d
 
