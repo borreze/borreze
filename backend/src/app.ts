@@ -36,10 +36,7 @@ app.use(cors({
 }))
 
 // Register cron jobs
-if (process.env.NODE_ENV === 'production') {
-  initSchoolHolidayCron()
-  Terminal.info('Cron jobs initialized')
-} 
+initSchoolHolidayCron()
 
 // Register routes
 app.use(postRoutes)
@@ -62,7 +59,7 @@ app.get('/health', (req: Request, res: Response) => {
 if (process.env.NODE_ENV === 'development') {
   app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
   Terminal.info('Swagger documentation available at /swagger')
-} 
+}
 
 // If nothing found above, return 404
 app.use((req: Request, _res: Response, next: NextFunction) => {

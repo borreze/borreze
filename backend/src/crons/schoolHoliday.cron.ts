@@ -1,6 +1,7 @@
 import { schoolHolidayService } from '../services/schoolHoliday.service'
 import cron from 'node-cron'
 import { Terminal } from '../utils/terminal.utils'
+import { Log } from '../utils/log.utils'
 
 export function initSchoolHolidayCron(): void {
     Terminal.info('Initializing school holiday import cron job')
@@ -8,6 +9,7 @@ export function initSchoolHolidayCron(): void {
         try {
             await schoolHolidayService.import()
         } catch (error) {
+            Log.error(`Error importing school holidays ${error}`)
             Terminal.error(`Error importing school holidays ${error}`)
         }
     })
