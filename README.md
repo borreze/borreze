@@ -21,6 +21,10 @@
 
 ### With Docker
 
+```powershell
+.\setup.ps1 -Reset
+```
+OR
 ```sh
 # Clone the repo
 git clone git@github.com:borreze/borreze.git
@@ -29,6 +33,7 @@ git clone git@github.com:borreze/borreze.git
 cd borreze
 
 # Copy .env.development file to .env and fill in the required environment variables.
+rm -f .env
 cp .env.development .env
 
 # Start the development server
@@ -57,9 +62,6 @@ docker-compose --profile development down -v ; docker-compose --profile developm
 
 # Get all frontend env variables
 docker exec -it borreze-brz-frontend-dev-1 printenv
-
-# Run seeder
-docker exec -it borreze-brz-backend-dev-1 sh -c "npm run seed"
 
 # Clear database
 docker-compose down
@@ -98,7 +100,7 @@ cd backend ; npm i ; npm run dev
 
 ---
 
-### Seeding the database
+### Seeding the database & import data
 
 Because working with data is always a good idea, you can seed the database with some initial data.
 
@@ -106,7 +108,9 @@ All the seeding logic is in the `src/seeder.ts` file. All data is stored in the 
 
 ```sh
 docker exec -it borreze-brz-backend-dev-1 sh
-npm run seed
+npm run seed # Will run the seeder and populate the database with initial data from the seeds/ directory.
+npm run import # Will import data from the web
+npm run populate # Will run both the seeding and the import.
 ```
 
 Somehow, Sequilize might not increment the IDs correctly after a seed. This could lead to conflicts when using the API to create new entries right after a seed.
