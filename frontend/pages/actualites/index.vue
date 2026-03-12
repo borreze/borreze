@@ -6,10 +6,10 @@
             <CategorySelector :categories="categories" :selected="getCategories()" @remove="removeCategory"
                 @add="addCategory" @reset="resetCategories" />
             <OrderBy :orders="[
-                { label: 'Publiés récemment', order: ['published_at', 'DESC'] },
-                { label: 'Les plus anciens', order: ['published_at', 'ASC'] },
-                { label: 'Mise à jour récemment', order: ['updated_at', 'DESC'] },
-                { label: 'Ordre alphabétique', order: ['title', 'ASC'] },
+                { label: 'Publiés récemment', value: 'published_at:DESC' },
+                { label: 'Les plus anciens', value: 'published_at:ASC' },
+                { label: 'Mise à jour récemment', value: 'updated_at:DESC' },
+                { label: 'Ordre alphabétique', value: 'title:ASC' },
             ]" @select="setOrder" @reset="resetOrder" />
         </div>
         <Loader v-if="loading" />

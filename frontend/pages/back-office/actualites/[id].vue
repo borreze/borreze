@@ -38,7 +38,6 @@
                         <Datepicker v-model="editingPost.schedule_end" :with-time="true"
                             label="Date de fin de publication" hint="Date à laquelle l'actualité ne sera plus publiée"
                             type="date" roundness="md" />
-                            {{ editingPost.status }}
                         <Dropdown v-model="editingPost.status" variant="gray" size="md"
                             placeholder="Status de publication" :items="[
                                 { value: 'archived', label: 'Archivée' },

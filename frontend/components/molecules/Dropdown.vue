@@ -44,7 +44,7 @@
     </div>
 </template>
 
-<script setup lang="ts" generic="T = any">
+<script setup lang="ts" generic="T extends Record<string, any> = Record<string, any>">
 import type { ComponentPosition, ComponentSize, ComponentVariant } from '~/types/component';
 import Button from '~/components/atoms/Button.vue'
 
@@ -57,10 +57,10 @@ export interface DropdownItem {
 
 const props = withDefaults(defineProps<{
     items?: T[]
-    modelValue?: T | T[] | null
+    modelValue?: string | string[] | null
     placeholder?: string
-    labelKey?: string
-    valueKey?: string
+    labelKey?: keyof T & string
+    valueKey?: keyof T & string
     variant?: ComponentVariant
     position?: ComponentPosition
     size?: ComponentSize
@@ -91,7 +91,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-    'update:modelValue': [value: T | T[] | null]
+    'update:modelValue': [value: string | string[] | null]  // ← string
     'select': [item: T]
     'open': []
     'close': []
@@ -104,18 +104,20 @@ const triggerId = `dropdown-trigger-${uniqueId()}`
 const selectedItem = computed(() => props.modelValue)
 
 const displayLabel = computed(() => {
-    if (!selectedItem.value) {
-        return props.placeholder
-    }
+    if (selectedItem.value === null || selectedItem.value === undefined) return props.placeholder
 
     if (props.multiple && Array.isArray(selectedItem.value)) {
-        if (selectedItem.value.length === 0) {
-            return props.placeholder
-        }
-        return selectedItem.value.map(item => getItemLabel(item)).join(', ')
+        if (selectedItem.value.length === 0) return props.placeholder
+        return selectedItem.value
+            .map(val => {
+                const found = props.items.find(i => getItemValue(i) === val)
+                return found ? getItemLabel(found) : val
+            })
+            .join(', ')
     }
 
-    return getItemLabel(selectedItem.value as T)
+    const found = props.items.find(i => getItemValue(i) === selectedItem.value)
+    return found ? getItemLabel(found) : props.placeholder
 })
 
 const positionToDropClasses = computed(() => {
@@ -150,29 +152,25 @@ const close = () => {
 const selectItem = (item: T) => {
     if (isItemDisabled(item)) return
 
+    const value = getItemValue(item)  // string garanti
+
     if (props.multiple) {
         const currentValue = Array.isArray(selectedItem.value) ? selectedItem.value : []
         const isSelected = isItemSelected(item)
 
-        let newValue: T[]
-        if (isSelected) {
-            newValue = currentValue.filter(v => !isSameItem(v, item))
-        } else {
-            newValue = [...currentValue, item]
-        }
+        const newValue = isSelected
+            ? currentValue.filter(v => v !== value)
+            : [...currentValue, value]
 
         emit('update:modelValue', newValue)
         emit('select', item)
-
         return
     }
 
-    emit('update:modelValue', item)
+    emit('update:modelValue', value)
     emit('select', item)
 
-    if (props.closeOnSelect) {
-        close()
-    }
+    if (props.closeOnSelect) close()
 }
 
 const isItemDisabled = (item: T): boolean => {
@@ -183,27 +181,27 @@ const isItemDisabled = (item: T): boolean => {
 }
 
 const isItemSelected = (item: T): boolean => {
-    if (!selectedItem.value) return false
+    if (selectedItem.value === null || selectedItem.value === undefined) return false
+    const value = getItemValue(item)
 
     if (props.multiple && Array.isArray(selectedItem.value)) {
-        return selectedItem.value.some(v => isSameItem(v, item))
+        return selectedItem.value.includes(value)
     }
 
-    return isSameItem(selectedItem.value as T, item)
-}
-
-const isSameItem = (item1: T, item2: T): boolean => {
-    if (typeof item1 === 'object' && item1 !== null && props.valueKey in item1) {
-        return (item1 as any)[props.valueKey] === (item2 as any)[props.valueKey]
-    }
-
-    return item1 === item2
+    return selectedItem.value === value
 }
 
 const getItemLabel = (item: T): string => {
     if (typeof item === 'string') return item
     if (typeof item === 'object' && item !== null && props.labelKey in item) {
         return (item as any)[props.labelKey]
+    }
+    return String(item)
+}
+
+const getItemValue = (item: T): string => {
+    if (typeof item === 'object' && item !== null && props.valueKey in item) {
+        return String((item as any)[props.valueKey])
     }
     return String(item)
 }

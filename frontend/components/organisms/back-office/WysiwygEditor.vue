@@ -455,7 +455,7 @@ const buttonVariantOptions = [
 const showButtonModal = ref(false)
 const btnLabel = ref('')
 const btnHref = ref('')
-const btnVariant = ref<typeof buttonVariantOptions[0] | null>(null)
+const btnVariant = ref<string | null>(null)
 
 function openButtonModal() {
     showButtonModal.value = true
@@ -472,7 +472,7 @@ function insertButton() {
     if (!btnLabel.value) return
     editor.value!.chain().focus().insertContent({
         type: 'customButton',
-        attrs: { label: btnLabel.value, href: btnHref.value || '#', variant: btnVariant.value?.key },
+        attrs: { label: btnLabel.value, href: btnHref.value || '#', variant: btnVariant.value || 'primary' },
     }).run()
     closeButtonModal()
 }
