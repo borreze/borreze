@@ -39,11 +39,7 @@
                             label="Date de fin de publication" hint="Date à laquelle l'actualité ne sera plus publiée"
                             type="date" roundness="md" />
                         <Dropdown v-model="editingPost.status" variant="gray" size="md"
-                            placeholder="Status de publication" :items="[
-                                { value: 'archived', label: 'Archivée' },
-                                { value: 'published', label: 'Publiée' },
-                                { value: 'draft', label: 'Brouillon' },
-                            ]" />
+                            placeholder="Status de publication" :items="POST_STATUSES_WITH_LABELS" />
                     </div>
                 </section>
                 <section>
@@ -72,7 +68,7 @@ import Button from '~/components/atoms/Button.vue';
 import Loader from '~/components/molecules/Loader.vue';
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import PostCard from '~/components/organisms/front-office/PostCard.vue';
-import type { PostAttributes } from '~/types/backend/post'
+import { POST_STATUSES_WITH_LABELS, type PostAttributes } from '~/types/backend/post'
 import Datepicker from '~/components/atoms/Datepicker.vue';
 import Dropdown from '~/components/molecules/Dropdown.vue';
 

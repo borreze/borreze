@@ -3,6 +3,12 @@ import type { CategoryAttributes } from "./category"
 export const POST_STATUSES = ['draft', 'published', 'archived'] as const
 export type PostStatus = typeof POST_STATUSES[number]
 
+export const POST_STATUSES_WITH_LABELS: { value: PostStatus, label: string }[] = [
+    { value: 'draft', label: 'Draft' },
+    { value: 'published', label: 'Published' },
+    { value: 'archived', label: 'Archived' },
+]
+
 export interface PostAttributes {
     id: number
     slug: string
