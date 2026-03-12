@@ -41,8 +41,8 @@ docker-compose down ; docker-compose --profile development up --build -d
 
 # Install both frontend dependencies
 # You may want to install dependencies despite Docker, especially for IDE linters and type checking.
-cd frontend ; npm i
-cd ../backend ; npm i
+cd frontend ; npm i ; cd ..
+cd backend ; npm i ; cd ..
 ```
 
 #### Useful Docker Commands
