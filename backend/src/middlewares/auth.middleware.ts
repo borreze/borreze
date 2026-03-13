@@ -3,7 +3,7 @@ import { verifyAccessToken } from '../utils/jwt.utils'
 import { Unauthorized } from '../exceptions/auth.exception'
 import { Request, Response, NextFunction } from 'express'
 import { userService } from '../services/user.service'
-import { UserAttributesPublic } from '../types/models/user.types'
+import { UserAttributesPublic } from '@brz/shared'
 import { permissionCheck } from '../utils/auth.utils'
 
 export const authMiddleware: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {

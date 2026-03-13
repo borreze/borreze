@@ -11,7 +11,7 @@ import { POST_CONSTRAINTS, POST_INCLUDE_DEFAULTS } from '../models/post.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { permissionCheck } from '../utils/auth.utils'
-import { UserAttributesPublic } from '../types/models/user.types'
+import { UserAttributesPublic } from '@brz/shared'
 import { paginationDefault } from '../utils/pagination.utils'
 
 export class PostService {

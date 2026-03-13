@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { USER_STATUSES, UserAttributes, UserAttributesCreation, UserStatus } from '../types/models/user.types'
+import { USER_STATUSES, UserAttributes, UserAttributesCreation, UserStatus } from '@brz/shared'
 import { Role } from './role.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'

@@ -1,5 +1,5 @@
 import { Log } from '../models'
-import { LogAttributes, LogAttributesCreation } from '../types/models/log.types'
+import { LogAttributes, LogAttributesCreation } from '@brz/shared'
 import { Transaction, WhereOptions } from 'sequelize'
 import { Op } from 'sequelize'
 import { Pagination } from '../types/utils/pagination.types'

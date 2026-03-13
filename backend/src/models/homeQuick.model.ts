@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { HomeQuickAttributes, HomeQuickAttributesCreation } from '../types/models/homeQuick.types'
+import { HomeQuickAttributes, HomeQuickAttributesCreation } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 

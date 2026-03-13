@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PAGE_STATUSES, PageAttributes, PageAttributesCreation, PageStatus } from '../types/models/page.types'
+import { PAGE_STATUSES, PageAttributes, PageAttributesCreation, PageStatus } from '@brz/shared'
 import { Media } from './media.model'
 import { Gallery } from './gallery.model'
 import { PageAttribute } from './pageAttribute.model'

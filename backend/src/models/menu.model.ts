@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { MENU_CONTEXTS, MenuAttributes, MenuAttributesCreation, MenuContext } from '../types/models/menu.types'
+import { MENU_CONTEXTS, MenuAttributes, MenuAttributesCreation, MenuContext } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 

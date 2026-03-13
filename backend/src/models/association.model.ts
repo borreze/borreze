@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { AssociationAttributes, AssociationAttributesCreation } from '../types/models/association.types'
+import { AssociationAttributes, AssociationAttributesCreation } from '@brz/shared'
 import { Category } from './category.model'
 import { Media } from './media.model'
 import { ModelConstraints } from '../types/utils/model.types'

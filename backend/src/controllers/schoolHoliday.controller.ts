@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'
 import { Return } from '../types/utils/api.types'
 import { Order } from '../types/utils/request.types'
-import { SchoolYear } from '../types/models/schoolHoliday.types'
+import { SchoolYear } from '@brz/shared'
 import { schoolHolidayService } from '../services/schoolHoliday.service'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'

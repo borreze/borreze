@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { LOG_LEVELS, LogAttributes, LogAttributesCreation, LogLevel } from '../types/models/log.types'
+import { LOG_LEVELS, LogAttributes, LogAttributesCreation, LogLevel } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 

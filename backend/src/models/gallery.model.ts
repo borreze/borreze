@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { GalleryAttributes, GalleryAttributesCreation } from '../types/models/gallery.types'
+import { GalleryAttributes, GalleryAttributesCreation } from '@brz/shared'
 import { Media } from './media.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'

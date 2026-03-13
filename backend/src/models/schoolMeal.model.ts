@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { SchoolMealAttributes, SchoolMealAttributesCreation } from '../types/models/schoolMeal.types'
+import { SchoolMealAttributes, SchoolMealAttributesCreation } from '@brz/shared'
 import { Media } from './media.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'

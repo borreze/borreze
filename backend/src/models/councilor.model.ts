@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { CouncilorAttributes, CouncilorAttributesCreation } from '../types/models/councilor.types'
+import { CouncilorAttributes, CouncilorAttributesCreation } from '@brz/shared'
 import { Media } from './media.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'

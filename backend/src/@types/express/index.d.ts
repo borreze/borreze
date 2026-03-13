@@ -1,4 +1,4 @@
-import { UserAttributesPublic } from '../../types/models/user.types'
+import { UserAttributesPublic } from '@brz/shared'
 
 declare global {
     namespace Express {

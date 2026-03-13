@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { CategoryAttributes, CategoryAttributesCreation } from '../types/models/category.types'
+import { CategoryAttributes, CategoryAttributesCreation } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 

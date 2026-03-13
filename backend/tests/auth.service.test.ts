@@ -5,7 +5,7 @@ import { emailService } from '../src/services/email.service'
 import * as jwtUtils from '../src/utils/jwt.utils'
 import * as authUtils from '../src/utils/auth.utils'
 import { describe, it, expect, beforeEach, jest } from '@jest/globals'
-import { UserStatus } from '../src/types/models/user.types'
+import { UserStatus } from '@brz/shared'
 
 jest.mock('../src/models')
 jest.mock('../src/services/user.service')

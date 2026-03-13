@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { CommerceAttributes, CommerceAttributesCreation } from '../types/models/commerce.types'
+import { CommerceAttributes, CommerceAttributesCreation } from '@brz/shared'
 import { Category } from './category.model'
 import { Media } from './media.model'
 import { Schedule } from './schedule.model'

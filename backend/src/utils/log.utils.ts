@@ -1,6 +1,6 @@
 import { logService } from "../services/log.service";
 import { Request } from 'express'
-import { LogAttributesCreation, LogLevel } from "../types/models/log.types";
+import { LogAttributesCreation, LogLevel } from "@brz/shared";
 
 export class Log {
     private static async make(message: string, level: LogLevel, req?: Request): Promise<Log> {

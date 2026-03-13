@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import { roleService } from '../services/role.service'
 import { Forbidden, Unauthorized } from '../exceptions/auth.exception'
-import { UserAttributesPublic } from '../types/models/user.types'
+import { UserAttributesPublic } from '@brz/shared'
 
 dotenv.config()
 

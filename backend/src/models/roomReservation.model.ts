@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { ROOM_RESERVATION_STATUSES, RoomReservationAttributes, RoomReservationAttributesCreation, RoomReservationStatus } from '../types/models/roomReservation.types'
+import { ROOM_RESERVATION_STATUSES, RoomReservationAttributes, RoomReservationAttributesCreation, RoomReservationStatus } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 

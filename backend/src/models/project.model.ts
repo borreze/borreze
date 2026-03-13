@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PROJECT_STATUSES, ProjectAttributes, ProjectAttributesCreation, ProjectStatus } from '../types/models/project.types'
+import { PROJECT_STATUSES, ProjectAttributes, ProjectAttributesCreation, ProjectStatus } from '@brz/shared'
 import { Media } from './media.model'
 import { Gallery } from './gallery.model'
 import { Category } from './category.model'

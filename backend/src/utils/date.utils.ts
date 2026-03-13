@@ -1,4 +1,4 @@
-import { SchoolYear } from "../types/models/schoolHoliday.types"
+import { SchoolYear } from "@brz/shared"
 
 export function currentSchoolYear(monthSwitch: number = 8): SchoolYear {
     const now = new Date()

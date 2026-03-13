@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { EVENT_STATUS_VALUES, EventAttributes, EventAttributesCreation, EventStatus } from '../types/models/event.types'
+import { EVENT_STATUSES, EventAttributes, EventAttributesCreation, EventStatus } from '@brz/shared'
 import { Category } from './category.model'
 import { Gallery } from './gallery.model'
 import { Media } from './media.model'
@@ -54,8 +54,8 @@ export const EVENT_CONSTRAINTS = {
         required: false
     },
     status: {
-        type: DataTypes.ENUM(...EVENT_STATUS_VALUES),
-        enum: EVENT_STATUS_VALUES,
+        type: DataTypes.ENUM(...EVENT_STATUSES),
+        enum: EVENT_STATUSES,
         defaultValue: 'draft'
     },
     date_time: {

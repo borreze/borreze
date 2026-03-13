@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { MEDIA_TYPES, MediaAttributes, MediaAttributesCreation, MediaType } from '../types/models/media.types'
+import { MEDIA_TYPES, MediaAttributes, MediaAttributesCreation, MediaType } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 

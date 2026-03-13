@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PopupAttributes, PopupAttributesCreation } from '../types/models/popup.types'
+import { PopupAttributes, PopupAttributesCreation } from '@brz/shared'
 import { Media } from './media.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'

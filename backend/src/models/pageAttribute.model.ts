@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PageAttributeAttributes, PageAttributeAttributesCreation } from '../types/models/pageAttribute.types'
+import { PageAttributeAttributes, PageAttributeAttributesCreation } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 

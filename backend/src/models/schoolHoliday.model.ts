@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { SchoolHolidayAttributes, SchoolHolidayAttributesCreation, SchoolYear } from '../types/models/schoolHoliday.types'
+import { SchoolHolidayAttributes, SchoolHolidayAttributesCreation, SchoolYear } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 import { ModelConstraints } from '../types/utils/model.types'
 
