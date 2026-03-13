@@ -25,12 +25,12 @@
 </template>
 
 <script setup lang="ts">
-import type { PostAttributes } from '~/types/backend/post';
+import type { PostAttributesFrontend } from '@brz/shared';
 import { formatDateRelativeNice } from '~/utils/date';
 import Pill from '~/components/atoms/Pill.vue';
 
 const props = defineProps<{
-    post: PostAttributes
+    post: PostAttributesFrontend
 }>();
 
 </script>

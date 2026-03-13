@@ -17,7 +17,7 @@
             leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100"
             leave-to-class="transform opacity-0 scale-95">
             <div v-show="isOpen" :class="[
-                'absolute z-10 mt-2 rounded-md bg-white shadow-xl ring-1 ring-gray-200 ring-opacity-5 focus:outline-none',
+                'absolute z-20 mt-2 rounded-md bg-white shadow-xl ring-1 ring-gray-200 ring-opacity-5 focus:outline-none',
                 positionToDropClasses,
                 minWidthClass,
                 maxHeight ? `overflow-y-auto ${maxHeight}` : '',

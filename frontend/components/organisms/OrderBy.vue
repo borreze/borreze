@@ -12,7 +12,7 @@ import { ref, computed } from 'vue'
 import Button from '~/components/atoms/Button.vue'
 import Dropdown from '~/components/molecules/Dropdown.vue'
 import type { ComponentPosition } from '~/types/component'
-import type { Order } from '~/types/order'
+import type { Order } from '@brz/shared'
 
 const props = withDefaults(defineProps<{
     orders?: { label: string, value: string }[]

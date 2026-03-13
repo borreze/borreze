@@ -1,5 +1,5 @@
 <template>
-    <div ref="editorRef" id="wysiwyg-editor" class="wysiwyg-editor">
+    <div ref="editorRef" id="wysiwyg-editor" class="wysiwyg-editor z-0">
         <div v-if="editor" :class="['wysiwyg-toolbar']" :style="{ opacity: editorToolbarVisible ? 1 : 0 }">
             <!-- Undo et Redo -->
             <div class="wysiwyg-toolbar__group">
@@ -483,6 +483,7 @@ function insertButton() {
 
 .wysiwyg-editor {
     all: unset;
+    z-index: 0;
     overflow: visible;
     --wy-bg: #ffffff;
     --wy-border: oklch(87.2% 0.01 258.338);

@@ -1,4 +1,4 @@
-import type { Pagination } from "~/types/pagination";
+import type { Pagination } from "@brz/shared";
 
 export const PAGINATION_DEFAULT: Pagination = {
     page: 1,

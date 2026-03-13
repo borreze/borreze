@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 import { Return } from '../types/utils/api.types'
-import { Order } from '../types/utils/request.types'
+import { Order } from '@brz/shared'
 import { SchoolYear } from '@brz/shared'
 import { schoolHolidayService } from '../services/schoolHoliday.service'
 import { parseOrder } from '../utils/request.utils'

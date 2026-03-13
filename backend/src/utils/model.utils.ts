@@ -1,5 +1,5 @@
 import { ModelFieldConstraint, ModelConstraints } from '../types/utils/model.types'
-import { SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
+import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { ValidationError, ValidationResult } from '../types/utils/validation.types'
 import { Op, WhereOptions, ModelAttributes, ModelAttributeColumnOptions, Model } from 'sequelize'
 

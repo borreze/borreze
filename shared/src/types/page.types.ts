@@ -1,7 +1,12 @@
 import { Optional } from 'sequelize'
 
-export const PAGE_STATUSES = ['draft', 'published', 'archived'] as const
-export type PageStatus = typeof PAGE_STATUSES[number]
+export const PAGE_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
+export type PageStatus = typeof PAGE_STATUSES_KEYS[number]
+export const PAGE_STATUSES_OBJECTS: { value: PageStatus, label: string }[] = [
+    { value: 'draft', label: 'Brouillon' },
+    { value: 'published', label: 'Publié' },
+    { value: 'archived', label: 'Archivé' },
+]
 
 export interface PageAttributes {
     id: number

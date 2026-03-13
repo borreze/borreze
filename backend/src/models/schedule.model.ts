@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { SCHEDULE_DAYS, SCHEDULE_TYPES, ScheduleAttributes, ScheduleAttributesCreation, ScheduleDay, ScheduleType, TimeInterval } from '@brz/shared'
+import { SCHEDULE_DAYS_KEYS, SCHEDULE_TYPES_KEYS, ScheduleAttributes, ScheduleAttributesCreation, ScheduleDay, ScheduleType, TimeInterval } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
@@ -12,8 +12,8 @@ export const SCHEDULE_CONSTRAINTS = {
     autoIncrement: true
   },
   type: {
-    type: DataTypes.ENUM(...SCHEDULE_TYPES),
-    enum: SCHEDULE_TYPES,
+    type: DataTypes.ENUM(...SCHEDULE_TYPES_KEYS),
+    enum: SCHEDULE_TYPES_KEYS,
     required: true
   },
   commerce_id: {
@@ -21,8 +21,8 @@ export const SCHEDULE_CONSTRAINTS = {
     required: false
   },
   day: {
-    type: DataTypes.ENUM(...SCHEDULE_DAYS),
-    enum: SCHEDULE_DAYS,
+    type: DataTypes.ENUM(...SCHEDULE_DAYS_KEYS),
+    enum: SCHEDULE_DAYS_KEYS,
     required: true
   },
   intervals: {

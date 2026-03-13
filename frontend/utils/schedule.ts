@@ -1,6 +1,6 @@
-import type { day, ScheduleAttributes, Time } from "~/types/backend/schedule";
+import type { ScheduleDay, ScheduleAttributes, Time } from "@brz/shared";
 
-const days: Record<day, string> = {
+const days: Record<ScheduleDay, string> = {
     'monday': 'Lundi',
     'tuesday': 'Mardi',
     'wednesday': 'Mercredi',
@@ -10,7 +10,7 @@ const days: Record<day, string> = {
     'sunday': 'Dimanche'
 }
 
-export function niceDay(day: day): string {
+export function niceDay(day: ScheduleDay): string {
     return days[day] || day
 }
 
@@ -27,7 +27,7 @@ export function renderSchedules(schedules: ScheduleAttributes[]): string {
     let result = ''
 
     // Order schedules by day of the week
-    const dayOrder: day[] = Object.keys(days) as day[]
+    const dayOrder: ScheduleDay[] = Object.keys(days) as ScheduleDay[]
     schedules.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day))
 
         for (const schedule of schedules) {

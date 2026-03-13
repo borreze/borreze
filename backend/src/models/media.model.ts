@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { MEDIA_TYPES, MediaAttributes, MediaAttributesCreation, MediaType } from '@brz/shared'
+import { MEDIA_TYPES_KEYS, MediaAttributes, MediaAttributesCreation, MediaType } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
@@ -23,8 +23,8 @@ export const MEDIA_CONSTRAINTS = {
     searchable: true
   },
   type: {
-    type: DataTypes.ENUM(...MEDIA_TYPES),
-    enum: MEDIA_TYPES,
+    type: DataTypes.ENUM(...MEDIA_TYPES_KEYS),
+    enum: MEDIA_TYPES_KEYS,
     required: true
   },
   mime_type: {

@@ -1,4 +1,5 @@
 import { Optional } from 'sequelize'
+
 export interface CategoryAttributes {
     id: number
     name: string

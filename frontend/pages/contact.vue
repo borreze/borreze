@@ -3,7 +3,8 @@
         <h1 class="title-main pt-2 pb-4">Contact</h1>
         <Breadcrumb :items="[{ name: 'Contact', path: '/contact' }]" />
         <div class="contact-grid mt-6">
-            <section class="contact-form bg-white rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 md:p-6 2xl:min-w-[500px]">
+            <section
+                class="contact-form bg-white rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 md:p-6 2xl:min-w-[500px]">
                 <h4 class="title-submain">Formulaire de contact</h4>
                 <div class="flex flex-col items-center justify-center space-y-4 mt-4">
                     <Field v-model="firstname" name="firstname" type="text" label="Prénom" roundness="lg"
@@ -22,7 +23,8 @@
                     </div>
                 </div>
             </section>
-            <section class="contact-address bg-white rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 md:p-6 2xl:max-w-[400px]">
+            <section
+                class="contact-address bg-white rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 md:p-6 2xl:max-w-[400px]">
                 <h4 class="title-submain">Adresse</h4>
                 <address class="flex flex-col items-start gap-3 my-2">
                     <p>Mairie de Borrèze<br>
@@ -58,13 +60,15 @@ import { push } from 'notivue';
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
 import Button from '~/components/atoms/Button.vue'
 import Field from '~/components/atoms/Field.vue'
-import type { ScheduleAttributes } from '~/types/backend/schedule';
+import type { ScheduleAttributes } from '@brz/shared';
 import Url from '~/components/atoms/Url.vue';
 import Map from '~/components/molecules/Map.client.vue';
+import { nl2br, renderSchedules } from '#imports';
 
 const schedules = ref<ScheduleAttributes[]>([
     {
         id: 1,
+        type: 'town_hall',
         day: 'tuesday',
         intervals: [
             { start: '09:30', end: '12:00' },
@@ -73,6 +77,7 @@ const schedules = ref<ScheduleAttributes[]>([
     },
     {
         id: 2,
+        type: 'town_hall',
         day: 'wednesday',
         intervals: [
             { start: '14:00', end: '17:00' }
@@ -80,6 +85,7 @@ const schedules = ref<ScheduleAttributes[]>([
     },
     {
         id: 3,
+        type: 'town_hall',
         day: 'thursday',
         intervals: [
             { start: '09:30', end: '12:00' }
@@ -87,6 +93,7 @@ const schedules = ref<ScheduleAttributes[]>([
     },
     {
         id: 4,
+        type: 'town_hall',
         day: 'friday',
         intervals: [
             { start: '14:00', end: '17:00' }

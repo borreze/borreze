@@ -4,8 +4,8 @@ import { Return } from '../types/utils/api.types'
 import { parseArrayInteger, parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
 import { PostStatus } from '@brz/shared'
-import { Order } from '../types/utils/request.types'
-import { Pagination } from '../types/utils/pagination.types'
+import { Order } from '@brz/shared'
+import { Pagination } from '@brz/shared'
 
 export class PostController {
   public getRecents: RequestHandler = async (req, res) => {

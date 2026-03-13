@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { USER_STATUSES, UserAttributes, UserAttributesCreation, UserStatus } from '@brz/shared'
+import { USER_STATUSES_KEYS, UserAttributes, UserAttributesCreation, UserStatus } from '@brz/shared'
 import { Role } from './role.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
@@ -52,8 +52,8 @@ export const USER_CONSTRAINTS = {
     required: true
   },
   status: {
-    type: DataTypes.ENUM(...USER_STATUSES),
-    enum: USER_STATUSES,
+    type: DataTypes.ENUM(...USER_STATUSES_KEYS),
+    enum: USER_STATUSES_KEYS,
     defaultValue: 'active',
     required: true
   },

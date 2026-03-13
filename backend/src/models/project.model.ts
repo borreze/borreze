@@ -1,10 +1,10 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PROJECT_STATUSES, ProjectAttributes, ProjectAttributesCreation, ProjectStatus } from '@brz/shared'
+import { PROJECT_STATUSES_KEYS, ProjectAttributes, ProjectAttributesCreation, ProjectStatus } from '@brz/shared'
 import { Media } from './media.model'
 import { Gallery } from './gallery.model'
 import { Category } from './category.model'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
+import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 
 
@@ -42,8 +42,8 @@ export const PROJECT_CONSTRAINTS = {
     required: false
   },
   status: {
-    type: DataTypes.ENUM(...PROJECT_STATUSES),
-    enum: PROJECT_STATUSES,
+    type: DataTypes.ENUM(...PROJECT_STATUSES_KEYS),
+    enum: PROJECT_STATUSES_KEYS,
     defaultValue: 'planned',
     required: true
   },

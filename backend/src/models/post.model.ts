@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { POST_STATUSES, PostAttributes, PostAttributesCreation, PostStatus } from '@brz/shared'
+import { POST_STATUSES_KEYS, PostAttributes, PostAttributesCreation, PostStatus } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
+import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 import { Media } from './media.model'
 import { Category } from './category.model'
@@ -17,8 +17,8 @@ export const POST_CONSTRAINTS = {
     required: false
   },
   status: {
-    type: DataTypes.ENUM(...POST_STATUSES),
-    enum: POST_STATUSES,
+    type: DataTypes.ENUM(...POST_STATUSES_KEYS),
+    enum: POST_STATUSES_KEYS,
     required: true,
     default: 'draft'
   },

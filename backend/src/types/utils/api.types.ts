@@ -1,5 +1,5 @@
 import { ValidationError } from 'sequelize'
-import { Pagination } from './pagination.types'
+import { Pagination } from '@brz/shared'
 
 export interface Return {
     message?: string | null

@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { CATEGORIZABLE_TYPES, CategorizableAttributes, CategorizableAttributesCreation, CategorizableType } from '../types/models/categorizable.types'
+import { CATEGORIZABLE_TYPES_KEYS, CategorizableAttributes, CategorizableAttributesCreation, CategorizableType } from '../../../shared/src/types/categorizable.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
@@ -13,8 +13,8 @@ export const CATEGORIZABLE_CONSTRAINTS = {
         required: true
     },
     type: {
-        type: DataTypes.ENUM(...CATEGORIZABLE_TYPES),
-        enum: CATEGORIZABLE_TYPES,
+        type: DataTypes.ENUM(...CATEGORIZABLE_TYPES_KEYS),
+        enum: CATEGORIZABLE_TYPES_KEYS,
         required: true
     },
     created_at: {

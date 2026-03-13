@@ -1,5 +1,5 @@
 import type { RouteRecordNormalized } from 'vue-router'
-import type { SearchResult } from '~/types/backend/search'
+import type { SearchResult } from '@brz/shared'
 import useApi from '~/composables/useApi'
 import { getRoutes } from '~/utils/routing'
 

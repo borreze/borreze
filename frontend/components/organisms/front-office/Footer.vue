@@ -53,10 +53,11 @@
 import AppLogo from '~/components/organisms/AppLogo.vue'
 import Button from '~/components/atoms/Button.vue';
 import AppStarryVillage from './AppStarryVillage.vue';
-import type { ScheduleAttributes } from '~/types/backend/schedule';
+import type { ScheduleAttributes } from '@brz/shared';
 import type { SocialAttributes } from '~/types/social';
 import SocialCard from '~/components/organisms/front-office/SocialCard.vue';
 import Url from '~/components/atoms/Url.vue';
+import { nl2br, renderSchedules } from '#imports';
 
 const socials = ref<SocialAttributes[]>([
     {
@@ -74,6 +75,7 @@ const socials = ref<SocialAttributes[]>([
 const schedules = ref<ScheduleAttributes[]>([
     {
         id: 1,
+        type: 'town_hall',
         day: 'tuesday',
         intervals: [
             { start: '09:30', end: '12:00' },
@@ -82,6 +84,7 @@ const schedules = ref<ScheduleAttributes[]>([
     },
     {
         id: 2,
+        type: 'town_hall',
         day: 'wednesday',
         intervals: [
             { start: '14:00', end: '17:00' }
@@ -89,6 +92,7 @@ const schedules = ref<ScheduleAttributes[]>([
     },
     {
         id: 3,
+        type: 'town_hall',
         day: 'thursday',
         intervals: [
             { start: '09:30', end: '12:00' }
@@ -96,6 +100,7 @@ const schedules = ref<ScheduleAttributes[]>([
     },
     {
         id: 4,
+        type: 'town_hall',
         day: 'friday',
         intervals: [
             { start: '14:00', end: '17:00' }

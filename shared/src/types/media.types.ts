@@ -1,7 +1,11 @@
 import { Optional } from 'sequelize'
 
-export const MEDIA_TYPES = ['image', 'document'] as const
-export type MediaType = typeof MEDIA_TYPES[number]
+export const MEDIA_TYPES_KEYS = ['image', 'document'] as const
+export type MediaType = typeof MEDIA_TYPES_KEYS[number]
+export const MEDIA_TYPES_OBJECTS: { value: MediaType, label: string }[] = [
+    { value: 'image', label: 'Image' },
+    { value: 'document', label: 'Document' },
+]
 
 export interface MediaAttributes {
     id: number

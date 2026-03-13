@@ -1,11 +1,11 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { EVENT_STATUSES, EventAttributes, EventAttributesCreation, EventStatus } from '@brz/shared'
+import { EVENT_STATUSES_KEYS, EventAttributes, EventAttributesCreation, EventStatus } from '@brz/shared'
 import { Category } from './category.model'
 import { Gallery } from './gallery.model'
 import { Media } from './media.model'
 import { modelBuild } from '../utils/model.utils'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
+import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
 
 export const EVENT_CONSTRAINTS = {
     id: {
@@ -54,8 +54,8 @@ export const EVENT_CONSTRAINTS = {
         required: false
     },
     status: {
-        type: DataTypes.ENUM(...EVENT_STATUSES),
-        enum: EVENT_STATUSES,
+        type: DataTypes.ENUM(...EVENT_STATUSES_KEYS),
+        enum: EVENT_STATUSES_KEYS,
         defaultValue: 'draft'
     },
     date_time: {

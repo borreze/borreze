@@ -1,5 +1,4 @@
 export interface MarkerPopup {
-    export interface MarkerPopup {
     label?: string
     content?: string
     icon?: string

@@ -1,7 +1,12 @@
 import { Optional } from 'sequelize'
 
-export const EVENT_STATUSES = ['draft', 'published', 'archived'] as const
-export type EventStatus = typeof EVENT_STATUSES[number]
+export const EVENT_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
+export type EventStatus = typeof EVENT_STATUSES_KEYS[number]
+export const EVENT_STATUSES_OBJECTS: { value: EventStatus, label: string }[] = [
+    { value: 'draft', label: 'Brouillon' },
+    { value: 'published', label: 'Publié' },
+    { value: 'archived', label: 'Archivé' },
+]
 
 export interface EventAttributes {
     id: number

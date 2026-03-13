@@ -1,6 +1,6 @@
-import type { PostAttributes } from '~/types/backend/post'
-import type { Order } from '~/types/order'
-import type { Pagination } from '~/types/pagination'
+import type { PostAttributesFrontend } from '@brz/shared';
+import type { Order } from '@brz/shared'
+import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 import { PAGINATION_DEFAULT } from '~/utils/pagination'
 
@@ -13,7 +13,7 @@ export const usePosts = async () => {
         `posts-page-${page.value}-categories-${categories.value.join(',')}`,
         async () => {
             try {
-                const res = await useApi().get<{ data: PostAttributes[], pagination: Pagination }>(
+                const res = await useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(
                     '/posts',
                     {
                         params: {
@@ -93,7 +93,7 @@ export const usePostsRecents = async () => {
         'posts-recents',
         async () => {
             try {
-                const res = await useApi().get<{ data: PostAttributes[] }>(
+                const res = await useApi().get<{ data: PostAttributesFrontend[] }>(
                     '/posts/recents'
                 )
                 return res.data ?? null
@@ -115,7 +115,7 @@ export const usePost = async (slug: string) => {
         `post-${slug}`,
         async () => {
             try {
-                const res = await useApi().get<{ data: PostAttributes }>(`/posts/${slug}`)
+                const res = await useApi().get<{ data: PostAttributesFrontend }>(`/posts/${slug}`)
                 return res.data ?? null
             } catch (e) {
                 return null

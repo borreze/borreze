@@ -1,7 +1,11 @@
 import { Optional } from 'sequelize'
 
-export const MENU_CONTEXTS = ['front-office', 'back-office'] as const
-export type MenuContext = typeof MENU_CONTEXTS[number]
+export const MENU_CONTEXTS_KEYS = ['front-office', 'back-office'] as const
+export type MenuContext = typeof MENU_CONTEXTS_KEYS[number]
+export const MENU_CONTEXTS_OBJECTS: { value: MenuContext, label: string }[] = [
+    { value: 'front-office', label: 'Front Office' },
+    { value: 'back-office', label: 'Back Office' },
+]
 
 export interface MenuAttributes {
     id: number

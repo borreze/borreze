@@ -1,5 +1,5 @@
-import { Order } from '../types/utils/request.types'
-import { Pagination } from '../types/utils/pagination.types'
+import { Order } from '@brz/shared'
+import { Pagination } from '@brz/shared'
 import { modelAttach } from '../utils/model.utils'
 import { POST_LINKS, POST_NAMES } from '../models/post.model'
 import { postService } from '../services/post.service'

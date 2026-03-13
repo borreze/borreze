@@ -43,7 +43,7 @@
                             label="Date de fin de publication" hint="Date à laquelle l'actualité ne sera plus publiée"
                             type="date" roundness="md" />
                         <Dropdown v-model="editingPost.status" variant="gray" size="md"
-                            placeholder="Status de publication" :items="POST_STATUSES_WITH_LABELS" />
+                            placeholder="Status de publication" :items="POST_STATUSES_OBJECTS" />
                     </div>
                 </section>
                 <section>
@@ -70,7 +70,8 @@ import Button from '~/components/atoms/Button.vue';
 import Loader from '~/components/molecules/Loader.vue';
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import PostCard from '~/components/organisms/front-office/PostCard.vue';
-import { POST_STATUSES_WITH_LABELS, type PostAttributes } from '~/types/backend/post'
+import { POST_STATUSES_OBJECTS } from '@brz/shared';
+import type { PostAttributesFrontend } from '@brz/shared';
 import Datepicker from '~/components/atoms/Datepicker.vue';
 import Dropdown from '~/components/molecules/Dropdown.vue';
 
@@ -81,7 +82,7 @@ if (!post.value) {
     throw createError({ statusCode: 404, statusMessage: 'Actualité introuvable' })
 }
 
-const editingPost = ref<PostAttributes>(post.value)
+const editingPost = ref<PostAttributesFrontend>(post.value)
 
 const handleSave = async () => {
     console.log('Enregistrement de l\'actualité...', editingPost.value)

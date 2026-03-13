@@ -1,7 +1,13 @@
 import { Optional } from 'sequelize'
+import { CategoryAttributes } from './category.types'
 
-export const POST_STATUSES = ['draft', 'published', 'archived'] as const
-export type PostStatus = typeof POST_STATUSES[number]
+export const POST_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
+export type PostStatus = typeof POST_STATUSES_KEYS[number]
+export const POST_STATUSES_OBJECTS: { value: PostStatus, label: string }[] = [
+    { value: 'draft', label: 'Brouillon' },
+    { value: 'published', label: 'Publié' },
+    { value: 'archived', label: 'Archivé' },
+]
 
 export interface PostAttributes {
     id: number
@@ -19,6 +25,8 @@ export interface PostAttributes {
     created_at?: Date | null
     updated_at?: Date | null
 }
+
+export interface PostAttributesFrontend extends PostAttributes { categories?: CategoryAttributes[] }
 
 export type PostAttributesCreation = Optional<PostAttributes,
     'id' | 'cover_id' | 'abstract' | 'content' | 'meta_title' | 'meta_description' |

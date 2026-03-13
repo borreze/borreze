@@ -1,5 +1,5 @@
 import { Request } from 'express'
-import { Order } from '../types/utils/request.types'
+import { Order } from '@brz/shared'
 import { BadRequest } from '../exceptions/request.exception'
 
 const DEFAULT_ORDER: Order[] = [['created_at', 'DESC'], ['id', 'DESC']]

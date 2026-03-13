@@ -4,7 +4,7 @@ import { Category } from './category.model'
 import { Media } from './media.model'
 import { Schedule } from './schedule.model'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
+import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 
 export const COMMERCE_CONSTRAINTS = {

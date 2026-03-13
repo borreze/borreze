@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { ROOM_RESERVATION_STATUSES, RoomReservationAttributes, RoomReservationAttributesCreation, RoomReservationStatus } from '@brz/shared'
+import { ROOM_RESERVATION_STATUSES_KEYS, RoomReservationAttributes, RoomReservationAttributesCreation, RoomReservationStatus } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
@@ -44,8 +44,8 @@ export const ROOM_RESERVATION_CONSTRAINTS = {
         searchable: true
     },
     status: {
-        type: DataTypes.ENUM(...ROOM_RESERVATION_STATUSES),
-        enum: ROOM_RESERVATION_STATUSES,
+        type: DataTypes.ENUM(...ROOM_RESERVATION_STATUSES_KEYS),
+        enum: ROOM_RESERVATION_STATUSES_KEYS,
         defaultValue: 'pending'
     },
     created_at: {

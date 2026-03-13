@@ -1,4 +1,5 @@
 import { Optional } from "sequelize"
+
 export interface GalleryMediaAttributes {
     gallery_id: number
     media_id: number

@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { MENU_CONTEXTS, MenuAttributes, MenuAttributesCreation, MenuContext } from '@brz/shared'
+import { MENU_CONTEXTS_KEYS, MenuAttributes, MenuAttributesCreation, MenuContext } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
@@ -11,8 +11,8 @@ export const MENU_CONSTRAINTS = {
     autoIncrement: true
   },
   context: {
-    type: DataTypes.ENUM(...MENU_CONTEXTS),
-    enum: MENU_CONTEXTS,
+    type: DataTypes.ENUM(...MENU_CONTEXTS_KEYS),
+    enum: MENU_CONTEXTS_KEYS,
     required: true,
   },
   label: {

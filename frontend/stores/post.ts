@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import useApi from '~/composables/useApi'
-import type { PostAttributes } from '~/types/backend/post'
-import type { Pagination } from '~/types/pagination'
+import type { PostAttributes } from '@brz/shared'
+import type { Pagination } from '@brz/shared'
 
 export interface PostStoreState {
     posts?: PostAttributes[] | null

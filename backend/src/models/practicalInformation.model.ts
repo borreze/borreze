@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
 import { PracticalInformationAttributes, PracticalInformationAttributesCreation } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
+import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 
 export const PRACTICAL_INFORMATION_CONSTRAINTS = {

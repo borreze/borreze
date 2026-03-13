@@ -1,6 +1,6 @@
-import type { PostAttributes } from '~/types/backend/post'
-import type { Order } from '~/types/order'
-import type { Pagination } from '~/types/pagination'
+import type { PostAttributesFrontend } from '@brz/shared';
+import type { Order } from '@brz/shared'
+import type { Pagination } from '@brz/shared'
 import { PAGINATION_DEFAULT } from '~/utils/pagination'
 import useApi from '~/composables/useApi'
 
@@ -13,7 +13,7 @@ export const usePosts = async () => {
 
     const { data, status, error, refresh, execute } = useLazyAsyncData(
         `posts-page-${page.value}-search-${search.value}`,
-        () => useApi().get<{ data: PostAttributes[], pagination: Pagination }>(
+        () => useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(
             '/back-office/posts',
             {
                 params: {
@@ -82,7 +82,7 @@ export const usePost = async (id: number) => {
     const { data, status, error } = await useAsyncData(
         `post-${id}`,
         () => useApi()
-            .get<{ data: PostAttributes, pagination: Pagination }>(
+            .get<{ data: PostAttributesFrontend, pagination: Pagination }>(
                 `/back-office/posts/${id}`,
                 {
                     params: {

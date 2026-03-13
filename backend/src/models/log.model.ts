@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { LOG_LEVELS, LogAttributes, LogAttributesCreation, LogLevel } from '@brz/shared'
+import { LOG_LEVELS_KEYS, LogAttributes, LogAttributesCreation, LogLevel } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
@@ -12,8 +12,8 @@ export const LOG_CONSTRAINTS = {
     primaryKey: true
   },
   level: {
-    type: DataTypes.ENUM(...LOG_LEVELS),
-    enum: LOG_LEVELS,
+    type: DataTypes.ENUM(...LOG_LEVELS_KEYS),
+    enum: LOG_LEVELS_KEYS,
     defaultValue: 'info',
     required: true
   },

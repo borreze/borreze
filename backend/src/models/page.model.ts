@@ -1,10 +1,10 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PAGE_STATUSES, PageAttributes, PageAttributesCreation, PageStatus } from '@brz/shared'
+import { PAGE_STATUSES_KEYS, PageAttributes, PageAttributesCreation, PageStatus } from '@brz/shared'
 import { Media } from './media.model'
 import { Gallery } from './gallery.model'
 import { PageAttribute } from './pageAttribute.model'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
+import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 
 export const PAGE_CONSTRAINTS = {
@@ -22,8 +22,8 @@ export const PAGE_CONSTRAINTS = {
     required: false
   },
   status: {
-    type: DataTypes.ENUM(...PAGE_STATUSES),
-    enum: PAGE_STATUSES,
+    type: DataTypes.ENUM(...PAGE_STATUSES_KEYS),
+    enum: PAGE_STATUSES_KEYS,
     required: true,
     defaultValue: 'draft'
   },

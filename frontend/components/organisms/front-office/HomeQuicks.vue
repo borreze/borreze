@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import type { HomeQuickAttributes } from '~/types/backend/homeQuick';
+import type { HomeQuickAttributes } from '@brz/shared';
 import HomeQuickCard from './HomeQuickCard.vue';
 
 const homeQuicks = ref<HomeQuickAttributes[]>([

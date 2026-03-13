@@ -1,9 +1,24 @@
 import { Optional } from 'sequelize'
 
-export const SCHEDULE_DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const
-export type ScheduleDay = typeof SCHEDULE_DAYS[number]
-export const SCHEDULE_TYPES = ['town_hall', 'commerce', 'school_childcare'] as const
-export type ScheduleType = typeof SCHEDULE_TYPES[number]
+export const SCHEDULE_DAYS_KEYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const
+export type ScheduleDay = typeof SCHEDULE_DAYS_KEYS[number]
+export const SCHEDULE_DAYS_OBJECTS: { value: ScheduleDay, label: string }[] = [
+    { value: 'monday', label: 'Lundi' },
+    { value: 'tuesday', label: 'Mardi' },
+    { value: 'wednesday', label: 'Mercredi' },
+    { value: 'thursday', label: 'Jeudi' },
+    { value: 'friday', label: 'Vendredi' },
+    { value: 'saturday', label: 'Samedi' },
+    { value: 'sunday', label: 'Dimanche' },
+]
+
+export const SCHEDULE_TYPES_KEYS = ['town_hall', 'commerce', 'school_childcare'] as const
+export type ScheduleType = typeof SCHEDULE_TYPES_KEYS[number]
+export const SCHEDULE_TYPES_OBJECTS: { value: ScheduleType, label: string }[] = [
+    { value: 'town_hall', label: 'Mairie' },
+    { value: 'commerce', label: 'Commerce' },
+    { value: 'school_childcare', label: 'Garderie scolaire' },
+]
 
 export type Time = `${number}${number}:${number}${number}`
 

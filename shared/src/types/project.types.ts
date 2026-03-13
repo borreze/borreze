@@ -1,7 +1,12 @@
 import { Optional } from 'sequelize'
 
-export const PROJECT_STATUSES = ['planned', 'ongoing', 'completed'] as const
-export type ProjectStatus = typeof PROJECT_STATUSES[number]
+export const PROJECT_STATUSES_KEYS = ['planned', 'ongoing', 'completed'] as const
+export type ProjectStatus = typeof PROJECT_STATUSES_KEYS[number]
+export const PROJECT_STATUSES_OBJECTS: { value: ProjectStatus, label: string }[] = [
+    { value: 'planned', label: 'Planifié' },
+    { value: 'ongoing', label: 'En cours' },
+    { value: 'completed', label: 'Terminé' },
+]
 
 export interface ProjectAttributes {
     id: number

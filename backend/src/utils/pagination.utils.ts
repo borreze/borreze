@@ -1,5 +1,5 @@
 import { PaginationException } from '../exceptions/pagination.exception'
-import { Pagination } from '../types/utils/pagination.types'
+import { Pagination } from '@brz/shared'
 
 export function paginationValidate(page?: number, limit?: number, count?: number): void {
     if (limit && limit > 100) throw new PaginationException('limit cannot exceed 100 elements') // To prevent abuse

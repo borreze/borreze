@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import type { HomeQuickAttributes } from '~/types/backend/homeQuick';
+import type { HomeQuickAttributes } from '@brz/shared';
 
 const props = defineProps<{
     homeQuick?: HomeQuickAttributes | null
