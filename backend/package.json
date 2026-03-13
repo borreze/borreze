@@ -44,6 +44,7 @@
     "typeorm": "^0.3.6"
   },
   "devDependencies": {
+    "@brz/shared": "*",
     "@eslint/js": "^9.33.0",
     "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
@@ -52,7 +53,7 @@
     "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^24.2.1",
+    "@types/node": "^24.12.0",
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^7.0.1",
     "@types/pg": "^8.15.4",
