@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { Terminal } from './utils/terminal.utils'
+import createRateLimiter from './middlewares/limiter.middleware'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -19,8 +20,8 @@ app.use(helmet())
 // Logging middleware
 app.use(morgan('combined'))
 
-// Rate limiting
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 })) // 100 requests per 15 minutes
+// Default rate limiter for all requests
+app.use(createRateLimiter())
 
 const IP = '0.0.0.0'
 const PORT = 3000 // ! Port hardcoded here: docker expects it to be 3000
