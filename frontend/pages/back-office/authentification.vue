@@ -1,12 +1,19 @@
 <template>
-    <div class="min-h-[calc(100vh-4rem)] overflow-hidden flex items-center justify-center">
-        <div class="w-full max-w-md rounded-lg p-4 bg-white lg:shadow-[2px_2px_10px_2px_#0000001a]">
+    <div class="p-4 flex items-center justify-center md:min-h-screen">
+
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
+            style="background-image: url('/images/borreze-depuis-coline.webp');">
+            <div class="absolute inset-0 bg-primary/10" />
+        </div>
+
+        <div class="w-full max-w-md rounded-lg p-4 bg-white shadow-[2px_2px_10px_2px_#0000001a]">
             <div class="flex items-center justify-center">
                 <AppLogo to="/back-office" />
             </div>
-            <h2 class="title-submain text-center mt-4 mb-8">
+            <h2 class="title-submain text-center mt-4 mb-4">
                 {{ tabs[tab!].title }}
             </h2>
+            <p class="text-center text-sm font-semibold text-gray-500 mb-6">{{ tabs[tab!].description }}</p>
             <component :is="tabs[tab!].component" :setTab="setTab" />
         </div>
     </div>
@@ -15,12 +22,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import AuthLogin from '~/components/organisms/back-office/AuthLogin.vue'
-import AuthForgot from '~/components/organisms/back-office/AuthForgot.vue'
-import AuthReset from '~/components/organisms/back-office/AuthReset.vue'
 import AppLogo from '~/components/organisms/AppLogo.vue'
-import { isMobile } from '#imports'
 
-type Tab = 'login' | 'forgot' | 'reset'
+type Tab = 'login' 
 
 const tab = ref<Tab | null>('login')
 
@@ -28,19 +32,12 @@ const setTab = (to: Tab) => {
     tab.value = to
 }
 
-const tabs = ref<Record<Tab, { title: string, component: any }>>({
+const tabs = ref<Record<Tab, { title: string, description: string, component: any }>>({
     login: {
         title: 'Se connecter',
+        description: 'Connectez-vous à votre back-office pour gérer et administrer votre site web en toute simplicité',
         component: shallowRef(AuthLogin),
     },
-    forgot: {
-        title: 'Mot de passe oublié',
-        component: shallowRef(AuthForgot),
-    },
-    reset: {
-        title: 'Réinitialiser le mot de passe',
-        component: shallowRef(AuthReset),
-    }
 })
 
 useAppHead({

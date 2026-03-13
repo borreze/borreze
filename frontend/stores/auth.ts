@@ -158,35 +158,6 @@ export const useAuthStore = defineStore('auth', {
         },
 
         /**
-         * Send password reset code to email
-         */
-        async sendResetCode(email: string) {
-            this.loading = true
-
-            const api = useApi()
-            const { status } = await api.post('/back-office/auth/send-reset-code', { body: { email } })
-
-            this.loading = false
-
-            return status === 200
-        },
-
-        /**
-         * Reset password using email + code + new password
-         */
-        async resetPassword(email: string, code: string, newPassword: string) {
-            this.loading = true
-
-            const api = useApi()
-            const { status } = await api.post('/back-office/auth/reset-password', {
-                body: { email, code, newPassword }
-            })
-
-            this.loading = false
-            return status === 200
-        },
-
-        /**
          * Restore tokens from cookies on SSR/client init
          */
         loadFromCookies() {

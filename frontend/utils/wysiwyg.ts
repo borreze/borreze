@@ -131,14 +131,13 @@ export const nl2br = (str: string): string => {
 }
 
 export const sanitizeHtml = (html: string): string => {
-    // TODO replce by DOMPurify
     const parser = new DOMParser()
     const doc = parser.parseFromString(html, 'text/html')
 
     doc.querySelectorAll('*').forEach((el) => {
             // Supprimer les attributs on*
             Array.from(el.attributes).forEach((attr) => {
-              if (attr.name.startsWith('on')) el.removeAttribute(attr.name)
+                if (attr.name.startsWith('on')) el.removeAttribute(attr.name)
             })
             // Supprimer les href javascript:
             const href = el.getAttribute('href')

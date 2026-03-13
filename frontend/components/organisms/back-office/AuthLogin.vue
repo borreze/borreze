@@ -1,21 +1,16 @@
 <template>
     <div>
-        <div class="flex flex-col items-center justify-center space-y-4 mt-4 mx-4">
+        <div class="flex flex-col items-center justify-center space-y-4 mt-4 mb-6 mx-4">
             <Field v-model="identifier" name="identifier" type="text" label="E-mail ou nom d'utilisateur"
                 placeholder="jdupont@gmail.com" required :error="errors.identifier" @blur="touched.identifier = true" />
-
             <Field v-model="password" name="password" type="password" label="Mot de passe" placeholder="********"
                 required :error="errors.password" @blur="touched.password = true" />
-        </div>
-
-        <div class="flex flex-row align-items-center justify-between m-4">
-            <Button as="link" href="/" label="Revenir au site" variant="transparent" size="sm" />
-            <Button label="Mot de passe oublié ?" variant="transparent" size="sm" @click="props.setTab('forgot')" />
         </div>
 
         <div class="flex flex-col space-y-4 m-4">
             <Button :disabled="Object.values(errors).some(Boolean)" label="Se connecter" variant="primary" size="md"
                 :loading="authStore.loading" @click="handleLogin" />
+            <Button as="link" href="/" icon="ic:baseline-arrow-back" label="Revenir au site web" variant="ghost" size="md" />
         </div>
     </div>
 </template>
