@@ -47,8 +47,8 @@ export class UserService {
     return users
   }
 
-  public async getByEmailOrUsername(emailOrUsername: string, options?: { status?: UserStatus }): Promise<UserAttributes | null> {
-    const { status } = options || {}
+  public async getByEmailOrUsername(emailOrUsername: string, options?: { status?: UserStatus, throwError?: boolean }): Promise<UserAttributes | null> {
+    const { status, throwError } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
@@ -60,7 +60,10 @@ export class UserService {
         [Op.or]: [{ email: emailOrUsername }, { username: emailOrUsername }],
       },
     })
-    if (!user) throw new NotFound('User not found')
+    if (!user) {
+      if (throwError) throw new NotFound('User not found')
+      return null
+    }
     return user
   }
 
