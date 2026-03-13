@@ -3,7 +3,6 @@ import dotenv from 'dotenv'
 import path from 'path'
 import morgan from 'morgan'
 import helmet from 'helmet'
-import rateLimit from 'express-rate-limit'
 import { Terminal } from './utils/terminal.utils'
 import createRateLimiter from './middlewares/limiter.middleware'
 

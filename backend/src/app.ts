@@ -36,7 +36,9 @@ app.use(cors({
 }))
 
 // Register cron jobs
-initSchoolHolidayCron()
+if (process.env.NODE_ENV === 'production') { // ! DO NOT REMOVE: this is to prevent cron from running infinite times in pipeline
+  initSchoolHolidayCron()
+}
 
 // Register routes
 app.use(postRoutes)
