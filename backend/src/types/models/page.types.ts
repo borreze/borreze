@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { PAGE_STATUSES } from '../../models/page.model'
 
+export const PAGE_STATUSES = ['draft', 'published', 'archived'] as const
 export type PageStatus = typeof PAGE_STATUSES[number]
 
 export interface PageAttributes {

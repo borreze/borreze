@@ -1,9 +1,8 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { MenuAttributes, MenuAttributesCreation, MenuContext } from '../types/models/menu.types'
+import { MENU_CONTEXTS, MenuAttributes, MenuAttributesCreation, MenuContext } from '../types/models/menu.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-export const MENU_CONTEXTS = ['front-office', 'back-office'] as const
 
 export const MENU_CONSTRAINTS = {
   id: {

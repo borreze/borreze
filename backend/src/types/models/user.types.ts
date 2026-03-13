@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { USER_STATUSES } from '../../models/user.model'
 
+export const USER_STATUSES = ['active', 'inactive', 'banned'] as const
 export type UserStatus = typeof USER_STATUSES[number]
 
 export interface UserAttributes {

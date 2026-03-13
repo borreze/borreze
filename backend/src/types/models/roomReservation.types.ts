@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { ROOM_RESERVATION_STATUSES } from '../../models/roomReservation.model'
 
+export const ROOM_RESERVATION_STATUSES = ['pending', 'accepted', 'rejected'] as const
 export type RoomReservationStatus = typeof ROOM_RESERVATION_STATUSES[number]
 
 export interface RoomReservationAttributes {

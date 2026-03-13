@@ -1,12 +1,10 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { UserAttributes, UserAttributesCreation, UserStatus } from '../types/models/user.types'
+import { USER_STATUSES, UserAttributes, UserAttributesCreation, UserStatus } from '../types/models/user.types'
 import { Role } from './role.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
 export const USER_ROLE_ID_DEFAULT = 2 // Default role for new users
-
-export const USER_STATUSES = ['active', 'inactive', 'banned'] as const
 
 export const USER_CONSTRAINTS = {
   id: {

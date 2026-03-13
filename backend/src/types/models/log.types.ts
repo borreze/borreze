@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { LOG_LEVELS } from '../../models/log.model'
 
+export const LOG_LEVELS = ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'] as const
 export type LogLevel = typeof LOG_LEVELS[number]
 
 export interface LogAttributes {

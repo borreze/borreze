@@ -1,7 +1,8 @@
 import { Optional } from 'sequelize'
-import { SCHEDULE_DAYS, SCHEDULE_TYPES } from '../../models/schedule.model'
 
+export const SCHEDULE_DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const
 export type ScheduleDay = typeof SCHEDULE_DAYS[number]
+export const SCHEDULE_TYPES = ['town_hall', 'commerce', 'school_childcare'] as const
 export type ScheduleType = typeof SCHEDULE_TYPES[number]
 
 export type Time = `${number}${number}:${number}${number}`

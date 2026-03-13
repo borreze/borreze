@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { MENU_CONTEXTS } from '../../models/menu.model'
 
+export const MENU_CONTEXTS = ['front-office', 'back-office'] as const
 export type MenuContext = typeof MENU_CONTEXTS[number]
 
 export interface MenuAttributes {

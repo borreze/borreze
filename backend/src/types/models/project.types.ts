@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { PROJECT_STATUSES } from '../../models/project.model'
 
+export const PROJECT_STATUSES = ['planned', 'ongoing', 'completed'] as const
 export type ProjectStatus = typeof PROJECT_STATUSES[number]
 
 export interface ProjectAttributes {

@@ -1,9 +1,8 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { RoomReservationAttributes, RoomReservationAttributesCreation, RoomReservationStatus } from '../types/models/roomReservation.types'
+import { ROOM_RESERVATION_STATUSES, RoomReservationAttributes, RoomReservationAttributesCreation, RoomReservationStatus } from '../types/models/roomReservation.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-export const ROOM_RESERVATION_STATUSES = ['pending', 'accepted', 'rejected'] as const
 
 export const ROOM_RESERVATION_CONSTRAINTS = {
     id: {

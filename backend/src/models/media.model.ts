@@ -1,9 +1,8 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { MediaAttributes, MediaAttributesCreation, MediaType } from '../types/models/media.types'
+import { MEDIA_TYPES, MediaAttributes, MediaAttributesCreation, MediaType } from '../types/models/media.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-export const MEDIA_TYPES = ['image', 'document'] as const
 
 export const MEDIA_CONSTRAINTS = {
   id: {

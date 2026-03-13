@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { CATEGORIZABLE_TYPES } from '../../models/categorizable.model'
 
+export const CATEGORIZABLE_TYPES = ['post', 'event', 'project', 'commerce', 'association'] as const
 export type CategorizableType = typeof CATEGORIZABLE_TYPES[number]
 
 export interface CategorizableAttributes {

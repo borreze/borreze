@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { MEDIA_TYPES } from '../../models/media.model'
 
+export const MEDIA_TYPES = ['image', 'document'] as const
 export type MediaType = typeof MEDIA_TYPES[number]
 
 export interface MediaAttributes {

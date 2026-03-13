@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { POST_STATUSES } from '../../models/post.model'
 
+export const POST_STATUSES = ['draft', 'published', 'archived'] as const
 export type PostStatus = typeof POST_STATUSES[number]
 
 export interface PostAttributes {

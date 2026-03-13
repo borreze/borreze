@@ -1,12 +1,10 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PostAttributes, PostAttributesCreation, PostStatus } from '../types/models/post.types'
+import { POST_STATUSES, PostAttributes, PostAttributesCreation, PostStatus } from '../types/models/post.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
 import { modelBuild } from '../utils/model.utils'
 import { Media } from './media.model'
 import { Category } from './category.model'
-
-export const POST_STATUSES = ['draft', 'published', 'archived'] as const
 
 export const POST_CONSTRAINTS = {
   id: {

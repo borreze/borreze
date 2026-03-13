@@ -1,9 +1,7 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { CategorizableAttributes, CategorizableAttributesCreation, CategorizableType } from '../types/models/categorizable.types'
+import { CATEGORIZABLE_TYPES, CategorizableAttributes, CategorizableAttributesCreation, CategorizableType } from '../types/models/categorizable.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
-
-export const CATEGORIZABLE_TYPES = ['post', 'event', 'project', 'commerce', 'association'] as const
 
 export const CATEGORIZABLE_CONSTRAINTS = {
     category_id: {

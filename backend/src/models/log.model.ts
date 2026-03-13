@@ -1,11 +1,9 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { LogAttributes, LogAttributesCreation, LogLevel } from '../types/models/log.types'
+import { LOG_LEVELS, LogAttributes, LogAttributesCreation, LogLevel } from '../types/models/log.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
 export const LOG_RENTENTION_DAYS = 30
-
-export const LOG_LEVELS = ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'] as const
 
 export const LOG_CONSTRAINTS = {
   id: {

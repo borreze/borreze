@@ -1,6 +1,6 @@
 import { Optional } from 'sequelize'
-import { EVENT_STATUS_VALUES } from '../../models/event.model'
 
+export const EVENT_STATUS_VALUES = ['draft', 'published', 'archived'] as const
 export type EventStatus = typeof EVENT_STATUS_VALUES[number]
 
 export interface EventAttributes {

@@ -1,13 +1,11 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { EventAttributes, EventAttributesCreation, EventStatus } from '../types/models/event.types'
+import { EVENT_STATUS_VALUES, EventAttributes, EventAttributesCreation, EventStatus } from '../types/models/event.types'
 import { Category } from './category.model'
 import { Gallery } from './gallery.model'
 import { Media } from './media.model'
 import { modelBuild } from '../utils/model.utils'
 import { ModelConstraints } from '../types/utils/model.types'
 import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
-
-export const EVENT_STATUS_VALUES = ['draft', 'published', 'archived'] as const
 
 export const EVENT_CONSTRAINTS = {
     id: {

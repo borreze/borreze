@@ -1,10 +1,9 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { ScheduleAttributes, ScheduleAttributesCreation, ScheduleDay, ScheduleType, TimeInterval } from '../types/models/schedule.types'
+import { SCHEDULE_DAYS, SCHEDULE_TYPES, ScheduleAttributes, ScheduleAttributesCreation, ScheduleDay, ScheduleType, TimeInterval } from '../types/models/schedule.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-export const SCHEDULE_DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const
-export const SCHEDULE_TYPES = ['town_hall', 'commerce', 'school_childcare'] as const
+
 
 export const SCHEDULE_CONSTRAINTS = {
   id: {

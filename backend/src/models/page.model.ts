@@ -1,13 +1,11 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PageAttributes, PageAttributesCreation, PageStatus } from '../types/models/page.types'
+import { PAGE_STATUSES, PageAttributes, PageAttributesCreation, PageStatus } from '../types/models/page.types'
 import { Media } from './media.model'
 import { Gallery } from './gallery.model'
 import { PageAttribute } from './pageAttribute.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
 import { modelBuild } from '../utils/model.utils'
-
-export const PAGE_STATUSES = ['draft', 'published', 'archived'] as const
 
 export const PAGE_CONSTRAINTS = {
   id: {
