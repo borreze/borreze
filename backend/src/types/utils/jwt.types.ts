@@ -1,4 +1,4 @@
-import { UserStatus } from "../models/user.types"
+import { UserStatus } from "@brz/shared"
 
 export interface AccessTokenPayload {
     user_id: number

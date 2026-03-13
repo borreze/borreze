@@ -1,5 +1,5 @@
 <template>
-    <div ref="editorRef" id="wysiwyg-editor" class="wysiwyg-editor z-0">
+    <div ref="editorRef" id="wysiwyg-editor" class="wysiwyg-editor">
         <div v-if="editor" :class="['wysiwyg-toolbar']" :style="{ opacity: editorToolbarVisible ? 1 : 0 }">
             <!-- Undo et Redo -->
             <div class="wysiwyg-toolbar__group">
