@@ -8,6 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./src",
     "outDir": "./dist",
+    "skipLibCheck": true,
     "typeRoots": [
       "./node_modules/@types",
       "../node_modules/@types"
@@ -18,7 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "paths": {
-      "@brz/shared": ["../shared/src/index.ts"]
+      "@brz/shared": ["../shared/src/index.ts"],
     }
   },
   "include": ["src/**/*"],

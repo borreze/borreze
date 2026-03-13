@@ -9,6 +9,9 @@
         "node_modules",
         "seeds"
     ],
+    "execMap": {
+        "ts": "ts-node -r tsconfig-paths/register"
+    },
     "env": {
         "NODE_ENV": "development",
         "PORT": "3000"

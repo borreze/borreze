@@ -42,6 +42,7 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    working_dir: /app/backend
     ports:
       - "${BACKEND_PORT}:3000"
     environment:
@@ -75,6 +76,7 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    working_dir: /app/frontend
     ports:
       - "${FRONTEND_PORT}:5173"
     environment:

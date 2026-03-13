@@ -3,7 +3,7 @@ import { postService } from '../services/post.service'
 import { Return } from '../types/utils/api.types'
 import { parseArrayInteger, parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
-import { PostStatus } from '../types/models/post.types'
+import { PostStatus } from '@brz/shared'
 import { Order } from '../types/utils/request.types'
 import { Pagination } from '../types/utils/pagination.types'
 

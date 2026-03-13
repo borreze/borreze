@@ -73,7 +73,7 @@ Success "Dependencies installed"
 if ($Reset) {
     Step "Resetting Docker containers"
 
-    docker-compose --profile development down -v
+    docker-compose --profile development down
 
     Success "Containers stopped"
 }

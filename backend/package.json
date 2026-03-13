@@ -17,6 +17,7 @@
   "license": "GNU GPLv3",
   "description": "",
   "dependencies": {
+    "@brz/shared": "*",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "concurrently": "^9.1.2",
@@ -44,7 +45,6 @@
     "typeorm": "^0.3.6"
   },
   "devDependencies": {
-    "@brz/shared": "*",
     "@eslint/js": "^9.33.0",
     "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
@@ -73,6 +73,7 @@
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.39.0"
   }

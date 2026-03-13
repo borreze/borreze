@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { POST_STATUSES, PostAttributes, PostAttributesCreation, PostStatus } from '../types/models/post.types'
+import { POST_STATUSES, PostAttributes, PostAttributesCreation, PostStatus } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import {  SearchResultLinks, SearchResultNames } from '../types/utils/search.types'
 import { modelBuild } from '../utils/model.utils'
