@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PopupAttributes } from '~/types/backend/popup';
+import type { PopupAttributes } from '@brz/shared'
 import Modal from '~/components/molecules/Modal.vue';
 
 const popup = ref<PopupAttributes>({

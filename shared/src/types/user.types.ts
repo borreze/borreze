@@ -17,6 +17,7 @@ export interface UserAttributes {
     updated_at: Date
 }
 
+export type UserAttributesFrontend = Pick<UserAttributes, 'id' | 'email' | 'username' | 'first_name' | 'last_name' | 'role_id' | 'status'>
 export type UserAttributesPublic = Pick<UserAttributes, 'id' | 'email' | 'username' | 'role_id' | 'status'>
 export type UserAttributesCreation = Optional<UserAttributes, 'id' | 'first_name' | 'last_name' | 'email_verified_at' | 'created_at' | 'updated_at'>
 export type UserAttributesUpdate = Optional<UserAttributes, 'id' | 'email' | 'password' | 'username' | 'first_name' | 'last_name' | 'email_verified_at' | 'role_id' | 'status' | 'created_at' | 'updated_at'>

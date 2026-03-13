@@ -7,10 +7,11 @@ import { emailService } from './email.service'
 import { userService } from '../services/user.service'
 import { BadRequest, NotFound } from '../exceptions/request.exception'
 import { AuthException } from '../exceptions/auth.exception'
+import { UserAttributesFrontend } from '@brz/shared'
 
 export class AuthService {
-    public async getCurrentUser(accessToken: string) {
-        const payload = await verifyAccessToken(accessToken)
+    public async getCurrentUser(accessToken: string): Promise<UserAttributesFrontend> {
+        const payload = verifyAccessToken(accessToken)
         const user = await userService.getById(payload.user_id)
 
         if (!user) throw new NotFound('User not found')
@@ -26,7 +27,7 @@ export class AuthService {
         }
     }
 
-    public async login(emailOrUsername: string, password: string) {
+    public async login(emailOrUsername: string, password: string): Promise<{ accessToken: string, refreshToken: string, user: UserAttributesFrontend }> {
         if (!emailOrUsername || !password) throw new BadRequest('Missing credentials')
 
         const user = await userService.getByEmailOrUsername(emailOrUsername)

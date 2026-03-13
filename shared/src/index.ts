@@ -54,4 +54,4 @@ export type { SchoolMealAttributes, SchoolMealAttributesCreation, SchoolMealAttr
 export type { SettingAttributes, SettingAttributesCreation, SettingAttributesUpdate } from './types/setting.types'
 
 export { USER_STATUSES } from './types/user.types'
-export type { UserStatus, UserAttributes, UserAttributesPublic, UserAttributesCreation, UserAttributesUpdate } from './types/user.types'
+export type { UserStatus, UserAttributes, UserAttributesFrontend, UserAttributesPublic, UserAttributesCreation, UserAttributesUpdate } from './types/user.types'
