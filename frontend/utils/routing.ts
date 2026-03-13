@@ -2,7 +2,7 @@ import type { RouteRecordNormalized } from "vue-router"
 
 export function isInBO() {
     const route = useRoute()
-    return route.path.startsWith('/back-office')
+    return route.path.startsWith('/back-office') && !route.path.startsWith('/back-office/authentification')
 }
 
 export function isInFO() {

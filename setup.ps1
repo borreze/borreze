@@ -148,5 +148,5 @@ Success "Database populated"
 # -------------------------
 
 Write-Host ""
-Write-Host "🎉 Borrèze project is ready!" -ForegroundColor Green
+Write-Host "Project is ready!" -ForegroundColor Green
 Write-Host ""
