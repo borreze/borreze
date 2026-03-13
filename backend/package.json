@@ -6,7 +6,7 @@
     "start": "node dist/server.js",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "dev": "nodemon --watch src --ext ts --exec \"ts-node src/server.ts\"",
+    "dev": "nodemon",
     "seed": "ts-node src/seeder.ts",
     "import": "ts-node src/import.ts",
     "populate": "ts-node src/seeder.ts ; ts-node src/import.ts",
