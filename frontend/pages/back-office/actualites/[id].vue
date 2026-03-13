@@ -13,11 +13,15 @@
             <div class="w-full xl:w-9/12 space-y-12">
                 <section>
                     <h4 class="title-submain mb-6">Informations générales</h4>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <Field v-model="editingPost.title" label="Titre" hint="Titre principale de l'actualité"
-                            roundness="md" />
-                        <Field v-model="editingPost.slug" label="Slug"
-                            hint="Identifiant unique de l'actualité, utilisé pour les URL" roundness="md" />
+                    <div class="flex flex-col gap-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <Field v-model="editingPost.title" label="Titre" hint="Titre principale de l'actualité"
+                                roundness="md" />
+                            <Field v-model="editingPost.slug" label="Slug"
+                                hint="Identifiant unique de l'actualité, utilisé pour les URL" roundness="md" />
+                        </div>
+                        <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
+                            hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md" />
                     </div>
                 </section>
                 <section>
@@ -44,9 +48,7 @@
                 </section>
                 <section>
                     <h4 class="title-submain mb-6">Contenu</h4>
-                    <div class="space-y-4">
-                        <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
-                            hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md" />
+                    <div>
                         <WysiwygEditor v-model="editingPost.content" />
                     </div>
                 </section>
