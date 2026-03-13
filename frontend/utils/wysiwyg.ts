@@ -135,18 +135,18 @@ export const sanitizeHtml = (html: string): string => {
     const doc = parser.parseFromString(html, 'text/html')
 
     doc.querySelectorAll('*').forEach((el) => {
-            // Supprimer les attributs on*
-            Array.from(el.attributes).forEach((attr) => {
-                if (attr.name.startsWith('on')) el.removeAttribute(attr.name)
-            })
-            // Supprimer les href javascript:
-            const href = el.getAttribute('href')
-            if (href && /^javascript:/i.test(href.trim())) el.removeAttribute('href')
-            // Supprimer les src data: (hors images légitimes)
-            const src = el.getAttribute('src')
-            if (src && /^data:(?!image\/(png|jpe?g|gif|webp|svg))/i.test(src.trim())) el.removeAttribute('src')
+        // Supprimer les attributs on*
+        Array.from(el.attributes).forEach((attr) => {
+            if (attr.name.startsWith('on')) el.removeAttribute(attr.name)
+        })
+        // Supprimer les href javascript:
+        const href = el.getAttribute('href')
+        if (href && /^javascript:/i.test(href.trim())) el.removeAttribute('href')
+        // Supprimer les src data: (hors images légitimes)
+        const src = el.getAttribute('src')
+        if (src && /^data:(?!image\/(png|jpe?g|gif|webp|svg))/i.test(src.trim())) el.removeAttribute('src')
     })
 
     return doc.body.innerHTML
-}   
+}
 

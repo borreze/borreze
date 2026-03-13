@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer'
 import { SendMailOptions } from '../types/utils/email.type'
 import { Terminal } from '../utils/terminal.utils'
+import { MailException } from '../exceptions/mail.exception'
 
 export class EmailService {
     private transporter
@@ -11,7 +12,7 @@ export class EmailService {
         const user = process.env.BACKEND_SMTP_USER
         const pass = process.env.BACKEND_SMTP_PASS
 
-            if (host && user && pass) {
+        if (host && user && pass) {
             this.transporter = nodemailer.createTransport({
                 host,
                 port,
@@ -22,23 +23,22 @@ export class EmailService {
     }
 
     public async sendMail(options: SendMailOptions): Promise<void> {
-        const from = process.env.BACKEND_SMTP_FROM ?? 'no-reply@borreze.fr'
+        const { to, subject, text, html } = options
 
-        if (!options?.text) return 
-        if (!options?.html) return 
+        const from = process.env.BACKEND_SMTP_FROM
 
-        if (!this.transporter) {
-            Terminal.warn(`EmailService not configured. Mail would be: ${JSON.stringify({ from, ...options }, null, 2)}`)
+        if (!this.transporter) throw new MailException('SMTP transporter is not configured. Check environment variables.')
+        if (!to) throw new MailException('Email "to" field is required')
+        if (!from) throw new MailException('Email "from" field is required')
+        if (!text) throw new MailException('Email "text" field is required')
+        if (!html) throw new MailException('Email "html" field is required')
+
+        if (process.env.NODE_ENV !== 'production') {
+            Terminal.info(`Mail sent: ${JSON.stringify({ from, ...options }, null, 2)}`)
             return
         }
 
-        await this.transporter.sendMail({
-            from,
-            to: options.to,
-            subject: options.subject,
-            text: options.text,
-            html: options.html
-        })
+        await this.transporter.sendMail({ from, to, subject, text, html })
     }
 }
 
