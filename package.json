@@ -1,9 +1,0 @@
-{
-    "name": "borreze-monorepo",
-    "private": true,
-    "workspaces": [
-        "shared",
-        "frontend",
-        "backend"
-    ]
-}
