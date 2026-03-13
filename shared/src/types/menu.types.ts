@@ -16,5 +16,6 @@ export interface MenuAttributes {
     updated_at?: Date | null
 }
 
+export interface MenuAttributesFrontend extends MenuAttributes { children?: MenuAttributes[] }
 export type MenuAttributesCreation = Optional<MenuAttributes, 'id' | 'url' | 'parent_id' | 'icon' | 'created_at' | 'updated_at'>
 export type MenuAttributesUpdate = Optional<MenuAttributes, 'id' | 'context' | 'label' | 'url' | 'parent_id' | 'icon' | 'order' | 'is_visible' | 'created_at' | 'updated_at'>

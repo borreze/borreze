@@ -22,7 +22,7 @@ export { MEDIA_TYPES } from './types/media.types'
 export type { MediaType, MediaAttributes, MediaAttributesCreation, MediaAttributesUpdate } from './types/media.types'
 
 export { MENU_CONTEXTS } from './types/menu.types'
-export type { MenuContext, MenuAttributes, MenuAttributesCreation, MenuAttributesUpdate } from './types/menu.types'
+export type { MenuContext, MenuAttributes, MenuAttributesFrontend, MenuAttributesCreation, MenuAttributesUpdate } from './types/menu.types'
 
 export { PAGE_STATUSES } from './types/page.types'
 export type { PageStatus, PageAttributes, PageAttributesCreation, PageAttributesUpdate } from './types/page.types'

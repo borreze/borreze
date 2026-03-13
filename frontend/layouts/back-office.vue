@@ -40,19 +40,19 @@
 </template>
 
 <script setup lang="ts">
-import type { MenuAttributes } from '~/types/backend/menu';
+import type { MenuAttributesFrontend } from '@brz/shared';
 import Button from '~/components/atoms/Button.vue';
 import Panel from '~/components/molecules/Panel.vue';
 import AppName from '~/components/organisms/AppName.vue';
 import MenusPanel from '~/components/molecules/MenusPanel.vue';
 import { useAuthStore } from '~/stores/auth'
-import { isMobile } from '#imports';
+import { goBack } from '#imports';
 
 const auth = useAuthStore()
 
 const panelOpened = ref(false)
 
-const menus = ref<MenuAttributes[]>([
+const menus = ref<MenuAttributesFrontend[]>([
     {
         id: 2,
         context: 'back-office',

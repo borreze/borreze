@@ -86,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MenuAttributes } from '~/types/backend/menu';
+import type { MenuAttributesFrontend } from '@brz/shared';
 import Button from '~/components/atoms/Button.vue';
 import Field from '~/components/atoms/Field.vue';
 import Panel from '~/components/molecules/Panel.vue';
@@ -122,7 +122,7 @@ watch(searchOpened, (opened) => {
     }
 })
 
-const menus = ref<MenuAttributes[]>([
+const menus = ref<MenuAttributesFrontend[]>([
     {
         id: 1,
         context: 'front-office',

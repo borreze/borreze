@@ -38,11 +38,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { MenuAttributes } from '~/types/backend/menu';
 import Button from '~/components/atoms/Button.vue';
+import type { MenuAttributesFrontend } from '@brz/shared';
 
 const props = defineProps<{
-    menus: MenuAttributes[]
+    menus: MenuAttributesFrontend[]
 }>();
 
 const emit = defineEmits<{
