@@ -52,40 +52,19 @@ Copy-Item ".env.development" ".env"
 Success ".env file ready"
 
 # -------------------------
-# Install frontend deps
+# Install deps
 # -------------------------
 
-Step "Installing frontend dependencies"
+Step "Installing dependencies"
 
-Set-Location frontend
 npm install
 
 if ($LASTEXITCODE -ne 0) {
-    Error "Frontend npm install failed"
+    Error "npm install failed"
     exit 1
 }
 
-Success "Frontend dependencies installed"
-
-Set-Location ..
-
-# -------------------------
-# Install backend deps
-# -------------------------
-
-Step "Installing backend dependencies"
-
-Set-Location backend
-npm install
-
-if ($LASTEXITCODE -ne 0) {
-    Error "Backend npm install failed"
-    exit 1
-}
-
-Success "Backend dependencies installed"
-
-Set-Location ..
+Success "Dependencies installed"
 
 # -------------------------
 # Docker reset

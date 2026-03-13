@@ -19,6 +19,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@brz/shared": "*",
     "@nuxt/icon": "^1.13.0",
     "@nuxt/image": "^1.11.0",
     "@nuxtjs/sitemap": "^7.4.3",

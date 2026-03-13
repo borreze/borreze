@@ -51,17 +51,48 @@ Nuxt routes, pages wording must be in **French**.
 
 ## 3. Architecture
 
-The project is structured as **2 distinct applications** inside a monorepo:
+The project is structured as a **monorepo** containing 2 distinct applications and 1 shared package:
 
 ```
 /
+├── shared/             # @brz/shared — shared TypeScript types and utilities
 ├── frontend/           # Nuxt 4 — back-office (SPA-like, PrimeVue)
 ├── backend/            # Express + TypeScript — REST API
+├── package.json        # npm workspaces root
 ├── docker-compose.yml
 └── AGENTS.md
 ```
 
-### 3.1 REST API (backend)
+### 3.0 npm Workspaces
+
+The monorepo uses **npm workspaces** declared in the root `package.json`:
+
+```json
+{
+  "private": true,
+  "workspaces": ["shared", "frontend", "backend"]
+}
+```
+
+`npm install` must always be run from the **monorepo root**, never from a sub-package directly.
+
+### 3.1 Shared Package (`@brz/shared`)
+
+```
+shared/
+├── package.json        # name: "@brz/shared", exports ./src/index.ts directly
+├── tsconfig.json
+└── src/
+    ├── index.ts        # barrel export
+    └── types/          # shared TypeScript types consumed by both frontend and backend
+```
+
+- The package exposes TypeScript source directly (no pre-build step).
+- Both `frontend/package.json` and `backend/package.json` declare `"@brz/shared": "*"` as a dependency.
+- Import in code: `import type { MyType } from '@brz/shared'`
+- **Never duplicate a type** that is consumed by both layers — define it once in `shared/src/types/`.
+
+### 3.2 REST API (backend)
 
 ```
 backend/src/
@@ -73,14 +104,27 @@ backend/src/
 └── utils/              # Generic TypeScript helpers
 ```
 
-### 3.2 Core Architectural Principle — Single Source of Truth
+`backend/tsconfig.json` must declare `typeRoots` pointing to both the local and root `node_modules/@types` to account for npm workspaces hoisting:
+
+```json
+{
+  "compilerOptions": {
+    "typeRoots": [
+      "./node_modules/@types",
+      "../node_modules/@types"
+    ]
+  }
+}
+```
+
+### 3.3 Core Architectural Principle — Single Source of Truth
 
 **Constraints** (max length, required fields, enum values, etc.) are defined **once** in `constraints/` and simultaneously drive:
 - Sequelize schema definitions
 
 Never duplicate a validation rule between the model and the controller. When a constraint changes, it changes in exactly one place.
 
-### 3.3 Front-office & Back-office (frontend)
+### 3.4 Front-office & Back-office (frontend)
 
 Nuxt 3 SSR application. Every page is crawlable (SEO) with dynamic OpenGraph meta tags.
 
@@ -92,13 +136,25 @@ frontend/
 |   └── organisms/
 ├── composables/        # Reusable logic (useFetch wrappers, useSearch…)
 ├── pages/              # File-based routing (Nuxt)
-|   ├── admin/          # Back-office pages (PrimeVue components, no SSR) 
+|   ├── back-office/    # Back-office pages (PrimeVue components, no SSR) 
 |   ├── ...             # Front-office pages (SSR, dynamic meta tags) 
 |   └── index.vue       
 ├── stores/             # Pinia stores
 ├── assets/             # Global CSS, fonts
 └── public/             # Static files
 ```
+
+If Nuxt fails to transpile `@brz/shared` during SSR build, add to `nuxt.config.ts`:
+
+```ts
+export default defineNuxtConfig({
+  build: {
+    transpile: ['@brz/shared']
+  }
+})
+```
+
+---
 
 ## 4. Data Models
 
@@ -129,7 +185,9 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 - Strict mode enabled everywhere (`"strict": true` in all `tsconfig.json`)
 - No `any` — use `unknown` when the type is uncertain
 - `interface` for data shapes, `type` for unions/intersections
-- Shared front/back types live in `packages/shared/types/`
+- **Shared front/back types live in `shared/src/types/` and are imported via `@brz/shared`**
+- Types used exclusively by the frontend stay in `frontend/types/`
+- Types used exclusively by the backend stay in `backend/src/types/`
 
 ### Naming
 
@@ -200,13 +258,28 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 - `useAppHead()` / `useMeta()` on every page with dynamic title and description
 - OpenGraph + Twitter Cards on detail pages (news, events)
 - Auto-generated XML sitemap (`@nuxtjs/sitemap`)
-- `robots.txt`: front-office indexable, back-office (`/admin/*`) blocked
+- `robots.txt`: front-office indexable, back-office (`/back-office/*`) blocked
 
 ---
 
 ## 9. Infrastructure
 
-- **Docker Compose** orchestrates all 2 apps + PostgreSQL + PgAdmin in development
+### Docker
+
+- **Docker Compose** orchestrates all 2 apps + PostgreSQL + PgAdmin in development.
+- **All Dockerfiles use `.` (monorepo root) as build context** to access `shared/`.
+- The `file:` path is specified explicitly: `dockerfile: frontend/Dockerfile.prod` / `dockerfile: backend/Dockerfile.prod`.
+- Dev Dockerfiles mount the full monorepo root into `/app`; the sub-project sets `WORKDIR /app/frontend` or `WORKDIR /app/backend` after install.
+- Prod Dockerfiles copy `shared/`, the sub-project folder, and the root `package*.json` before running `npm ci`.
+
+### CI/CD (GitHub Actions)
+
+- `paths` trigger includes `shared/**` — any change to the shared package triggers both frontend and backend builds.
+- Docker build steps use `context: .` and `file: ./frontend/Dockerfile.prod` / `file: ./backend/Dockerfile.prod`.
+- GHA layer cache is scoped per image: `cache-from: type=gha,scope=frontend` / `scope=backend` to prevent cross-contamination.
+
+### Environment
+
 - Environment variables via `.env` — never commit `.env`
 
 ---
@@ -225,8 +298,10 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 - Use `any` in TypeScript
 - Write raw SQL outside of migrations or justified full-text search queries
 - Duplicate validation rules across layers
+- **Duplicate types that belong in `shared/src/types/` — define once, import from `@brz/shared`**
+- **Run `npm install` from a sub-package directory — always run from the monorepo root**
 - Use the Vue Options API
-- Use Google Maps (paid) — Leaflet/OSM only
+- Use Leaflet/OSM only
 - Modify the database schema without a corresponding migration
 - Store sensitive data (passwords, tokens) without hashing (bcrypt)
 - Expose API endpoints without auth + RBAC middleware
@@ -242,6 +317,7 @@ feat(api): add canteen menu PDF generation
 fix(front): correct event date display on mobile
 refactor(api): extract RBAC middleware to shared module
 chore(docker): update PostgreSQL image to 16.3
+chore(shared): add NewsPost shared type
 ```
 
 ESLint + Prettier configured at apps root — no commit passes with lint errors.

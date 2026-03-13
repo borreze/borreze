@@ -36,6 +36,9 @@ export default defineNuxtConfig({
       noIndex: (process.env.NUXT_PUBLIC_NOINDEX === 'true') || true,
     }
   },
+  build: {
+    transpile: ['@brz/shared']
+  },
   site: {
     indexable: process.env.NUXT_PUBLIC_NOINDEX !== 'true',
   },

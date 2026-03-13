@@ -59,7 +59,7 @@ WYSIWYG Editor
 </template>
 
 <script setup lang="ts">
-import WysiwygEditor from '~/components/organisms/admin/WysiwygEditor.vue'
+import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue'
 
 const content = ref('')

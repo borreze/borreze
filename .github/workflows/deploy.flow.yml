@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - ".github/workflows/*"
+      - "shared/**"
       - "frontend/**"
       - "backend/**"
       - "docker-compose.yml"
@@ -17,6 +18,7 @@ on:
       - main
     paths:
       - ".github/workflows/*"
+      - "shared/**"
       - "frontend/**"
       - "backend/**"
       - "docker-compose.yml"
@@ -62,26 +64,26 @@ jobs:
       - name: Build & push frontend image
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend
+          context: .
           file: ./frontend/Dockerfile.prod
           push: true
           tags: |
             ${{ env.FRONTEND_IMAGE }}:${{ github.ref_name }}
             ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=frontend
+          cache-to: type=gha,mode=max,scope=frontend
 
       - name: Build & push backend image
         uses: docker/build-push-action@v5
         with:
-          context: ./backend
+          context: .
           file: ./backend/Dockerfile.prod
           push: true
           tags: |
             ${{ env.BACKEND_IMAGE }}:${{ github.ref_name }}
             ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
 
   deploy-preprod:
     name: 🚧 Deploy to Preprod
@@ -106,7 +108,6 @@ jobs:
       - name: Generate .env file
         run: |
           cat <<EOF > .env
-          NODE_ENV=production
           NODE_ENV=production
           DATABASE_DB=${{ secrets.PREPROD_DATABASE_DB }}
           DATABASE_USER=${{ secrets.PREPROD_DATABASE_USER }}
@@ -185,7 +186,7 @@ jobs:
           BACKEND_CORS_ORIGIN=${{ secrets.PROD_BACKEND_CORS_ORIGIN }}
           BACKEND_DATABASE_LOGGING=${{ secrets.PROD_BACKEND_DATABASE_LOGGING }}
           BACKEND_JWT_SECRET=${{ secrets.PROD_BACKEND_JWT_SECRET }}
-          BACKEND_JWT_EXPIRES=${{ secrets.PROD_BACKEND_JWT_EXPIRES }}
+          BACKEND_JWT_EXPIRES=${{ secrets.PROD_BAC"KEND_JWT_EXPIRES }}
           BACKEND_SMTP_HOST=${{ secrets.PROD_BACKEND_SMTP_HOST }}
           BACKEND_SMTP_PORT=${{ secrets.PROD_BACKEND_SMTP_PORT }}
           BACKEND_SMTP_USER=${{ secrets.PROD_BACKEND_SMTP_USER }}

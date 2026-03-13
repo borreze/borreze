@@ -12,10 +12,12 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 COPY package*.json ./
+COPY shared/package*.json ./shared/
+COPY frontend/package*.json ./frontend/
 
 RUN npm ci
 
-# Don't `COPY . .` here — let docker-compose mount it
+WORKDIR /app/frontend
 
 EXPOSE 5173
 

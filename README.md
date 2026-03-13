@@ -19,8 +19,6 @@
 
 ## 🚀 - Quick start
 
-### With Docker
-
 ```powershell
 .\setup.ps1 -Reset
 ```
@@ -41,11 +39,10 @@ docker-compose down ; docker-compose --profile development up --build -d
 
 # Install both frontend dependencies
 # You may want to install dependencies despite Docker, especially for IDE linters and type checking.
-cd frontend ; npm i ; cd ..
-cd backend ; npm i ; cd ..
+npm install
 ```
 
-#### Useful Docker Commands
+### Useful Docker Commands
 
 ```powershell
 # "Nuke" command: cleans up all Docker containers, images, and volumes
@@ -73,29 +70,6 @@ docker-compose down -v --rmi all
 
 # View logs
 docker-compose logs -fp
-```
-
----
-
-### The old fashioned way (not recommended)
-
-This method is not recommended since Postgres and Redis will not be available.
-But it can still be used for quick debugging.
-
-```sh
-# Clone the repo
-git clone git@github.com:borreze/borreze.git
-
-# Move into the project directory
-cd borreze
-
-# Copy .env.development file to .env and fill in the required environment variables.
-cp .env.development .env
-
-# Start the development server
-cd frontend ; npm i ; npm run dev
-cd ..
-cd backend ; npm i ; npm run dev
 ```
 
 ---
@@ -154,6 +128,7 @@ The `docker-compose.yml` provide a `DOCKERIZED` environment variable to each ser
 ```sh
 ├── .github/        # All Github stuff
 ├── docs/           # Documentation
+├── shared/         # Shared resources (e.g. types, interfaces)
 ├── frontend/       # Nuxt.js (Vue 3) application
 │   ├── components/
 │   ├── pages/
@@ -184,6 +159,7 @@ The `docker-compose.yml` provide a `DOCKERIZED` environment variable to each ser
 
 - **frontend/**: Contains the entire Nuxt.js application.
 - **backend/**: Contains the Express server and API code.
+- **shared/**: Contains shared resources (e.g. types, interfaces).
 
 ---
 
@@ -197,8 +173,8 @@ Frontend components are organized in the `frontend/components/` directory, follo
 - `organisms/`: Groups of molecules that form distinct sections of the UI (e.g. header, footer, event list).
 
 In each of those directories, you can find two subdirectories:
-  - `admin/`: Contains components specific to the back-office.
-  - `site/`: Contains components specific to the public-facing site.
+  - `back-office/`: Contains components specific to the back-office.
+  - `front-office/`: Contains components specific to the public-facing site.
 
 ### Notifications
 

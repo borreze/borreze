@@ -37,10 +37,10 @@ services:
 
   brz-backend-dev:
     build:
-      context: ./backend
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: backend/Dockerfile.dev
     volumes:
-      - ./backend:/app
+      - .:/app
       - /app/node_modules
     ports:
       - "${BACKEND_PORT}:3000"
@@ -70,10 +70,10 @@ services:
 
   brz-frontend-dev:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: frontend/Dockerfile.dev
     volumes:
-      - ./frontend:/app
+      - .:/app
       - /app/node_modules
     ports:
       - "${FRONTEND_PORT}:5173"
