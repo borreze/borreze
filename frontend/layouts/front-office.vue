@@ -27,3 +27,9 @@ import { useAuthStore } from '~/stores/auth'
 const auth = useAuthStore()
 
 </script>
+
+<style>
+:root {
+    --header-height: 72px !important;
+}
+</style>
