@@ -1,6 +1,6 @@
 <template>
     <NuxtLink :to="to" class="select-none flex-none flex items-center">
-        <NuxtImg src="/logo.svg" :alt="`Logo de ${project.name}`" width="75" height="75" />
+        <NuxtImg src="/logo.svg" :alt="`Logo de ${project.name}`" width="75" />
     </NuxtLink>
 </template>
 
