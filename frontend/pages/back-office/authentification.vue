@@ -1,12 +1,15 @@
 <template>
-    <div class="p-4 flex items-center justify-center md:min-h-screen">
+    <div class="relative p-4 flex items-center justify-center md:min-h-screen">
+        <NuxtImg
+            src="/images/borreze-depuis-coline.webp"
+            :quality="80"
+            fit="cover"
+            class="absolute inset-0 w-full h-full object-cover"
+            aria-hidden="true"
+        />
+        <div class="absolute inset-0 bg-primary/10" />
 
-        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
-            style="background-image: url('/images/borreze-depuis-coline.webp');">
-            <div class="absolute inset-0 bg-primary/10" />
-        </div>
-
-        <div class="w-full max-w-md rounded-lg p-4 bg-white shadow-[2px_2px_10px_2px_#0000001a]">
+        <div class="relative z-10 w-full max-w-md rounded-lg p-4 bg-white shadow-[2px_2px_10px_2px_#0000001a]">
             <div class="flex items-center justify-center">
                 <AppLogo to="/back-office" />
             </div>

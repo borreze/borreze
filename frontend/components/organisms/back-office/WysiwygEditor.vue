@@ -226,12 +226,13 @@ const editorRef = ref<HTMLElement | null>(null)
 const editorToolbarVisible = ref(true)
 
 onMounted(() => {
-    const observer = new IntersectionObserver(
-        ([entry]) => { editorToolbarVisible.value = entry.isIntersecting },
-        { threshold: 0, rootMargin: '-200px' } // le toolbar disparaît dès que le haut de l'éditeur est à moins de 100px du viewport. Permet de faire disparaître le toolbar avant qu'il ne touche le haut de l'écran, pour éviter de le cacher quand on scroll vers le bas
-    )
-    if (editorRef.value) observer.observe(editorRef.value)
-    onBeforeUnmount(() => observer.disconnect())
+    // ! Make the toolbar appear/disappear based on the editor's position in the viewport when scrolling
+    // const observer = new IntersectionObserver(
+    //     ([entry]) => { editorToolbarVisible.value = entry.isIntersecting },
+    //     { threshold: 0, rootMargin: '-100px' } // le toolbar disparaît dès que le haut de l'éditeur est à moins de 100px du viewport. Permet de faire disparaître le toolbar avant qu'il ne touche le haut de l'écran, pour éviter de le cacher quand on scroll vers le bas
+    // )
+    // if (editorRef.value) observer.observe(editorRef.value)
+    // onBeforeUnmount(() => observer.disconnect())
 })
 
 // -----------------------------------------------------------------------------
@@ -507,7 +508,7 @@ function insertButton() {
 
 .wysiwyg-toolbar {
     position: sticky;
-    top: calc(var(--header-height) - 8px);
+    top: -8px;
     z-index: 10;
     /* Opacity transition for smooth hide/show when scrolling */
     transition: opacity 0.1s ease;

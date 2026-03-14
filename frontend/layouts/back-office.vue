@@ -99,3 +99,9 @@ const menus = ref<MenuAttributesFrontend[]>([
     },
 ]);
 </script>
+
+<style>
+:root {
+    --header-height: 0px !important;
+}
+</style>

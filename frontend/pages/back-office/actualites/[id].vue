@@ -35,15 +35,22 @@
                 </section>
                 <section>
                     <h4 class="title-submain mb-6">Publication</h4>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <Datepicker v-model="editingPost.schedule_start" :with-time="true"
-                            label="Date de début de publication" hint="Date à laquelle l'actualité sera publiée"
-                            type="date" roundness="md" />
-                        <Datepicker v-model="editingPost.schedule_end" :with-time="true"
-                            label="Date de fin de publication" hint="Date à laquelle l'actualité ne sera plus publiée"
-                            type="date" roundness="md" />
-                        <Dropdown v-model="editingPost.status" variant="gray" size="md"
-                            placeholder="Status de publication" :items="POST_STATUSES_OBJECTS" />
+                    <div class="flex flex-row flex-wrap gap-4">
+                        <div class="max-w-xs">
+                            <Datepicker v-model="editingPost.schedule_start" :with-time="true"
+                                label="Date de début de publication" hint="Date à laquelle l'actualité sera publiée"
+                                type="date" roundness="md" />
+                        </div>
+                        <div class="max-w-xs">
+                            <Datepicker v-model="editingPost.schedule_end" :with-time="true"
+                                label="Date de fin de publication"
+                                hint="Date à laquelle l'actualité ne sera plus publiée" type="date" roundness="md" />
+                        </div>
+                        <div class="max-w-xs">
+                            <Dropdown v-model="editingPost.status" variant="light" size="md"
+                                label="Status de publication" placeholder="Status de publication"
+                                :items="POST_STATUSES_OBJECTS" />
+                        </div>
                     </div>
                 </section>
                 <section>

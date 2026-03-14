@@ -1,15 +1,23 @@
 <template>
     <div ref="dropdownRef" class="relative inline-block text-left">
         <div class="w-full flex flex-col gap-1">
-            <label v-if="label" class="text-sm font-medium text-dark">
-                {{ label }}
-                <span v-if="required" class="text-red-500">*</span>
-            </label>
+            <div v-if="label || hint" class="flex justify-start flex-wrap items-end gap-2">
+                <label v-if="label" :for="triggerId" class="text-sm font-medium text-dark">
+                    {{ label }}
+                    <span v-if="required" class="text-red-500">*</span>
+                </label>
+                <span v-if="hint" class="text-[11px] text-gray-400 pb-[1px]">
+                    {{ hint }}
+                </span>
+            </div>
             <Button :id="triggerId" type="button" class="w-full" :size="size" :variant="variant" roundness="md"
                 :aria-expanded="isOpen" :aria-haspopup="true" :disabled="disabled" :label="displayLabel"
                 position="right" :center="false" icon="ic:round-keyboard-arrow-down"
                 :iconClass="isOpen ? 'rotate-180' : ''" @click="toggle">
             </Button>
+            <p v-if="error" class="text-sm text-red-500 mt-1">
+                {{ error }}
+            </p>
         </div>
 
         <Transition enter-active-class="transition ease-out duration-100"
@@ -72,6 +80,8 @@ const props = withDefaults(defineProps<{
     disabled?: boolean
     required?: boolean
     label?: string
+    hint?: string
+    error?: string | null
 }>(), {
     items: () => [],
     modelValue: null,
