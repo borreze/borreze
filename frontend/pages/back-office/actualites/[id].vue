@@ -103,54 +103,25 @@ if (!post.value) {
 
 const editingPost = ref<PostAttributesFrontend>(post.value)
 
-const touched = ref({
-    title: false,
-    slug: false,
-    abstract: false,
-    meta_title: false,
-    meta_description: false,
-    schedule_start: false,
-    schedule_end: false,
-    status: false,
-    content: false,
-})
-
-const errors = computed(() => ({
-    title:
-        touched.value.title && editingPost.value.title === ''
-            ? 'Le titre est requis'
-            : null,
-    slug:
-        touched.value.slug && editingPost.value.slug === ''
-            ? 'Le slug est requis'
-            : null,
-    abstract: null,
-    meta_title: null,
-    meta_description: null,
-    schedule_start: null,
-    schedule_end: null,
-    status:
-        touched.value.status && !editingPost.value.status
-            ? 'Le status est requis'
-            : null,
-    content: null,
-}))
+const { touched, errors, submit } = useForm(
+    ['title', 'slug', 'abstract', 'meta_title', 'meta_description',
+        'schedule_start', 'schedule_end', 'status', 'content'],
+    {
+        title: () => editingPost.value.title === '' ? 'Le titre est requis' : null,
+        slug: () => editingPost.value.slug === '' ? 'Le slug est requis' : null,
+        status: () => !editingPost.value.status ? 'Le status est requis' : null,
+    }
+)
 
 const handlePublish = async () => {
     console.log('Publication de l\'actualité...', editingPost.value)
 }
 
-const handleSubmit = async () => {
-    // mark all as touched
-    (Object.keys(touched.value) as Array<keyof typeof touched.value>).forEach((key) => (touched.value[key] = true))
+const handleSubmit = () => submit(async () => {
+  // appel API
+  push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
+})
 
-    // stop if any error
-    if (Object.values(errors.value).some(Boolean)) return
-
-    // TODO: send od backend
-
-    push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
-}
 
 watch(() => editingPost.value?.title, (newTitle) => {
     editingPost.value.slug = slugify(newTitle)
