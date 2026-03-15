@@ -220,6 +220,8 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits<{
     'update:modelValue': [value: string]
     'change': [value: string]
+    'focus': []
+    'blur': []
 }>()
 
 const editorRef = ref<HTMLElement | null>(null)
@@ -369,8 +371,14 @@ const editor = useEditor({
         emit('update:modelValue', html)
         emit('change', html)
     },
-    onFocus() { isFocused.value = true },
-    onBlur() { isFocused.value = false },
+    onFocus() {
+        isFocused.value = true
+        emit('focus')
+    },
+    onBlur() {
+        isFocused.value = false
+        emit('blur')
+    },
 })
 
 watch(() => props.modelValue, (val) => {

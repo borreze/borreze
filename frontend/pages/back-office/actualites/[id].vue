@@ -5,8 +5,8 @@
         </Teleport>
         <Teleport to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
-                @click="handleSave" />
-            <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md"
+                :disabled="Object.values(errors).some(Boolean)" @click="handleSubmit" />
+            <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md" :loading="loading"
                 :disabled="editingPost?.status === 'published'" @click="handlePublish" />
         </Teleport>
 
@@ -17,22 +17,27 @@
                     <h4 class="title-submain mb-6">Informations générales</h4>
                     <div class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
-                            <Field v-model="editingPost.title" label="Titre" hint="Titre principale de l'actualité"
-                                roundness="md" />
-                            <Field v-model="editingPost.slug" label="Slug"
-                                hint="Identifiant unique de l'actualité, utilisé pour les URL" roundness="md" />
+                            <Field v-model="editingPost.title" required label="Titre"
+                                hint="Titre principale de l'actualité" roundness="md" :error="errors.title"
+                                @blur="touched.title = true" />
+                            <Field v-model="editingPost.slug" required label="Slug"
+                                hint="Identifiant unique de l'actualité, utilisé pour les URL" roundness="md"
+                                :error="errors.slug" @blur="touched.slug = true" />
                         </div>
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
-                            hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md" />
+                            hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md"
+                            :error="errors.abstract" @blur="touched.abstract = true" />
                     </div>
                 </section>
                 <section>
                     <h4 class="title-submain mb-6">SEO</h4>
                     <div class="grid md:grid-cols-2 gap-4">
                         <Field v-model="editingPost.meta_title" label="Meta title"
-                            hint="Titre de la page pour les moteurs de recherches" roundness="md" />
+                            hint="Titre de la page pour les moteurs de recherches" roundness="md"
+                            :error="errors.meta_title" @blur="touched.meta_title = true" />
                         <Field v-model="editingPost.meta_description" type="textarea" label="Meta description"
-                            hint="Description de la page pour les moteurs de recherches" roundness="md" />
+                            hint="Description de la page pour les moteurs de recherches" roundness="md"
+                            :error="errors.meta_description" @blur="touched.meta_description = true" />
                     </div>
                 </section>
                 <section>
@@ -41,24 +46,27 @@
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPost.schedule_start" :with-time="true"
                                 label="Date de début de publication" hint="Date à laquelle l'actualité sera publiée"
-                                type="date" roundness="md" />
+                                type="date" roundness="md" :error="errors.schedule_start"
+                                @blur="touched.schedule_start = true" />
                         </div>
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPost.schedule_end" :with-time="true"
                                 label="Date de fin de publication"
-                                hint="Date à laquelle l'actualité ne sera plus publiée" type="date" roundness="md" />
+                                hint="Date à laquelle l'actualité ne sera plus publiée" type="date" roundness="md"
+                                :error="errors.schedule_end" @blur="touched.schedule_end = true" />
                         </div>
                         <div class="max-w-xs">
                             <Dropdown v-model="editingPost.status" variant="light" size="md"
                                 label="Status de publication" placeholder="Status de publication"
-                                :items="POST_STATUSES_OBJECTS" />
+                                :items="POST_STATUSES_OBJECTS" @close="touched.status = true" />
                         </div>
                     </div>
                 </section>
                 <section>
                     <h4 class="title-submain mb-6">Contenu</h4>
                     <div>
-                        <WysiwygEditor v-model="editingPost.content" />
+                        <WysiwygEditor v-model="editingPost.content" :error="errors.content"
+                            @blur="touched.content = true" />
                     </div>
                 </section>
             </div>
@@ -84,6 +92,7 @@ import type { PostAttributesFrontend } from '@brz/shared';
 import Datepicker from '~/components/atoms/Datepicker.vue';
 import Dropdown from '~/components/molecules/Dropdown.vue';
 import { slugify } from '@brz/shared'
+import { push } from 'notivue';
 
 const route = useRoute()
 const { post, loading } = await usePost(route.params.id as unknown as number)
@@ -94,12 +103,53 @@ if (!post.value) {
 
 const editingPost = ref<PostAttributesFrontend>(post.value)
 
-const handleSave = async () => {
-    console.log('Enregistrement de l\'actualité...', editingPost.value)
-}
+const touched = ref({
+    title: false,
+    slug: false,
+    abstract: false,
+    meta_title: false,
+    meta_description: false,
+    schedule_start: false,
+    schedule_end: false,
+    status: false,
+    content: false,
+})
+
+const errors = computed(() => ({
+    title:
+        touched.value.title && editingPost.value.title === ''
+            ? 'Le titre est requis'
+            : null,
+    slug:
+        touched.value.slug && editingPost.value.slug === ''
+            ? 'Le slug est requis'
+            : null,
+    abstract: null,
+    meta_title: null,
+    meta_description: null,
+    schedule_start: null,
+    schedule_end: null,
+    status:
+        touched.value.status && !editingPost.value.status
+            ? 'Le status est requis'
+            : null,
+    content: null,
+}))
 
 const handlePublish = async () => {
     console.log('Publication de l\'actualité...', editingPost.value)
+}
+
+const handleSubmit = async () => {
+    // mark all as touched
+    (Object.keys(touched.value) as Array<keyof typeof touched.value>).forEach((key) => (touched.value[key] = true))
+
+    // stop if any error
+    if (Object.values(errors.value).some(Boolean)) return
+
+    // TODO: send od backend
+
+    push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
 }
 
 watch(() => editingPost.value?.title, (newTitle) => {
