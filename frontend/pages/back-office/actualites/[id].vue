@@ -6,6 +6,8 @@
         <Teleport to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
                 @click="handleSave" />
+            <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md" :disabled="editingPost?.status === 'published'"
+                @click="handlePublish" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -93,6 +95,10 @@ const editingPost = ref<PostAttributesFrontend>(post.value)
 
 const handleSave = async () => {
     console.log('Enregistrement de l\'actualité...', editingPost.value)
+}
+
+const handlePublish = async () => {
+    console.log('Publication de l\'actualité...', editingPost.value)
 }
 
 useAppHead({

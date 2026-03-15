@@ -116,29 +116,29 @@ const sizeToIconSize = computed(() => {
 const variantToButtonClass = computed(() => {
     switch (props.variant) {
         case 'dark':
-            return 'bg-dark border-2 border-dark text-white hover:brightness-90'
+            return 'bg-dark border-2 border-dark text-white hover:not-disabled:brightness-90'
         case 'light':
             return 'bg-white text-gray-900 border-2 border-gray-300 focus:ring-primary focus:border-primary transition-all duration-150'
         case 'primary':
-            return 'bg-primary border-2 border-primary text-white hover:brightness-90'
+            return 'bg-primary border-2 border-primary text-white hover:not-disabled:brightness-90'
         case 'outline':
-            return 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white'
+            return 'bg-transparent border-2 border-primary text-primary hover:not-disabled:bg-primary hover:not-disabled:text-white'
         case 'ghost':
-            return 'bg-transparent border-2 border-transparent text-gray-600 hover:bg-gray-100'
+            return 'bg-transparent border-2 border-transparent text-gray-600 hover:not-disabled:bg-gray-100'
         case 'gray':
-            return 'bg-gray-200 border-2 border-gray-200 text-gray-800 hover:brightness-90'
+            return 'bg-gray-200 border-2 border-gray-200 text-gray-800 hover:not-disabled:brightness-90'
         case 'blur':
-            return 'border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white/20'
+            return 'border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:not-disabled:bg-white/20'
         case 'transparent':
             return 'bg-transparent border-2 border-transparent text-gray-700'
         case 'danger':
-            return 'bg-danger border-2 border-danger text-white hover:brightness-90'
+            return 'bg-danger border-2 border-danger text-white hover:not-disabled:brightness-90'
         case 'warning':
-            return 'bg-warning border-2 border-warning text-white hover:brightness-90'
+            return 'bg-warning border-2 border-warning text-white hover:not-disabled:brightness-90'
         case 'success':
-            return 'bg-success border-2 border-success text-white hover:brightness-90'
+            return 'bg-success border-2 border-success text-white hover:not-disabled:brightness-90'
         default:
-            return 'bg-transparent text-gray-700 hover:bg-gray-100'
+            return 'bg-transparent text-gray-700 hover:not-disabled:bg-gray-100'
     }
 })
 
