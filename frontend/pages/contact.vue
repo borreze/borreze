@@ -7,18 +7,17 @@
                 class="contact-form bg-white rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 md:p-6 2xl:min-w-[500px]">
                 <h4 class="title-submain">Formulaire de contact</h4>
                 <div class="flex flex-col items-center justify-center space-y-4 mt-4">
-                    <Field v-model="firstname" name="firstname" type="text" label="Prénom" roundness="lg"
-                        placeholder="Jean" required :error="errors.firstname" @blur="touched.firstname = true" />
-                    <Field v-model="lastname" name="lastname" type="text" label="Nom" roundness="lg"
-                        placeholder="Dupont" required :error="errors.lastname" @blur="touched.lastname = true" />
-                    <Field v-model="email" name="email" type="email" label="E-mail" roundness="lg"
-                        placeholder="jdupont@gmail.com" required :error="errors.email" @blur="touched.email = true" />
-                    <Field v-model="message" name="message" type="textarea" label="Message" roundness="lg"
-                        placeholder="Votre message..." required :error="errors.message"
-                        @blur="touched.message = true" />
+                    <Field v-model="formContent.firstname" name="firstname" type="text" label="Prénom" roundness="lg"
+                        placeholder="Jean" required :error="errors.firstname" @blur="touch('firstname')" />
+                    <Field v-model="formContent.lastname" name="lastname" type="text" label="Nom" roundness="lg"
+                        placeholder="Dupont" required :error="errors.lastname" @blur="touch('lastname')" />
+                    <Field v-model="formContent.email" name="email" type="email" label="E-mail" roundness="lg"
+                        placeholder="jdupont@gmail.com" required :error="errors.email" @blur="touch('email')" />
+                    <Field v-model="formContent.message" name="message" type="textarea" label="Message" roundness="lg"
+                        placeholder="Votre message..." required :error="errors.message" @blur="touch('message')" />
 
                     <div class="flex flex-row align-items-center justify-end w-full">
-                        <Button :disabled="Object.values(errors).some(Boolean)" icon="mdi-send" label="Envoyer"
+                        <Button :disabled="hasErrors" icon="mdi-send" label="Envoyer"
                             position="right" variant="primary" size="md" @click="handleSubmit" />
                     </div>
                 </div>
@@ -60,7 +59,7 @@ import { push } from 'notivue';
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
 import Button from '~/components/atoms/Button.vue'
 import Field from '~/components/atoms/Field.vue'
-import type { ScheduleAttributes } from '@brz/shared';
+import { isEmail, type ScheduleAttributes } from '@brz/shared';
 import Url from '~/components/atoms/Url.vue';
 import Map from '~/components/molecules/Map.client.vue';
 import { nl2br, renderSchedules } from '#imports';
@@ -101,81 +100,49 @@ const schedules = ref<ScheduleAttributes[]>([
     }
 ]);
 
-const firstname = ref('')
-const lastname = ref('')
-const email = ref('')
-const message = ref('')
-
-const touched = ref({
-    firstname: false,
-    lastname: false,
-    email: false,
-    message: false
+const formContent = ref<{
+    firstname: string;
+    lastname: string;
+    email: string;
+    message: string;
+}>({
+    firstname: '',
+    lastname: '',
+    email: '',
+    message: ''
 })
 
-const errors = computed(() => ({
-    firstname:
-        touched.value.firstname && firstname.value === ''
-            ? 'Le champ prénom est requis'
-            : null,
-    lastname:
-        touched.value.lastname && lastname.value === ''
-            ? 'Le champ nom est requis'
-            : null,
-    email:
-        touched.value.email && email.value === ''
-            ? 'Le champ e-mail est requis'
-            : touched.value.email && !isEmail(email.value)
-                ? 'Le champ e-mail doit être une adresse e-mail valide'
-                : null,
-    message:
-        touched.value.message && message.value === ''
-            ? 'Le champ message est requis'
-            : null
-}))
+const { touch, hasErrors, touched, errors, untouchAll, submit } = useForm(
+    ['firstname', 'lastname', 'email', 'message'],
+    {
+        firstname: () => formContent.value.firstname === '' ? 'Le titre est requis' : null,
+        lastname: () => formContent.value.lastname === '' ? 'Le slug est requis' : null,
+        email: () => formContent.value.email === '' || !isEmail(formContent.value.email) ? 'Le champ e-mail est requis et doit être une adresse e-mail valide' : null,
+        message: () => formContent.value.message === '' ? 'Le champ message est requis' : null,
+    }
+)
 
 const handleClear = () => {
-    firstname.value = ''
-    lastname.value = ''
-    email.value = ''
-    message.value = ''
-
-    touched.value.firstname = false
-    touched.value.lastname = false
-    touched.value.email = false
-    touched.value.message = false
+    formContent.value.firstname = ''
+    formContent.value.lastname = ''
+    formContent.value.email = ''
+    formContent.value.message = ''
+    untouchAll()
 }
 
-const handleSubmit = async () => {
-    // mark all as touched
-    (Object.keys(touched.value) as Array<keyof typeof touched.value>).forEach((key) => (touched.value[key] = true))
-
-    // stop if any error
-    if (Object.values(errors.value).some(Boolean)) return
-
-    firstname.value = firstname.value.trim()
-    lastname.value = lastname.value.trim()
-    email.value = email.value.trim()
-    message.value = message.value.trim()
+const handleSubmit = () => submit(async () => {
+    // trim values
+    formContent.value.firstname = formContent.value.firstname.trim()
+    formContent.value.lastname = formContent.value.lastname.trim()
+    formContent.value.email = formContent.value.email.trim()
+    formContent.value.message = formContent.value.message.trim()
 
     // TODO: send contact message to backend
 
     handleClear()
 
     push.success({ title: 'Envoyé!', message: 'Votre demande a été envoyée avec succès.' })
-}
-
-onMounted(() => {
-    window.addEventListener('keydown', handleKey)
 })
-
-onBeforeUnmount(() => {
-    window.removeEventListener('keydown', handleKey)
-})
-
-function handleKey(e: KeyboardEvent) {
-    if (e.key === 'Enter') handleSubmit()
-}
 
 useAppHead({
     title: 'Contact',

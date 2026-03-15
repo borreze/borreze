@@ -5,7 +5,7 @@
         </Teleport>
         <Teleport to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
-                :disabled="Object.values(errors).some(Boolean)" @click="handleSubmit" />
+                :disabled="hasErrors" @click="handleSubmit" />
             <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md" :loading="loading"
                 :disabled="editingPost?.status === 'published'" @click="handlePublish" />
         </Teleport>
@@ -19,14 +19,14 @@
                         <div class="grid md:grid-cols-2 gap-4">
                             <Field v-model="editingPost.title" required label="Titre"
                                 hint="Titre principale de l'actualité" roundness="md" :error="errors.title"
-                                @blur="touched.title = true" />
+                                @blur="touch('title')" />
                             <Field v-model="editingPost.slug" required label="Slug"
                                 hint="Identifiant unique de l'actualité, utilisé pour les URL" roundness="md"
-                                :error="errors.slug" @blur="touched.slug = true" />
+                                :error="errors.slug" @blur="touch('slug')" />
                         </div>
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
                             hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md"
-                            :error="errors.abstract" @blur="touched.abstract = true" />
+                            :error="errors.abstract" @blur="touch('abstract')" />
                     </div>
                 </section>
                 <section>
@@ -34,10 +34,10 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         <Field v-model="editingPost.meta_title" label="Meta title"
                             hint="Titre de la page pour les moteurs de recherches" roundness="md"
-                            :error="errors.meta_title" @blur="touched.meta_title = true" />
+                            :error="errors.meta_title" @blur="touch('meta_title')" />
                         <Field v-model="editingPost.meta_description" type="textarea" label="Meta description"
                             hint="Description de la page pour les moteurs de recherches" roundness="md"
-                            :error="errors.meta_description" @blur="touched.meta_description = true" />
+                            :error="errors.meta_description" @blur="touch('meta_description')" />
                     </div>
                 </section>
                 <section>
@@ -47,13 +47,13 @@
                             <Datepicker v-model="editingPost.schedule_start" :with-time="true"
                                 label="Date de début de publication" hint="Date à laquelle l'actualité sera publiée"
                                 type="date" roundness="md" :error="errors.schedule_start"
-                                @blur="touched.schedule_start = true" />
+                                @blur="touch('schedule_start')" />
                         </div>
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPost.schedule_end" :with-time="true"
                                 label="Date de fin de publication"
                                 hint="Date à laquelle l'actualité ne sera plus publiée" type="date" roundness="md"
-                                :error="errors.schedule_end" @blur="touched.schedule_end = true" />
+                                :error="errors.schedule_end" @blur="touch('schedule_end')" />
                         </div>
                         <div class="max-w-xs">
                             <Dropdown v-model="editingPost.status" variant="light" size="md"
@@ -65,8 +65,7 @@
                 <section>
                     <h4 class="title-submain mb-6">Contenu</h4>
                     <div>
-                        <WysiwygEditor v-model="editingPost.content" :error="errors.content"
-                            @blur="touched.content = true" />
+                        <WysiwygEditor v-model="editingPost.content" :error="errors.content" @blur="touch('content')" />
                     </div>
                 </section>
             </div>
@@ -103,9 +102,8 @@ if (!post.value) {
 
 const editingPost = ref<PostAttributesFrontend>(post.value)
 
-const { touched, errors, submit } = useForm(
-    ['title', 'slug', 'abstract', 'meta_title', 'meta_description',
-        'schedule_start', 'schedule_end', 'status', 'content'],
+const { hasErrors, touch, touched, errors, submit } = useForm(
+    ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content'],
     {
         title: () => editingPost.value.title === '' ? 'Le titre est requis' : null,
         slug: () => editingPost.value.slug === '' ? 'Le slug est requis' : null,
@@ -118,8 +116,8 @@ const handlePublish = async () => {
 }
 
 const handleSubmit = () => submit(async () => {
-  // appel API
-  push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
+    // appel API
+    push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
 })
 
 

@@ -17,7 +17,11 @@ export function useForm<K extends string>(
 
     const touch = (key: K) => { touched.value[key] = true }
 
+    const untouch = (key: K) => { touched.value[key] = false }
+
     const touchAll = () => keys.forEach(k => { touched.value[k] = true })
+
+    const untouchAll = () => keys.forEach(k => { touched.value[k] = false })
 
     const hasErrors = computed(() => Object.values(errors.value).some(Boolean))
 
@@ -26,5 +30,5 @@ export function useForm<K extends string>(
         if (!hasErrors.value) await cb()
     }
 
-    return { touched, errors, touch, hasErrors, submit }
+    return { touched, errors, untouch, touch, touchAll, untouchAll, hasErrors, submit }
 }
