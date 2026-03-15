@@ -5,7 +5,7 @@
         </Teleport>
         <Teleport to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
-                :disabled="hasErrors" @click="handleSubmit" />
+                :disabled="hasErrors" @click="handleSave" />
             <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md" :loading="loading"
                 :disabled="editingPost?.status === 'published'" @click="handlePublish" />
         </Teleport>
@@ -115,7 +115,7 @@ const handlePublish = async () => {
     console.log('Publication de l\'actualité...', editingPost.value)
 }
 
-const handleSubmit = () => submit(async () => {
+const handleSave = () => submit(async () => {
     // appel API
     push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
 })
