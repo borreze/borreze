@@ -17,8 +17,8 @@
                         placeholder="Votre message..." required :error="errors.message" @blur="touch('message')" />
 
                     <div class="flex flex-row align-items-center justify-end w-full">
-                        <Button :disabled="hasErrors" icon="mdi-send" label="Envoyer"
-                            position="right" variant="primary" size="md" @click="handleSubmit" />
+                        <Button :disabled="hasErrors" icon="mdi-send" label="Envoyer" position="right" variant="primary"
+                            size="md" @click="handleSubmit" />
                     </div>
                 </div>
             </section>
@@ -130,10 +130,10 @@ const handleClear = () => {
     untouchAll()
 }
 
-    const handleSubmit = () => submit(async () => {
-        // trim values
-        formContent.value.firstname = formContent.value.firstname.trim()
-        formContent.value.lastname = formContent.value.lastname.trim()
+const handleSubmit = () => submit(async () => {
+    // trim values
+    formContent.value.firstname = formContent.value.firstname.trim()
+    formContent.value.lastname = formContent.value.lastname.trim()
     formContent.value.email = formContent.value.email.trim()
     formContent.value.message = formContent.value.message.trim()
 
