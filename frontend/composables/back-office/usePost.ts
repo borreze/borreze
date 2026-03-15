@@ -1,7 +1,6 @@
-import type { PostAttributesFrontend } from '@brz/shared';
+import { paginationDefault, type PostAttributesFrontend } from '@brz/shared';
 import type { Order } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
-import { PAGINATION_DEFAULT } from '~/utils/pagination'
 import useApi from '~/composables/useApi'
 
 const DEBOUNCE_DELAY = 400
@@ -18,7 +17,7 @@ export const usePosts = async () => {
             {
                 params: {
                     page: page.value,
-                    limit: PAGINATION_DEFAULT.limit,
+                    limit: paginationDefault().limit,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value.trim(),
                     status: 'all',

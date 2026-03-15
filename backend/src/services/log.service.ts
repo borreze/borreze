@@ -9,7 +9,7 @@ import { LOG_CONSTRAINTS, LOG_RENTENTION_DAYS } from '../models/log.model'
 import { NotFound } from '../exceptions/request.exception'
 import { ValidationException } from '../exceptions/validation.exception'
 import { sequelize } from '../config/database'
-import { paginationDefault } from '../utils/pagination.utils'
+import { paginationDefault } from '@brz/shared'
 
 export class LogService {
   public async count(options?: { search?: string }): Promise<number> {

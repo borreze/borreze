@@ -1,6 +1,5 @@
-import type { CategorizableType, CategoryAttributes } from '@brz/shared';
+import { paginationDefault, type CategorizableType, type CategoryAttributes } from '@brz/shared';
 import type { Pagination } from '@brz/shared'
-import { PAGINATION_DEFAULT } from '~/utils/pagination'
 import useApi from '~/composables/useApi'
 
 export const useCategories = async () => {
@@ -12,7 +11,7 @@ export const useCategories = async () => {
             try {
                 const res = await useApi().get<{ data: CategoryAttributes[], pagination: Pagination }>(
                     '/categories',
-                    { params: { page: page.value, limit: PAGINATION_DEFAULT.limit } }
+                    { params: { page: page.value, limit: paginationDefault().limit } }
                 )
                 return res.data ?? null
             } catch (e) {

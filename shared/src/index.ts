@@ -1,3 +1,13 @@
+// UTILS
+
+export { slugify } from './utils/model.utils'
+
+export { paginationDefault } from './utils/pagination.utils'
+
+export { isEmail } from './utils/text.utils'
+
+// TYPES
+
 export type { AssociationAttributes, AssociationAttributesCreation, AssociationAttributesUpdate } from './types/association.types'
 
 export type { CategoryAttributes, CategoryAttributesCreation, CategoryAttributesUpdate } from './types/category.types'

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import useApi from '~/composables/useApi'
-import type { PostAttributes } from '@brz/shared'
+import { paginationDefault, type PostAttributes } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 
 export interface PostStoreState {
@@ -35,7 +35,7 @@ export const usePostStore = defineStore('post', {
         },
 
         async setPage(page: number, fetch = true, scroll = true) {
-            if (!this.pagination) this.pagination = PAGINATION_DEFAULT
+            if (!this.pagination) this.pagination = paginationDefault()
 
             this.pagination.page = page
             if (fetch) await this.fetchPosts()
@@ -46,8 +46,8 @@ export const usePostStore = defineStore('post', {
             this.prepareForLoad()
 
             params = {
-                limit: this.pagination?.limit || PAGINATION_DEFAULT.limit,
-                page: this.pagination?.page || PAGINATION_DEFAULT.page,
+                limit: this.pagination?.limit || paginationDefault().limit,
+                page: this.pagination?.page || paginationDefault().page,
                 ...params
             }
 

@@ -6,8 +6,8 @@
         <Teleport to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
                 @click="handleSave" />
-            <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md" :disabled="editingPost?.status === 'published'"
-                @click="handlePublish" />
+            <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md"
+                :disabled="editingPost?.status === 'published'" @click="handlePublish" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -83,6 +83,7 @@ import { POST_STATUSES_OBJECTS } from '@brz/shared';
 import type { PostAttributesFrontend } from '@brz/shared';
 import Datepicker from '~/components/atoms/Datepicker.vue';
 import Dropdown from '~/components/molecules/Dropdown.vue';
+import { slugify } from '@brz/shared'
 
 const route = useRoute()
 const { post, loading } = await usePost(route.params.id as unknown as number)
@@ -101,6 +102,10 @@ const handlePublish = async () => {
     console.log('Publication de l\'actualité...', editingPost.value)
 }
 
+watch(() => editingPost.value?.title, (newTitle) => {
+    editingPost.value.slug = slugify(newTitle)
+})
+
 useAppHead({
     title: 'Gestion des actualités',
 })
@@ -112,6 +117,5 @@ definePageMeta({
     title: 'Gestion des actualités',
     private: true,
 })
-
 
 </script>

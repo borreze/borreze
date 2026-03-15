@@ -14,7 +14,7 @@ import { USER_CONSTRAINTS, USER_INCLUDE_DEFAULTS, USER_ROLE_ID_DEFAULT } from '.
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { hashPassword, isHash, isStrongPassword } from '../utils/auth.utils'
-import { paginationDefault } from '../utils/pagination.utils'
+import { paginationDefault } from '@brz/shared'
 
 export class UserService {
   private filterStatus(status?: UserStatus | 'all' | null): WhereOptions {

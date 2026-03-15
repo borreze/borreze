@@ -1,17 +1,8 @@
-import type { ScheduleDay, ScheduleAttributes, Time } from "@brz/shared";
-
-const days: Record<ScheduleDay, string> = {
-    'monday': 'Lundi',
-    'tuesday': 'Mardi',
-    'wednesday': 'Mercredi',
-    'thursday': 'Jeudi',
-    'friday': 'Vendredi',
-    'saturday': 'Samedi',
-    'sunday': 'Dimanche'
-}
+import { type ScheduleDay, type ScheduleAttributes, type Time, SCHEDULE_DAYS_KEYS, SCHEDULE_DAYS_OBJECTS } from "@brz/shared";
 
 export function niceDay(day: ScheduleDay): string {
-    return days[day] || day
+    const dayObject = SCHEDULE_DAYS_OBJECTS.find(d => d.value === day)
+    return dayObject ? dayObject.label : '--'
 }
 
 export function niceTime(time: Time): string {
@@ -27,8 +18,7 @@ export function renderSchedules(schedules: ScheduleAttributes[]): string {
     let result = ''
 
     // Order schedules by day of the week
-    const dayOrder: ScheduleDay[] = Object.keys(days) as ScheduleDay[]
-    schedules.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day))
+    schedules.sort((a, b) => SCHEDULE_DAYS_KEYS.indexOf(a.day) - SCHEDULE_DAYS_KEYS.indexOf(b.day))
 
         for (const schedule of schedules) {
         result += `Le ${niceDay(schedule.day)} : `

@@ -60,7 +60,7 @@ import { push } from 'notivue';
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
 import Button from '~/components/atoms/Button.vue'
 import Field from '~/components/atoms/Field.vue'
-import type { ScheduleAttributes } from '@brz/shared';
+import { isEmail, type ScheduleAttributes } from '@brz/shared';
 import Url from '~/components/atoms/Url.vue';
 import Map from '~/components/molecules/Map.client.vue';
 import { nl2br, renderSchedules } from '#imports';

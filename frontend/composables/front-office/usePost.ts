@@ -1,8 +1,7 @@
-import type { PostAttributesFrontend } from '@brz/shared';
+import { paginationDefault, type PostAttributesFrontend } from '@brz/shared';
 import type { Order } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
-import { PAGINATION_DEFAULT } from '~/utils/pagination'
 
 export const usePosts = async () => {
     const page = ref(1)
@@ -18,7 +17,7 @@ export const usePosts = async () => {
                     {
                         params: {
                             page: page.value,
-                            limit: PAGINATION_DEFAULT.limit,
+                            limit: paginationDefault().limit,
                             categories: categories.value,
                             order: order.value ? JSON.stringify([order.value]) : undefined
                         }
