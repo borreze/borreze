@@ -5,6 +5,8 @@
     <NuxtPage />
   </NuxtLayout>
 
+  <Confirm />
+
   <Notivue v-slot="item">
     <Notification :item="item" />
   </Notivue>
@@ -13,6 +15,7 @@
 <script setup lang="ts">
 import { Notivue, Notification } from 'notivue'
 import { useAuthStore } from '~/stores/auth'
+import Confirm from './components/molecules/Confirm.vue';
 
 // This ensures persistence across reloads
 const auth = useAuthStore()

@@ -6,8 +6,8 @@
         <Teleport to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
                 :disabled="hasErrors" @click="handleSave" />
-            <Button :label="editingPost?.status === 'published' ? 'Déjà publié' : 'Publier'" icon="ic:baseline-publish" variant="outline" size="sm" :loading="loading"
-                :disabled="editingPost?.status === 'published'"
+            <Button :label="editingPost?.status === 'published' ? 'Déjà publié' : 'Publier'" icon="ic:baseline-publish"
+                variant="outline" size="sm" :loading="loading" :disabled="editingPost?.status === 'published'"
                 :title="editingPost?.status === 'published' ? 'L\'actualité est déjà publiée' : 'Publier l\'actualité'"
                 @click="handlePublish" />
             <Button label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading"
@@ -112,6 +112,7 @@ import { useCategoriesAll } from '~/composables/back-office/useCategory';
 const route = useRoute()
 const { post, loading, deleteSelf, updateSelf, updateStatus, updateCategories } = await usePost(route.params.id as unknown as number)
 const { categories } = await useCategoriesAll()
+const { confirm } = useConfirm()
 
 if (!post.value) {
     throw createError({ statusCode: 404, statusMessage: 'Actualité introuvable' })
@@ -146,11 +147,11 @@ const handleCategoriesChange = async (silent: boolean = false) => {
     }
 }
 
-const handlePublish = async (silent: boolean = false) => {
+const handlePublish = async () => {
     try {
         editingPost.value.status = 'published'
         await updateStatus('published')
-        if (!silent) push.success({ title: 'Publié !', message: 'L\'actualité a été publiée avec succès.' })
+        push.success({ title: 'Publié !', message: 'L\'actualité a été publiée avec succès.' })
     } catch (err: any) {
         const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
         push.error({ title: 'Erreur', message })
@@ -169,7 +170,16 @@ const handleSave = () => submit(async () => {
     }
 })
 
-const handleDelete = () => submit(async () => {
+const handleDelete = async () => {
+    const ok = await confirm({
+        title: 'Supprimer l\'actualité ?',
+        message: 'Cette action est irréversible. L\'actualité sera définitivement supprimée.',
+        confirmLabel: 'Supprimer',
+        variant: 'danger',
+    })
+
+    if (!ok) return
+
     try {
         await deleteSelf()
         navigateTo('/back-office/actualites')
@@ -178,7 +188,7 @@ const handleDelete = () => submit(async () => {
         const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
         push.error({ title: 'Erreur', message })
     }
-})
+}
 
 watch(() => editingPost.value?.title, (newTitle) => {
     editingPost.value.slug = slugify(newTitle)
