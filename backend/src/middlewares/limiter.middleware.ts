@@ -21,7 +21,7 @@ export const createRateLimiter = (
     max: number = 50,
     span: TimeSpanKey = "FIFTEEN_MINUTES"
 ) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development') { // ! THERE IS NO RATE LIMIT IN DEV MODE TO AVOID HINDERING TESTS
         return (req: Request, res: Response, next: NextFunction) => next();
     }
 

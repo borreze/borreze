@@ -5,6 +5,7 @@ import swaggerDocument from "./swagger.json"
 import postRoutes from './routes/post.routes'
 import categoryRoutes from './routes/category.routes'
 import userRoutes from './routes/user.routes'
+import conactRoutes from './routes/contact.routes'
 import logRoutes from './routes/log.routes'
 import schoolHolidayRoutes from './routes/schoolHoliday.routes'
 import authRoutes from './routes/auth.routes'
@@ -46,6 +47,7 @@ app.use(categoryRoutes)
 app.use(logRoutes)
 app.use(schoolHolidayRoutes)
 app.use(userRoutes)
+app.use(conactRoutes)
 app.use(authRoutes)
 app.use(globalRoutes)
 

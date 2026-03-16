@@ -74,3 +74,5 @@ export type { SearchResultNames, SearchResultLinks, SearchResult } from './types
 export type { Pagination } from './types/pagination.types'
 
 export type { Order } from './types/order.types'
+
+export type { ContactRequest } from './types/contact.types'

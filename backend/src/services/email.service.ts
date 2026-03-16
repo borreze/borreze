@@ -30,8 +30,7 @@ export class EmailService {
         if (!this.transporter) throw new MailException('SMTP transporter is not configured. Check environment variables.')
         if (!to) throw new MailException('Email "to" field is required')
         if (!from) throw new MailException('Email "from" field is required')
-        if (!text) throw new MailException('Email "text" field is required')
-        if (!html) throw new MailException('Email "html" field is required')
+        if (!text || !html) throw new MailException('Email "text" or "html" field is required')
 
         if (process.env.NODE_ENV !== 'production') {
             Terminal.info(`Mail sent: ${JSON.stringify({ from, ...options }, null, 2)}`)

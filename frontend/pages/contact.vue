@@ -59,10 +59,11 @@ import { push } from 'notivue';
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
 import Button from '~/components/atoms/Button.vue'
 import Field from '~/components/atoms/Field.vue'
-import { isEmail, type ScheduleAttributes } from '@brz/shared';
+import { isEmail, type ContactRequest, type ScheduleAttributes } from '@brz/shared';
 import Url from '~/components/atoms/Url.vue';
 import Map from '~/components/molecules/Map.client.vue';
 import { nl2br, renderSchedules } from '#imports';
+import { useContact } from '~/composables/front-office/useContact';
 
 const schedules = ref<ScheduleAttributes[]>([
     {
@@ -100,12 +101,9 @@ const schedules = ref<ScheduleAttributes[]>([
     }
 ]);
 
-const formContent = ref<{
-    firstname: string;
-    lastname: string;
-    email: string;
-    message: string;
-}>({
+const { sendContact } = useContact()
+
+const formContent = ref<ContactRequest>({
     firstname: '',
     lastname: '',
     email: '',
@@ -131,17 +129,13 @@ const handleClear = () => {
 }
 
 const handleSubmit = () => submit(async () => {
-    // trim values
-    formContent.value.firstname = formContent.value.firstname.trim()
-    formContent.value.lastname = formContent.value.lastname.trim()
-    formContent.value.email = formContent.value.email.trim()
-    formContent.value.message = formContent.value.message.trim()
-
-    // TODO: send contact message to backend
-
-    handleClear()
-
-    push.success({ title: 'Envoyé!', message: 'Votre demande a été envoyée avec succès.' })
+    try {
+        await sendContact(formContent.value)
+        handleClear()
+        push.success({ title: 'Envoyé!', message: 'Votre demande a été envoyée avec succès.' })
+    } catch (err: any) {
+        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
+    }
 })
 
 useAppHead({
