@@ -26,7 +26,7 @@ export class SchoolHolidayController {
     const year = req.params.year as SchoolYear
     const options = { year }
     const order: Order[] = [['date_start', 'ASC']]
-
+  
     const data = await schoolHolidayService.getAll(options, order)
     res.json({ data, message: 'School holidays retrieved successfully' } as Return)
   }

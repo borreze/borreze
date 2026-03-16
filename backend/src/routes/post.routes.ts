@@ -15,5 +15,6 @@ router.put('/back-office/posts/:id', permissionMiddleware('post', 'update'), pos
 router.put('/back-office/posts/:id/status', permissionMiddleware('post', 'update'), postController.updateStatus)
 router.put('/back-office/posts/:id/categories', permissionMiddleware('post', 'update'), postController.updateCategories)
 router.delete('/back-office/posts/:id', permissionMiddleware('post', 'delete'), postController.delete)
+router.post('/back-office/posts/compute-statuses', permissionMiddleware('post', 'update'), postController.computeStatuses)
 
 export default router

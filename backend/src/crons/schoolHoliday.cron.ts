@@ -4,7 +4,7 @@ import { Terminal } from '../utils/terminal.utils'
 import { Log } from '../utils/log.utils'
 
 export function initSchoolHolidayCron(): void {
-    Terminal.info('Initializing school holiday import cron job')
+    Terminal.info('Initializing school holiday cron job')
     cron.schedule('0 2 * * 0', async () => { // Every Sunday at 2:00 AM
         try {
             await schoolHolidayService.import()

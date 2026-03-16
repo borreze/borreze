@@ -52,11 +52,11 @@
         "meta_description": "This is the meta description for the fifth post.",
         "published_at": "2026-10-01T12:00:00Z",
         "schedule_start": "2026-10-01T12:00:00Z",
-        "schedule_end": "2026-10-01T12:00:00Z"
+        "schedule_end": "2026-11-01T12:00:00Z"
     },
     {
         "id": 6,
-        "status": "published",
+        "status": "archived",
         "title": "Sixth post title",
         "slug": "sixth-post-slug",
         "abstract": "This is the abstract of the sixth post.",
@@ -65,7 +65,7 @@
         "meta_description": "This is the meta description for the sixth post.",
         "published_at": "2026-10-01T12:00:00Z",
         "schedule_start": "2026-02-01T12:00:00Z",
-        "schedule_end": "2026-06-01T12:00:00Z"
+        "schedule_end": "2026-08-01T12:00:00Z"
     },
     {
         "id": 7,
@@ -89,9 +89,7 @@
         "content": "<p>This is the content of the eighth post.</p>",
         "meta_title": "Eighth Post Meta Title",
         "meta_description": "This is the meta description for the eighth post.",
-        "published_at": "2026-10-01T12:00:00Z",
-        "schedule_start": null,
-        "schedule_end": null
+        "published_at": "2026-10-01T12:00:00Z"
     },
     {
         "id": 9,
@@ -101,10 +99,7 @@
         "abstract": "This is the abstract of the ninth post.",
         "content": "<p>This is the content of the ninth post.</p>",
         "meta_title": "Ninth Post Meta Title",
-        "meta_description": "This is the meta description for the ninth post.",
-        "published_at": null,
-        "schedule_start": null,
-        "schedule_end": null
+        "meta_description": "This is the meta description for the ninth post."
     },
     {
         "id": 10,
@@ -115,9 +110,7 @@
         "content": "<p>This is the content of the tenth post.</p>",
         "meta_title": "Tenth Post Meta Title",
         "meta_description": "This is the meta description for the tenth post.",
-        "published_at": "2025-10-01T12:00:00Z",
-        "schedule_start": null,
-        "schedule_end": null
+        "published_at": "2025-10-01T12:00:00Z"
     },
     {
         "id": 11,
@@ -127,10 +120,7 @@
         "abstract": "This is the abstract of the eleventh post.",
         "content": "<p>This is the content of the eleventh post.</p>",
         "meta_title": "Eleventh Post Meta Title",
-        "meta_description": "This is the meta description for the eleventh post.",
-        "published_at": null,
-        "schedule_start": null,
-        "schedule_end": null
+        "meta_description": "This is the meta description for the eleventh post."
     },
     {
         "id": 12,
@@ -140,10 +130,7 @@
         "abstract": "This is the abstract of the twelfth post.",
         "content": "<p>This is the content of the twelfth post.</p>",
         "meta_title": "Twelfth Post Meta Title",
-        "meta_description": "This is the meta description for the twelfth post.",
-        "published_at": null,
-        "schedule_start": null,
-        "schedule_end": null
+        "meta_description": "This is the meta description for the twelfth post."
     },
     {
         "id": 13,
@@ -153,9 +140,6 @@
         "abstract": "This is the abstract of the thirteenth post.",
         "content": "<p>This is the content of the thirteenth post.</p>",
         "meta_title": "Thirteenth Post Meta Title",
-        "meta_description": "This is the meta description for the thirteenth post.",
-        "published_at": null,
-        "schedule_start": null,
-        "schedule_end": null
+        "meta_description": "This is the meta description for the thirteenth post."
     }
 ]

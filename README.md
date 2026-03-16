@@ -74,7 +74,7 @@ docker-compose logs -fp
 
 ---
 
-### Seeding the database & import data
+### Seeding the database & cron data
 
 Because working with data is always a good idea, you can seed the database with some initial data.
 
@@ -83,8 +83,8 @@ All the seeding logic is in the `src/seeder.ts` file. All data is stored in the 
 ```sh
 docker exec -it borreze-brz-backend-dev-1 sh
 npm run seed # Will run the seeder and populate the database with initial data from the seeds/ directory.
-npm run import # Will import data from the web
-npm run populate # Will run both the seeding and the import.
+npm run cron # Will run cron jobs
+npm run populate # Will run both the seeding and the cron jobs
 ```
 
 Somehow, Sequilize might not increment the IDs correctly after a seed. This could lead to conflicts when using the API to create new entries right after a seed.

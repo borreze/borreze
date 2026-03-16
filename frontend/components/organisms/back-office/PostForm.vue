@@ -49,8 +49,7 @@
                         Si vous saisissez une date de début dans le futur, l'actualité sera programmée pour être publiée
                         à cette date.<br>
                         Si vous saisissez une date de fin, l'actualité sera retirée de la publication à cette date.<br>
-                        Dans tout les cas, le status de publication doit être défini à "Publié" pour que l'actualité
-                        soit visible sur le site, même si les dates sont correctement remplies.
+                        Les dates de publications sont prioritaires sur le status : une actualité avec un status "Publié" mais une date de début dans le futur sera automatiquement passé en "archivé" jusqu'à la date de début.
                     </p>
                     <div class="flex flex-row flex-wrap gap-4">
                         <div class="max-w-xs">

@@ -13,6 +13,7 @@ import { NotFound } from '../exceptions/request.exception'
 import { permissionCheck } from '../utils/auth.utils'
 import { UserAttributesPublic } from '@brz/shared'
 import { paginationDefault } from '@brz/shared'
+import { Terminal } from '../utils/terminal.utils'
 
 export class PostService {
   private filterStatus(status?: PostStatus | 'all' | null): WhereOptions {
@@ -158,6 +159,99 @@ export class PostService {
     const result = await Post.destroy({ where: { id } })
     if (!result) throw new NotFound('Post not found')
     return result
+  }
+
+  /**
+   * Computes and updates post statuses based on schedule_start and schedule_end dates.
+   *
+   * Rules:
+   * - schedule_start in the future              => archived (not yet visible)
+   * - schedule_end in the past                  => archived (expired)
+   * - schedule_start in the past AND end future => published (within window)
+   *
+   * Processes updates in chunks to avoid long-running locks on the DB.
+   */
+  public async computeStatuses(): Promise<void> {
+    const CHUNK_SIZE = 500
+
+    Terminal.info('Computing posts statuses...')
+
+    const now = new Date()
+
+    // Define each transition rule: a WHERE clause => target status
+    const transitions: { where: Record<string, unknown>; status: PostStatus; label: string }[] = [
+      {
+        // Posts whose visibility window hasn't started yet => archive
+        label: 'schedule_start in future => archived',
+        status: 'archived',
+        where: {
+          schedule_start: { [Op.gt]: now },
+          status: { [Op.ne]: 'archived' }
+        }
+      },
+      {
+        // Posts whose visibility window has expired => archive
+        label: 'schedule_end in past => archived',
+        status: 'archived',
+        where: {
+          schedule_end: { [Op.lt]: now },
+          status: { [Op.ne]: 'archived' }
+        }
+      },
+      {
+        // Posts currently within their visibility window => publish
+        label: 'within schedule window => published',
+        status: 'published',
+        where: {
+          schedule_start: { [Op.lte]: now },
+          schedule_end: { [Op.gte]: now },
+          status: { [Op.ne]: 'published' }
+        }
+      }
+    ]
+
+    for (const { where, status, label } of transitions) {
+      let totalUpdated = 0
+      let hasMore = true
+
+      // Process in chunks: fetch matching IDs, then bulk-update by ID batch
+      while (hasMore) {
+        // Fetch a limited batch of IDs matching the transition rule
+        const batch = await Post.findAll({
+          attributes: ['id'],
+          where,
+          limit: CHUNK_SIZE,
+          raw: true
+        })
+
+        if (batch.length === 0) {
+          hasMore = false
+          break
+        }
+
+        const ids = batch.map((p) => p.id)
+
+        // Bulk update only the fetched chunk by primary key
+        const [affectedCount] = await Post.update(
+          { 
+            status,
+            published_at: status === 'published' ? new Date() : undefined // set published_at when publishing, clear when archiving
+          },
+          { where: { id: { [Op.in]: ids } } }
+        )
+
+        totalUpdated += affectedCount
+
+        // If fewer results than chunk size, no more rows to process
+        if (batch.length < CHUNK_SIZE) hasMore = false
+      }
+
+      if (totalUpdated > 0) {
+        Terminal.success(`${label}: ${totalUpdated} post(s) updated`)
+      }
+    }
+
+    Terminal.success('Posts statuses computation done')
   }
 }
 
