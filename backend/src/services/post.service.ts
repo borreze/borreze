@@ -96,6 +96,7 @@ export class PostService {
 
   public async create(data: PostAttributesCreation): Promise<PostAttributes | null> {
     if (!data.slug) data.slug = slugify(data.title)
+    delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
     if (!valid) throw new ValidationException('Des champs sont manquants', errors)

@@ -5,17 +5,24 @@
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="sm" />
         </Teleport>
         <Teleport to="#page-actions">
-            <Field v-model="search" class="flex-1 min-w-0" placeholder="Rechercher..." icon="ic:baseline-search"
-                size="sm" roundness="md" />
-            <OrderBy :orders="[
-                { label: 'Publiés récemment', value: 'published_at:DESC' },
-                { label: 'Publiés il y a longtemps', value: 'published_at:ASC' },
-                { label: 'Mise à jour récemment', value: 'updated_at:DESC' },
-                { label: 'Mise à jour il y a longtemps', value: 'updated_at:ASC' },
-                { label: 'Ordre alphabétique', value: 'title:ASC' },
-                { label: 'Ordre alphabétique inverse', value: 'title:DESC' },
-            ]" @select="setOrder" @reset="resetOrder" />
+            <Button as="link" href="/back-office/actualites/ajouter" label="Ajouter" icon="ic:baseline-plus"
+                variant="primary" size="sm" />
         </Teleport>
+
+        <div class="mt-4 flex gap-4 items-center justify-end ">
+            <div class="max-w-xl flex gap-4 items-center">
+                <Field v-model="search" placeholder="Rechercher..." icon="ic:baseline-search" size="sm" roundness="md"
+                    class="flex-1" />
+                <OrderBy class="flex-none" :orders="[
+                    { label: 'Publiés récemment', value: 'published_at:DESC' },
+                    { label: 'Publiés il y a longtemps', value: 'published_at:ASC' },
+                    { label: 'Mise à jour récemment', value: 'updated_at:DESC' },
+                    { label: 'Mise à jour il y a longtemps', value: 'updated_at:ASC' },
+                    { label: 'Ordre alphabétique', value: 'title:ASC' },
+                    { label: 'Ordre alphabétique inverse', value: 'title:DESC' },
+                ]" @select="setOrder" @reset="resetOrder" />
+            </div>
+        </div>
 
         <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" :columns="[
             { key: 'id', label: 'ID', formatter: 'id' },
@@ -58,6 +65,7 @@ import Field from '~/components/atoms/Field.vue';
 import { limitString } from '~/utils/text';
 import { formatDateRelativeNice } from '~/utils/date';
 import { POST_STATUSES_OBJECTS } from '@brz/shared';
+import Button from '~/components/atoms/Button.vue';
 
 const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts()
 

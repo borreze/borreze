@@ -47,6 +47,8 @@ export class SchoolHolidayService {
   }
 
   public async create(data: SchoolHolidayAttributesCreation): Promise<SchoolHolidayAttributes | null> {
+    delete data.id // ensure id is not set
+
     const { valid, errors } = validateAll(data, SCHOOL_HOLIDAY_CONSTRAINTS)
     if (!valid) throw new ValidationException('Des champs sont manquants', errors)
 

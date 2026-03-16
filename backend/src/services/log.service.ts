@@ -42,7 +42,8 @@ export class LogService {
   }
 
   public async create(data: LogAttributesCreation): Promise<Log> {
-    data.created_at = new Date()
+    data.created_at = new Date() // set creation date to now, not handled by database
+    delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, LOG_CONSTRAINTS)
     if (!valid) throw new ValidationException('Des champs sont manquants', errors)

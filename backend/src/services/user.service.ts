@@ -108,6 +108,7 @@ export class UserService {
 
   public async create(data: UserAttributesCreation): Promise<UserAttributes> {
     if (!data.role_id) data.role_id = USER_ROLE_ID_DEFAULT
+    delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, USER_CONSTRAINTS)
     if (!valid) throw new ValidationException('Des champs sont manquants', errors)

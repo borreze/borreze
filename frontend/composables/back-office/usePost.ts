@@ -77,7 +77,7 @@ export const usePosts = async () => {
     }
 }
 
-export const usePost = async (id: number) => {
+export const useEditPost = async (id: number) => {
     const { data, status, error } = await useAsyncData(
         `post-${id}`,
         () => useApi()
@@ -94,10 +94,7 @@ export const usePost = async (id: number) => {
     const deleteSelf = async () => {
         const response = await useApi().delete(`/back-office/posts/${id}`)
 
-        if (!response.ok) {
-            throw response.error
-        }
-
+        if (!response.ok) throw response.error
         return true
     }
 
@@ -107,10 +104,7 @@ export const usePost = async (id: number) => {
             { body: payload }
         )
 
-        if (!response.ok) {
-            throw response.error
-        }
-
+        if (!response.ok) throw response.error
         return response.data
     }
 
@@ -120,10 +114,7 @@ export const usePost = async (id: number) => {
             { body: { status } }
         )
 
-        if (!response.ok) {
-            throw response.error
-        }
-
+        if (!response.ok) throw response.error
         return response.data
     }
 
@@ -133,10 +124,7 @@ export const usePost = async (id: number) => {
             { body: { ids } }
         )
 
-        if (!response.ok) {
-            throw response.error
-        }
-
+        if (!response.ok) throw response.error
         return response.data
     }
 
@@ -148,5 +136,30 @@ export const usePost = async (id: number) => {
         updateSelf,
         updateStatus,
         updateCategories,
+    }
+}
+
+export const useCreatePost = () => {
+    const createSelf = async (payload: Partial<PostAttributesFrontend>) => {
+        const response = await useApi().post<{ data: PostAttributesFrontend }>(
+            '/back-office/posts',
+            { body: payload }
+        )
+        if (!response.ok) throw response.error
+        return response.data
+    }
+
+    const assignCategories = async (postId: number, ids: number[]) => {
+        const response = await useApi().put<{ data: PostAttributesFrontend }>(
+            `/back-office/posts/${postId}/categories`,
+            { body: { ids } }
+        )
+        if (!response.ok) throw response.error
+        return response.data
+    }
+
+    return {
+        createSelf,
+        assignCategories
     }
 }

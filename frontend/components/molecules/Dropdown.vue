@@ -1,5 +1,5 @@
 <template>
-    <div ref="dropdownRef" class="relative inline-block text-left -translate-y-0.75">
+    <div ref="dropdownRef" :class="['relative inline-block text-left', label || hint ? '-translate-y-0.75' : '']">
         <div class="w-full flex flex-col gap-1">
             <div v-if="label || hint" class="flex justify-start flex-wrap items-end gap-2">
                 <label v-if="label" :for="triggerId" class="text-sm font-medium text-dark">

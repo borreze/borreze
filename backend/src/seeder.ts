@@ -64,6 +64,16 @@ const seed = async () => {
 
       // Insert data into the database
       await model.bulkCreate(data, { validate: false })
+
+      // Reset autoincrement to seed length + 1, so data can still be added once the seed is run
+      if (model.primaryKeyAttribute === 'id') {
+        const tableName = model.getTableName()
+        await sequelize.query(
+          `SELECT setval(pg_get_serial_sequence('${tableName}', 'id'), :val)`,
+          { replacements: { val: (data?.length + 1) } }
+        )
+      }
+
       Terminal.success(`Inserted ${data.length} records into ${model.name} database`)
     } catch (error) {
       Terminal.error(`Error while seeding ${model.name}: ${error}`)

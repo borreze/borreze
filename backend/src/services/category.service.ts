@@ -69,6 +69,7 @@ export class CategoryService {
 
   public async create(data: CategoryAttributesCreation): Promise<CategoryAttributes | null> {
     if (!data.slug) data.slug = slugify(data.name)
+    delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, CATEGORY_CONSTRAINTS)
     if (!valid) throw new ValidationException('Des champs sont manquants', errors)

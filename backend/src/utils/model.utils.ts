@@ -133,9 +133,12 @@ export function validateAll<T extends Record<string, unknown>>(
     data: T,
     constraints: ModelConstraints<T>
 ): ValidationResult {
-    const errors: ValidationError[] = Object.entries(constraints).flatMap(([field, constraint]) =>
-        validateField(field, data[field], constraint as ModelFieldConstraint)
-    )
+    const errors: ValidationError[] = Object.entries(constraints).flatMap(([field, constraint]) => {
+        const BYPASSES = ['created_at', 'updated_at'] // champs gérés automatiquement par Sequelize, on les ignore dans la validation
+        if (BYPASSES.includes(field)) return []
+
+        return validateField(field, data[field], constraint as ModelFieldConstraint)
+    })
 
     return { valid: errors.length === 0, errors }
 }

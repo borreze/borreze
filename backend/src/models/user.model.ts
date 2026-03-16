@@ -49,7 +49,8 @@ export const USER_CONSTRAINTS = {
   },
   role_id: {
     type: DataTypes.INTEGER,
-    required: true
+    required: true,
+    defaultValue: USER_ROLE_ID_DEFAULT,
   },
   status: {
     type: DataTypes.ENUM(...USER_STATUSES_KEYS),
