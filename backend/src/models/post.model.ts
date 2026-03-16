@@ -1,7 +1,7 @@
-import { DataTypes, Model, Sequelize } from 'sequelize'
+import { BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
 import { POST_STATUSES_KEYS, PostAttributes, PostAttributesCreation, PostStatus } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
+import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 import { Media } from './media.model'
 import { Category } from './category.model'
@@ -20,7 +20,7 @@ export const POST_CONSTRAINTS = {
     type: DataTypes.ENUM(...POST_STATUSES_KEYS),
     enum: POST_STATUSES_KEYS,
     required: true,
-    default: 'draft'
+    defaultValue: 'draft'
   },
   title: {
     type: DataTypes.STRING,
@@ -72,12 +72,14 @@ export const POST_CONSTRAINTS = {
   },
   created_at: {
     type: DataTypes.DATE,
-    required: false
+    required: true,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
-    required: false
-  },
+    required: true,
+    defaultValue: DataTypes.NOW
+  }
 } as const satisfies ModelConstraints<PostAttributes>
 
 export const POST_LINKS: SearchResultLinks = {
@@ -113,6 +115,9 @@ export class Post extends Model<PostAttributes, PostAttributesCreation> implemen
   public published_at?: Date
   public readonly created_at!: Date
   public readonly updated_at!: Date
+
+  public categories?: Category[]
+  public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
 
 export function initPostModel(sequelize: Sequelize) {

@@ -1,5 +1,5 @@
 import { paginationDefault, type PostAttributesFrontend } from '@brz/shared';
-import type { Order } from '@brz/shared'
+import type { Order, PostStatus } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 
@@ -91,10 +91,36 @@ export const usePost = async (id: number) => {
             .then(r => r.data),
     )
 
-    const update = async (payload: Partial<PostAttributesFrontend>) => {
+    const updateSelf = async (payload: Partial<PostAttributesFrontend>) => {
         const response = await useApi().put<{ data: PostAttributesFrontend }>(
             `/back-office/posts/${id}`,
             { body: payload }
+        )
+
+        if (!response.ok) {
+            throw response.error
+        }
+
+        return response.data
+    }
+
+    const updateStatus = async (status: PostStatus) => {
+        const response = await useApi().put<{ data: PostAttributesFrontend }>(
+            `/back-office/posts/${id}/status`,
+            { body: { status } }
+        )
+
+        if (!response.ok) {
+            throw response.error
+        }
+
+        return response.data
+    }
+
+    const updateCategories = async (ids: number[]) => {
+        const response = await useApi().put<{ data: PostAttributesFrontend }>(
+            `/back-office/posts/${id}/categories`,
+            { body: { ids } }
         )
 
         if (!response.ok) {
@@ -108,6 +134,8 @@ export const usePost = async (id: number) => {
         post: computed(() => data.value?.data ?? null),
         loading: computed(() => status.value === 'pending'),
         error,
-        update,
+        updateSelf,
+        updateStatus,
+        updateCategories,
     }
 }

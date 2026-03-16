@@ -71,7 +71,7 @@ export class CategoryService {
     if (!data.slug) data.slug = slugify(data.name)
 
     const { valid, errors } = validateAll(data, CATEGORY_CONSTRAINTS)
-    if (!valid) throw new ValidationException(errors)
+    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       return Category.create(data, { transaction })
@@ -82,7 +82,7 @@ export class CategoryService {
     if (!data.slug) data.slug = slugify(data.name)
 
     const { valid, errors } = validateAll(data, CATEGORY_CONSTRAINTS)
-    if (!valid) throw new ValidationException(errors)
+    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const category = await Category.findByPk(id, { transaction })

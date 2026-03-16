@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize } from 'sequelize'
+import { BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
 import { CommerceAttributes, CommerceAttributesCreation } from '@brz/shared'
 import { Category } from './category.model'
 import { Media } from './media.model'
@@ -92,11 +92,13 @@ export const COMMERCE_CONSTRAINTS = {
   },
   created_at: {
     type: DataTypes.DATE,
-    required: true
+    required: true,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
-    required: true
+    required: true,
+    defaultValue: DataTypes.NOW
   }
 } as const satisfies ModelConstraints<CommerceAttributes>
 
@@ -137,6 +139,9 @@ export class Commerce extends Model<CommerceAttributes, CommerceAttributesCreati
   public meta_description?: string | null
   public readonly created_at!: Date
   public readonly updated_at!: Date
+
+  public categories?: Category[]
+  public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
 
 export function initCommerceModel(sequelize: Sequelize) {

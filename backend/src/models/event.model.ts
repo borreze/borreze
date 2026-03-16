@@ -1,11 +1,11 @@
-import { DataTypes, Model, Sequelize } from 'sequelize'
+import { BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
 import { EVENT_STATUSES_KEYS, EventAttributes, EventAttributesCreation, EventStatus } from '@brz/shared'
 import { Category } from './category.model'
 import { Gallery } from './gallery.model'
 import { Media } from './media.model'
 import { modelBuild } from '../utils/model.utils'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
+import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 
 export const EVENT_CONSTRAINTS = {
     id: {
@@ -102,10 +102,12 @@ export const EVENT_CONSTRAINTS = {
     created_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     },
     updated_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     }
 } as const satisfies ModelConstraints<EventAttributes>
 
@@ -119,7 +121,7 @@ export const EVENT_LINKS: SearchResultLinks = {
 export const EVENT_NAMES: SearchResultNames = {
     nice: 'Evénement',
     name: 'event',
-  type: 'model'
+    type: 'model'
 }
 
 export const EVENT_INCLUDE_DEFAULTS = [
@@ -148,6 +150,9 @@ export class Event extends Model<EventAttributes, EventAttributesCreation> imple
     public published_at?: Date
     public readonly created_at!: Date
     public readonly updated_at!: Date
+
+    public categories?: Category[]
+    public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
 
 export function initEventModel(sequelize: Sequelize) {

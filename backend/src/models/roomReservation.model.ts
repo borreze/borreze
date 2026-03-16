@@ -51,10 +51,12 @@ export const ROOM_RESERVATION_CONSTRAINTS = {
     created_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     },
     updated_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     }
 } as const satisfies ModelConstraints<RoomReservationAttributes>
 

@@ -1,10 +1,10 @@
-import { DataTypes, Model, Sequelize } from 'sequelize'
+import { BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
 import { PROJECT_STATUSES_KEYS, ProjectAttributes, ProjectAttributesCreation, ProjectStatus } from '@brz/shared'
 import { Media } from './media.model'
 import { Gallery } from './gallery.model'
 import { Category } from './category.model'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
+import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 
 
@@ -62,10 +62,12 @@ export const PROJECT_CONSTRAINTS = {
   created_at: {
     type: DataTypes.DATE,
     required: true,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
     required: true,
+    defaultValue: DataTypes.NOW
   }
 } as const satisfies ModelConstraints<ProjectAttributes>
 
@@ -100,6 +102,9 @@ export class Project extends Model<ProjectAttributes, ProjectAttributesCreation>
   public meta_description?: string | null
   public readonly created_at!: Date
   public readonly updated_at!: Date
+
+  public categories?: Category[]
+  public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
 
 export function initProjectModel(sequelize: Sequelize) {

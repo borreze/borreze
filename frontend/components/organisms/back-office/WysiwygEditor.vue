@@ -25,22 +25,6 @@
                     @click="editor.chain().focus().toggleStrike().run()" />
             </div>
 
-            <!-- Formatting -->
-            <div v-if="anyFeature('bold', 'italic', 'underline', 'strike')" class="wysiwyg-toolbar__group">
-                <Button v-if="hasFeature('bold')" :variant="editor.isActive('bold') ? 'primary' : 'ghost'"
-                    title="Gras (Ctrl+B)" roundness="sm" size="sm" icon="ic:baseline-format-bold"
-                    @click="editor.chain().focus().toggleBold().run()" />
-                <Button v-if="hasFeature('italic')" :variant="editor.isActive('italic') ? 'primary' : 'ghost'"
-                    title="Italique (Ctrl+I)" roundness="sm" size="sm" icon="ic:baseline-format-italic"
-                    @click="editor.chain().focus().toggleItalic().run()" />
-                <Button v-if="hasFeature('underline')" :variant="editor.isActive('underline') ? 'primary' : 'ghost'"
-                    title="Souligné (Ctrl+U)" roundness="sm" size="sm" icon="ic:baseline-format-underlined"
-                    @click="editor.chain().focus().toggleUnderline().run()" />
-                <Button v-if="hasFeature('strike')" :variant="editor.isActive('strike') ? 'primary' : 'ghost'"
-                    title="Barré" roundness="sm" size="sm" icon="ic:baseline-format-strikethrough"
-                    @click="editor.chain().focus().toggleStrike().run()" />
-            </div>
-
             <!-- Headings -->
             <div v-if="hasFeature('heading')" class="wysiwyg-toolbar__group">
                 <Button v-for="lvl in headingLevels" :key="lvl"

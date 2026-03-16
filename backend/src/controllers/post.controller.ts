@@ -75,6 +75,14 @@ export class PostController {
     res.status(200).json({ data: post, message: 'Post status updated successfully' } as Return)
   }
 
+  public updateCategories: RequestHandler<{ id: string }> = async (req, res) => {
+    const id = Number(req.params.id)
+    const { ids } = req.body
+
+    const post = await postService.updateCategories(id, ids)
+    res.status(200).json({ data: post, message: 'Post categories updated successfully' } as Return)
+  }
+
   public delete: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
 

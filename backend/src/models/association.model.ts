@@ -1,9 +1,9 @@
-import { DataTypes, Model, Sequelize } from 'sequelize'
+import { BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
 import { AssociationAttributes, AssociationAttributesCreation } from '@brz/shared'
 import { Category } from './category.model'
 import { Media } from './media.model'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
+import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 
 export const ASSOCIATION_CONSTRAINTS = {
@@ -74,10 +74,12 @@ export const ASSOCIATION_CONSTRAINTS = {
   created_at: {
     type: DataTypes.DATE,
     required: true,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
     required: true,
+    defaultValue: DataTypes.NOW
   }
 } as const satisfies ModelConstraints<AssociationAttributes>
 
@@ -113,6 +115,9 @@ export class Association extends Model<AssociationAttributes, AssociationAttribu
   public meta_description?: string
   public readonly created_at!: Date
   public readonly updated_at!: Date
+
+  public categories?: Category[]
+  public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
 
 export function initAssociationModel(sequelize: Sequelize) {

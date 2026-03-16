@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize } from 'sequelize'
+import { BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
 import { GalleryAttributes, GalleryAttributesCreation } from '@brz/shared'
 import { Media } from './media.model'
 import { ModelConstraints } from '../types/utils/model.types'
@@ -14,15 +14,17 @@ export const GALLERY_CONSTRAINTS = {
         type: DataTypes.STRING,
         maxLength: 255,
         required: true,
-    searchable: true
+        searchable: true
     },
     created_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     },
     updated_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     }
 } as const satisfies ModelConstraints<GalleryAttributes>
 
@@ -35,6 +37,9 @@ export class Gallery extends Model<GalleryAttributes, GalleryAttributesCreation>
     public name!: string
     public readonly created_at!: Date
     public readonly updated_at!: Date
+
+    public photos?: Media[]
+    public setPhotos!: BelongsToManySetAssociationsMixin<Media, number>
 }
 
 export function initGalleryModel(sequelize: Sequelize) {

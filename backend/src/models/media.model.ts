@@ -1,7 +1,8 @@
-import { DataTypes, Model, Sequelize } from 'sequelize'
+import { BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
 import { MEDIA_TYPES_KEYS, MediaAttributes, MediaAttributesCreation, MediaType } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
+import { Gallery } from './gallery.model'
 
 
 export const MEDIA_CONSTRAINTS = {
@@ -48,10 +49,12 @@ export const MEDIA_CONSTRAINTS = {
   created_at: {
     type: DataTypes.DATE,
     required: true,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
     required: true,
+    defaultValue: DataTypes.NOW
   }
 } as const satisfies ModelConstraints<MediaAttributes>
 
@@ -66,6 +69,9 @@ export class Media extends Model<MediaAttributes, MediaAttributesCreation> imple
   public uploaded_by?: number
   public readonly created_at!: Date
   public readonly updated_at!: Date
+
+  public galleries?: Gallery[]
+  public setGalleries!: BelongsToManySetAssociationsMixin<Gallery, number>
 }
 
 export function initMediaModel(sequelize: Sequelize) {

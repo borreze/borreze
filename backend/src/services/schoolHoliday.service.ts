@@ -48,7 +48,7 @@ export class SchoolHolidayService {
 
   public async create(data: SchoolHolidayAttributesCreation): Promise<SchoolHolidayAttributes | null> {
     const { valid, errors } = validateAll(data, SCHOOL_HOLIDAY_CONSTRAINTS)
-    if (!valid) throw new ValidationException(errors)
+    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       return SchoolHoliday.create(data, { transaction })

@@ -59,11 +59,13 @@ export const USER_CONSTRAINTS = {
   },
   created_at: {
     type: DataTypes.DATE,
-    required: true
+    required: true,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
-    required: true
+    required: true,
+    defaultValue: DataTypes.NOW
   }
 } as const satisfies ModelConstraints<UserAttributes>
 

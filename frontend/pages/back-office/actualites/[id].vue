@@ -105,10 +105,10 @@ import Datepicker from '~/components/atoms/Datepicker.vue';
 import Dropdown from '~/components/molecules/Dropdown.vue';
 import { slugify } from '@brz/shared'
 import { push } from 'notivue';
-import { useCategoriesByType } from '~/composables/front-office/useCategory';
+import { useCategoriesByType } from '~/composables/back-office/useCategory';
 
 const route = useRoute()
-const { post, loading, update } = await usePost(route.params.id as unknown as number)
+const { post, loading, updateSelf, updateStatus, updateCategories } = await usePost(route.params.id as unknown as number)
 const { categories } = await useCategoriesByType('post')
 
 if (!post.value) {
@@ -134,11 +134,21 @@ const { hasErrors, touch, touched, errors, submit } = useForm(
     }
 )
 
-const handlePublish = async () => {
+const handleCategoryChange = async (silent: boolean = false) => {
+    try {
+        await updateCategories(editingPostCategories.value)
+        if (!silent) push.success({ title: 'Catégories mises à jour !', message: 'Les catégories de l\'actualité ont été mises à jour avec succès.' })
+    } catch (err: any) {
+        const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
+        push.error({ title: 'Erreur', message })
+    }
+}
+
+const handlePublish = async (silent: boolean = false) => {
     try {
         editingPost.value.status = 'published'
-        await update({ ...editingPost.value, status: 'published' })
-        push.success({ title: 'Publié !', message: 'L\'actualité a été publiée avec succès.' })
+        await updateStatus('published')
+        if (!silent) push.success({ title: 'Publié !', message: 'L\'actualité a été publiée avec succès.' })
     } catch (err: any) {
         const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
         push.error({ title: 'Erreur', message })
@@ -146,8 +156,9 @@ const handlePublish = async () => {
 }
 
 const handleSave = () => submit(async () => {
+    await handleCategoryChange(true)
     try {
-        await update(editingPost.value)
+        await updateSelf(editingPost.value)
         navigateTo('/back-office/actualites')
         push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
     } catch (err: any) {

@@ -25,10 +25,12 @@ export const AUTH_REFRESH_TOKEN_CONSTRAINTS = {
     created_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     },
     updated_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     }
 } as const satisfies ModelConstraints<AuthRefreshTokenAttributes>
 

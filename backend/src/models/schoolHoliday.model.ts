@@ -32,10 +32,12 @@ export const SCHOOL_HOLIDAY_CONSTRAINTS = {
     created_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     },
     updated_at: {
         type: DataTypes.DATE,
         required: true,
+        defaultValue: DataTypes.NOW
     }
 } as const satisfies ModelConstraints<SchoolHolidayAttributes>
 

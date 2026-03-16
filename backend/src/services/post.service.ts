@@ -98,7 +98,7 @@ export class PostService {
     if (!data.slug) data.slug = slugify(data.title)
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
-    if (!valid) throw new ValidationException(errors)
+    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       return Post.create(data, { transaction, include: POST_INCLUDE_DEFAULTS })
@@ -109,7 +109,7 @@ export class PostService {
     if (!data.slug) data.slug = slugify(data.title)
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
-    if (!valid) throw new ValidationException(errors)
+    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const post = await Post.findByPk(id, { transaction })
@@ -125,13 +125,27 @@ export class PostService {
 
   public async updateStatus(id: number, status: PostStatus): Promise<PostAttributes | null> {
     const { valid, errors } = validateOne('status', status, POST_CONSTRAINTS)
-    if (!valid) throw new ValidationException(errors)
+    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const post = await Post.findByPk(id, { transaction })
       if (!post) throw new NotFound('Post not found')
 
       await post.update({ status, published_at: status === 'published' ? new Date() : undefined }, { transaction })
+      return post
+    }).then(async (post) => {
+      if (!post) return null
+      return post
+    })
+  }
+
+  public async updateCategories(id: number, ids: number[]): Promise<PostAttributes | null> {
+    return sequelize.transaction(async (transaction: Transaction) => {
+      const post = await Post.findByPk(id, { transaction })
+      if (!post) throw new NotFound('Post not found')
+
+      await post.setCategories(ids, { transaction })
+
       return post
     }).then(async (post) => {
       if (!post) return null

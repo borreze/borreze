@@ -4,8 +4,8 @@ import { ValidationError } from '../types/utils/validation.types'
 export class ValidationException extends BaseException {
     public errors: ValidationError[]
 
-    constructor(errors: ValidationError[]) {
-        super('Validation failed', 422)
-        this.errors = errors
+    constructor(message = 'Validation failed', errors?: ValidationError[]) {
+        super(message, 422)
+        this.errors = errors ?? []
     }
 }
