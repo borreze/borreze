@@ -2,6 +2,7 @@
     <div>
         <Teleport to="#page-heading">
             <h1 class="title-main line-clamp-1">
+                {{ mode === 'edit' ? `#${editingPost.id}&nbsp;` : '' }}
                 {{ editingPost.title || (mode === 'create' ? 'Nouvelle actualité' : '') }}
             </h1>
         </Teleport>
@@ -12,9 +13,9 @@
                 icon="ic:baseline-publish" variant="outline" size="sm" :loading="loading"
                 :disabled="editingPost.status === 'published'"
                 :title="editingPost.status === 'published' ? 'L\'actualité est déjà publiée' : 'Publier l\'actualité'"
-                @click="emit('publish')" />
+                @click="handlePublish" />
             <Button v-if="mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
-                :loading="loading" @click="emit('delete')" />
+                :loading="loading" @click="handleDelete" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -140,6 +141,15 @@ const { hasErrors, touch, errors, submit } = useForm(
 const handleSave = () => submit(() => {
     emit('save', editingPost.value, editingPostCategories.value)
 })
+
+const handlePublish = () => {
+    editingPost.value.status = 'published' // set status to published locally to update preview
+    emit('publish')
+}
+
+const handleDelete = () => {
+    emit('delete')
+}
 
 watch(() => editingPost.value.title, (newTitle) => {
     editingPost.value.slug = slugify(newTitle)
