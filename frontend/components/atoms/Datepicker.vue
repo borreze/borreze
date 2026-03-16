@@ -5,7 +5,7 @@
                 {{ label }}
                 <span v-if="required" class="text-red-500">*</span>
             </label>
-            <span v-if="hint" class="text-[11px] text-gray-400 pb-[1px]">
+            <span v-if="hint" class="hint pb-[1px]">
                 {{ hint }}
             </span>
         </div>

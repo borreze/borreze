@@ -23,6 +23,7 @@
             { key: 'id', label: 'ID', formatter: 'id' },
             { key: 'title', label: 'Titre' },
             { key: 'abstract', label: 'Résumé', formatter: 'truncate' },
+            { key: 'categories', label: 'Catégories' },
             { key: 'status', label: 'Status' },
             { key: 'published_at', label: 'Publication', formatter: 'date' },
             { key: 'updated_at', label: 'Màj', formatter: 'date' },
@@ -34,6 +35,12 @@
             { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', buildLink: (item) => `/actualites/${item.slug}`, external: true },
             { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/actualites/${item.id}` },
         ]">
+            <template #cell-categories="{ item }">
+                <div class="flex flex-wrap gap-1">
+                    <Pill v-for="category in item.categories" :key="category.id" :label="category.name" variant="light"
+                        size="sm" />
+                </div>
+            </template>
             <template #cell-status="{ item }">
                 <Pill :label="POST_STATUSES_OBJECTS.find(status => status.value === item.status)?.label || item.status"
                     :color="POST_STATUSES_OBJECTS.find(status => status.value === item.status)?.color" size="sm" />

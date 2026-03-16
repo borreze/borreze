@@ -29,6 +29,39 @@
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
                             hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md"
                             :error="errors.abstract" @blur="touch('abstract')" />
+                        <div class="max-w-xs">
+                            <Dropdown v-model="editingPostCategories" variant="light" size="md" label="Catégories"
+                                placeholder="Aucune" label-key="name" value-key="id" multiple :items="categories" />
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="title-submain mb-4">Publication</h4>
+                    <p class="hint mb-2">
+                        Ne saisissez pas de date de début et de fin si vous souhaitez que l'actualité soit publiée
+                        immédiatement et indéfiniment.<br>
+                        Si vous saisissez une date de début dans le futur, l'actualité sera programmée pour être publiée
+                        à cette date.<br>
+                        Si vous saisissez une date de fin, l'actualité sera retirée de la publication à cette date. <br>
+                        Dans tout les cas, le status de publication doit être défini à "Publié" pour que l'actualité
+                        soit visible sur le site, même si les dates sont correctement remplies.
+                    </p>
+                    <div class="flex flex-row flex-wrap gap-4">
+                        <div class="max-w-xs">
+                            <Datepicker v-model="editingPost.schedule_start" :with-time="true"
+                                label="Date de début de publication" type="date" roundness="md"
+                                :error="errors.schedule_start" @blur="touch('schedule_start')" />
+                        </div>
+                        <div class="max-w-xs">
+                            <Datepicker v-model="editingPost.schedule_end" :with-time="true"
+                                label="Date de fin de publication" type="date" roundness="md"
+                                :error="errors.schedule_end" @blur="touch('schedule_end')" />
+                        </div>
+                        <div class="max-w-xs">
+                            <Dropdown v-model="editingPost.status" variant="light" size="md"
+                                label="Status de publication" placeholder="Status de publication"
+                                :items="POST_STATUSES_OBJECTS" @close="touch('status')" />
+                        </div>
                     </div>
                 </section>
                 <section>
@@ -43,28 +76,6 @@
                     </div>
                 </section>
                 <section>
-                    <h4 class="title-submain mb-6">Publication</h4>
-                    <div class="flex flex-row flex-wrap gap-4">
-                        <div class="max-w-xs">
-                            <Datepicker v-model="editingPost.schedule_start" :with-time="true"
-                                label="Date de début de publication" hint="Date à laquelle l'actualité sera publiée"
-                                type="date" roundness="md" :error="errors.schedule_start"
-                                @blur="touch('schedule_start')" />
-                        </div>
-                        <div class="max-w-xs">
-                            <Datepicker v-model="editingPost.schedule_end" :with-time="true"
-                                label="Date de fin de publication"
-                                hint="Date à laquelle l'actualité ne sera plus publiée" type="date" roundness="md"
-                                :error="errors.schedule_end" @blur="touch('schedule_end')" />
-                        </div>
-                        <div class="max-w-xs">
-                            <Dropdown v-model="editingPost.status" variant="light" size="md"
-                                label="Status de publication" placeholder="Status de publication"
-                                :items="POST_STATUSES_OBJECTS" @close="touched.status = true" />
-                        </div>
-                    </div>
-                </section>
-                <section>
                     <h4 class="title-submain mb-6">Contenu</h4>
                     <div>
                         <WysiwygEditor v-model="editingPost.content" :error="errors.content" @blur="touch('content')" />
@@ -74,7 +85,7 @@
             <div class="px-auto xl:w-3/12">
                 <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
                     <h4 class="title-submain mb-6">Prévisualisation</h4>
-                    <PostCard :post="editingPost" class="max-w-96" />
+                    <PostCard :clickable="false" :post="editingPost" class="max-w-96" />
                 </div>
             </div>
         </div>
@@ -94,15 +105,25 @@ import Datepicker from '~/components/atoms/Datepicker.vue';
 import Dropdown from '~/components/molecules/Dropdown.vue';
 import { slugify } from '@brz/shared'
 import { push } from 'notivue';
+import { useCategoriesByType } from '~/composables/front-office/useCategory';
 
 const route = useRoute()
-const { post, loading } = await usePost(route.params.id as unknown as number)
+const { post, loading, update } = await usePost(route.params.id as unknown as number)
+const { categories } = await useCategoriesByType('post')
 
 if (!post.value) {
     throw createError({ statusCode: 404, statusMessage: 'Actualité introuvable' })
 }
 
 const editingPost = ref<PostAttributesFrontend>(post.value)
+const editingPostCategories = computed({
+    get: () => {
+        return editingPost.value.categories?.map(category => category.id) || [] as number[]
+    },
+    set: (newValue: number[]) => {
+        editingPost.value.categories = categories.value.filter(category => newValue.includes(category.id))
+    }
+})
 
 const { hasErrors, touch, touched, errors, submit } = useForm(
     ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content'],
@@ -114,14 +135,26 @@ const { hasErrors, touch, touched, errors, submit } = useForm(
 )
 
 const handlePublish = async () => {
-    console.log('Publication de l\'actualité...', editingPost.value)
+    try {
+        editingPost.value.status = 'published'
+        await update({ ...editingPost.value, status: 'published' })
+        push.success({ title: 'Publié !', message: 'L\'actualité a été publiée avec succès.' })
+    } catch (err: any) {
+        const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
+        push.error({ title: 'Erreur', message })
+    }
 }
 
 const handleSave = () => submit(async () => {
-    // appel API
-    push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
+    try {
+        await update(editingPost.value)
+        navigateTo('/back-office/actualites')
+        push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
+    } catch (err: any) {
+        const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
+        push.error({ title: 'Erreur', message })
+    }
 })
-
 
 watch(() => editingPost.value?.title, (newTitle) => {
     editingPost.value.slug = slugify(newTitle)

@@ -1,5 +1,5 @@
 <template>
-    <div ref="dropdownRef" class="relative inline-block text-left">
+    <div ref="dropdownRef" class="relative inline-block text-left -translate-y-0.75">
         <div class="w-full flex flex-col gap-1">
             <div v-if="label || hint" class="flex justify-start flex-wrap items-end gap-2">
                 <label v-if="label" :for="triggerId" class="text-sm font-medium text-dark">
@@ -65,7 +65,7 @@ export interface DropdownItem {
 
 const props = withDefaults(defineProps<{
     items?: T[]
-    modelValue?: string | string[] | null
+    modelValue?: string | string[] | number | number[] | null
     placeholder?: string
     labelKey?: keyof T & string
     valueKey?: keyof T & string
@@ -101,7 +101,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-    'update:modelValue': [value: string | string[] | null]  // ← string
+    'update:modelValue': [value: string | string[] | number | number[] | null]
     'select': [item: T]
     'open': []
     'close': []
@@ -172,7 +172,7 @@ const selectItem = (item: T) => {
             ? currentValue.filter(v => v !== value)
             : [...currentValue, value]
 
-        emit('update:modelValue', newValue)
+        emit('update:modelValue', newValue as string | string[] | number | number[] | null)
         emit('select', item)
         return
     }
@@ -195,7 +195,7 @@ const isItemSelected = (item: T): boolean => {
     const value = getItemValue(item)
 
     if (props.multiple && Array.isArray(selectedItem.value)) {
-        return selectedItem.value.includes(value)
+        return (selectedItem.value as (string | number)[]).includes(value)
     }
 
     return selectedItem.value === value

@@ -91,9 +91,23 @@ export const usePost = async (id: number) => {
             .then(r => r.data),
     )
 
+    const update = async (payload: Partial<PostAttributesFrontend>) => {
+        const response = await useApi().put<{ data: PostAttributesFrontend }>(
+            `/back-office/posts/${id}`,
+            { body: payload }
+        )
+
+        if (!response.ok) {
+            throw response.error
+        }
+
+        return response.data
+    }
+
     return {
         post: computed(() => data.value?.data ?? null),
         loading: computed(() => status.value === 'pending'),
         error,
+        update,
     }
 }
