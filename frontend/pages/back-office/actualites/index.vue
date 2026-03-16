@@ -23,9 +23,9 @@
             { key: 'id', label: 'ID', formatter: 'id' },
             { key: 'title', label: 'Titre' },
             { key: 'abstract', label: 'Résumé', formatter: 'truncate' },
-            { key: 'published', label: 'Publié ?' },
-            { key: 'published_at', label: 'Date de publication', formatter: 'date' },
-            { key: 'updated_at', label: 'Mise à jour', formatter: 'date' },
+            { key: 'status', label: 'Status' },
+            { key: 'published_at', label: 'Publication', formatter: 'date' },
+            { key: 'updated_at', label: 'Màj', formatter: 'date' },
         ]" :formatters="{
             id: (value) => `#${value}`,
             truncate: (value) => limitString(value as string, 40),
@@ -34,9 +34,9 @@
             { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', buildLink: (item) => `/actualites/${item.slug}`, external: true },
             { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/actualites/${item.id}` },
         ]">
-            <template #cell-published="{ item }">
-                <Pill :label="item.status === 'published' ? 'Oui' : 'Non'"
-                    :variant="item.status === 'published' ? 'success' : 'warning'" size="sm" />
+            <template #cell-status="{ item }">
+                <Pill :label="POST_STATUSES_OBJECTS.find(status => status.value === item.status)?.label || item.status"
+                    :color="POST_STATUSES_OBJECTS.find(status => status.value === item.status)?.color" size="sm" />
             </template>
         </Table>
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
@@ -52,6 +52,7 @@ import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
 import { limitString } from '~/utils/text';
 import { formatDateRelativeNice } from '~/utils/date';
+import { POST_STATUSES_OBJECTS } from '@brz/shared';
 
 const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts()
 

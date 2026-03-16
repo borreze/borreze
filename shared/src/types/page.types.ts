@@ -2,10 +2,10 @@ import { Optional } from 'sequelize'
 
 export const PAGE_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
 export type PageStatus = typeof PAGE_STATUSES_KEYS[number]
-export const PAGE_STATUSES_OBJECTS: { value: PageStatus, label: string }[] = [
-    { value: 'draft', label: 'Brouillon' },
-    { value: 'published', label: 'Publié' },
-    { value: 'archived', label: 'Archivé' },
+export const PAGE_STATUSES_OBJECTS: { value: PageStatus, label: string, color?: string }[] = [
+    { value: 'published', label: 'Publié', color: '#349c17' },
+    { value: 'archived', label: 'Archivé', color: '#c146e0' },
+    { value: 'draft', label: 'Brouillon', color: '#5dd7d9' },
 ]
 
 export interface PageAttributes {

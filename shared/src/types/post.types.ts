@@ -3,10 +3,10 @@ import { CategoryAttributes } from './category.types'
 
 export const POST_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
 export type PostStatus = typeof POST_STATUSES_KEYS[number]
-export const POST_STATUSES_OBJECTS: { value: PostStatus, label: string }[] = [
-    { value: 'draft', label: 'Brouillon' },
-    { value: 'published', label: 'Publié' },
-    { value: 'archived', label: 'Archivé' },
+export const POST_STATUSES_OBJECTS: { value: PostStatus, label: string, color?: string }[] = [
+    { value: 'published', label: 'Publié', color: '#349c17' },
+    { value: 'archived', label: 'Archivé', color: '#c146e0' },
+    { value: 'draft', label: 'Brouillon', color: '#5dd7d9' },
 ]
 
 export interface PostAttributes {

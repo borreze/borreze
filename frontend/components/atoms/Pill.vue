@@ -1,5 +1,5 @@
 <template>
-    <component :is="componentType" v-bind="componentAttrs" :class="containerClass">
+    <component :is="componentType" v-bind="componentAttrs" :class="containerClass" :style="color ? colorToPillStyle : undefined">
         <slot name="icon">
             <Icon v-if="icon" :name="icon" :size="sizeToIconSize" :class="['transition-transform', iconClass]" />
         </slot>
@@ -23,7 +23,8 @@ const props = withDefaults(defineProps<{
     label?: string | number
     icon?: string
     position?: 'left' | 'right'
-    variant: ComponentVariant
+    variant?: ComponentVariant
+    color?: string
     size: ComponentSize
     roundness?: ComponentRoundness
     href?: string
@@ -33,7 +34,6 @@ const props = withDefaults(defineProps<{
     iconClass?: string
 }>(), {
     position: 'left',
-    variant: 'primary',
     roundness: 'full',
     size: 'md',
     center: true,
@@ -61,7 +61,7 @@ const componentAttrs = computed(() => {
     }
 })
 
-const sizeToButtonClass = computed(() => {
+const sizeToPillClass = computed(() => {
     if (props.icon && !props.label) return 'p-1'
 
     switch (props.size) {
@@ -87,31 +87,45 @@ const sizeToIconSize = computed(() => {
     }
 })
 
-const variantToButtonClass = computed(() => {
-    switch (props.variant) {
-        case 'dark':
-            return 'bg-dark border-2 border-dark text-white'
-        case 'light':
-            return 'bg-primary/20 text-primary'
-        case 'primary':
-            return 'bg-primary border-2 border-primary text-white'
-        case 'outline':
-            return 'bg-transparent border-2 border-primary text-primary'
-        case 'ghost':
-        case 'gray':
-            return 'bg-gray-200 border-2 border-gray-200 text-gray-800'
-        case 'blur':
-            return 'border-2 border-white bg-white/10 backdrop-blur-sm text-white'
-        case 'transparent':
-            return 'bg-transparent border-2 border-transparent text-gray-700'
-        case 'danger':
-            return 'bg-danger border-2 border-danger text-white'
-        case 'warning':
-            return 'bg-warning border-2 border-warning text-white'
-        case 'success':
-            return 'bg-success border-2 border-success text-white'
-        default:
-            return 'bg-transparent text-gray-700'
+const colorToPillStyle = computed(() => {
+    if (props.color) {
+        return {
+            backgroundColor: props.color,
+            borderColor: props.color,
+            color: '#fff'
+        }
+    }
+
+    return {}
+})
+
+const variantToPillClass = computed(() => {
+    if (props.variant && !props.color) {
+        switch (props.variant) {
+            case 'dark':
+                return 'bg-dark border-2 border-dark text-white'
+            case 'light':
+                return 'bg-primary/20 text-primary'
+            case 'primary':
+                return 'bg-primary border-2 border-primary text-white'
+            case 'outline':
+                return 'bg-transparent border-2 border-primary text-primary'
+            case 'ghost':
+            case 'gray':
+                return 'bg-gray-200 border-2 border-gray-200 text-gray-800'
+            case 'blur':
+                return 'border-2 border-white bg-white/10 backdrop-blur-sm text-white'
+            case 'transparent':
+                return 'bg-transparent border-2 border-transparent text-gray-700'
+            case 'danger':
+                return 'bg-danger border-2 border-danger text-white'
+            case 'warning':
+                return 'bg-warning border-2 border-warning text-white'
+            case 'success':
+                return 'bg-success border-2 border-success text-white'
+            default:
+                return 'bg-transparent text-gray-700'
+        }
     }
 })
 
@@ -140,8 +154,8 @@ const containerClass = computed(() => [
     'font-medium',
     'items-center gap-1',
     props.center ? 'justify-center' : 'justify-start',
-    sizeToButtonClass.value,
-    variantToButtonClass.value,
+    sizeToPillClass.value,
+    variantToPillClass.value,
     roundnessToClass.value ?? 'rounded-full',
     props.class
 ])

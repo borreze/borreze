@@ -2,10 +2,10 @@ import { Optional } from 'sequelize'
 
 export const EVENT_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
 export type EventStatus = typeof EVENT_STATUSES_KEYS[number]
-export const EVENT_STATUSES_OBJECTS: { value: EventStatus, label: string }[] = [
-    { value: 'draft', label: 'Brouillon' },
-    { value: 'published', label: 'Publié' },
-    { value: 'archived', label: 'Archivé' },
+export const EVENT_STATUSES_OBJECTS: { value: EventStatus, label: string, color?: string }[] = [
+    { value: 'published', label: 'Publié', color: '#349c17' },
+    { value: 'archived', label: 'Archivé', color: '#c146e0' },
+    { value: 'draft', label: 'Brouillon', color: '#5dd7d9' },
 ]
 
 export interface EventAttributes {

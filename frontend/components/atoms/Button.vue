@@ -20,6 +20,7 @@ const attrs = useAttrs()
 
 const props = withDefaults(defineProps<{
     label?: string | number
+    title?: string
     icon?: string
     type?: 'button' | 'submit' | 'reset'
     as?: 'button' | 'link'
@@ -67,6 +68,7 @@ const componentAttrs = computed(() => {
     return {
         ...attrs,
         type: props.type,
+        title: props.title ?? (props.label ?? undefined),
         disabled: props.disabled || props.loading
     }
 })

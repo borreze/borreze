@@ -2,10 +2,10 @@ import { Optional } from 'sequelize'
 
 export const USER_STATUSES_KEYS = ['active', 'inactive', 'banned'] as const
 export type UserStatus = typeof USER_STATUSES_KEYS[number]
-export const USER_STATUSES_OBJECTS: { value: UserStatus, label: string }[] = [
-    { value: 'active', label: 'Actif' },
-    { value: 'inactive', label: 'Inactif' },
-    { value: 'banned', label: 'Banni' },
+export const USER_STATUSES_OBJECTS: { value: UserStatus, label: string, color?: string }[] = [
+    { value: 'active', label: 'Actif', color: '#349c17' },
+    { value: 'inactive', label: 'Inactif', color: '#ffae00' },
+    { value: 'banned', label: 'Banni', color: '#ab0a0a' },
 ]
 
 export interface UserAttributes {

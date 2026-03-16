@@ -14,10 +14,10 @@ export const SCHEDULE_DAYS_OBJECTS: { value: ScheduleDay, label: string }[] = [
 
 export const SCHEDULE_TYPES_KEYS = ['town_hall', 'commerce', 'school_childcare'] as const
 export type ScheduleType = typeof SCHEDULE_TYPES_KEYS[number]
-export const SCHEDULE_TYPES_OBJECTS: { value: ScheduleType, label: string }[] = [
-    { value: 'town_hall', label: 'Mairie' },
-    { value: 'commerce', label: 'Commerce' },
-    { value: 'school_childcare', label: 'Garderie scolaire' },
+export const SCHEDULE_TYPES_OBJECTS: { value: ScheduleType, label: string, icon?: string }[] = [
+    { value: 'town_hall', label: 'Mairie', icon: 'ic:baseline-apartment' },
+    { value: 'commerce', label: 'Commerce', icon: 'ic:baseline-store' },
+    { value: 'school_childcare', label: 'Garderie scolaire', icon: 'ic:baseline-school' },
 ]
 
 export type Time = `${number}${number}:${number}${number}`

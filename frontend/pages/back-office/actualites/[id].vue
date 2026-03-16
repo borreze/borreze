@@ -7,7 +7,9 @@
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
                 :disabled="hasErrors" @click="handleSave" />
             <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md" :loading="loading"
-                :disabled="editingPost?.status === 'published'" @click="handlePublish" />
+                :disabled="editingPost?.status === 'published'"
+                :title="editingPost?.status === 'published' ? 'L\'actualité est déjà publiée' : 'Publier l\'actualité'"
+                @click="handlePublish" />
         </Teleport>
 
         <Loader v-if="loading" />

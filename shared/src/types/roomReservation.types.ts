@@ -2,10 +2,10 @@ import { Optional } from 'sequelize'
 
 export const ROOM_RESERVATION_STATUSES_KEYS = ['pending', 'accepted', 'rejected'] as const
 export type RoomReservationStatus = typeof ROOM_RESERVATION_STATUSES_KEYS[number]
-export const ROOM_RESERVATION_STATUSES_OBJECTS: { value: RoomReservationStatus, label: string }[] = [
-    { value: 'pending', label: 'En attente' },
-    { value: 'accepted', label: 'Acceptée' },
-    { value: 'rejected', label: 'Rejetée' },
+export const ROOM_RESERVATION_STATUSES_OBJECTS: { value: RoomReservationStatus, label: string, color?: string }[] = [
+    { value: 'accepted', label: 'Acceptée', color: '#349c17' },
+    { value: 'pending', label: 'En attente', color: '#ffae00' },
+    { value: 'rejected', label: 'Rejetée', color: '#ab0a0a' },
 ]
 
 export interface RoomReservationAttributes {
