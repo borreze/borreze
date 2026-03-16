@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{
     cols?: number
     keyField?: string
 }>(), {
-    minWidth: 300,
+    minWidth: 350,
     gap: 'responsive',
     keyField: 'id'
 })

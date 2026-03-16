@@ -24,10 +24,11 @@
                 <main class="safe-area-sm">
                     <div class="flex justify-between items-center gap-4 flex-wrap mb-4">
                         <div class="flex items-center gap-4">
-                            <Button icon="ic:baseline-arrow-back" variant="ghost" size="md" @click="goBack()" />
+                            <Button icon="ic:baseline-arrow-back" variant="ghost" size="md" class="mt-2"
+                                @click="goBack()" />
                             <div id="page-heading" class="flex items-center gap-2" />
                         </div>
-                        <div id="page-actions" class="w-full lg:w-96 flex items-center justify-end gap-2" />
+                        <div id="page-actions" class="flex items-center flex-wrap justify-end gap-2" />
                     </div>
 
                     <div class="rounded-xl xl:p-6 mt-4 xl:shadow-[2px_2px_10px_2px_#0000001a]">

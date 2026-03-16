@@ -91,6 +91,16 @@ export const usePost = async (id: number) => {
             .then(r => r.data),
     )
 
+    const deleteSelf = async () => {
+        const response = await useApi().delete(`/back-office/posts/${id}`)
+
+        if (!response.ok) {
+            throw response.error
+        }
+
+        return true
+    }
+
     const updateSelf = async (payload: Partial<PostAttributesFrontend>) => {
         const response = await useApi().put<{ data: PostAttributesFrontend }>(
             `/back-office/posts/${id}`,
@@ -134,6 +144,7 @@ export const usePost = async (id: number) => {
         post: computed(() => data.value?.data ?? null),
         loading: computed(() => status.value === 'pending'),
         error,
+        deleteSelf,
         updateSelf,
         updateStatus,
         updateCategories,

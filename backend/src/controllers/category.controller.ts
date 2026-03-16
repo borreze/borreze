@@ -15,7 +15,7 @@ export class CategoryController {
     const options = { search, type }
 
     const count = await categoryService.count(options)
-    const pagination = paginate(page, limit, count)
+    const pagination = paginate(page, limit, count, req?.user)
     const data = await categoryService.getAll(options, order, pagination)
     res.json({ pagination, data, message: 'Categories retrieved successfully' } as Return)
   }
@@ -30,7 +30,7 @@ export class CategoryController {
     const options = { search, type }
 
     const count = await categoryService.count(options)
-    const pagination = paginate(page, limit, count)
+    const pagination = paginate(page, limit, count, req?.user)
     const data = await categoryService.getAll(options, order, pagination)
     res.json({ pagination, data, message: 'Categories retrieved successfully' } as Return)
   }

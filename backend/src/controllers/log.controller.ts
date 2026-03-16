@@ -14,7 +14,7 @@ export class LogController {
     const options = { search }
 
     const count = await logService.count(options)
-    const pagination = paginate(page, limit, count)
+    const pagination = paginate(page, limit, count, req?.user)
     const data = await logService.getAll(options, order, pagination)
     res.json({ pagination, data, message: 'Logs retrieved successfully' } as Return)
   }

@@ -17,7 +17,7 @@ export class SchoolHolidayController {
     const options = { search, year, }
 
     const count = await schoolHolidayService.count(options)
-    const pagination = paginate(page, limit, count)
+    const pagination = paginate(page, limit, count, req?.user)
     const data = await schoolHolidayService.getAll(options, order, pagination)
     res.json({ pagination, data, message: 'School holidays retrieved successfully' } as Return)
   }

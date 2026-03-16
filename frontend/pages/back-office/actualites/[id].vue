@@ -4,12 +4,14 @@
             <h1 class="title-main line-clamp-1">{{ editingPost?.title }}</h1>
         </Teleport>
         <Teleport to="#page-actions">
-            <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="md" :loading="loading"
+            <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
                 :disabled="hasErrors" @click="handleSave" />
-            <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="md" :loading="loading"
+            <Button label="Publier" icon="ic:baseline-publish" variant="outline" size="sm" :loading="loading"
                 :disabled="editingPost?.status === 'published'"
                 :title="editingPost?.status === 'published' ? 'L\'actualité est déjà publiée' : 'Publier l\'actualité'"
                 @click="handlePublish" />
+            <Button label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading"
+                @click="handleDelete" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -105,11 +107,11 @@ import Datepicker from '~/components/atoms/Datepicker.vue';
 import Dropdown from '~/components/molecules/Dropdown.vue';
 import { slugify } from '@brz/shared'
 import { push } from 'notivue';
-import { useCategoriesByType } from '~/composables/back-office/useCategory';
+import { useCategoriesAll } from '~/composables/back-office/useCategory';
 
 const route = useRoute()
-const { post, loading, updateSelf, updateStatus, updateCategories } = await usePost(route.params.id as unknown as number)
-const { categories } = await useCategoriesByType('post')
+const { post, loading, deleteSelf, updateSelf, updateStatus, updateCategories } = await usePost(route.params.id as unknown as number)
+const { categories } = await useCategoriesAll()
 
 if (!post.value) {
     throw createError({ statusCode: 404, statusMessage: 'Actualité introuvable' })
@@ -134,7 +136,7 @@ const { hasErrors, touch, touched, errors, submit } = useForm(
     }
 )
 
-const handleCategoryChange = async (silent: boolean = false) => {
+const handleCategoriesChange = async (silent: boolean = false) => {
     try {
         await updateCategories(editingPostCategories.value)
         if (!silent) push.success({ title: 'Catégories mises à jour !', message: 'Les catégories de l\'actualité ont été mises à jour avec succès.' })
@@ -156,11 +158,22 @@ const handlePublish = async (silent: boolean = false) => {
 }
 
 const handleSave = () => submit(async () => {
-    await handleCategoryChange(true)
+    await handleCategoriesChange(true)
     try {
         await updateSelf(editingPost.value)
         navigateTo('/back-office/actualites')
         push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
+    } catch (err: any) {
+        const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
+        push.error({ title: 'Erreur', message })
+    }
+})
+
+const handleDelete = () => submit(async () => {
+    try {
+        await deleteSelf()
+        navigateTo('/back-office/actualites')
+        push.success({ title: 'Supprimé !', message: 'L\'actualité a été supprimée avec succès.' })
     } catch (err: any) {
         const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
         push.error({ title: 'Erreur', message })

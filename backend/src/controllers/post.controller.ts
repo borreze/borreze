@@ -30,7 +30,7 @@ export class PostController {
     const options = { search, status, categories }
 
     const count = await postService.count(options)
-    const pagination = paginate(page, limit, count)
+    const pagination = paginate(page, limit, count, req?.user)
     const data = await postService.getAll(options, order, pagination, req?.user)
     res.json({ pagination, data, message: 'Posts retrieved successfully' } as Return)
   }

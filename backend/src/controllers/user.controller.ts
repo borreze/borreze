@@ -14,7 +14,7 @@ export class UserController {
     const options = { search }
 
     const count = await userService.count(options)
-    const pagination = paginate(page, limit, count)
+    const pagination = paginate(page, limit, count, req?.user)
     const data = await userService.getAll(options, order, pagination)
     res.json({ pagination, data, message: 'Users retrieved successfully' } as Return)
   }
