@@ -9,12 +9,12 @@
                 size="sm" roundness="md" />
             <div class="shrink-0">
                 <OrderBy :orders="[
-                    { label: 'Publiés récemment', order: ['published_at', 'DESC'] },
-                    { label: 'Publiés il y a longtemps', order: ['published_at', 'ASC'] },
-                    { label: 'Mise à jour récemment', order: ['updated_at', 'DESC'] },
-                    { label: 'Mise à jour il y a longtemps', order: ['updated_at', 'ASC'] },
-                    { label: 'Ordre alphabétique', order: ['title', 'ASC'] },
-                    { label: 'Ordre alphabétique inverse', order: ['title', 'DESC'] },
+                    { label: 'Publiés récemment', value: 'published_at:DESC' },
+                    { label: 'Publiés il y a longtemps', value: 'published_at:ASC' },
+                    { label: 'Mise à jour récemment', value: 'updated_at:DESC' },
+                    { label: 'Mise à jour il y a longtemps', value: 'updated_at:ASC' },
+                    { label: 'Ordre alphabétique', value: 'title:ASC' },
+                    { label: 'Ordre alphabétique inverse', value: 'title:DESC' },
                 ]" @select="setOrder" @reset="resetOrder" />
             </div>
         </Teleport>
