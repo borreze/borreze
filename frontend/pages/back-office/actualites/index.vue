@@ -7,16 +7,14 @@
         <Teleport to="#page-actions">
             <Field v-model="search" class="flex-1 min-w-0" placeholder="Rechercher..." icon="ic:baseline-search"
                 size="sm" roundness="md" />
-            <div class="shrink-0">
-                <OrderBy :orders="[
-                    { label: 'Publiés récemment', value: 'published_at:DESC' },
-                    { label: 'Publiés il y a longtemps', value: 'published_at:ASC' },
-                    { label: 'Mise à jour récemment', value: 'updated_at:DESC' },
-                    { label: 'Mise à jour il y a longtemps', value: 'updated_at:ASC' },
-                    { label: 'Ordre alphabétique', value: 'title:ASC' },
-                    { label: 'Ordre alphabétique inverse', value: 'title:DESC' },
-                ]" @select="setOrder" @reset="resetOrder" />
-            </div>
+            <OrderBy :orders="[
+                { label: 'Publiés récemment', value: 'published_at:DESC' },
+                { label: 'Publiés il y a longtemps', value: 'published_at:ASC' },
+                { label: 'Mise à jour récemment', value: 'updated_at:DESC' },
+                { label: 'Mise à jour il y a longtemps', value: 'updated_at:ASC' },
+                { label: 'Ordre alphabétique', value: 'title:ASC' },
+                { label: 'Ordre alphabétique inverse', value: 'title:DESC' },
+            ]" @select="setOrder" @reset="resetOrder" />
         </Teleport>
 
         <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" :columns="[
