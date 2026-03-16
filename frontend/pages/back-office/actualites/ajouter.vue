@@ -1,6 +1,5 @@
 <template>
-    <PostForm :initial-post="defaultPost" :categories="categories" :loading="loading" mode="create"
-        @save="handleSave" />
+    <PostForm :initial-post="defaultPost" :categories="categories" mode="create" @save="handleSave" />
 </template>
 
 <script setup lang="ts">
@@ -12,7 +11,6 @@ import { useCategoriesAll } from '~/composables/back-office/useCategory'
 
 const { categories } = await useCategoriesAll()
 const { createSelf, assignCategories } = useCreatePost()
-const loading = ref(false)
 
 const defaultPost: PostAttributesFrontend = {
     id: 0, // trick to satisfy types, will be ignored by backend
@@ -29,7 +27,6 @@ const defaultPost: PostAttributesFrontend = {
 }
 
 const handleSave = async (post: PostAttributesFrontend, categoryIds: number[]) => {
-    loading.value = true
     try {
         const created = await createSelf(post)
         if (created && categoryIds.length) {
@@ -40,8 +37,6 @@ const handleSave = async (post: PostAttributesFrontend, categoryIds: number[]) =
     } catch (err: any) {
         const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
         push.error({ title: 'Erreur', message })
-    } finally {
-        loading.value = false
     }
 }
 

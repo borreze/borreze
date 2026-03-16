@@ -107,12 +107,14 @@ import Datepicker from '~/components/atoms/Datepicker.vue'
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import PostCard from '~/components/organisms/front-office/PostCard.vue'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     initialPost: PostAttributesFrontend
     categories: CategoryAttributes[]
-    loading: boolean
+    loading?: boolean
     mode: 'create' | 'edit'
-}>()
+}>(), {
+    loading: false,
+})
 
 const emit = defineEmits<{
     save: [post: PostAttributesFrontend, categoryIds: number[]]
