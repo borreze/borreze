@@ -55,7 +55,7 @@ const panelOpened = ref(false)
 
 const menus = ref<MenuAttributesFrontend[]>([
     {
-        id: 2,
+        id: 0,
         context: 'back-office',
         icon: 'ic:outline-space-dashboard',
         label: 'Dashboard',
@@ -64,7 +64,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 3,
+        id: 0,
         context: 'back-office',
         icon: 'ic:baseline-person',
         label: 'Profil',
@@ -73,7 +73,25 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 4,
+        id: 0,
+        context: 'back-office',
+        icon: 'ic:baseline-home',
+        label: 'Page d\'accueil',
+        order: 1,
+        is_visible: true,
+        children: [
+            {
+                id: 0,
+                context: 'back-office',
+                label: 'Liste des accès rapides',
+                url: '/back-office/page-accueil/acces-rapides',
+                order: 0,
+                is_visible: true,
+            },
+        ],
+    },
+    {
+        id: 0,
         context: 'back-office',
         icon: 'ic:baseline-newspaper',
         label: 'Actualités',
@@ -81,7 +99,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
         children: [
             {
-                id: 5,
+                id: 0,
                 context: 'back-office',
                 label: 'Liste des actualités',
                 url: '/back-office/actualites',
@@ -89,7 +107,7 @@ const menus = ref<MenuAttributesFrontend[]>([
                 is_visible: true,
             },
             {
-                id: 6,
+                id: 0,
                 context: 'back-office',
                 label: 'Créer une actualité',
                 url: '/back-office/actualites/ajouter',

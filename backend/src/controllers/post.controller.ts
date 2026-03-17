@@ -24,7 +24,7 @@ export class PostController {
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
     const status = String(req.query.status || 'published') as PostStatus | 'all'
-    const order = parseOrder(req)
+    const order = parseOrder(req, [['created_at', 'DESC'], ['id', 'DESC']])
     const categories = parseArrayInteger(req.query.categories as Array<string>)
 
     const options = { search, status, categories }

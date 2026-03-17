@@ -12,7 +12,7 @@ export class SchoolHolidayController {
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
     const year = String(req.query.year || 'all') as SchoolYear
-    const order = parseOrder(req)
+    const order = parseOrder(req, [['created_at', 'DESC'], ['id', 'DESC']])
 
     const options = { search, year, }
 

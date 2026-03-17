@@ -5,6 +5,7 @@ import swaggerDocument from "./swagger.json"
 import postRoutes from './routes/post.routes'
 import scheduleRoutes from './routes/schedule.routes'
 import categoryRoutes from './routes/category.routes'
+import homeQuickRoutes from './routes/homeQuick.routes'
 import userRoutes from './routes/user.routes'
 import conactRoutes from './routes/contact.routes'
 import logRoutes from './routes/log.routes'
@@ -46,6 +47,7 @@ if (process.env.NODE_ENV === 'production') { // ! DO NOT REMOVE: this is to prev
 app.use(postRoutes)
 app.use(scheduleRoutes)
 app.use(categoryRoutes)
+app.use(homeQuickRoutes)
 app.use(logRoutes)
 app.use(schoolHolidayRoutes)
 app.use(userRoutes)

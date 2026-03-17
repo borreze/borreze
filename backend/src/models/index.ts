@@ -6,6 +6,7 @@ import { initUserModel, User } from './user.model'
 import { initPostModel, Post } from './post.model'
 import { initPageModel, Page } from './page.model'
 import { initMenuModel, Menu } from './menu.model'
+import { initHomeQuickModel, HomeQuick } from './homeQuick.model'
 import { AuthRefreshToken, initAuthRefreshTokenModel } from './authRefreshToken.model'
 import { AuthPasswordResetToken, initAuthPasswordResetTokenModel } from './authPasswordResetToken.model'
 import { initCategoryModel, Category } from './category.model'
@@ -45,6 +46,7 @@ initSchoolMealModel(sequelize)
 initRoomReservationModel(sequelize)
 initSettingModel(sequelize)
 initPageAttributeModel(sequelize)
+initHomeQuickModel(sequelize)
 initMediaModel(sequelize)
 initPracticalInformationModel(sequelize)
 initMenuModel(sequelize)
@@ -126,6 +128,7 @@ export {
     Commerce,
     Councilor,
     Menu,
+    HomeQuick,
     CouncilReport,
     Page,
     SchoolMeal,

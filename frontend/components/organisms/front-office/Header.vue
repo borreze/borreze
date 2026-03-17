@@ -124,7 +124,7 @@ watch(searchOpened, (opened) => {
 
 const menus = ref<MenuAttributesFrontend[]>([
     {
-        id: 1,
+        id: 0,
         context: 'front-office',
         label: 'Accueil',
         url: '/',
@@ -132,7 +132,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 2,
+        id: 0,
         context: 'front-office',
         label: 'Actualités',
         url: '/actualites',
@@ -140,7 +140,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 3,
+        id: 0,
         context: 'front-office',
         label: 'Projets',
         url: '/projets',
@@ -148,7 +148,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 4,
+        id: 0,
         context: 'front-office',
         label: 'Événements',
         url: '/evenements',
@@ -156,14 +156,14 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 5,
+        id: 0,
         context: 'front-office',
         label: 'Mairie',
         order: 4,
         is_visible: true,
         children: [
             {
-                id: 1,
+                id: 0,
                 context: 'front-office',
                 label: 'Contact',
                 url: '/contact',
@@ -171,7 +171,7 @@ const menus = ref<MenuAttributesFrontend[]>([
                 is_visible: true,
             },
             {
-                id: 2,
+                id: 0,
                 context: 'front-office',
                 label: 'Communautés de communes',
                 url: 'https://www.paysdefenelon.fr/',

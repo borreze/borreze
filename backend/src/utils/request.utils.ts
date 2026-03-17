@@ -23,13 +23,13 @@ export const parseArrayInteger = (input: string | string[] | undefined): number[
     return intArray
 }
 
-export const parseOrder = (req?: Request): Order[] => {
-    if (!req) return DEFAULT_ORDER
+export const parseOrder = (req?: Request, defaultOrder: Order[] = DEFAULT_ORDER): Order[] => {
+    if (!req) return defaultOrder
 
     const orderParam = req.query?.order
 
     if (!orderParam) {
-        return DEFAULT_ORDER
+        return defaultOrder
     }
 
     try {
@@ -71,6 +71,6 @@ export const parseOrder = (req?: Request): Order[] => {
         throw new BadRequest((error as Error).message ?? 'Order parsing error')
     }
 
-    return DEFAULT_ORDER
+    return defaultOrder
 }
 

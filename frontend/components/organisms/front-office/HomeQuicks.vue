@@ -10,55 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import type { HomeQuickAttributes } from '@brz/shared';
 import HomeQuickCard from './HomeQuickCard.vue';
+import { useHomeQuicks } from '~/composables/front-office/useHomeQuick';
 
-const homeQuicks = ref<HomeQuickAttributes[]>([
-    {
-        id: 1,
-        order: 0,
-        is_visible: true,
-        title: 'École',
-        icon: 'ic:baseline-school',
-        description: 'Informations sur les écoles et inscriptions',
-        url: '/ecole',
-    },
-    {
-        id: 2,
-        order: 1,
-        is_visible: true,
-        title: 'Événements',
-        icon: 'ic:baseline-event',
-        description: 'Vie associative et culturelle',
-        url: '/evenements',
-    },
-    {
-        id: 3,
-        order: 2,
-        is_visible: true,
-        title: 'Projets',
-        icon: 'ic:baseline-construction',
-        description: 'Développement et aménagements',
-        url: '/projets',
-    },
-    {
-        id: 4,
-        order: 3,
-        is_visible: true,
-        title: 'Actualités',
-        icon: 'ic:baseline-newspaper',
-        description: 'Dernières nouvelles du village',
-        url: '/actualites',
-    },
-    {
-        id: 5,
-        order: 4,
-        is_visible: true,
-        title: 'Services',
-        icon: 'ic:baseline-build',
-        description: 'Services municipaux et démarches administratives',
-        url: '/services',
-    },
-]);
+const { homeQuicks } = await useHomeQuicks();
 
 </script>

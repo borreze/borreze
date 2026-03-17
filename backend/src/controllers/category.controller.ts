@@ -10,7 +10,7 @@ export class CategoryController {
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
     const type = String(req.query.type || 'all')
-    const order = parseOrder(req)
+    const order = parseOrder(req, [['created_at', 'DESC'], ['id', 'DESC']])
 
     const options = { search, type }
 
@@ -24,7 +24,7 @@ export class CategoryController {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
-    const order = parseOrder(req)
+    const order = parseOrder(req, [['created_at', 'DESC'], ['id', 'DESC']])
     const type = String(req.params.type)
 
     const options = { search, type }
