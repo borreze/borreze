@@ -49,7 +49,9 @@
                         Si vous saisissez une date de début dans le futur, l'actualité sera programmée pour être publiée
                         à cette date.<br>
                         Si vous saisissez une date de fin, l'actualité sera retirée de la publication à cette date.<br>
-                        Les dates de publications sont prioritaires sur le status : une actualité avec un status "Publié" mais une date de début dans le futur sera automatiquement passé en "archivé" jusqu'à la date de début.
+                        Les dates de publications sont prioritaires sur le status : une actualité avec un status
+                        "Publié" mais une date de début dans le futur sera automatiquement passé en "archivé" jusqu'à la
+                        date de début.
                     </p>
                     <div class="flex flex-row flex-wrap gap-4">
                         <div class="max-w-xs">
@@ -84,6 +86,10 @@
                     <h4 class="title-submain mb-6">Contenu</h4>
                     <WysiwygEditor v-model="editingPost.content" :error="errors.content" @blur="touch('content')" />
                 </section>
+                <section v-if="mode === 'edit'">
+                    <span class="text-sm text-gray-600"><strong>Date de dernière modification:</strong> {{
+                        formatDateTime(editingPost.updated_at) }}</span>
+                </section>
             </div>
             <div class="px-auto xl:w-3/12">
                 <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
@@ -105,6 +111,7 @@ import Dropdown from '~/components/molecules/Dropdown.vue'
 import Datepicker from '~/components/atoms/Datepicker.vue'
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import PostCard from '~/components/organisms/front-office/PostCard.vue'
+import { formatDateTime } from '~/utils/date'
 
 const props = withDefaults(defineProps<{
     initialPost: PostAttributesFrontend

@@ -10,7 +10,7 @@
             </span>
         </div>
 
-        <div class="flex gap-3">
+        <div class="w-full flex justify-start gap-2">
             <button v-if="totalPages > 1" type="button" :class="[buttonClass, buttonClassGrey, 'disabled:opacity-30']"
                 :disabled="page === 0" @click="page--">
                 <Icon name="ic:baseline-chevron-left" class="size-5" />
@@ -56,8 +56,8 @@ const innerValue = computed({
     set: (val) => emit('update:modelValue', val as string | null)
 })
 
-const buttonClass = 'rounded-lg border p-2 transition-colors'
-const buttonClassGrey = 'border-gray-200 bg-white text-gray-500 hover:border-gray-400 hover:text-gray-700'
+const buttonClass = 'cursor-pointer rounded-lg border p-2 transition-colors'
+const buttonClassGrey = 'border-gray-200 bg-white text-gray-600 hover:border-gray-400 hover:text-gray-700'
 
 const PER_PAGE = 15
 const page = ref(0)

@@ -23,7 +23,8 @@
                             <Field v-model="editingHomeQuick.title" required label="Titre" hint="Titre principale"
                                 roundness="md" :error="errors.title" @blur="touch('title')" />
                             <Field v-model="editingHomeQuick.url" required label="URL" type="url"
-                                placeholder="https://www.exemple.com" hint="Le lien: 'https://www.exemple.com', '/actualites'" roundness="md"
+                                placeholder="https://www.exemple.com"
+                                hint="examples: https://www.exemple.com, /contact, /actualites/mon-actu" roundness="md"
                                 :error="errors.url" @blur="touch('url')" />
                         </div>
                         <div class="grid md:grid-cols-2 gap-4">
@@ -40,11 +41,16 @@
                     <h4 class="title-submain mb-6">Affichage</h4>
                     <div class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
-                            <Field v-model="editingHomeQuick.order" required type="number" label="Ordre" hint="Ordre d'affichage"
-                                roundness="md" :error="errors.order" @blur="touch('order')" />
-                            <Switch v-model="editingHomeQuick.is_visible" label="Visible" text="Afficher ou masquer cet accès rapide" />
+                            <Field v-model="editingHomeQuick.order" required type="number" label="Ordre"
+                                hint="Ordre d'affichage" roundness="md" :error="errors.order" @blur="touch('order')" />
+                            <Switch v-model="editingHomeQuick.is_visible" label="Visible"
+                                text="Afficher ou masquer cet accès rapide" />
                         </div>
                     </div>
+                </section>
+                <section v-if="mode === 'edit'">
+                    <span class="text-sm text-gray-600"><strong>Date de dernière modification:</strong> {{
+                        formatDateTime(editingHomeQuick.updated_at) }}</span>
                 </section>
             </div>
             <div class="px-auto xl:w-3/12">
@@ -65,6 +71,7 @@ import Switch from '~/components/atoms/Switch.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import HomeQuickCard from '~/components/organisms/front-office/HomeQuickCard.vue'
+import { formatDateTime } from '~/utils/date'
 
 const props = withDefaults(defineProps<{
     initialHomeQuick: HomeQuickAttributes
@@ -87,7 +94,7 @@ const { hasErrors, touch, errors, submit } = useForm(
         title: () => editingHomeQuick.value.title === '' ? 'Le titre est requis' : null,
         icon: () => editingHomeQuick.value.icon === '' ? 'L\'icône est requise' : null,
         order: () => editingHomeQuick.value.order === null ? 'L\'ordre est requis' : null,
-        url: () => editingHomeQuick.value.url === '' || (!isURL(editingHomeQuick.value.url) && !isURLRelative(editingHomeQuick.value.url))  ? 'L\'URL est requise et doit être valide' : null,
+        url: () => editingHomeQuick.value.url === '' || (!isURL(editingHomeQuick.value.url) && !isURLRelative(editingHomeQuick.value.url)) ? 'L\'URL est requise et doit être valide' : null,
     }
 )
 
