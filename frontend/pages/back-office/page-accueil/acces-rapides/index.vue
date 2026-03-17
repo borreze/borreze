@@ -1,7 +1,7 @@
 <template>
     <div>
         <Teleport to="#page-heading">
-            <h1 class="title-main line-clamp-1">Accès rapides de l'accueuil</h1>
+            <h1 class="title-main line-clamp-1">Accès rapides de l'accuueil</h1>
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="sm" />
         </Teleport>
         <Teleport to="#page-actions">
