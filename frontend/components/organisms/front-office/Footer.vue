@@ -60,16 +60,8 @@ import Url from '~/components/atoms/Url.vue';
 import { nl2br, renderSchedules } from '#imports';
 
 const socials = ref<SocialAttributes[]>([
-    {
-        id: 1,
-        type: 'facebook',
-        pseudo: 'MairiedeBorreze'
-    },
-    {
-        id: 2,
-        type: 'instagram',
-        pseudo: 'borreze'
-    }
+    { id: 1, type: 'facebook', pseudo: 'MairiedeBorreze' },
+    { id: 2, type: 'instagram', pseudo: 'borreze' }
 ]);
 
 const schedules = ref<ScheduleAttributes[]>([
