@@ -55,14 +55,19 @@ export default function useApi() {
             silent = false,
         } = options
 
+        const finalParams = {
+            ...(defaulting ? defaultParams : {}),
+            ...params,
+        }
+
         const finalHeaders = {
             ...(defaulting ? defaultHeaders : {}),
             ...headers,
         }
 
-        const finalParams = {
-            ...(defaulting ? defaultParams : {}),
-            ...params,
+        // FormData : laisser le browser gérer Content-Type (multipart boundary)
+        if (body instanceof FormData) {
+            delete finalHeaders['Content-Type']
         }
 
         const url = `${API_BASE_URL}${endpoint}`

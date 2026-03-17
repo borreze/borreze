@@ -7,7 +7,8 @@ import scheduleRoutes from './routes/schedule.routes'
 import categoryRoutes from './routes/category.routes'
 import homeQuickRoutes from './routes/homeQuick.routes'
 import userRoutes from './routes/user.routes'
-import conactRoutes from './routes/contact.routes'
+import contactRoutes from './routes/contact.routes'
+import mediaRoutes from './routes/media.routes'
 import logRoutes from './routes/log.routes'
 import schoolHolidayRoutes from './routes/schoolHoliday.routes'
 import authRoutes from './routes/auth.routes'
@@ -20,6 +21,8 @@ import dotenv from 'dotenv'
 import path from 'path'
 import { Terminal } from './utils/terminal.utils'
 import { initSchoolHolidayCron } from './crons/schoolHoliday.cron'
+import { multerErrorHandler } from './middlewares/multer.middleware'
+import { MEDIA_UPLOAD_DIR } from '@brz/shared'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -51,9 +54,16 @@ app.use(homeQuickRoutes)
 app.use(logRoutes)
 app.use(schoolHolidayRoutes)
 app.use(userRoutes)
-app.use(conactRoutes)
+app.use(contactRoutes)
+app.use(mediaRoutes)
 app.use(authRoutes)
 app.use(globalRoutes)
+
+// Serve uploaded media files statically
+app.use(`/${MEDIA_UPLOAD_DIR}`, express.static(MEDIA_UPLOAD_DIR, {
+  maxAge: '1d',
+  immutable: true, // these files are never modified after upload, so we can safely cache them aggressively
+}))
 
 // Health check
 app.get('/health', (req: Request, res: Response) => {
@@ -74,6 +84,9 @@ app.use((req: Request, _res: Response, next: NextFunction) => {
   next(new NotFound('No route here on ' + req.originalUrl + ' with ' + req.method))
   return
 })
+
+// Multer error handler (must be before general error handler)
+app.use(multerErrorHandler)
 
 // Error handler
 app.use(errorMiddleware)

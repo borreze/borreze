@@ -3,7 +3,6 @@ import { MENU_CONTEXTS_KEYS, MenuAttributes, MenuAttributesCreation, MenuContext
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-
 export const MENU_CONSTRAINTS = {
   id: {
     type: DataTypes.BIGINT,

@@ -6,6 +6,8 @@ export { paginationDefault } from './utils/pagination.utils'
 
 export { isEmail, isURL, isURLRelative } from './utils/text.utils'
 
+export { resolveType, sizeToReadable } from './utils/media.utils'
+
 // TYPES
 
 export type { AssociationAttributes, AssociationAttributesCreation, AssociationAttributesUpdate } from './types/association.types'
@@ -25,10 +27,10 @@ export type { GalleryAttributes, GalleryAttributesCreation, GalleryAttributesUpd
 
 export type { HomeQuickAttributes, HomeQuickAttributesCreation, HomeQuickAttributesUpdate } from './types/homeQuick.types'
 
-export { LOG_LEVELS_KEYS, LOG_LEVELS_OBJECTS } from './types/log.types'
+export { LOG_RENTENTION_DAYS, LOG_LEVELS_KEYS, LOG_LEVELS_OBJECTS } from './types/log.types'
 export type { LogLevel, LogAttributes, LogAttributesCreation } from './types/log.types'
 
-export { MEDIA_TYPES_KEYS, MEDIA_TYPES_OBJECTS } from './types/media.types'
+export { MEDIA_UPLOAD_DIR, MEDIA_UPLOAD_LIMIT, MEDIA_UPLOAD_ALLOWED, MEDIA_TYPES_KEYS, MEDIA_TYPES_OBJECTS } from './types/media.types'
 export type { MediaType, MediaAttributes, MediaAttributesCreation, MediaAttributesUpdate } from './types/media.types'
 
 export { MENU_CONTEXTS_KEYS, MENU_CONTEXTS_OBJECTS } from './types/menu.types'
@@ -66,7 +68,7 @@ export type { SchoolMealAttributes, SchoolMealAttributesCreation, SchoolMealAttr
 
 export type { SettingAttributes, SettingAttributesCreation, SettingAttributesUpdate } from './types/setting.types'
 
-export { USER_STATUSES_KEYS, USER_STATUSES_OBJECTS } from './types/user.types'
+export { USER_ROLE_ID_DEFAULT, USER_STATUSES_KEYS, USER_STATUSES_OBJECTS } from './types/user.types'
 export type { UserStatus, UserAttributes, UserAttributesFrontend, UserAttributesPublic, UserAttributesCreation, UserAttributesUpdate } from './types/user.types'
 
 export type { SearchResultNames, SearchResultLinks, SearchResult } from './types/search.types'

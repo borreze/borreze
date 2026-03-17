@@ -1,10 +1,8 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { USER_STATUSES_KEYS, UserAttributes, UserAttributesCreation, UserStatus } from '@brz/shared'
+import { USER_ROLE_ID_DEFAULT, USER_STATUSES_KEYS, UserAttributes, UserAttributesCreation, UserStatus } from '@brz/shared'
 import { Role } from './role.model'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
-
-export const USER_ROLE_ID_DEFAULT = 2 // Default role for new users
 
 export const USER_CONSTRAINTS = {
   id: {

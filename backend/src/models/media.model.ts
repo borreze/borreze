@@ -4,7 +4,6 @@ import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 import { Gallery } from './gallery.model'
 
-
 export const MEDIA_CONSTRAINTS = {
   id: {
     type: DataTypes.BIGINT,
@@ -37,11 +36,6 @@ export const MEDIA_CONSTRAINTS = {
     type: DataTypes.INTEGER,
     required: true
   },
-  folder: {
-    type: DataTypes.STRING,
-    maxLength: 512,
-    required: false
-  },
   uploaded_by: {
     type: DataTypes.BIGINT,
     required: false
@@ -65,7 +59,6 @@ export class Media extends Model<MediaAttributes, MediaAttributesCreation> imple
   public type!: MediaType
   public mime_type!: string
   public size!: number
-  public folder?: string
   public uploaded_by?: number
   public readonly created_at!: Date
   public readonly updated_at!: Date

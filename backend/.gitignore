@@ -143,4 +143,18 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
+# SQLite database files
 *.sqlite
+
+# Media uploads, fit MEDIA_UPLOAD_ALLOWED
+uploads/*.jpeg
+uploads/*.jpg
+uploads/*.png
+uploads/*.gif
+uploads/*.webp
+uploads/*.svg
+uploads/*.pdf
+uploads/*.mp4
+uploads/*.mp3
+uploads/*.ogg
+uploads/*.wav

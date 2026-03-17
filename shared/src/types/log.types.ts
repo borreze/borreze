@@ -1,5 +1,7 @@
 import { Optional } from 'sequelize'
 
+export const LOG_RENTENTION_DAYS = 30
+
 export const LOG_LEVELS_KEYS = ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'] as const
 export type LogLevel = typeof LOG_LEVELS_KEYS[number]
 export const LOG_LEVELS_OBJECTS: { value: LogLevel, label: string, color?: string }[] = [

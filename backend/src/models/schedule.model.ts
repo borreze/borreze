@@ -3,8 +3,6 @@ import { SCHEDULE_DAYS_KEYS, SCHEDULE_TYPES_KEYS, ScheduleAttributes, ScheduleAt
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-
-
 export const SCHEDULE_CONSTRAINTS = {
   id: {
     type: DataTypes.BIGINT,

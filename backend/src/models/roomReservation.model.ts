@@ -3,7 +3,6 @@ import { ROOM_RESERVATION_STATUSES_KEYS, RoomReservationAttributes, RoomReservat
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-
 export const ROOM_RESERVATION_CONSTRAINTS = {
     id: {
         type: DataTypes.BIGINT,

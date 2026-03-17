@@ -3,8 +3,6 @@ import { LOG_LEVELS_KEYS, LogAttributes, LogAttributesCreation, LogLevel } from 
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-export const LOG_RENTENTION_DAYS = 30
-
 export const LOG_CONSTRAINTS = {
   id: {
     type: DataTypes.BIGINT,

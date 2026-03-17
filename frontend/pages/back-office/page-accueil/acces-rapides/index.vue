@@ -2,7 +2,7 @@
     <div>
         <Teleport to="#page-heading">
             <h1 class="title-main line-clamp-1">Accès rapides de l'accueil</h1>
-            <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="sm" />
+            <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
         <Teleport to="#page-actions">
             <Button as="link" href="/back-office/page-accueil/acces-rapides/ajouter" label="Ajouter"

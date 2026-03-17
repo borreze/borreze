@@ -116,6 +116,24 @@ const menus = ref<MenuAttributesFrontend[]>([
             },
         ],
     },
+    {
+        id: 8,
+        context: 'back-office',
+        icon: 'ic:round-image',
+        label: 'Médias',
+        order: 1,
+        is_visible: true,
+        children: [
+            {
+                id: 6,
+                context: 'back-office',
+                label: 'Liste des médias',
+                url: '/back-office/medias',
+                order: 0,
+                is_visible: true,
+            },
+        ],
+    },
 ]);
 </script>
 

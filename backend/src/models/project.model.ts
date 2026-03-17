@@ -7,7 +7,6 @@ import { ModelConstraints } from '../types/utils/model.types'
 import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 
-
 export const PROJECT_CONSTRAINTS = {
   id: {
     type: DataTypes.BIGINT,

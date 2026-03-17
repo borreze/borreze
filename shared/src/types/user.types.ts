@@ -1,5 +1,7 @@
 import { Optional } from 'sequelize'
 
+export const USER_ROLE_ID_DEFAULT = 2 // Default role for new users
+
 export const USER_STATUSES_KEYS = ['active', 'inactive', 'banned'] as const
 export type UserStatus = typeof USER_STATUSES_KEYS[number]
 export const USER_STATUSES_OBJECTS: { value: UserStatus, label: string, color?: string }[] = [
