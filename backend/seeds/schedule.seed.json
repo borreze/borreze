@@ -1,0 +1,46 @@
+[
+    {
+        "type": "town_hall",
+        "day": "tuesday",
+        "intervals": [
+            {
+                "start": "09: 30",
+                "end": "12: 00"
+            },
+            {
+                "start": "14: 00",
+                "end": "17: 00"
+            }
+        ]
+    },
+    {
+        "type": "town_hall",
+        "day": "wednesday",
+        "intervals": [
+            {
+                "start": "14: 00",
+                "end": "17: 00"
+            }
+        ]
+    },
+    {
+        "type": "town_hall",
+        "day": "thursday",
+        "intervals": [
+            {
+                "start": "09: 30",
+                "end": "12: 00"
+            }
+        ]
+    },
+    {
+        "type": "town_hall",
+        "day": "friday",
+        "intervals": [
+            {
+                "start": "14: 00",
+                "end": "17: 00"
+            }
+        ]
+    }
+]

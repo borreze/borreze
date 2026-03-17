@@ -26,9 +26,7 @@
                 class="contact-address bg-white rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 md:p-6 2xl:max-w-[400px]">
                 <h4 class="title-submain">Adresse</h4>
                 <address class="flex flex-col items-start gap-3 my-2">
-                    <p>Mairie de Borrèze<br>
-                        <span>51 grandrue, 24590 Borrèze</span>
-                    </p>
+                    <p>Mairie de Borrèze<br>51 grandrue, 24590 Borrèze</p>
                     <p>Horaires d'ouverture :<br>
                         <span v-html="nl2br(renderSchedules(schedules))"></span>
                     </p>
@@ -64,43 +62,9 @@ import Url from '~/components/atoms/Url.vue';
 import Map from '~/components/molecules/Map.client.vue';
 import { nl2br, renderSchedules } from '#imports';
 import { useContact } from '~/composables/front-office/useContact';
+import { useSchedulesByType } from '~/composables/front-office/useSchedule';
 
-const schedules = ref<ScheduleAttributes[]>([
-    {
-        id: 1,
-        type: 'town_hall',
-        day: 'tuesday',
-        intervals: [
-            { start: '09:30', end: '12:00' },
-            { start: '14:00', end: '17:00' }
-        ]
-    },
-    {
-        id: 2,
-        type: 'town_hall',
-        day: 'wednesday',
-        intervals: [
-            { start: '14:00', end: '17:00' }
-        ]
-    },
-    {
-        id: 3,
-        type: 'town_hall',
-        day: 'thursday',
-        intervals: [
-            { start: '09:30', end: '12:00' }
-        ]
-    },
-    {
-        id: 4,
-        type: 'town_hall',
-        day: 'friday',
-        intervals: [
-            { start: '14:00', end: '17:00' }
-        ]
-    }
-]);
-
+const { schedules } = await useSchedulesByType('town_hall');
 const { sendContact } = useContact()
 
 const formContent = ref<ContactRequest>({

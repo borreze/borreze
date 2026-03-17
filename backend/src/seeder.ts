@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { sequelize } from './config/database'
-import { Category, Media, Post, Role, User } from './models'
+import { Category, Media, Post, Role, Schedule, User } from './models'
 import { Model, ModelStatic } from 'sequelize'
 import { hashPassword, isHash } from './utils/auth.utils'
 import { Terminal } from './utils/terminal.utils'
@@ -32,6 +32,10 @@ const seed = async () => {
     {
       model: Categorizable,
       file: 'categorizable.seed.json'
+    },
+    {
+      model: Schedule,
+      file: 'schedule.seed.json'
     },
   ]
 

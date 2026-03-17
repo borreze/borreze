@@ -27,9 +27,7 @@
                 <Button as="link" label="Nous contacter" icon="ic:baseline-email" href="/contact" variant="primary"
                     size="md" class="mb-2" />
                 <address class="flex flex-col items-start gap-3">
-                    <p>Mairie de Borrèze<br>
-                        <span>51 grandrue, 24590 Borrèze</span>
-                    </p>
+                    <p>Mairie de Borrèze<br>51 grandrue, 24590 Borrèze</p>
                     <Url icon="ic:baseline-email" to="mailto:mairie.borreze@orange.fr"
                         label="mairie.borreze@orange.fr" />
                     <Url icon="ic:baseline-phone" to="tel:0553288338" label="05 53 28 83 38" />
@@ -41,7 +39,7 @@
             <div class="col-span-12 text-center text-sm text-gray-400">
                 <span>
                     <NuxtLink to="https://anthonylalba.com/" external target="_blank"
-                        class=" hover:text-gray-500 transition-colors duration-300">Site internet crée par Anthony Lalba
+                        class="hover:text-gray-500 transition-colors duration-300">Site internet crée par Anthony Lalba
                     </NuxtLink>
                 </span>
             </div>
@@ -58,46 +56,13 @@ import type { SocialAttributes } from '~/types/social';
 import SocialCard from '~/components/organisms/front-office/SocialCard.vue';
 import Url from '~/components/atoms/Url.vue';
 import { nl2br, renderSchedules } from '#imports';
+import { useSchedulesByType } from '~/composables/front-office/useSchedule';
+
+const { schedules } = await useSchedulesByType('town_hall');
 
 const socials = ref<SocialAttributes[]>([
     { id: 1, type: 'facebook', pseudo: 'MairiedeBorreze' },
     { id: 2, type: 'instagram', pseudo: 'borreze' }
-]);
-
-const schedules = ref<ScheduleAttributes[]>([
-    {
-        id: 1,
-        type: 'town_hall',
-        day: 'tuesday',
-        intervals: [
-            { start: '09:30', end: '12:00' },
-            { start: '14:00', end: '17:00' }
-        ]
-    },
-    {
-        id: 2,
-        type: 'town_hall',
-        day: 'wednesday',
-        intervals: [
-            { start: '14:00', end: '17:00' }
-        ]
-    },
-    {
-        id: 3,
-        type: 'town_hall',
-        day: 'thursday',
-        intervals: [
-            { start: '09:30', end: '12:00' }
-        ]
-    },
-    {
-        id: 4,
-        type: 'town_hall',
-        day: 'friday',
-        intervals: [
-            { start: '14:00', end: '17:00' }
-        ]
-    }
 ]);
 
 </script>
