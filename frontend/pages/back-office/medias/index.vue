@@ -32,14 +32,14 @@
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
 
         <Modal v-model:open="addModal" title="Ajouter un média" textCancel="Annuler" :onCancel="closeAddModal">
-            <MediaForm :initial-media="defaultMedia" mode="create" @uploaded="handleUploaded" />
+            <MediaFormCreate :initial-media="defaultMedia" @uploaded="handleUploaded" />
         </Modal>
     </div>
 </template>
 
 <script setup lang="ts">
-import { MEDIA_TYPES_OBJECTS, type MediaAttributes } from '@brz/shared'
-import MediaForm from '~/components/organisms/back-office/MediaForm.vue'
+import { type MediaAttributes } from '@brz/shared'
+import MediaFormCreate from '~/components/organisms/back-office/MediaFormCreate.vue'
 import { push } from 'notivue'
 import Modal from '~/components/molecules/Modal.vue'
 import OrderBy from '~/components/organisms/OrderBy.vue';

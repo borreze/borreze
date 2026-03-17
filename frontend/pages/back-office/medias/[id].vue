@@ -1,13 +1,13 @@
 <template>
     <div>
-        <MediaForm v-if="media" :initial-media="media" mode="edit" :loading="loading" @save="handleSave"
+        <MediaFormEdit v-if="media" :initial-media="media" :loading="loading" @save="handleSave"
             @delete="handleDelete" />
     </div>
 </template>
 
 <script setup lang="ts">
 import type { MediaAttributes } from '@brz/shared'
-import MediaForm from '~/components/organisms/back-office/MediaForm.vue'
+import MediaFormEdit from '~/components/organisms/back-office/MediaFormEdit.vue'
 import { push } from 'notivue'
 import { useEditMedia } from '~/composables/back-office/useMedia'
 

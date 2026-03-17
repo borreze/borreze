@@ -6,7 +6,7 @@ import { sizeToReadable } from '@brz/shared'
 export const multerErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     if (err instanceof multer.MulterError) {
         const messages: Record<string, string> = {
-            LIMIT_FILE_SIZE: `Le fichier dépasse la taille maximale autorisée (${sizeToReadable(MEDIA_UPLOAD_LIMIT)})`,
+            LIMIT_FILE_SIZE: `Le fichier dépasse la taille maximale autorisée (${sizeToReadable(MEDIA_UPLOAD_LIMIT, 0)})`,
             LIMIT_FILE_COUNT: 'Trop de fichiers envoyés',
             LIMIT_UNEXPECTED_FILE: 'Champ de fichier inattendu',
         }

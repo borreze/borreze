@@ -8,11 +8,11 @@ export function resolveType(mimeType: string): MediaType {
     return 'document'
 }
 
-export function sizeToReadable(size: number): string {
+export function sizeToReadable(size: number, decimalPlaces: number = 2): string {
     if (size < 1024) return `${size} o`
-    if (size < 1024 * 1024) return `${(size / 1024).toFixed(0)} Ko`
-    if (size < 1024 * 1024 * 1024) return `${(size / (1024 * 1024)).toFixed(0)} Mo`
-    return `${(size / (1024 * 1024 * 1024)).toFixed(0)} Go`
+    if (size < 1024 * 1024) return `${(size / 1024).toFixed(decimalPlaces)} Ko`
+    if (size < 1024 * 1024 * 1024) return `${(size / (1024 * 1024)).toFixed(decimalPlaces)} Mo`
+    return `${(size / (1024 * 1024 * 1024)).toFixed(decimalPlaces)} Go`
 }
 
 export function mediaGetIcon(type: MediaType): string {
