@@ -20,6 +20,7 @@ export const useHomeQuicks = async () => {
                     limit: paginationDefault().limit,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value.trim(),
+                    is_visible: 'all',
                 }
             }
         ).then(r => r.data),
