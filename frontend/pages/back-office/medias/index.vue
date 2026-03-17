@@ -21,7 +21,7 @@
 
         <Loader v-if="loading" />
         <div v-else-if="medias" class="mt-6">
-            <Grid v-if="medias?.length > 0" :items="medias" :min-width="150" :max-width="isMobile() ? null : 200">
+            <Grid v-if="medias?.length > 0" :items="medias" :min-width="isMobile() ? null : 200">
                 <template #item="{ item }">
                     <MediaCard :media="item" />
                 </template>
@@ -31,14 +31,14 @@
 
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
 
-        <Modal v-model:open="addModal" title="Insérer une image" textCancel="Annuler" :onCancel="closeAddModal">
+        <Modal v-model:open="addModal" title="Ajouter un média" textCancel="Annuler" :onCancel="closeAddModal">
             <MediaForm :initial-media="defaultMedia" mode="create" @uploaded="handleUploaded" />
         </Modal>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { MediaAttributes } from '@brz/shared'
+import { MEDIA_TYPES_OBJECTS, type MediaAttributes } from '@brz/shared'
 import MediaForm from '~/components/organisms/back-office/MediaForm.vue'
 import { push } from 'notivue'
 import Modal from '~/components/molecules/Modal.vue'

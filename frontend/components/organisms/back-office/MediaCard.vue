@@ -17,7 +17,10 @@
         </div>
 
         <div
-            class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-primary/10 bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity p-4">
+            :class="[
+                isMobile() ?
+                    'flex-col justify-end p-3 gap-2' :
+                    'absolute inset-0 flex flex-col items-center justify-center gap-2 bg-primary/10 bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity p-4']">
             <Button as="link" :href="mediaUrl(media.file_path)" target="_blank" variant="light" size="sm"
                 icon="ic:baseline-open-in-new" label="Ouvrir" class="w-full mb-2" />
             <Button as="link" :href="`/back-office/medias/${media.id}`" variant="primary" size="sm"
@@ -30,6 +33,7 @@
 import { mediaGetIcon, mediaGetLabel, sizeToReadable, type MediaAttributes } from '@brz/shared'
 import Button from '~/components/atoms/Button.vue';
 import { mediaUrl } from '~/utils/media'
+import { isMobile } from '~/utils/responsive';
 
 const props = defineProps<{
     media: MediaAttributes

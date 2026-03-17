@@ -2,7 +2,7 @@
     <div>
         <Teleport to="#page-heading">
             <h1 v-if="mode === 'edit'" class="title-main line-clamp-1">
-                {{ `#${editingMedia.id}&nbsp;${editingMedia.file_name}` }}
+                {{ `Media #${editingMedia.id}` }}
             </h1>
         </Teleport>
         <Teleport to="#page-actions">
@@ -81,11 +81,11 @@
                 <div class="xl:sticky xl:top-5">
                     <h4 class="title-submain mb-4">{{ mediaGetLabel(editingMedia.type) }}</h4>
                     <div v-if="editingMedia.type === 'image'" class="rounded-lg overflow-hidden border">
-                        <img :src="mediaUrl(editingMedia.file_path)" :alt="editingMedia.file_name"
+                        <NuxtImg :src="mediaUrl(editingMedia.file_path)" :alt="editingMedia.file_name"
                             class="w-full h-auto object-contain max-h-96" />
                     </div>
                     <div v-else class="flex flex-col items-center gap-2 p-6 bg-gray-50 rounded-lg">
-                        <Icon name="ic:baseline-insert-drive-file" class="text-5xl text-gray-400" />
+                        <Icon :name="mediaGetIcon(editingMedia.type)" class="text-5xl text-gray-400" />
                         <span class="text-sm text-gray-600">{{ editingMedia.file_name }}</span>
                     </div>
                     <a :href="mediaUrl(editingMedia.file_path)" target="_blank"
@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import { MEDIA_UPLOAD_LIMIT, mediaGetLabel, sizeToReadable, type MediaAttributes } from '@brz/shared'
+import { MEDIA_UPLOAD_LIMIT, mediaGetIcon, mediaGetLabel, sizeToReadable, type MediaAttributes } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
