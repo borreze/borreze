@@ -1,6 +1,6 @@
 import { HomeQuick } from '../models'
 import { WhereOptions } from 'sequelize'
-import { Pagination } from '@brz/shared'
+import { Pagination, UserAttributesPublic } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
@@ -10,12 +10,19 @@ import { HOME_QUICK_CONSTRAINTS } from '../models/homeQuick.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
+import { permissionCheck } from '../utils/auth.utils'
 
 export class HomeQuickService {
-  public async count(options?: { search?: string; }): Promise<number> {
-    const { search } = options || {}
+  private filterIsVisible(is_visible?: boolean | null): WhereOptions {
+    if (!is_visible) return {}
+    return { is_visible }
+  }
+
+  public async count(options?: { search?: string, is_visible?: boolean | null }): Promise<number> {
+    const { is_visible, search } = options || {}
 
     const where: WhereOptions = {
+      ...this.filterIsVisible(is_visible),
       ...searchWhere(HOME_QUICK_CONSTRAINTS, search)
     }
 
@@ -23,11 +30,18 @@ export class HomeQuickService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; }, order: Order[] = [], pagination?: Pagination | null): Promise<HomeQuickAttributes[]> {
-    const { search } = options || {}
+  public async getAll(options?: { search?: string; is_visible?: boolean | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<HomeQuickAttributes[]> {
+    const { is_visible, search } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
+    if (
+      (!is_visible) // only allow non-published posts if allowed to
+    ) {
+      await permissionCheck(user, 'home-quick', 'read')
+    }
+
     const where: WhereOptions = {
+      ...this.filterIsVisible(is_visible),
       ...searchWhere(HOME_QUICK_CONSTRAINTS, search)
     }
 
@@ -35,8 +49,11 @@ export class HomeQuickService {
     return homequicks
   }
 
-  public async getById(id: number): Promise<HomeQuickAttributes | null> {
+  public async getById(id: number, options?: { is_visible?: boolean | null }): Promise<HomeQuickAttributes | null> {
+    const { is_visible } = options || {}
+
     const where: WhereOptions = {
+      ...this.filterIsVisible(is_visible),
       id
     }
 

@@ -17,13 +17,13 @@
                         {{ menu.label }}
                     </div>
                     <Icon name="ic:baseline-keyboard-arrow-down" size="1.2em"
-                        :class="['text-primary', openMobileMenus.includes(menu.id) ? 'rotate-180' : '']" class="transition-transform" />
+                        :class="['text-primary', openMenus.includes(menu.id) ? 'rotate-180' : '']" class="transition-transform" />
                 </button>
 
                 <Transition enter-active-class="transition-all duration-200" enter-from-class="max-h-0 opacity-0"
                     enter-to-class="max-h-96 opacity-100" leave-active-class="transition-all duration-200"
                     leave-from-class="max-h-96 opacity-100" leave-to-class="max-h-0 opacity-0">
-                    <ul v-if="openMobileMenus.includes(menu.id)" class="overflow-hidden">
+                    <ul v-if="openMenus.includes(menu.id)" class="overflow-hidden">
                         <li v-for="child in menu.children" :key="child.id">
                             <Button as="link" :label="child.label" :href="child.url || '#'"
                                 :icon="child.icon || undefined" class="w-full text-left px-8 py-2.5 text-base"
@@ -53,13 +53,13 @@ const close = () => {
     emit('close')
 }
 
-const openMobileMenus = ref<number[]>([]);
+const openMenus = ref<number[]>([]);
 
 function toggleMobileMenu(menuId: number) {
-    if (openMobileMenus.value.includes(menuId)) {
-        openMobileMenus.value = openMobileMenus.value.filter(id => id !== menuId);
+    if (openMenus.value.includes(menuId)) {
+        openMenus.value = openMenus.value.filter(id => id !== menuId);
     } else {
-        openMobileMenus.value.push(menuId);
+        openMenus.value.push(menuId);
     }
 }
 </script>

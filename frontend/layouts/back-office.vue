@@ -14,7 +14,7 @@
                 <div class="hidden lg:block px-4 pt-8 pb-4 flex">
                     <AppName to="/back-office" />
                 </div>
-                <MenusPanel :menus="menus" @close="panelOpened = false" />
+                <Menus :menus="menus" @close="panelOpened = false" />
             </Panel>
             <div class="flex-1">
                 <div class="flex items-center justify-between gap-4 mx-4 my-2 lg:pb-2 lg:border-b lg:border-gray-200">
@@ -45,7 +45,7 @@ import type { MenuAttributesFrontend } from '@brz/shared';
 import Button from '~/components/atoms/Button.vue';
 import Panel from '~/components/molecules/Panel.vue';
 import AppName from '~/components/organisms/AppName.vue';
-import MenusPanel from '~/components/molecules/MenusPanel.vue';
+import Menus from '~/components/molecules/Menus.vue';
 import { useAuthStore } from '~/stores/auth'
 import { goBack } from '#imports';
 
@@ -55,7 +55,7 @@ const panelOpened = ref(false)
 
 const menus = ref<MenuAttributesFrontend[]>([
     {
-        id: 0,
+        id: 1,
         context: 'back-office',
         icon: 'ic:outline-space-dashboard',
         label: 'Dashboard',
@@ -64,7 +64,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 0,
+        id: 2,
         context: 'back-office',
         icon: 'ic:baseline-person',
         label: 'Profil',
@@ -73,7 +73,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 0,
+        id: 3,
         context: 'back-office',
         icon: 'ic:baseline-home',
         label: 'Page d\'accueil',
@@ -81,7 +81,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
         children: [
             {
-                id: 0,
+                id: 4,
                 context: 'back-office',
                 label: 'Liste des accès rapides',
                 url: '/back-office/page-accueil/acces-rapides',
@@ -91,7 +91,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         ],
     },
     {
-        id: 0,
+        id: 5,
         context: 'back-office',
         icon: 'ic:baseline-newspaper',
         label: 'Actualités',
@@ -99,7 +99,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
         children: [
             {
-                id: 0,
+                id: 6,
                 context: 'back-office',
                 label: 'Liste des actualités',
                 url: '/back-office/actualites',
@@ -107,7 +107,7 @@ const menus = ref<MenuAttributesFrontend[]>([
                 is_visible: true,
             },
             {
-                id: 0,
+                id: 7,
                 context: 'back-office',
                 label: 'Créer une actualité',
                 url: '/back-office/actualites/ajouter',

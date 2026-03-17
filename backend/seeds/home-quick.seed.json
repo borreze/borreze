@@ -33,7 +33,7 @@
     },
     {
         "order": 4,
-        "is_visible": true,
+        "is_visible": false,
         "title": "Services",
         "icon": "ic:baseline-build",
         "description": "Services municipaux et démarches administratives",

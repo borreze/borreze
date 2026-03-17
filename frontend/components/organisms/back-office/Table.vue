@@ -50,8 +50,8 @@
                     class="bg-white rounded-lg p-4 shadow-[2px_2px_10px_2px_#0000001a]">
                     <div>
                         <h4 v-if="titleKey" class="mb-2 font-semibold text-dark">{{ getItemValue(item, titleKey) }}</h4>
-                        <p v-if="abstractKey" class="mb-2 text-sm text-dark line-clamp-1">{{ getItemValue(item,
-                            abstractKey) }}</p>
+                        <p v-if="descriptionKey" class="mb-2 text-sm text-dark line-clamp-1">{{ getItemValue(item,
+                            descriptionKey) }}</p>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-600">
                             <div v-for="column in mobileVisibleColumns" :key="column.key"
@@ -110,13 +110,13 @@ const props = withDefaults(defineProps<{
     actions?: Action[]
     primaryKey?: string
     titleKey?: string
-    abstractKey?: string
+    descriptionKey?: string
     loading?: boolean
     formatters?: Record<string, FormatterFn>
 }>(), {
     primaryKey: 'id',
     titleKey: 'title',
-    abstractKey: 'abstract',
+    descriptionKey: 'abstract',
     loading: false,
     formatters: () => ({})
 })
@@ -129,7 +129,7 @@ defineSlots<{
 const mobileVisibleColumns = computed(() =>
     props.columns.filter(col =>
         col.key !== props.titleKey &&
-        col.key !== props.abstractKey
+        col.key !== props.descriptionKey
     )
 )
 

@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" :columns="[
+        <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" descriptionKey="abstract" :columns="[
             { key: 'id', label: 'ID', formatter: 'id' },
             { key: 'title', label: 'Titre' },
             { key: 'abstract', label: 'Résumé', formatter: 'truncate' },

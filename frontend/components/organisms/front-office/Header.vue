@@ -76,7 +76,7 @@
                 size="md" />
         </div>
         <div class="px-2">
-            <MenusPanel :menus="menus" @close="panelOpened = false" />
+            <Menus :menus="menus" @close="panelOpened = false" />
         </div>
     </Panel>
 
@@ -92,7 +92,7 @@ import Field from '~/components/atoms/Field.vue';
 import Panel from '~/components/molecules/Panel.vue';
 import Modal from '~/components/molecules/Modal.vue';
 import AppName from '~/components/organisms/AppName.vue';
-import MenusPanel from '~/components/molecules/MenusPanel.vue';
+import Menus from '~/components/molecules/Menus.vue';
 
 const panelOpened = ref(false)
 const searchOpened = ref(false)
@@ -124,7 +124,7 @@ watch(searchOpened, (opened) => {
 
 const menus = ref<MenuAttributesFrontend[]>([
     {
-        id: 0,
+        id: 1,
         context: 'front-office',
         label: 'Accueil',
         url: '/',
@@ -132,7 +132,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 0,
+        id: 2,
         context: 'front-office',
         label: 'Actualités',
         url: '/actualites',
@@ -140,7 +140,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 0,
+        id: 3,
         context: 'front-office',
         label: 'Projets',
         url: '/projets',
@@ -148,7 +148,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 0,
+        id: 4,
         context: 'front-office',
         label: 'Événements',
         url: '/evenements',
@@ -156,14 +156,14 @@ const menus = ref<MenuAttributesFrontend[]>([
         is_visible: true,
     },
     {
-        id: 0,
+        id: 5,
         context: 'front-office',
         label: 'Mairie',
         order: 4,
         is_visible: true,
         children: [
             {
-                id: 0,
+                id: 6,
                 context: 'front-office',
                 label: 'Contact',
                 url: '/contact',
@@ -171,7 +171,7 @@ const menus = ref<MenuAttributesFrontend[]>([
                 is_visible: true,
             },
             {
-                id: 0,
+                id: 7,
                 context: 'front-office',
                 label: 'Communautés de communes',
                 url: 'https://www.paysdefenelon.fr/',
