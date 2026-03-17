@@ -59,7 +59,7 @@ const innerValue = computed({
 const buttonClass = 'rounded-lg border p-2 transition-colors'
 const buttonClassGrey = 'border-gray-200 bg-white text-gray-500 hover:border-gray-400 hover:text-gray-700'
 
-const PER_PAGE = 10
+const PER_PAGE = 15
 const page = ref(0)
 
 const totalPages = computed(() => Math.ceil(icons.length / PER_PAGE))

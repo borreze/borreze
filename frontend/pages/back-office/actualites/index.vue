@@ -27,14 +27,11 @@
         <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" descriptionKey="abstract" :columns="[
             { key: 'id', label: 'ID', formatter: 'id' },
             { key: 'title', label: 'Titre' },
-            { key: 'abstract', label: 'Résumé', formatter: 'truncate' },
             { key: 'categories', label: 'Catégories' },
             { key: 'status', label: 'Status' },
             { key: 'published_at', label: 'Publication', formatter: 'date' },
-            { key: 'updated_at', label: 'Màj', formatter: 'date' },
         ]" :formatters="{
             id: (value) => `#${value}`,
-            truncate: (value) => limitString(value as string, 40),
             date: (value) => value ? formatDateRelativeNice(value as string) : '-'
         }" :actions="[
             { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', buildLink: (item) => `/actualites/${item.slug}`, external: true },

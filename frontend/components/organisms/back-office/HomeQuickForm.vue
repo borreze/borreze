@@ -20,9 +20,29 @@
                     <h4 class="title-submain mb-6">Informations générales</h4>
                     <div class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
-                            <Field v-model="editingHomeQuick.title" required label="Titre"
-                                hint="Titre principale de l'actualité" roundness="md" :error="errors.title"
-                                @blur="touch('title')" />
+                            <Field v-model="editingHomeQuick.title" required label="Titre" hint="Titre principale"
+                                roundness="md" :error="errors.title" @blur="touch('title')" />
+                            <Field v-model="editingHomeQuick.url" required label="URL" type="url"
+                                placeholder="https://www.exemple.com" hint="Le lien: 'https://www.exemple.com', '/actualites'" roundness="md"
+                                :error="errors.url" @blur="touch('url')" />
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <Field v-model="editingHomeQuick.description" type="textarea" label="Description courte"
+                                hint="Description affichée sous le titre" roundness="md" :error="errors.description"
+                                @blur="touch('description')" />
+                            <IconPicker v-model="editingHomeQuick.icon" required label="Icon"
+                                placeholder="https://www.exemple.com" hint="Icon affichée en accès rapide"
+                                :error="errors.icon" />
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="title-submain mb-6">Affichage</h4>
+                    <div class="flex flex-col gap-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <Field v-model="editingHomeQuick.order" required type="number" label="Ordre" hint="Ordre d'affichage"
+                                roundness="md" :error="errors.order" @blur="touch('order')" />
+                            <Switch v-model="editingHomeQuick.is_visible" label="Visible" text="Afficher ou masquer cet accès rapide" />
                         </div>
                     </div>
                 </section>
@@ -38,8 +58,10 @@
 </template>
 
 <script setup lang="ts">
-import { type HomeQuickAttributes } from '@brz/shared'
+import { isURL, isURLRelative, type HomeQuickAttributes } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
+import IconPicker from '~/components/atoms/IconPicker.vue'
+import Switch from '~/components/atoms/Switch.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import HomeQuickCard from '~/components/organisms/front-office/HomeQuickCard.vue'
@@ -60,9 +82,12 @@ const emit = defineEmits<{
 const editingHomeQuick = ref<HomeQuickAttributes>({ ...props.initialHomeQuick })
 
 const { hasErrors, touch, errors, submit } = useForm(
-    ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content'],
+    ['title', 'url', 'description', 'icon', 'order', 'is_visible'],
     {
         title: () => editingHomeQuick.value.title === '' ? 'Le titre est requis' : null,
+        icon: () => editingHomeQuick.value.icon === '' ? 'L\'icône est requise' : null,
+        order: () => editingHomeQuick.value.order === null ? 'L\'ordre est requis' : null,
+        url: () => editingHomeQuick.value.url === '' || (!isURL(editingHomeQuick.value.url) && !isURLRelative(editingHomeQuick.value.url))  ? 'L\'URL est requise et doit être valide' : null,
     }
 )
 

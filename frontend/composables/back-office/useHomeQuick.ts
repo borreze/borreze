@@ -104,7 +104,7 @@ export const useEditHomeQuick = async (id: number) => {
     }
 
     return {
-        homeQuicks: computed(() => data.value?.data ?? null),
+        homeQuick: computed(() => data.value?.data ?? null),
         loading: computed(() => status.value === 'pending'),
         error,
         deleteSelf,

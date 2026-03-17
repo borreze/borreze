@@ -5,7 +5,7 @@
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="sm" />
         </Teleport>
         <Teleport to="#page-actions">
-            <Button as="link" href="/back-office/page-accueuil/acces-rapide/ajouter" label="Ajouter"
+            <Button as="link" href="/back-office/page-accueil/acces-rapides/ajouter" label="Ajouter"
                 icon="ic:baseline-plus" variant="primary" size="sm" />
         </Teleport>
 
@@ -34,7 +34,7 @@
             ]" :formatters="{
                 id: (value) => `#${value}`,
             }" :actions="[
-            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/page-accueuil/acces-rapide/${item.id}` },
+            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/page-accueil/acces-rapides/${item.id}` },
         ]">
             <template #cell-icon="{ item }">
                 <div class="flex flex-wrap gap-1">
@@ -58,8 +58,6 @@ import Paging from '~/components/molecules/Paging.vue';
 import Table from '~/components/organisms/back-office/Table.vue';
 import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
-import { limitString } from '~/utils/text';
-import { formatDateRelativeNice } from '~/utils/date';
 import Button from '~/components/atoms/Button.vue';
 import { useHomeQuicks } from '~/composables/back-office/useHomeQuick';
 

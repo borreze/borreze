@@ -1,6 +1,15 @@
 <template>
     <div class="w-full flex flex-col gap-1">
-        <div class="flex items-center gap-3">
+        <div v-if="label || hint" class="flex justify-start flex-wrap items-end gap-2">
+            <label v-if="label" :for="id" class="text-sm font-medium text-dark">
+                {{ label }}
+                <span v-if="required" class="text-red-500">*</span>
+            </label>
+            <span v-if="hint" class="text-[11px] text-gray-400 pb-[1px]">
+                {{ hint }}
+            </span>
+        </div>
+        <div class="flex items-center gap-3 my-2">
             <button type="button" role="switch" :aria-checked="innerValue" :id="id" @click="innerValue = !innerValue"
                 :class="[
                     'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2',
@@ -11,12 +20,10 @@
                     innerValue ? 'translate-x-5' : 'translate-x-0'
                 ]" />
             </button>
-            <label v-if="label" :for="id" class="text-sm font-medium text-dark cursor-pointer select-none"
+            <span v-if="text" class="font-medium text-dark cursor-pointer select-none"
                 @click="innerValue = !innerValue">
-                {{ label }}
-                <span v-if="required" class="text-red-500">*</span>
-            </label>
-            <span v-if="hint" class="text-[11px] text-gray-400">{{ hint }}</span>
+                {{ text }}
+            </span>
         </div>
         <p v-if="error" class="text-sm text-red-500 mt-1">{{ error }}</p>
     </div>
@@ -27,6 +34,7 @@ const props = withDefaults(defineProps<{
     modelValue?: boolean
     id?: string
     label?: string
+    text?: string
     hint?: string
     required?: boolean
     error?: string | null

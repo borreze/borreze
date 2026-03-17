@@ -10,7 +10,7 @@ export default defineNuxtPlugin(() => {
         avoidDuplicates: true,
         notifications: {
             global: {
-                duration: 7000
+                duration: 4000,
             }
         }
     }))

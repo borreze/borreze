@@ -4,7 +4,7 @@ export { slugify } from './utils/model.utils'
 
 export { paginationDefault } from './utils/pagination.utils'
 
-export { isEmail } from './utils/text.utils'
+export { isEmail, isURL, isURLRelative } from './utils/text.utils'
 
 // TYPES
 
