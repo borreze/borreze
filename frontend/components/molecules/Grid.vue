@@ -9,18 +9,28 @@
 <script setup lang="ts" generic="T">
 const props = withDefaults(defineProps<{
     items?: T[] | null
-    minWidth?: number | string
+    minWidth?: number | string | null
+    maxWidth?: number | string | null
     gap?: number | string
     cols?: number
     keyField?: string
 }>(), {
     minWidth: 350,
+    maxWidth: null,
     gap: 'responsive',
     keyField: 'id'
 })
 
 const gridStyle = computed(() => {
-    const minWidthValue = typeof props.minWidth === 'number' ? `${props.minWidth}px` : props.minWidth
+    const minWidthValue =
+        typeof props.minWidth === 'number'
+            ? `${props.minWidth}px`
+            : props.minWidth
+
+    const maxWidthValue =
+        typeof props.maxWidth === 'number'
+            ? `${props.maxWidth}px`
+            : props.maxWidth
 
     let gapValue: string
     if (typeof props.gap === 'number') {
@@ -36,7 +46,7 @@ const gridStyle = computed(() => {
     if (props.cols) {
         styles.gridTemplateColumns = `repeat(${props.cols}, 1fr)`
     } else {
-        styles.gridTemplateColumns = `repeat(auto-fill, minmax(min(${minWidthValue}, 100%), 1fr))`
+        styles.gridTemplateColumns = `repeat(auto-fill, minmax(${minWidthValue}, ${maxWidthValue ?? '1fr'}))`
     }
 
     if (gapValue) {

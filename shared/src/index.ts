@@ -6,7 +6,7 @@ export { paginationDefault } from './utils/pagination.utils'
 
 export { isEmail, isURL, isURLRelative } from './utils/text.utils'
 
-export { resolveType, sizeToReadable } from './utils/media.utils'
+export { resolveType, sizeToReadable, mediaGetIcon, mediaGetLabel } from './utils/media.utils'
 
 // TYPES
 

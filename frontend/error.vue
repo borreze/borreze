@@ -37,7 +37,6 @@ const isNuxtMessage = computed(() => {
 });
 
 const title = computed(() => {
-  console.log('Message d\'erreur reçu :', isNuxtMessage.value);
   if (!isNuxtMessage.value) { // Si le message d'erreur ne semble pas être un message générique de Nuxt, on l'affiche tel quel
     return props.error.message;
   } else {

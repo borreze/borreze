@@ -14,10 +14,10 @@
 
         <Loader v-if="loading" />
         <div v-else class="flex flex-col gap-6 2xl:gap-10 xl:flex-row">
-            <div class="w-full xl:w-8/12 space-y-8">
+            <div class="w-full space-y-8">
                 <!-- Upload zone (create only) -->
                 <section v-if="mode === 'create'">
-                    <div class="relative border-2 border-dashed rounded-lg p-10 text-center transition-colors"
+                    <div class="w-full relative border-2 border-dashed rounded-lg p-10 text-center transition-colors"
                         :class="isDragging ? 'border-primary-500 bg-primary-50' : 'border-gray-300'"
                         @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
                         @drop.prevent="handleDrop">
@@ -30,7 +30,8 @@
                                     parcourir
                                 </button>
                             </p>
-                            <p class="text-xs text-gray-400">Images, PDF, vidéos, audio — 20 Mo max par fichier</p>
+                            <p class="text-xs text-gray-400">Images, PDF, vidéos, audio —
+                                {{ sizeToReadable(MEDIA_UPLOAD_LIMIT) }} max par fichier</p>
                         </div>
                     </div>
 
@@ -78,7 +79,7 @@
             <!-- Preview sidebar (edit only) -->
             <div v-if="mode === 'edit'" class="xl:w-4/12">
                 <div class="xl:sticky xl:top-5">
-                    <h4 class="title-submain mb-4">Aperçu</h4>
+                    <h4 class="title-submain mb-4">{{ mediaGetLabel(editingMedia.type) }}</h4>
                     <div v-if="editingMedia.type === 'image'" class="rounded-lg overflow-hidden border">
                         <img :src="mediaUrl(editingMedia.file_path)" :alt="editingMedia.file_name"
                             class="w-full h-auto object-contain max-h-96" />
@@ -98,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import { sizeToReadable, type MediaAttributes } from '@brz/shared'
+import { MEDIA_UPLOAD_LIMIT, mediaGetLabel, sizeToReadable, type MediaAttributes } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'

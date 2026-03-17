@@ -19,8 +19,14 @@
             </div>
         </div>
 
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <MediaCard v-for="media in medias" :key="media.id" :media="media" />
+        <Loader v-if="loading" />
+        <div v-else-if="medias" class="mt-6">
+            <Grid v-if="medias?.length > 0" :items="medias" :min-width="150" :max-width="isMobile() ? null : 200">
+                <template #item="{ item }">
+                    <MediaCard :media="item" />
+                </template>
+            </Grid>
+            <NoContent v-else />
         </div>
 
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
@@ -43,8 +49,12 @@ import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
 import Button from '~/components/atoms/Button.vue';
 import MediaCard from '~/components/organisms/back-office/MediaCard.vue';
+import Loader from '~/components/molecules/Loader.vue';
+import NoContent from '~/components/molecules/NoContent.vue';
+import Grid from '~/components/molecules/Grid.vue';
+import { isMobile } from '~/utils/responsive';
 
-const { medias, pagination, setPage, setOrder, resetOrder, setSearch, refresh } = await useMedias()
+const { loading, medias, pagination, setPage, setOrder, resetOrder, setSearch, refresh } = await useMedias()
 
 const search = ref('')
 const addModal = ref(false)
