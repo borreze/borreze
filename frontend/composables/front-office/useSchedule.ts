@@ -2,6 +2,8 @@ import { type ScheduleAttributes, type ScheduleType } from '@brz/shared';
 import useApi from '~/composables/useApi'
 
 export const useSchedulesByType = async (type: ScheduleType) => {
+    // TODO: cache results and invalidate cache when schedule is updated to avoid unnecessary API calls
+
     const { data, status, error } = await useAsyncData(
         `schedules-${type}`,
         async () => {
