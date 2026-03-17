@@ -3,7 +3,6 @@ import { homequickService } from '../services/homeQuick.service'
 import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
-import { BadRequest } from '../exceptions/request.exception'
 
 export class HomeQuickController {
   public getAll: RequestHandler = async (req, res) => {
@@ -11,9 +10,7 @@ export class HomeQuickController {
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
     const order = parseOrder(req, [['order', 'ASC']])
-
-    if (!req.query.is_visible) throw new BadRequest('is_visible query parameter is required')
-    const is_visible = String(req.query.is_visible) === 'all' ? null : (req.query.is_visible === 'true')
+    const is_visible = (req.query.is_visible === 'all') ? null : (req.query.is_visible !== undefined) ? (req.query.is_visible === 'true') : true
 
     const options = { search, is_visible }
 
@@ -25,9 +22,7 @@ export class HomeQuickController {
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
-
-    if (!req.query.is_visible) throw new BadRequest('is_visible query parameter is required')
-    const is_visible = String(req.query.is_visible) === 'all' ? null : (req.query.is_visible === 'true')
+    const is_visible = (req.query.is_visible === 'all') ? null : (req.query.is_visible !== undefined) ? (req.query.is_visible === 'true') : true
 
     const options = { is_visible }
 
