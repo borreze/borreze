@@ -68,6 +68,8 @@ export class SchoolHolidayService {
     const PAGE_SIZE = 99 // ! Real max gouvernement API limit is 100
     const FROM_YEAR = 2024
 
+    Terminal.info(`Starting school holidays import from GOUV API...`)
+
     let offset = 0
     let totalCount = 0
     let imported = 0
