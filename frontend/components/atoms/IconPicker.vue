@@ -65,7 +65,7 @@ const page = ref(0)
 const totalPages = computed(() => Math.ceil(icons.length / PER_PAGE))
 const visible = computed(() => icons.slice(page.value * PER_PAGE, (page.value + 1) * PER_PAGE))
 
-const icons: string[] = [
+const icons: string[] = [ // ! should be dividible by PER_PAGE to avoid empty spaces in the grid
     // Personnes & Auth
     'ic:baseline-person',
     'ic:baseline-people',
@@ -192,9 +192,6 @@ const icons: string[] = [
     'ic:baseline-flag',
     'ic:baseline-visibility',
     'ic:baseline-download',
-    'ic:baseline-share',
-    'ic:baseline-print',
-    'ic:baseline-qr-code',
 ]
 
 </script>
