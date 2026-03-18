@@ -61,6 +61,7 @@ const componentAttrs = computed(() => {
             ...attrs,
             to: props.href,
             external: isExternal,
+            title: props.title ?? (props.label ?? undefined),
             target: isExternal ? '_blank' : undefined
         }
     }
