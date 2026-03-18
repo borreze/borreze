@@ -4,7 +4,7 @@ import fs from 'fs'
 import { MEDIA_UPLOAD_DIR } from '@brz/shared'
 
 const seed = async () => {
-  const sourceDir = path.resolve(__dirname, '../seeds/files')
+  const sourceDir = path.resolve(__dirname, `../seeds/${MEDIA_UPLOAD_DIR}`)
   const targetDir = path.resolve(__dirname, `../${MEDIA_UPLOAD_DIR}`)
 
   Terminal.info(`Seeding files from ${sourceDir} to ${targetDir}...`)
