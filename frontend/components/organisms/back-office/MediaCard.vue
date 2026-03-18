@@ -12,7 +12,7 @@
             :class="[
                 isMobile() ?
                     'flex-col justify-end p-3 gap-2' :
-                    'absolute inset-0 flex flex-col items-center justify-center gap-2 bg-primary/10 bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity p-4']">
+                    'absolute inset-0 flex flex-col items-center justify-center gap-2 bg-primary/30 bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity p-4']">
             <Button as="link" :href="`/back-office/medias/${media.id}`" variant="primary" size="sm"
                 icon="ic:baseline-edit" label="Modifier" class="w-full" />
             <Button as="link" :href="mediaUrl(media.file_path)" target="_blank" variant="light" size="sm"
