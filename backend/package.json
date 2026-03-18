@@ -7,8 +7,9 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "dev": "nodemon",
-    "seed": "ts-node src/seeder.ts",
-    "cron": "ts-node src/crons.ts",
+    "seed:models": "ts-node src/seeder-models.ts",
+    "seed:files": "ts-node src/seeder-files.ts",
+    "cron:run": "ts-node src/cron.ts",
     "test": "jest --detectOpenHandles"
   },
   "keywords": [],

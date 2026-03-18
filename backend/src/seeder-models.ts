@@ -54,7 +54,7 @@ const seed = async () => {
       await model.truncate({ cascade: true })
 
       // Parse the seed file
-      const filePath = path.resolve(__dirname, `../seeds/${file}`)
+      const filePath = path.resolve(__dirname, `../seeds/models/${file}`)
       if (!fs.existsSync(filePath)) throw new Error(`Seed file not found: ${filePath}`)
 
       // Read and parse the JSON file
@@ -93,7 +93,7 @@ const seed = async () => {
 (async () => {
   try {
     await seed()
-    Terminal.success('Data seeding completed successfully')
+    Terminal.success('Models seeding completed successfully')
     process.exit(0)
   } catch (error) {
     Terminal.error(`Error running the script: ${error}`)

@@ -2,7 +2,6 @@ import { postService } from './services/post.service'
 import { schoolHolidayService } from './services/schoolHoliday.service'
 import { Terminal } from './utils/terminal.utils'
 
-
 (async () => {
   try {
     await schoolHolidayService.import()

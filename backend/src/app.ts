@@ -23,6 +23,7 @@ import { Terminal } from './utils/terminal.utils'
 import { initSchoolHolidayCron } from './crons/schoolHoliday.cron'
 import { multerErrorHandler } from './middlewares/multer.middleware'
 import { MEDIA_UPLOAD_DIR } from '@brz/shared'
+import { initPostCron } from './crons/post.cron'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -44,6 +45,7 @@ app.use(cors({
 // Register cron jobs
 if (process.env.NODE_ENV === 'production') { // ! DO NOT REMOVE: this is to prevent cron from running infinite times in pipeline
   initSchoolHolidayCron()
+  initPostCron()
 }
 
 // Register routes

@@ -7,7 +7,8 @@
     "ignore": [
         "dist",
         "node_modules",
-        "seeds"
+        "seeds",
+        "tests"
     ],
     "execMap": {
         "ts": "ts-node -r tsconfig-paths/register"
