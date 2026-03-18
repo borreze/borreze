@@ -73,7 +73,7 @@ export const useEditMedia = async (id: number) => {
     )
 
     const updateSelf = async (payload: Partial<MediaAttributes>) => {
-        const response = await useApi().patch<{ data: MediaAttributes }>(
+        const response = await useApi().put<{ data: MediaAttributes }>(
             `/back-office/medias/${id}`,
             { body: payload }
         )

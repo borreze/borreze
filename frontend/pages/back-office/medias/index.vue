@@ -31,7 +31,7 @@
 
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
 
-        <Modal v-model:open="addModal" title="Ajouter un média" textCancel="Annuler" :onCancel="closeAddModal">
+        <Modal v-model:open="addModal" title="Ajouter un média">
             <MediaFormCreate :initial-media="defaultMedia" @uploaded="handleUploaded" />
         </Modal>
     </div>
@@ -58,7 +58,7 @@ const { loading, medias, pagination, setPage, setOrder, resetOrder, setSearch, r
 
 const search = ref('')
 const addModal = ref(false)
-const defaultMedia: MediaAttributes = { id: 0, file_name: '', file_path: '', type: 'image', mime_type: '', size: 0, uploaded_by: null } // trick to satisfy types, will be ignored by backend
+const defaultMedia: MediaAttributes = { id: 0, title: '', file_name: '', file_path: '', type: 'image', mime_type: '', size: 0, uploaded_by: null } // trick to satisfy types, will be ignored by backend
 
 const handleUploaded = (medias: MediaAttributes[]) => {
     push.success({ title: 'Uploadé !', message: `${medias.length} fichier(s) ajouté(s).` })

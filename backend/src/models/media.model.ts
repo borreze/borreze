@@ -10,6 +10,12 @@ export const MEDIA_CONSTRAINTS = {
     primaryKey: true,
     autoIncrement: true
   },
+  title: {
+    type: DataTypes.STRING,
+    maxLength: 255,
+    required: true,
+    searchable: true
+  },
   file_name: {
     type: DataTypes.STRING,
     maxLength: 255,
@@ -54,6 +60,7 @@ export const MEDIA_CONSTRAINTS = {
 
 export class Media extends Model<MediaAttributes, MediaAttributesCreation> implements MediaAttributes {
   public id!: number
+  public title!: string
   public file_name!: string
   public file_path!: string
   public type!: MediaType

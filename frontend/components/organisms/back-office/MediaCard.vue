@@ -3,7 +3,7 @@
         class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 shadow-[2px_2px_10px_2px_#0000001a] bg-white h-full">
         <!-- Preview zone with fixed aspect ratio -->
         <div class="relative aspect-square w-full overflow-hidden bg-gray-100">
-            <img v-if="media.type === 'image'" :src="mediaUrl(media.file_path)" :alt="media.file_name"
+            <img v-if="media.type === 'image'" :src="mediaUrl(media.file_path)" :alt="media.title"
                 class="h-full w-full object-cover" loading="lazy" />
             <div v-else class="flex h-full w-full flex-col items-center justify-center gap-2 text-gray-400">
                 <Icon :name="mediaGetIcon(media.type)" class="text-5xl" />

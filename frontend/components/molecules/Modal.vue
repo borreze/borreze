@@ -22,7 +22,7 @@
             </button>
           </div>
 
-          <div class="mb-8">
+          <div :class="[(onCancel || onConfirm) ? 'mb-8' : '']">
             <slot />
           </div>
 

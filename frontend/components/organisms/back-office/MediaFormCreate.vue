@@ -6,11 +6,11 @@
                 @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
                 @drop.prevent="handleDrop">
                 <input ref="fileInputRef" type="file" multiple class="hidden" @change="handleFileInput" />
-                <div class="flex flex-col items-center gap-3">
+                <div class="flex flex-col items-center gap-3 cursor-pointer" @click="fileInputRef?.click()">
                     <Icon name="ic:baseline-cloud-upload" class="text-4xl text-gray-400" />
                     <p class="text-sm text-gray-600">
                         Glissez-déposez vos fichiers ici, ou
-                        <button type="button" class="text-primary-600 underline" @click="fileInputRef?.click()">
+                        <button type="button" class="text-primary-600 underline">
                             parcourir
                         </button>
                     </p>
@@ -37,7 +37,7 @@
             </section>
 
             <div v-if="pendingFiles.length" class="flex items-center justify-end gap-4">
-                <Button label="Uploader" icon="ic:baseline-upload" variant="primary" size="sm" :loading="uploading"
+                <Button label="Envoyer" icon="ic:baseline-upload" variant="primary" size="sm" :loading="uploading"
                     :disabled="!pendingFiles.length" @click="handleUpload" />
             </div>
         </div>

@@ -15,6 +15,7 @@ export const MEDIA_TYPES_OBJECTS: { value: MediaType, label: string, icon?: stri
 
 export interface MediaAttributes {
     id: number
+    title: string
     file_name: string
     file_path: string
     type: MediaType
@@ -26,4 +27,4 @@ export interface MediaAttributes {
 }
 
 export type MediaAttributesCreation = Optional<MediaAttributes, 'id' | 'uploaded_by' | 'created_at' | 'updated_at'>
-export type MediaAttributesUpdate = Optional<MediaAttributes, 'id' | 'file_name' | 'file_path' | 'type' | 'mime_type' | 'size' | 'uploaded_by' | 'created_at' | 'updated_at'>
+export type MediaAttributesUpdate = Optional<MediaAttributes, 'id' | 'title'| 'file_name' | 'file_path' | 'type' | 'mime_type' | 'size' | 'uploaded_by' | 'created_at' | 'updated_at'>

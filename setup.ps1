@@ -113,7 +113,8 @@ Success "Docker environment running"
 
 Step "Populating database"
 
-docker exec -it borreze-brz-backend-dev-1 sh -c "npm run populate"
+docker exec -it borreze-brz-backend-dev-1 sh -c "npm run seed"
+docker exec -it borreze-brz-backend-dev-1 sh -c "npm run cron"
 
 if ($LASTEXITCODE -ne 0) {
     Error "Database population failed"

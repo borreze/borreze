@@ -1,8 +1,5 @@
 <template>
-    <div>
-        <MediaFormEdit v-if="media" :initial-media="media" :loading="loading" @save="handleSave"
-            @delete="handleDelete" />
-    </div>
+    <MediaFormEdit v-if="media" :initial-media="media" :loading="loading" @save="handleSave" @delete="handleDelete" />
 </template>
 
 <script setup lang="ts">
@@ -12,40 +9,43 @@ import { push } from 'notivue'
 import { useEditMedia } from '~/composables/back-office/useMedia'
 
 const route = useRoute()
-const id = Number(route.params.id)
-
-const { media, loading, updateSelf, deleteSelf } = await useEditMedia(id)
-
+const { media, loading, updateSelf, deleteSelf } = await useEditMedia(route.params.id as unknown as number)
 const { confirm } = useConfirm()
 
-const handleSave = async (payload: MediaAttributes) => {
+if (!media.value) {
+    throw createError({ statusCode: 404, statusMessage: 'Média introuvable' })
+}
+
+const handleSave = async (editingMedia: MediaAttributes) => {
     try {
-        await updateSelf({ file_name: payload.file_name })
+        await updateSelf(editingMedia)
+        navigateTo('/back-office/medias')
         push.success({ title: 'Modifié !', message: 'Le média a été mis à jour.' })
     } catch (err: any) {
-        const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
-        push.error({ title: 'Erreur', message })
+        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
     }
 }
 
 const handleDelete = async () => {
-    const confirmed = await confirm({
+    const ok = await confirm({
         title: 'Supprimer ce média ?',
         message: 'Cette action est irréversible. Le fichier sera supprimé du serveur.',
+        confirmLabel: 'Supprimer',
+        variant: 'danger',
     })
-    if (!confirmed) return
+    if (!ok) return
 
     try {
         await deleteSelf()
-        push.success({ title: 'Supprimé !', message: 'Le média a été supprimé.' })
         navigateTo('/back-office/medias')
+        push.success({ title: 'Supprimé !', message: 'Le média a été supprimé.' })
     } catch (err: any) {
         const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
         push.error({ title: 'Erreur', message })
     }
 }
 
-useAppHead({ title: media.value?.file_name ?? 'Média' })
+useAppHead({ title: 'Modifier un média' })
 
 definePageMeta({
     layout: 'back-office',

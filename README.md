@@ -84,7 +84,6 @@ All the seeding logic is in the `src/seeder.ts` file. All data is stored in the 
 docker exec -it borreze-brz-backend-dev-1 sh
 npm run seed # Will run the seeder and populate the database with initial data from the seeds/ directory.
 npm run cron # Will run cron jobs
-npm run populate # Will run both the seeding and the cron jobs
 ```
 
 Somehow, Sequilize might not increment the IDs correctly after a seed. This could lead to conflicts when using the API to create new entries right after a seed.
