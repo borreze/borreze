@@ -12,10 +12,12 @@
             <div class="max-w-xl flex gap-4 items-center">
                 <Field v-model="search" placeholder="Rechercher..." icon="ic:baseline-search" size="sm" roundness="md"
                     class="flex-1" />
-                <OrderBy class="flex-none" :orders="[
+                <FilterBy class="flex-none" :items="MEDIA_TYPES_OBJECTS" @select="(item) => setType(item.value as MediaType)"
+                    @reset="resetType" />
+                <!-- <OrderBy class="flex-none" :orders="[
                     { label: 'Mise à jour récemment', value: 'updated_at:DESC' },
                     { label: 'Mise à jour il y a longtemps', value: 'updated_at:ASC' },
-                ]" @select="setOrder" @reset="resetOrder" />
+                ]" @select="setOrder" @reset="resetOrder" /> -->
             </div>
         </div>
 
@@ -38,10 +40,11 @@
 </template>
 
 <script setup lang="ts">
-import { type MediaAttributes } from '@brz/shared'
+import { MEDIA_TYPES_OBJECTS, type MediaAttributes, type MediaType } from '@brz/shared'
 import MediaFormCreate from '~/components/organisms/back-office/MediaFormCreate.vue'
 import { push } from 'notivue'
 import Modal from '~/components/molecules/Modal.vue'
+import FilterBy from '~/components/organisms/FilterBy.vue';
 import OrderBy from '~/components/organisms/OrderBy.vue';
 import Paging from '~/components/molecules/Paging.vue';
 import { useMedias } from '~/composables/back-office/useMedia';
@@ -54,7 +57,7 @@ import NoContent from '~/components/molecules/NoContent.vue';
 import Grid from '~/components/molecules/Grid.vue';
 import { isMobile } from '~/utils/responsive';
 
-const { loading, medias, pagination, setPage, setOrder, resetOrder, setSearch, refresh } = await useMedias()
+const { loading, medias, pagination, setPage, setType, resetType, setOrder, resetOrder, setSearch, refresh } = await useMedias()
 
 const search = ref('')
 const addModal = ref(false)

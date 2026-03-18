@@ -33,27 +33,43 @@ export const useMedias = async () => {
     })
 
     const setOrder = (newOrder: Order) => {
-        order.value = newOrder; page.value = 1
+        order.value = newOrder;
+        page.value = 1
     }
 
     const resetOrder = () => {
-        order.value = null; page.value = 1
+        order.value = null;
+        page.value = 1
     }
 
     const setPage = (newPage: number) => {
-        page.value = newPage; window.scrollTo({ top: 0, behavior: 'smooth' })
+        page.value = newPage;
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
     const setSearch = (newSearch: string) => {
         search.value = newSearch
+        page.value = 1
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
     const resetSearch = () => {
-        search.value = ''; page.value = 1
+        search.value = '';
+        page.value = 1
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
+
     const setType = (newType: MediaType | 'all') => {
-        type.value = newType; page.value = 1
+        type.value = newType;
+        page.value = 1
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    const resetType = () => {
+        type.value = 'all';
+        page.value = 1
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
     return {
@@ -62,7 +78,13 @@ export const useMedias = async () => {
         loading: computed(() => status.value === 'pending'),
         error,
         refresh: execute,
-        setOrder, resetOrder, setPage, setSearch, resetSearch, setType,
+        setOrder,
+        resetOrder,
+        setPage,
+        setSearch,
+        resetSearch,
+        setType,
+        resetType,
     }
 }
 
