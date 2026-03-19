@@ -67,7 +67,7 @@ const menus = ref<MenuAttributesFrontend[]>([
         id: 2,
         context: 'back-office',
         icon: 'ic:baseline-person',
-        label: 'Profil',
+        label: 'Mon profil',
         url: '/back-office/profile',
         order: 1,
         is_visible: true,

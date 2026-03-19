@@ -14,7 +14,7 @@ const { homeQuick, loading, deleteSelf, updateSelf } = await useEditHomeQuick(ro
 const { confirm } = useConfirm()
 
 if (!homeQuick.value) {
-    throw createError({ statusCode: 404, statusMessage: 'Actualité introuvable' })
+    throw createError({ statusCode: 404, statusMessage: 'Accès rapide introuvable' })
 }
 
 const handleSave = async (editedHomeQuick: HomeQuickAttributes) => {

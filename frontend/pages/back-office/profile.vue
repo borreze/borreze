@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Teleport to="#page-heading">
+        <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">Mon profile</h1>
         </Teleport>
 

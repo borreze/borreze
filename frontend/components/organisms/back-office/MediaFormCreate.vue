@@ -1,16 +1,17 @@
 <template>
     <div class="flex flex-col gap-6 2xl:gap-10 xl:flex-row">
         <div class="w-full space-y-8">
-            <section class="w-full relative border-2 border-dashed rounded-lg p-10 text-center transition-colors"
+            <section
+                class="w-full relative border-2 border-dashed rounded-lg p-10 text-center transition-colors cursor-pointer"
                 :class="isDragging ? 'border-primary-500 bg-primary-50' : 'border-gray-300'"
-                @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
-                @drop.prevent="handleDrop">
+                @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false" @drop.prevent="handleDrop"
+                @click="fileInputRef?.click()">
                 <input ref="fileInputRef" type="file" multiple class="hidden" @change="handleFileInput" />
-                <div class="flex flex-col items-center gap-3 cursor-pointer" @click="fileInputRef?.click()">
+                <div class="flex flex-col items-center gap-3">
                     <Icon name="ic:baseline-cloud-upload" class="text-4xl text-gray-400" />
                     <p class="text-sm text-gray-600">
                         Glissez-déposez vos fichiers ici, ou
-                        <button type="button" class="text-primary-600 underline">
+                        <button type="button" class="text-primary-600 underline cursor-pointer">
                             parcourir
                         </button>
                     </p>
@@ -45,7 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { MEDIA_UPLOAD_LIMIT, sizeToReadable, type MediaAttributes } from '@brz/shared'
+import { isTypeAllowed, MEDIA_UPLOAD_LIMIT, sizeToReadable, type MediaAttributes } from '@brz/shared'
+import { push } from 'notivue';
 import Button from '~/components/atoms/Button.vue';
 import { useCreateMedia } from '~/composables/back-office/useMedia';
 
@@ -70,6 +72,15 @@ const pendingFiles = ref<PendingFile[]>([])
 
 const addFiles = (files: FileList | File[]) => {
     for (const file of Array.from(files)) {
+        if (file.size > MEDIA_UPLOAD_LIMIT) {
+            push.error({ title: 'Erreur', message: `Le fichier "${file.name}" dépasse la limite de taille de ${sizeToReadable(MEDIA_UPLOAD_LIMIT, 0)}.` })
+            continue
+        }
+        if (!isTypeAllowed(file.name, file.type)) {
+            push.error({ title: 'Erreur', message: `Le fichier "${file.name}" n'est pas un type autorisé.` })
+            continue
+        }
+
         const preview = file.type.startsWith('image/') ? URL.createObjectURL(file) : null
         pendingFiles.value.push({ file, preview })
     }

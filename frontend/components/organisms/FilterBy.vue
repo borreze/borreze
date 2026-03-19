@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center gap-2">
+    <div :class="['flex items-center gap-2 ', selected ? 'bg-gray-200 rounded-md' : '']">
         <Button v-if="selected" variant="gray" size="sm" roundness="md" icon="ic:close" @click="handleReset" />
         <Dropdown v-model="selected" :items="items" placeholder="Filtrer par" :variant="selected ? 'primary' : 'gray'"
             size="sm" :position="position" min-width-class="min-w-[200px]" @select="handleSelect" />

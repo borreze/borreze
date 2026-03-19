@@ -1,12 +1,12 @@
 <template>
     <div>
-        <Teleport to="#page-heading">
+        <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
                 {{ `Media #${editingMedia.id}` }}
             </h1>
         </Teleport>
-        <Teleport to="#page-actions">
-            <Button label="Apperçu" icon="ic:baseline-open-in-new" as="link" :href="mediaUrl(editingMedia.file_path)"
+        <Teleport defer to="#page-actions">
+            <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link" :href="mediaUrl(editingMedia.file_path)"
                 target="_blank" variant="light" size="sm" />
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
                 :disabled="hasErrors" @click="handleSave" />
@@ -39,6 +39,10 @@
                     <div
                         class="max-h-96 max-w-96 rounded-lg border border-gray-200 shadow-[2px_2px_10px_2px_#0000001a] overflow-hidden">
                         <MediaPreview :media="editingMedia" />
+                    </div>
+                    <div class="flex items-center justify-start gap-4 mt-4">
+                        <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link"
+                        :href="mediaUrl(editingMedia.file_path)" target="_blank" variant="light" size="sm" />
                     </div>
                 </div>
             </div>

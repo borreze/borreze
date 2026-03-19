@@ -6,9 +6,9 @@
 import type { HomeQuickAttributes } from '@brz/shared'
 import HomeQuickForm from '~/components/organisms/back-office/HomeQuickForm.vue'
 import { push } from 'notivue'
-import { useCreatePost } from '~/composables/back-office/usePost'
+import { useCreateHomeQuick } from '~/composables/back-office/useHomeQuick'
 
-const { createSelf } = useCreatePost()
+const { createSelf } = useCreateHomeQuick()
 
 const defaultHomeQuick: HomeQuickAttributes = {
     id: 0, // trick to satisfy types, will be ignored by backend
@@ -22,8 +22,8 @@ const defaultHomeQuick: HomeQuickAttributes = {
 const handleSave = async (homeQuick: HomeQuickAttributes) => {
     try {
         await createSelf(homeQuick)
-        navigateTo('/back-office/actualites')
-        push.success({ title: 'Créé !', message: 'L\'actualité a été créée avec succès.' })
+        navigateTo('/back-office/page-accueil/acces-rapides')
+        push.success({ title: 'Créé !', message: 'L\'accès rapide a été créé avec succès.' })
     } catch (err: any) {
         const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
         push.error({ title: 'Erreur', message })

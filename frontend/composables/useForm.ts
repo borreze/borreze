@@ -1,7 +1,4 @@
-export function useForm<K extends string>(
-    keys: K[],
-    validators: Partial<Record<K, () => string | null>>
-) {
+export function useForm<K extends string>(keys: K[], validators: Partial<Record<K, () => string | null>>) {
     const touched = ref(
         Object.fromEntries(keys.map(k => [k, false])) as Record<K, boolean>
     )
@@ -23,6 +20,9 @@ export function useForm<K extends string>(
 
     const untouchAll = () => keys.forEach(k => { touched.value[k] = false })
 
+    // Return a boolean indicating whether any field could have an error (i.e. is either touched or not, but has a validator that returns an error)
+    const couldHaveErrors = computed(() => keys.some(k => (validators[k] !== undefined) && (validators[k]?.() !== null)))
+
     const hasErrors = computed(() => Object.values(errors.value).some(Boolean))
 
     const submit = async (cb: () => void | Promise<void>) => {
@@ -30,5 +30,5 @@ export function useForm<K extends string>(
         if (!hasErrors.value) await cb()
     }
 
-    return { touched, errors, untouch, touch, touchAll, untouchAll, hasErrors, submit }
+    return { touched, errors, untouch, touch, touchAll, untouchAll, couldHaveErrors, hasErrors, submit }
 }

@@ -1,12 +1,12 @@
 <template>
     <div>
-        <Teleport to="#page-heading">
+        <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
                 {{ mode === 'edit' ? `#${editingPost.id}&nbsp;` : '' }}
                 {{ editingPost.title || (mode === 'create' ? 'Nouvelle actualité' : '') }}
             </h1>
         </Teleport>
-        <Teleport to="#page-actions">
+        <Teleport defer to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
                 :disabled="hasErrors" @click="handleSave" />
             <Button v-if="mode === 'edit'" :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'"
@@ -94,7 +94,8 @@
             <div class="px-auto xl:w-3/12">
                 <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
                     <h4 class="title-submain mb-6">Prévisualisation</h4>
-                    <PostCard :clickable="false" :post="editingPost" class="max-w-96" />
+                    <PostCard v-if="!couldHaveErrors" :clickable="false" :post="editingPost" class="max-w-96" />
+                    <div v-else class="text-gray-400">Saisissez les informations manquantes pour prévisualiser</div>
                 </div>
             </div>
         </div>
@@ -137,7 +138,7 @@ const editingPostCategories = computed({
     },
 })
 
-const { hasErrors, touch, errors, submit } = useForm(
+const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
     ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content'],
     {
         title: () => editingPost.value.title === '' ? 'Le titre est requis' : null,
@@ -152,6 +153,7 @@ const handleSave = () => submit(() => {
 
 const handlePublish = () => {
     editingPost.value.status = 'published' // set status to published locally to update preview
+    editingPost.value.published_at = new Date() // set published_at to now locally to update preview
     emit('publish')
 }
 

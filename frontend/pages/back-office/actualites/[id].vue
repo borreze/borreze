@@ -33,6 +33,7 @@ const handleSave = async (editedPost: PostAttributesFrontend, categoryIds: numbe
 const handlePublish = async () => {
     try {
         await updateStatus('published')
+        navigateTo('/back-office/actualites')
         push.success({ title: 'Publié !', message: 'L\'actualité a été publiée avec succès.' })
     } catch (err: any) {
         push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })

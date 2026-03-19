@@ -133,6 +133,8 @@ export class PostService {
       const post = await Post.findByPk(id, { transaction })
       if (!post) throw new NotFound('Post not found')
 
+      console.log('Updating post status:', { id, status, published_at: status === 'published' ? new Date() : undefined })
+
       await post.update({ status, published_at: status === 'published' ? new Date() : undefined }, { transaction })
       return post
     }).then(async (post) => {
@@ -233,7 +235,7 @@ export class PostService {
 
         // Bulk update only the fetched chunk by primary key
         const [affectedCount] = await Post.update(
-          { 
+          {
             status,
             published_at: status === 'published' ? new Date() : undefined // set published_at when publishing, clear when archiving
           },

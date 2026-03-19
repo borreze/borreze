@@ -1,6 +1,6 @@
 import multer from 'multer'
 import path from 'path'
-import { MEDIA_UPLOAD_ALLOWED, MEDIA_UPLOAD_LIMIT, slugify } from '@brz/shared'
+import { isTypeAllowed, MEDIA_UPLOAD_LIMIT, slugify } from '@brz/shared'
 import { MEDIA_UPLOAD_DIR } from '@brz/shared'
 import { MediaException } from '../exceptions/media.exception'
 
@@ -20,10 +20,7 @@ export const upload = multer({
     storage,
     limits: { fileSize: MEDIA_UPLOAD_LIMIT },
     fileFilter: (_req, file, cb) => {
-        const allowed = MEDIA_UPLOAD_ALLOWED
-        const ext = path.extname(file.originalname).toLowerCase().slice(1)
-        const mime = allowed.test(file.mimetype)
-        if (mime && allowed.test(ext)) return cb(null, true)
+        if (isTypeAllowed(file.originalname, file.mimetype)) return cb(null, true)
         cb(new MediaException('Type de fichier non autorisé'))
     }
 })

@@ -1,12 +1,12 @@
 <template>
     <div>
-        <Teleport to="#page-heading">
+        <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
                 {{ mode === 'edit' ? `#${editingHomeQuick.id}&nbsp;` : '' }}
                 {{ editingHomeQuick.title || (mode === 'create' ? 'Nouvel accès rapide' : '') }}
             </h1>
         </Teleport>
-        <Teleport to="#page-actions">
+        <Teleport defer to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
                 :disabled="hasErrors" @click="handleSave" />
             <Button v-if="mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
@@ -24,8 +24,8 @@
                                 roundness="md" :error="errors.title" @blur="touch('title')" />
                             <Field v-model="editingHomeQuick.url" required label="URL" type="url"
                                 placeholder="https://www.exemple.com"
-                                hint="examples: https://www.exemple.com, /contact, /actualites/mon-actu" roundness="md"
-                                :error="errors.url" @blur="touch('url')" />
+                                hint="examples:&nbsp;&nbsp;https://www.exemple.com,&nbsp;&nbsp;/actualites/mon-actu"
+                                roundness="md" :error="errors.url" @blur="touch('url')" />
                         </div>
                         <div class="grid md:grid-cols-2 gap-4">
                             <Field v-model="editingHomeQuick.description" type="textarea" label="Description courte"
@@ -44,6 +44,7 @@
                             <Field v-model="editingHomeQuick.order" required type="number" label="Ordre"
                                 hint="Ordre d'affichage" roundness="md" :error="errors.order" @blur="touch('order')" />
                             <Switch v-model="editingHomeQuick.is_visible" label="Visible"
+                                hint="Afficher ou masquer sur la page d'accueil"
                                 text="Afficher ou masquer cet accès rapide" />
                         </div>
                     </div>
@@ -56,7 +57,9 @@
             <div class="px-auto xl:w-3/12">
                 <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
                     <h4 class="title-submain mb-6">Prévisualisation</h4>
-                    <HomeQuickCard :clickable="false" :homeQuick="editingHomeQuick" class="max-w-96" />
+                    <HomeQuickCard v-if="!couldHaveErrors" :clickable="false" :homeQuick="editingHomeQuick"
+                        class="max-w-96" />
+                    <div v-else class="text-gray-400">Saisissez les informations manquantes pour prévisualiser</div>
                 </div>
             </div>
         </div>
@@ -88,7 +91,7 @@ const emit = defineEmits<{
 
 const editingHomeQuick = ref<HomeQuickAttributes>({ ...props.initialHomeQuick })
 
-const { hasErrors, touch, errors, submit } = useForm(
+const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
     ['title', 'url', 'description', 'icon', 'order', 'is_visible'],
     {
         title: () => editingHomeQuick.value.title === '' ? 'Le titre est requis' : null,

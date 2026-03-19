@@ -1,4 +1,4 @@
-import { MEDIA_TYPES_OBJECTS, MediaType } from "../types/media.types"
+import { MEDIA_TYPES_OBJECTS, MEDIA_UPLOAD_ALLOWED, MediaType } from "../types/media.types"
 
 export function resolveType(mimeType: string): MediaType {
     if (mimeType.startsWith('image/')) return 'image'
@@ -6,6 +6,15 @@ export function resolveType(mimeType: string): MediaType {
     if (mimeType.startsWith('audio/')) return 'audio'
     if (mimeType === 'application/pdf') return 'document'
     return 'document'
+}
+
+export function isTypeAllowed(filename: string = '', mimetype: string = ''): boolean {
+    const ext = filename.split('.').pop()?.toLowerCase() || ''
+    if (
+        (mimetype && MEDIA_UPLOAD_ALLOWED.test(mimetype)) ||
+        (ext && MEDIA_UPLOAD_ALLOWED.test(ext))
+    ) return true
+    return false
 }
 
 export function sizeToReadable(size: number, decimalPlaces: number = 2): string {

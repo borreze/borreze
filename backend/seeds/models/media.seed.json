@@ -7,7 +7,7 @@
         "file_path": "/uploads/medias/image-1.jpg",
         "type": "image",
         "mime_type": "image/jpeg",
-        "size": 204800,
+        "size": 22746,
         "uploaded_by": 1
     },
     {
@@ -18,7 +18,7 @@
         "file_path": "/uploads/medias/image-2.jpg",
         "type": "image",
         "mime_type": "image/jpeg",
-        "size": 204800,
+        "size": 341730,
         "uploaded_by": 1
     },
     {
@@ -29,7 +29,7 @@
         "file_path": "/uploads/medias/image-3.jpg",
         "type": "image",
         "mime_type": "image/jpeg",
-        "size": 204800,
+        "size": 34431,
         "uploaded_by": 1
     }
 ]

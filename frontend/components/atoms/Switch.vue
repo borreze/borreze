@@ -12,8 +12,8 @@
         <div class="flex items-center gap-3 my-2">
             <button type="button" role="switch" :aria-checked="innerValue" :id="id" @click="innerValue = !innerValue"
                 :class="[
-                    'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2',
-                    innerValue ? 'bg-primary focus:ring-primary' : 'bg-gray-300 focus:ring-gray-300'
+                    'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-dark',
+                    innerValue ? 'bg-primary' : 'bg-gray-300'
                 ]">
                 <span :class="[
                     'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform transition-transform duration-200 ease-in-out',

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 shadow-[2px_2px_10px_2px_#0000001a] bg-white h-full">
+        class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 shadow-lg bg-white h-full">
         <MediaPreview :media="media" />
 
         <div class="flex flex-col gap-1 p-3 flex-1">
