@@ -5,24 +5,29 @@ import { modelBuild } from '../utils/model.utils'
 
 export const CATEGORIZABLE_CONSTRAINTS = {
     category_id: {
+        nicename: 'Catégorie',
         type: DataTypes.BIGINT,
         required: true
     },
     categorizable_id: {
+        nicename: 'Entité catégorisable',
         type: DataTypes.BIGINT,
         required: true
     },
     type: {
+        nicename: 'Type',
         type: DataTypes.ENUM(...CATEGORIZABLE_TYPES_KEYS),
         enum: CATEGORIZABLE_TYPES_KEYS,
         required: true
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

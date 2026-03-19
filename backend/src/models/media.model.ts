@@ -6,52 +6,62 @@ import { Gallery } from './gallery.model'
 
 export const MEDIA_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
   },
   title: {
+    nicename: 'Titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
   file_name: {
+    nicename: 'Nom',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
   file_path: {
+    nicename: 'Chemin du fichier',
     type: DataTypes.STRING,
     maxLength: 500,
     required: true,
     searchable: true
   },
   type: {
+    nicename: 'Type',
     type: DataTypes.ENUM(...MEDIA_TYPES_KEYS),
     enum: MEDIA_TYPES_KEYS,
     required: true
   },
   mime_type: {
+    nicename: 'MIME type',
     type: DataTypes.STRING,
     maxLength: 100,
     required: true
   },
   size: {
+    nicename: 'Taille',
     type: DataTypes.INTEGER,
     required: true
   },
   uploaded_by: {
+    nicename: 'Utilisateur',
     type: DataTypes.BIGINT,
     required: false
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

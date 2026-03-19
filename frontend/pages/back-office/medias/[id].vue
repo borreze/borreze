@@ -22,7 +22,7 @@ const handleSave = async (editingMedia: MediaAttributes) => {
         navigateTo('/back-office/medias')
         push.success({ title: 'Modifié !', message: 'Le média a été mis à jour.' })
     } catch (err: any) {
-        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 
@@ -40,8 +40,7 @@ const handleDelete = async () => {
         navigateTo('/back-office/medias')
         push.success({ title: 'Supprimé !', message: 'Le média a été supprimé.' })
     } catch (err: any) {
-        const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
-        push.error({ title: 'Erreur', message })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 

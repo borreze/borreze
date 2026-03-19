@@ -26,7 +26,7 @@ const handleSave = async (editedPost: PostAttributesFrontend, categoryIds: numbe
         navigateTo('/back-office/actualites')
         push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
     } catch (err: any) {
-        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 
@@ -36,7 +36,7 @@ const handlePublish = async () => {
         navigateTo('/back-office/actualites')
         push.success({ title: 'Publié !', message: 'L\'actualité a été publiée avec succès.' })
     } catch (err: any) {
-        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 
@@ -54,7 +54,7 @@ const handleDelete = async () => {
         navigateTo('/back-office/actualites')
         push.success({ title: 'Supprimé !', message: 'L\'actualité a été supprimée avec succès.' })
     } catch (err: any) {
-        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 

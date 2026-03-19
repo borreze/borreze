@@ -111,9 +111,9 @@ export class UserService {
     delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, USER_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
-    if (!data.password || !isStrongPassword(data.password)) throw new ValidationException('Des champs sont manquants', [{ field: 'password', message: 'Le mot de passe n\'est pas assez fort' }])
+    if (!data.password || !isStrongPassword(data.password)) throw new ValidationException('Erreur sur les champs', [{ field: 'password', message: 'Le mot de passe n\'est pas assez fort' }])
 
     if (data.password && !isHash(data.password)) {
       data.password = await hashPassword(data.password)
@@ -126,7 +126,7 @@ export class UserService {
 
   public async update(id: number, data: UserAttributesUpdate): Promise<UserAttributes | null> {
     const { valid, errors } = validateAll(data, USER_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const user = await User.findByPk(id, { transaction, include: USER_INCLUDE_DEFAULTS })

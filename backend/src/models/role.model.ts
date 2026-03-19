@@ -5,26 +5,31 @@ import { modelBuild } from '../utils/model.utils'
 
 export const ROLE_CONSTRAINTS = {
     id: {
+        nicename: 'ID',
         type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true
     },
     name: {
+        nicename: 'Nom',
         type: DataTypes.STRING,
         maxLength: 100,
         required: true,
         searchable: true
     },
     permissions: {
+        nicename: 'Permissions',
         type: DataTypes.JSON,
         required: false
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

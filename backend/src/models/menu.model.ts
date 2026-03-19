@@ -5,52 +5,62 @@ import { modelBuild } from '../utils/model.utils'
 
 export const MENU_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
   },
   context: {
+    nicename: 'Contexte',
     type: DataTypes.ENUM(...MENU_CONTEXTS_KEYS),
     enum: MENU_CONTEXTS_KEYS,
     required: true,
   },
   label: {
+    nicename: 'Libellé',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
   url: {
+    nicename: 'URL',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   parent_id: {
+    nicename: 'Parent',
     type: DataTypes.BIGINT,
     required: false
   },
   icon: {
+    nicename: 'Icône',
     type: DataTypes.STRING,
     maxLength: 100,
     required: true
   },
   order: {
+    nicename: 'Ordre',
     type: DataTypes.INTEGER,
     required: true,
     defaultValue: 0,
     min: 0
   },
   is_visible: {
+    nicename: 'Visible',
     type: DataTypes.BOOLEAN,
     defaultValue: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

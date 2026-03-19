@@ -9,11 +9,13 @@ import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 
 export const EVENT_CONSTRAINTS = {
     id: {
+        nicename: 'ID',
         type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true
     },
     slug: {
+        nicename: 'Slug',
         type: DataTypes.STRING,
         maxLength: 255,
         required: true,
@@ -21,66 +23,78 @@ export const EVENT_CONSTRAINTS = {
         searchable: true
     },
     title: {
+        nicename: 'Titre',
         type: DataTypes.STRING,
         maxLength: 255,
         required: true,
         searchable: true
     },
     abstract: {
+        nicename: 'Résumé',
         type: DataTypes.STRING,
         maxLength: 500,
         required: false,
         searchable: true
     },
     content: {
+        nicename: 'Contenu',
         type: DataTypes.TEXT,
         required: false,
         searchable: true
     },
     meta_title: {
+        nicename: 'Meta titre',
         type: DataTypes.STRING,
         maxLength: 255,
         required: false,
         searchable: true
     },
     meta_description: {
+        nicename: 'Meta description',
         type: DataTypes.STRING,
         maxLength: 500,
         required: false,
         searchable: true
     },
     cover_id: {
+        nicename: 'Couverture',
         type: DataTypes.BIGINT,
         required: false
     },
     status: {
+        nicename: 'Statut',
         type: DataTypes.ENUM(...EVENT_STATUSES_KEYS),
         enum: EVENT_STATUSES_KEYS,
         defaultValue: 'draft'
     },
     date_time: {
+        nicename: 'Date et heure',
         type: DataTypes.DATE,
         required: true
     },
     location: {
+        nicename: 'Lieu',
         type: DataTypes.STRING,
         maxLength: 255,
         required: false,
         searchable: true
     },
     organizer_name: {
+        nicename: 'Nom de l\'organisateur',
         type: DataTypes.STRING,
         maxLength: 255,
         required: false,
         searchable: true
     },
     organizer_email: {
+        nicename: 'Email de l\'organisateur',
         type: DataTypes.STRING,
         maxLength: 255,
         required: false,
         searchable: true
     },
     organizer_phone: {
+        nicename: 'Téléphone de l\'organisateur',
         type: DataTypes.STRING,
         maxLength: 11, // Format: +1234567890
         required: false,
@@ -88,23 +102,28 @@ export const EVENT_CONSTRAINTS = {
         pattern: /^\+?\d{10,11}$/
     },
     published_at: {
+        nicename: 'Date de publication',
         type: DataTypes.DATE,
         required: false
     },
     schedule_start: {
+        nicename: 'Date de début de publication',
         type: DataTypes.DATE,
         required: false
     },
     schedule_end: {
+        nicename: 'Date de fin de publication',
         type: DataTypes.DATE,
         required: false
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

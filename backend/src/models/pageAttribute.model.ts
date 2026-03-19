@@ -5,15 +5,18 @@ import { modelBuild } from '../utils/model.utils'
 
 export const PAGE_ATTRIBUTE_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
   page_id: {
+    nicename: 'Page',
     type: DataTypes.BIGINT,
     required: true
   },
   key: {
+    nicename: 'Clé',
     type: DataTypes.STRING,
     maxLength: 100,
     required: true,
@@ -21,15 +24,18 @@ export const PAGE_ATTRIBUTE_CONSTRAINTS = {
     searchable: true
   },
   value: {
+    nicename: 'Valeur',
     type: DataTypes.TEXT,
     required: false
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

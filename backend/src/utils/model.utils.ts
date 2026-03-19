@@ -94,8 +94,10 @@ export function searchWhere<T>(constraints: ModelConstraints<T>, search?: string
 function validateField(field: string, value: unknown, constraint: ModelFieldConstraint): ValidationError[] {
     const errors: ValidationError[] = []
 
+    const nicename = constraint.nicename || field
+
     if (constraint.required && (value === null || value === undefined || value === '')) {
-        errors.push({ field, message: `${field} est requis` })
+        errors.push({ field, message: `${nicename} est requis` })
         return errors // inutile de continuer si absent
     }
 
@@ -103,27 +105,27 @@ function validateField(field: string, value: unknown, constraint: ModelFieldCons
 
     if (typeof value === 'string') {
         if (constraint.maxLength && value.length > constraint.maxLength) {
-            errors.push({ field, message: `${field} ne doit pas dépasser ${constraint.maxLength} caractères` })
+            errors.push({ field, message: `${nicename} ne doit pas dépasser ${constraint.maxLength} caractères` })
         }
         if (constraint.minLength && value.length < constraint.minLength) {
-            errors.push({ field, message: `${field} doit contenir au moins ${constraint.minLength} caractères` })
+            errors.push({ field, message: `${nicename} doit contenir au moins ${constraint.minLength} caractères` })
         }
         if (constraint.pattern && !constraint.pattern.test(value)) {
-            errors.push({ field, message: `${field} format est invalide` })
+            errors.push({ field, message: `${nicename} format est invalide` })
         }
     }
 
     if (typeof value === 'number') {
         if (constraint.max !== undefined && value > constraint.max) {
-            errors.push({ field, message: `${field} ne doit pas dépasser ${constraint.max}` })
+            errors.push({ field, message: `${nicename} ne doit pas dépasser ${constraint.max}` })
         }
         if (constraint.min !== undefined && value < constraint.min) {
-            errors.push({ field, message: `${field} doit être au moins ${constraint.min}` })
+            errors.push({ field, message: `${nicename} doit être au moins ${constraint.min}` })
         }
     }
 
     if (constraint.enum && !constraint.enum.includes(value as string)) {
-        errors.push({ field, message: `${field} doit être l'un des suivants : ${constraint.enum.join(', ')}` })
+        errors.push({ field, message: `${nicename} doit être l'un des suivants : ${constraint.enum.join(', ')}` })
     }
 
     return errors

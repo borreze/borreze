@@ -1,4 +1,5 @@
 import { Optional } from 'sequelize'
+
 export interface AssociationAttributes {
     id: number
     slug: string

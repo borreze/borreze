@@ -8,11 +8,13 @@ import { Commerce } from './commerce.model'
 
 export const CATEGORY_CONSTRAINTS = {
     id: {
+        nicename: 'ID',
         type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true
     },
     slug: {
+        nicename: 'Slug',
         type: DataTypes.STRING,
         maxLength: 255,
         required: true,
@@ -20,17 +22,20 @@ export const CATEGORY_CONSTRAINTS = {
         searchable: true
     },
     name: {
+        nicename: 'Nom',
         type: DataTypes.STRING,
         maxLength: 255,
         required: true,
         searchable: true
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

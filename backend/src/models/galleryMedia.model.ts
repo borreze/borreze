@@ -5,25 +5,30 @@ import { ModelConstraints } from '../types/utils/model.types'
 
 export const GALLERY_MEDIA_CONSTRAINTS = {
     gallery_id: {
+        nicename: 'Galerie',
         type: DataTypes.BIGINT,
         required: true
     },
     media_id: {
+        nicename: 'Média',
         type: DataTypes.BIGINT,
         required: true
     },
     order: {
+        nicename: 'Ordre',
         type: DataTypes.INTEGER,
         required: false,
         defaultValue: 0,
         min: 0
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

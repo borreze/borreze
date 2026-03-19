@@ -46,7 +46,7 @@ export class LogService {
     delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, LOG_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       return Log.create(data, { transaction })

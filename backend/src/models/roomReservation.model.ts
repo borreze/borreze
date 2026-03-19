@@ -5,23 +5,27 @@ import { modelBuild } from '../utils/model.utils'
 
 export const ROOM_RESERVATION_CONSTRAINTS = {
     id: {
+        nicename: 'ID',
         type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true
     },
     applicant_name: {
+        nicename: 'Nom',
         type: DataTypes.STRING,
         maxLength: 100,
         required: true,
         searchable: true
     },
     applicant_email: {
+        nicename: 'Email du demandeur',
         type: DataTypes.STRING,
         maxLength: 255,
         required: true,
         searchable: true
     },
     applicant_phone: {
+        nicename: 'Téléphone du demandeur',
         type: DataTypes.STRING,
         maxLength: 11, // Format: +1234567890
         required: true,
@@ -29,30 +33,36 @@ export const ROOM_RESERVATION_CONSTRAINTS = {
         pattern: /^\+?\d{10,11}$/
     },
     date_start: {
+        nicename: 'Date de début',
         type: DataTypes.DATE,
         required: true
     },
     date_end: {
+        nicename: 'Date de fin',
         type: DataTypes.DATE,
         required: true
     },
     note: {
+        nicename: 'Note',
         type: DataTypes.STRING,
         maxLength: 1000,
         required: false,
         searchable: true
     },
     status: {
+        nicename: 'Statut',
         type: DataTypes.ENUM(...ROOM_RESERVATION_STATUSES_KEYS),
         enum: ROOM_RESERVATION_STATUSES_KEYS,
         defaultValue: 'pending'
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

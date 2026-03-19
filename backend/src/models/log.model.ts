@@ -5,31 +5,37 @@ import { modelBuild } from '../utils/model.utils'
 
 export const LOG_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
   level: {
+    nicename: 'Niveau',
     type: DataTypes.ENUM(...LOG_LEVELS_KEYS),
     enum: LOG_LEVELS_KEYS,
     defaultValue: 'info',
     required: true
   },
   message: {
+    nicename: 'Message',
     type: DataTypes.TEXT,
     required: true,
     searchable: true
   },
   context: {
+    nicename: 'Contexte',
     type: DataTypes.JSONB,
     required: false,
     searchable: true
   },
   user_id: {
+    nicename: 'Utilisateur',
     type: DataTypes.BIGINT,
     required: false
   },
   ip_address: {
+    nicename: 'Adresse IP',
     type: DataTypes.STRING,
     maxLength: 45, // max length for IPv6 addresses
     required: false,
@@ -37,12 +43,14 @@ export const LOG_CONSTRAINTS = {
     pattern: /^(?:(?:\d{1,3}\.){3}\d{1,3}|[a-fA-F0-9:]+)$/
   },
   user_agent: {
+    nicename: 'User Agent',
     type: DataTypes.STRING,
     maxLength: 512,
     required: false,
     searchable: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
   },

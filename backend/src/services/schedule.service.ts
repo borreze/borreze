@@ -57,7 +57,7 @@ export class ScheduleService {
     delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, SCHEDULE_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       return Schedule.create(data, { transaction })
@@ -66,7 +66,7 @@ export class ScheduleService {
 
   public async update(id: number, data: ScheduleAttributesUpdate): Promise<ScheduleAttributes | null> {
     const { valid, errors } = validateAll(data, SCHEDULE_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const schedule = await Schedule.findByPk(id, { transaction })

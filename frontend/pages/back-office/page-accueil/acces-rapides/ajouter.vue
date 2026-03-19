@@ -25,8 +25,7 @@ const handleSave = async (homeQuick: HomeQuickAttributes) => {
         navigateTo('/back-office/page-accueil/acces-rapides')
         push.success({ title: 'Créé !', message: 'L\'accès rapide a été créé avec succès.' })
     } catch (err: any) {
-        const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
-        push.error({ title: 'Erreur', message })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 

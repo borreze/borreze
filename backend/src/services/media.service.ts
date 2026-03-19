@@ -85,7 +85,7 @@ export class MediaService {
 
   public async update(id: number, data: MediaAttributesUpdate): Promise<MediaAttributes | null> {
     const { valid, errors } = validateAll(data, MEDIA_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const media = await Media.findByPk(id, { transaction })

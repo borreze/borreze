@@ -9,7 +9,7 @@
             <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link" :href="mediaUrl(editingMedia.file_path)"
                 target="_blank" variant="light" size="sm" />
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
-                :disabled="hasErrors" @click="handleSave" />
+                :disabled="couldHaveErrors" @click="handleSave" />
             <Button label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading"
                 @click="handleDelete" />
         </Teleport>
@@ -72,7 +72,7 @@ const emit = defineEmits<{
 
 const editingMedia = ref<MediaAttributes>({ ...props.initialMedia })
 
-const { hasErrors, touch, errors, submit } = useForm(
+const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
     ['title'],
     {
         title: () => editingMedia.value.title === '' ? 'Le nom est requis' : null,

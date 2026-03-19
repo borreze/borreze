@@ -6,33 +6,39 @@ import { modelBuild } from '../utils/model.utils'
 
 export const PRACTICAL_INFORMATION_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
   },
   title: {
+    nicename: 'Titre',
     type: DataTypes.STRING,
     maxLength: 100,
     required: true,
     searchable: true
   },
   content: {
+    nicename: 'Contenu',
     type: DataTypes.TEXT,
     required: true,
     searchable: true
   },
   order: {
+    nicename: 'Ordre',
     type: DataTypes.INTEGER,
     required: true,
     defaultValue: 0,
     min: 0
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

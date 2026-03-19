@@ -8,7 +8,7 @@
         </Teleport>
         <Teleport defer to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
-                :disabled="hasErrors" @click="handleSave" />
+                :disabled="couldHaveErrors" @click="handleSave" />
             <Button v-if="mode === 'edit'" :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'"
                 icon="ic:baseline-publish" variant="outline" size="sm" :loading="loading"
                 :disabled="editingPost.status === 'published'"
@@ -74,7 +74,7 @@
                 <section>
                     <h4 class="title-submain mb-6">SEO</h4>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <Field v-model="editingPost.meta_title" label="Meta title"
+                        <Field v-model="editingPost.meta_title" label="Meta titre"
                             hint="Titre de la page pour les moteurs de recherches" roundness="md"
                             :error="errors.meta_title" @blur="touch('meta_title')" />
                         <Field v-model="editingPost.meta_description" type="textarea" label="Meta description"

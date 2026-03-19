@@ -100,7 +100,7 @@ export class PostService {
     delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       return Post.create(data, { transaction, include: POST_INCLUDE_DEFAULTS })
@@ -111,7 +111,7 @@ export class PostService {
     if (!data.slug) data.slug = slugify(data.title)
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const post = await Post.findByPk(id, { transaction })
@@ -127,7 +127,7 @@ export class PostService {
 
   public async updateStatus(id: number, status: PostStatus): Promise<PostAttributes | null> {
     const { valid, errors } = validateOne('status', status, POST_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const post = await Post.findByPk(id, { transaction })

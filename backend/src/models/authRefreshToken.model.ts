@@ -5,29 +5,35 @@ import { modelBuild } from '../utils/model.utils'
 
 export const AUTH_REFRESH_TOKEN_CONSTRAINTS = {
     id: {
+        nicename: 'ID',
         type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true
     },
     token: {
+        nicename: 'Token',
         type: DataTypes.TEXT,
         required: true,
         unique: true
     },
     user_id: {
+        nicename: 'Utilisateur',
         type: DataTypes.BIGINT,
         required: true
     },
     expires_at: {
+        nicename: 'Date d\'expiration',
         type: DataTypes.DATE,
         required: true
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

@@ -2,6 +2,7 @@ import { DataTypes, ModelAttributeColumnOptions } from 'sequelize'
 
 export interface ModelFieldConstraint extends Omit<ModelAttributeColumnOptions, 'type'> {
     type: (typeof DataTypes)[keyof typeof DataTypes] | ReturnType<typeof DataTypes.ENUM>
+    nicename?: string
     maxLength?: number
     minLength?: number
     min?: number

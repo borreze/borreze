@@ -9,11 +9,13 @@ import { modelBuild } from '../utils/model.utils'
 
 export const COMMERCE_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
   },
   slug: {
+    nicename: 'Slug',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
@@ -21,81 +23,91 @@ export const COMMERCE_CONSTRAINTS = {
     searchable: true
   },
   title: {
+    nicename: 'Titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
   description: {
+    nicename: 'Description',
     type: DataTypes.STRING,
     maxLength: 1000,
     required: false,
     searchable: true
   },
   cover_id: {
+    nicename: 'Couverture',
     type: DataTypes.BIGINT,
     required: false
   },
   contact_name: {
+    nicename: 'Nom',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   contact_email: {
+    nicename: 'Email de contact',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   contact_phone: {
+    nicename: 'Téléphone de contact',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   address: {
+    nicename: 'Adresse',
     type: DataTypes.STRING,
     maxLength: 500,
     required: false,
     searchable: true
   },
   website: {
+    nicename: 'Site web',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   latitude: {
+    nicename: 'Latitude',
     type: DataTypes.DECIMAL(10, 8),
     required: false
   },
   longitude: {
+    nicename: 'Longitude',
     type: DataTypes.DECIMAL(11, 8),
     required: false
   },
   meta_title: {
+    nicename: 'Meta titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   meta_description: {
+    nicename: 'Meta description',
     type: DataTypes.STRING,
     maxLength: 500,
     required: false,
     searchable: true
   },
-  schedule_id: {
-    type: DataTypes.BIGINT,
-    required: false
-  },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

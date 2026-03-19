@@ -5,34 +5,41 @@ import { modelBuild } from '../utils/model.utils'
 
 export const SCHEDULE_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
   },
   type: {
+    nicename: 'Type',
     type: DataTypes.ENUM(...SCHEDULE_TYPES_KEYS),
     enum: SCHEDULE_TYPES_KEYS,
     required: true
   },
   commerce_id: {
+    nicename: 'Commerce',
     type: DataTypes.BIGINT,
     required: false
   },
   day: {
+    nicename: 'Jour',
     type: DataTypes.ENUM(...SCHEDULE_DAYS_KEYS),
     enum: SCHEDULE_DAYS_KEYS,
     required: true
   },
   intervals: {
+    nicename: 'Plages horaires',
     type: DataTypes.JSONB,
     required: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

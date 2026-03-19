@@ -6,32 +6,39 @@ import { modelBuild } from '../utils/model.utils'
 
 export const SCHOOL_MEAL_CONSTRAINTS = {
     id: {
+        nicename: 'ID',
         type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true
     },
     date_start: {
+        nicename: 'Date de début',
         type: DataTypes.DATE,
         required: true
     },
     menu_data: {
+        nicename: 'Menu',
         type: DataTypes.JSONB,
         required: true
     },
     pdf_id: {
+        nicename: 'PDF',
         type: DataTypes.BIGINT,
         required: false
     },
     is_archived: {
+        nicename: 'Archivé',
         type: DataTypes.BOOLEAN,
         required: true
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

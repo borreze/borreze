@@ -8,7 +8,7 @@
         </Teleport>
         <Teleport defer to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
-                :disabled="hasErrors" @click="handleSave" />
+                :disabled="couldHaveErrors" @click="handleSave" />
             <Button v-if="mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
                 :loading="loading" @click="handleDelete" />
         </Teleport>

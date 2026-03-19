@@ -5,11 +5,13 @@ import { modelBuild } from '../utils/model.utils'
 
 export const SETTING_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
   },
   key: {
+    nicename: 'Clé',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
@@ -17,16 +19,19 @@ export const SETTING_CONSTRAINTS = {
     searchable: true
   },
   value: {
+    nicename: 'Valeur',
     type: DataTypes.TEXT,
     required: false,
     searchable: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

@@ -5,49 +5,58 @@ import { modelBuild } from '../utils/model.utils'
 
 export const HOME_QUICK_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
   title: {
+    nicename: 'Titre',
     type: DataTypes.STRING,
     maxLength: 100,
     required: true,
     searchable: true
   },
   url: {
+    nicename: 'URL',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
-  description: {
+    description: {
+    nicename: 'Description',
     type: DataTypes.STRING,
     maxLength: 500,
     required: false,
     searchable: true
   },
   icon: {
+    nicename: 'Icône',
     type: DataTypes.STRING,
     maxLength: 100,
     required: true
   },
   order: {
+    nicename: 'Ordre',
     type: DataTypes.INTEGER,
     required: true,
     defaultValue: 0,
     min: 0
   },
   is_visible: {
+    nicename: 'Visible',
     type: DataTypes.BOOLEAN,
     defaultValue: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

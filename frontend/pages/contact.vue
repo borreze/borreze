@@ -17,8 +17,8 @@
                         placeholder="Votre message..." required :error="errors.message" @blur="touch('message')" />
 
                     <div class="flex flex-row align-items-center justify-end w-full">
-                        <Button :disabled="hasErrors" icon="mdi-send" label="Envoyer" position="right" variant="primary"
-                            size="md" @click="handleSubmit" />
+                        <Button :disabled="couldHaveErrors" icon="mdi-send" label="Envoyer" position="right"
+                            variant="primary" size="md" @click="handleSubmit" />
                     </div>
                 </div>
             </section>
@@ -74,7 +74,7 @@ const formContent = ref<ContactRequest>({
     message: ''
 })
 
-const { touch, hasErrors, touched, errors, untouchAll, submit } = useForm(
+const { couldHaveErrors, touch, hasErrors, touched, errors, untouchAll, submit } = useForm(
     ['firstname', 'lastname', 'email', 'message'],
     {
         firstname: () => formContent.value.firstname === '' ? 'Le titre est requis' : null,
@@ -98,7 +98,7 @@ const handleSubmit = () => submit(async () => {
         handleClear()
         push.success({ title: 'Envoyé!', message: 'Votre demande a été envoyée avec succès.' })
     } catch (err: any) {
-        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
+        push.error(parseValidationErrors(err?.data))
     }
 })
 

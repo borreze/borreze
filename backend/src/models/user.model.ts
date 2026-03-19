@@ -6,11 +6,13 @@ import { modelBuild } from '../utils/model.utils'
 
 export const USER_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
   },
   email: {
+    nicename: 'Email',
     unique: true,
     type: DataTypes.STRING,
     maxLength: 255,
@@ -18,11 +20,13 @@ export const USER_CONSTRAINTS = {
     searchable: true
   },
   password: {
+    nicename: 'Mot de passe',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true
   },
   username: {
+    nicename: 'Nom',
     unique: true,
     type: DataTypes.STRING,
     maxLength: 50,
@@ -30,38 +34,45 @@ export const USER_CONSTRAINTS = {
     searchable: true
   },
   first_name: {
+    nicename: 'Nom',
     type: DataTypes.STRING,
     maxLength: 100,
     required: false,
     searchable: true
   },
   last_name: {
+    nicename: 'Nom',
     type: DataTypes.STRING,
     maxLength: 100,
     required: false,
     searchable: true
   },
   email_verified_at: {
+    nicename: 'Date de vérification de l\'email',
     type: DataTypes.DATE,
     required: false
   },
   role_id: {
+    nicename: 'Rôle',
     type: DataTypes.INTEGER,
     required: true,
     defaultValue: USER_ROLE_ID_DEFAULT,
   },
   status: {
+    nicename: 'Statut',
     type: DataTypes.ENUM(...USER_STATUSES_KEYS),
     enum: USER_STATUSES_KEYS,
     defaultValue: 'active',
     required: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

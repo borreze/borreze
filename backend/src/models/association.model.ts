@@ -8,11 +8,13 @@ import { modelBuild } from '../utils/model.utils'
 
 export const ASSOCIATION_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
   slug: {
+    nicename: 'Slug',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
@@ -20,63 +22,74 @@ export const ASSOCIATION_CONSTRAINTS = {
     searchable: true
   },
   title: {
+    nicename: 'Titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
   description: {
+    nicename: 'Description',
     type: DataTypes.STRING,
     maxLength: 1000,
     required: false,
     searchable: true
   },
   cover_id: {
+    nicename: 'Couverture',
     type: DataTypes.BIGINT,
     required: false
   },
   contact_name: {
+    nicename: 'Nom du contact',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   contact_email: {
+    nicename: 'Email du contact',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   contact_phone: {
+    nicename: 'Téléphone du contact',
     type: DataTypes.STRING,
     maxLength: 50,
     required: false,
     searchable: true
   },
   website: {
+    nicename: 'Site web',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   meta_title: {
+    nicename: 'Meta titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   meta_description: {
+    nicename: 'Meta description',
     type: DataTypes.STRING,
     maxLength: 500,
     required: false,
     searchable: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

@@ -23,7 +23,7 @@ const handleSave = async (editedHomeQuick: HomeQuickAttributes) => {
         navigateTo('/back-office/page-accueil/acces-rapides')
         push.success({ title: 'Sauvegardé !', message: 'L\'accès rapide a été sauvegardé avec succès.' })
     } catch (err: any) {
-        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 
@@ -41,7 +41,7 @@ const handleDelete = async () => {
         navigateTo('/back-office/page-accueil/acces-rapides')
         push.success({ title: 'Supprimé !', message: 'L\'accès rapide a été supprimé avec succès.' })
     } catch (err: any) {
-        push.error({ title: 'Erreur', message: err?.data?.message ?? err?.message ?? 'Une erreur est survenue' })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 

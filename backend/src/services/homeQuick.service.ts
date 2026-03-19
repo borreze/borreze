@@ -66,7 +66,7 @@ export class HomeQuickService {
     delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, HOME_QUICK_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       return HomeQuick.create(data, { transaction })
@@ -75,7 +75,7 @@ export class HomeQuickService {
 
   public async update(id: number, data: HomeQuickAttributesUpdate): Promise<HomeQuickAttributes | null> {
     const { valid, errors } = validateAll(data, HOME_QUICK_CONSTRAINTS)
-    if (!valid) throw new ValidationException('Des champs sont manquants', errors)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const homequick = await HomeQuick.findByPk(id, { transaction })

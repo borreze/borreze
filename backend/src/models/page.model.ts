@@ -4,36 +4,42 @@ import { Media } from './media.model'
 import { Gallery } from './gallery.model'
 import { PageAttribute } from './pageAttribute.model'
 import { ModelConstraints } from '../types/utils/model.types'
-import {  SearchResultLinks, SearchResultNames } from '@brz/shared'
+import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 
 export const PAGE_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
   cover_id: {
+    nicename: 'Couverture',
     type: DataTypes.BIGINT,
     required: false
   },
   gallery_id: {
+    nicename: 'Galerie',
     type: DataTypes.BIGINT,
     required: false
   },
   status: {
+    nicename: 'Statut',
     type: DataTypes.ENUM(...PAGE_STATUSES_KEYS),
     enum: PAGE_STATUSES_KEYS,
     required: true,
     defaultValue: 'draft'
   },
   title: {
+    nicename: 'Titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
   slug: {
+    nicename: 'Slug',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
@@ -41,51 +47,61 @@ export const PAGE_CONSTRAINTS = {
     searchable: true
   },
   abstract: {
+    nicename: 'Résumé',
     type: DataTypes.STRING,
     maxLength: 500,
     required: false,
     searchable: true
   },
   content: {
+    nicename: 'Contenu',
     type: DataTypes.TEXT,
     required: false,
     searchable: true
   },
   meta_title: {
+    nicename: 'Meta titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   meta_description: {
+    nicename: 'Meta description',
     type: DataTypes.STRING,
     maxLength: 500,
     required: false,
     searchable: true
   },
   published_at: {
+    nicename: 'Date de publication',
     type: DataTypes.DATE,
     required: false
   },
   schedule_start: {
+    nicename: 'Date de début de publication',
     type: DataTypes.DATE,
     required: false
   },
   schedule_end: {
+    nicename: 'Date de fin de publication',
     type: DataTypes.DATE,
     required: false
   },
-  deletable: {
+  deletable: { // Useful for preventing deletion of pages that are essential for the site (e.g., homepage, legal notice, etc.)
+    nicename: 'Supprimable',
     type: DataTypes.BOOLEAN,
     required: true,
     defaultValue: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

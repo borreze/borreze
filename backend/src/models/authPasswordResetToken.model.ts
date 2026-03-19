@@ -5,33 +5,40 @@ import { modelBuild } from '../utils/model.utils'
 
 export const AUTH_PASSWORD_RESET_TOKEN_CONSTRAINTS = {
     id: {
+        nicename: 'ID',
         type: DataTypes.BIGINT,
         autoIncrement: true,
         primaryKey: true
     },
     user_id: {
+        nicename: 'Utilisateur',
         type: DataTypes.BIGINT,
         required: true
     },
     code_hash: {
+        nicename: 'Hash du code de réinitialisation',
         type: DataTypes.TEXT,
         required: true
     },
     expires_at: {
+        nicename: 'Date d\'expiration',
         type: DataTypes.DATE,
         required: true
     },
     used: {
+        nicename: 'Utilisé',
         type: DataTypes.BOOLEAN,
         required: true,
         defaultValue: false
     },
     created_at: {
+        nicename: 'Date de création',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW
     },
     updated_at: {
+        nicename: 'Date de mise à jour',
         type: DataTypes.DATE,
         required: true,
         defaultValue: DataTypes.NOW

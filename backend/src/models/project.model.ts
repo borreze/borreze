@@ -9,11 +9,13 @@ import { modelBuild } from '../utils/model.utils'
 
 export const PROJECT_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     primaryKey: true,
     autoIncrement: true
   },
   slug: {
+    nicename: 'Slug',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
@@ -21,49 +23,58 @@ export const PROJECT_CONSTRAINTS = {
     searchable: true
   },
   title: {
+    nicename: 'Titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
   description: {
+    nicename: 'Description',
     type: DataTypes.STRING,
     maxLength: 500,
     required: false,
     searchable: true
   },
   cover_id: {
+    nicename: 'Couverture',
     type: DataTypes.BIGINT,
     required: false
   },
   gallery_id: {
+    nicename: 'Galerie',
     type: DataTypes.BIGINT,
     required: false
   },
   status: {
+    nicename: 'Statut',
     type: DataTypes.ENUM(...PROJECT_STATUSES_KEYS),
     enum: PROJECT_STATUSES_KEYS,
     defaultValue: 'planned',
     required: true
   },
   meta_title: {
+    nicename: 'Meta titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   meta_description: {
+    nicename: 'Meta description',
     type: DataTypes.STRING,
     maxLength: 500,
     required: false,
     searchable: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

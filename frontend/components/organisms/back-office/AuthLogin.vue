@@ -8,7 +8,7 @@
         </div>
 
         <div class="flex flex-col space-y-4 m-4">
-            <Button :disabled="hasErrors" label="Se connecter" variant="primary" size="md" :loading="authStore.loading"
+            <Button :disabled="couldHaveErrors" label="Se connecter" variant="primary" size="md" :loading="authStore.loading"
                 @click="handleLogin" />
             <Button as="link" href="/" icon="ic:baseline-arrow-back" label="Revenir au site web" variant="ghost"
                 size="md" />
@@ -36,7 +36,7 @@ const formContent = ref<{
     password: '',
 })
 
-const { touch, hasErrors, errors, submit } = useForm(
+const { couldHaveErrors, touch, hasErrors, errors, submit } = useForm(
     ['identifier', 'password'],
     {
         identifier: () => formContent.value.identifier === '' ? 'Le nom d\'utilisateur ou l\'e-mail est requis' : null,

@@ -6,47 +6,56 @@ import { modelBuild } from '../utils/model.utils'
 
 export const COUNCILOR_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
   first_name: {
+    nicename: 'Nom',
     type: DataTypes.STRING,
     maxLength: 50,
     required: true,
     searchable: true
   },
   last_name: {
+    nicename: 'Nom',
     type: DataTypes.STRING,
     maxLength: 50,
     required: true,
     searchable: true
   },
   birth_date: {
+    nicename: 'Date de naissance',
     type: DataTypes.DATE,
     required: false
   },
   appointment_date: {
+    nicename: 'Date de nomination',
     type: DataTypes.DATE,
     required: true
   },
   position: {
+    nicename: 'Poste',
     type: DataTypes.STRING,
     maxLength: 100,
     required: true,
     searchable: true
   },
   picture_id: {
+    nicename: 'Photo',
     type: DataTypes.BIGINT,
     required: false
   },
   email: {
+    nicename: 'Email',
     type: DataTypes.STRING,
     maxLength: 255,
     required: false,
     searchable: true
   },
   phone: {
+    nicename: 'Téléphone',
     type: DataTypes.STRING,
     maxLength: 11, // Format: +1234567890
     required: false,
@@ -54,11 +63,13 @@ export const COUNCILOR_CONSTRAINTS = {
     pattern: /^\+?\d{10,11}$/
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

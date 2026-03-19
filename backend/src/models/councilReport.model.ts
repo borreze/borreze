@@ -6,30 +6,36 @@ import { modelBuild } from '../utils/model.utils'
 
 export const COUNCIL_REPORT_CONSTRAINTS = {
   id: {
+    nicename: 'ID',
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true
   },
   title: {
+    nicename: 'Titre',
     type: DataTypes.STRING,
     maxLength: 255,
     required: true,
     searchable: true
   },
   date: {
+    nicename: 'Date',
     type: DataTypes.DATE,
     required: true
   },
   pdf_id: {
+    nicename: 'PDF',
     type: DataTypes.BIGINT,
     required: true
   },
   created_at: {
+    nicename: 'Date de création',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW
   },
   updated_at: {
+    nicename: 'Date de mise à jour',
     type: DataTypes.DATE,
     required: true,
     defaultValue: DataTypes.NOW

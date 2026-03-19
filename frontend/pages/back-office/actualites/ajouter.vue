@@ -35,8 +35,7 @@ const handleSave = async (post: PostAttributesFrontend, categoryIds: number[]) =
         navigateTo('/back-office/actualites')
         push.success({ title: 'Créé !', message: 'L\'actualité a été créée avec succès.' })
     } catch (err: any) {
-        const message = err?.data?.message ?? err?.message ?? 'Une erreur est survenue'
-        push.error({ title: 'Erreur', message })
+        push.error(parseValidationErrors(err?.data))
     }
 }
 
