@@ -23,8 +23,10 @@ export function useForm<K extends string>(keys: K[], validators: Partial<Record<
     // Return a boolean indicating whether any field could have an error (i.e. is either touched or not, but has a validator that returns an error)
     const couldHaveErrors = computed(() => keys.some(k => (validators[k] !== undefined) && (validators[k]?.() !== null)))
 
+    // Return a boolean indicating whether any field currently has an error (i.e. is touched AND has a validator that returns an error)
     const hasErrors = computed(() => Object.values(errors.value).some(Boolean))
 
+    // A helper function to touch all fields and then run a callback if there are no errors, touching all fields is useful to trigger validation messages for all fields when trying to submit the form
     const submit = async (cb: () => void | Promise<void>) => {
         touchAll()
         if (!hasErrors.value) await cb()
