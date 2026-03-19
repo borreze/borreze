@@ -8,6 +8,7 @@
         "content": "<p>This is the content of the first post.</p>",
         "meta_title": "First Post Meta Title",
         "meta_description": "This is the meta description for the first post.",
+        "cover_id": 1,
         "published_at": "2026-02-01T12:00:00Z"
     },
     {
@@ -19,6 +20,7 @@
         "content": "<p>This is the content of the seconde post.</p>",
         "meta_title": "Second Post Meta Title",
         "meta_description": "This is the meta description for the second post.",
+        "cover_id": 2,
         "published_at": "2024-02-02T12:00:00Z"
     },
     {
@@ -29,6 +31,7 @@
         "abstract": "This is the abstract of the third post.",
         "content": "<p>This is the content of the third post.</p>",
         "meta_title": "Third Post Meta Title",
+        "cover_id": 3,
         "meta_description": "This is the meta description for the third post."
     },
     {
