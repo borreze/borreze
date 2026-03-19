@@ -3,13 +3,14 @@ import { Op, WhereOptions } from 'sequelize'
 import { Pagination, Order, MediaAttributes, MediaAttributesCreation, MediaAttributesUpdate, MediaType, resolveType, MEDIA_UPLOAD_DIR } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
-import { searchWhere, validateAll } from '../utils/model.utils'
+import { searchWhere } from '../utils/model.utils'
 import { MEDIA_CONSTRAINTS } from '../models/media.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
 import fs from 'fs/promises'
 import path from 'path'
+import { validateAll } from '../utils/validation.utils'
 
 export class MediaService {
   private filterType(type?: MediaType | 'all' | null): WhereOptions {

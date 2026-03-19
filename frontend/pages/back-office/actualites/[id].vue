@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PostAttributesFrontend } from '@brz/shared'
+import { parseValidationErrors, type PostAttributesFrontend } from '@brz/shared'
 import PostForm from '~/components/organisms/back-office/PostForm.vue'
 import { push } from 'notivue'
 import { useEditPost } from '~/composables/back-office/usePost'

@@ -8,6 +8,8 @@ export { isEmail, isURL, isURLRelative } from './utils/text.utils'
 
 export { resolveType, sizeToReadable, mediaGetIcon, mediaGetLabel, isTypeAllowed } from './utils/media.utils'
 
+export { parseValidationErrors } from './utils/validation.utils'
+
 // TYPES
 
 export type { AssociationAttributes, AssociationAttributesCreation, AssociationAttributesUpdate } from './types/association.types'
@@ -78,3 +80,5 @@ export type { Pagination } from './types/pagination.types'
 export type { Order } from './types/order.types'
 
 export type { ContactRequest } from './types/contact.types'
+
+export type { ValidationError, ValidationResult } from './types/validation.types'

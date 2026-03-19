@@ -5,7 +5,7 @@ import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { GovApiResponse, SchoolHolidayAttributes, SchoolHolidayAttributesCreation, SchoolYear } from '@brz/shared'
-import { searchWhere, validateAll } from '../utils/model.utils'
+import { searchWhere } from '../utils/model.utils'
 import { SCHOOL_HOLIDAY_CONSTRAINTS } from '../models/schoolHoliday.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -13,6 +13,7 @@ import { paginationDefault } from '@brz/shared'
 import { currentSchoolYear } from '../utils/date.utils'
 import { ImportException } from '../exceptions/import.exception'
 import { Terminal } from '../utils/terminal.utils'
+import { validateAll } from '../utils/validation.utils'
 
 export class SchoolHolidayService {
   private filterByYear(year?: SchoolYear | 'all' | 'current' | null): WhereOptions {

@@ -5,13 +5,14 @@ import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { CategoryAttributes, CategoryAttributesCreation, CategoryAttributesUpdate } from '@brz/shared'
 import { slugify } from '@brz/shared'
-import { searchWhere, validateAll } from '../utils/model.utils'
+import { searchWhere } from '../utils/model.utils'
 import { CATEGORY_CONSTRAINTS } from '../models/category.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
 import { CategorizableType } from '../../../shared/src/types/categorizable.types'
 import { Op, WhereOptions, literal } from 'sequelize'
+import { validateAll } from '../utils/validation.utils'
 
 export class CategoryService {
   private filterWhereOneFromType(type: CategorizableType | string | null = 'all'): WhereOptions {

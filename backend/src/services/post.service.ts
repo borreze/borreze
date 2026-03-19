@@ -6,7 +6,7 @@ import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { PostAttributes, PostAttributesCreation, PostAttributesUpdate, PostStatus } from '@brz/shared'
 import { slugify } from '@brz/shared'
-import { searchWhere, validateAll, validateOne } from '../utils/model.utils'
+import { searchWhere } from '../utils/model.utils'
 import { POST_CONSTRAINTS, POST_INCLUDE_DEFAULTS } from '../models/post.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -14,6 +14,7 @@ import { permissionCheck } from '../utils/auth.utils'
 import { UserAttributesPublic } from '@brz/shared'
 import { paginationDefault } from '@brz/shared'
 import { Terminal } from '../utils/terminal.utils'
+import { validateAll, validateOne } from '../utils/validation.utils'
 
 export class PostService {
   private filterStatus(status?: PostStatus | 'all' | null): WhereOptions {

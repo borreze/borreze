@@ -5,11 +5,11 @@ import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { ScheduleAttributes, ScheduleAttributesCreation, ScheduleAttributesUpdate, ScheduleType } from '@brz/shared'
-import { validateAll } from '../utils/model.utils'
 import { SCHEDULE_CONSTRAINTS } from '../models/schedule.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
+import { validateAll } from '../utils/validation.utils'
 
 export class ScheduleService {
   private filterType(type?: ScheduleType | null): WhereOptions {

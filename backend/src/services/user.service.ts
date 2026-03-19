@@ -9,12 +9,13 @@ import { Op } from 'sequelize'
 import { UserAttributesCreation } from '@brz/shared'
 import { UserAttributesUpdate } from '@brz/shared'
 import { UserAttributes } from '@brz/shared'
-import { searchWhere, validateAll } from '../utils/model.utils'
+import { searchWhere } from '../utils/model.utils'
 import { USER_CONSTRAINTS, USER_INCLUDE_DEFAULTS } from '../models/user.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { hashPassword, isHash, isStrongPassword } from '../utils/auth.utils'
 import { paginationDefault } from '@brz/shared'
+import { validateAll } from '../utils/validation.utils'
 
 export class UserService {
   private filterStatus(status?: UserStatus | 'all' | null): WhereOptions {

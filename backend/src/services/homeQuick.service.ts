@@ -5,12 +5,13 @@ import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { HomeQuickAttributes, HomeQuickAttributesCreation, HomeQuickAttributesUpdate } from '@brz/shared'
-import { searchWhere, validateAll } from '../utils/model.utils'
+import { searchWhere } from '../utils/model.utils'
 import { HOME_QUICK_CONSTRAINTS } from '../models/homeQuick.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
 import { permissionCheck } from '../utils/auth.utils'
+import { validateAll } from '../utils/validation.utils'
 
 export class HomeQuickService {
   private filterIsVisible(is_visible?: boolean | null): WhereOptions {

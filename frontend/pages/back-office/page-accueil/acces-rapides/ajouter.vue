@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { HomeQuickAttributes } from '@brz/shared'
+import { parseValidationErrors, type HomeQuickAttributes } from '@brz/shared'
 import HomeQuickForm from '~/components/organisms/back-office/HomeQuickForm.vue'
 import { push } from 'notivue'
 import { useCreateHomeQuick } from '~/composables/back-office/useHomeQuick'

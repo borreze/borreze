@@ -1,5 +1,5 @@
+import { ValidationError } from '@brz/shared'
 import { BaseException } from './base'
-import { ValidationError } from '../types/utils/validation.types'
 
 export class ValidationException extends BaseException {
     public errors: ValidationError[]

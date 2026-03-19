@@ -1,4 +1,6 @@
-export function parseValidationErrors(data: any): { title: string, message: string } {
+import { ValidationError } from "../types/validation.types";
+
+export function parseValidationErrors(data: { message: string, errors?: ValidationError[] }): { title: string, message: string } {
     const title = data.message || "Erreur";
 
     if (!data.errors || !Array.isArray(data.errors)) {

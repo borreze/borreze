@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MediaAttributes } from '@brz/shared'
+import { parseValidationErrors, type MediaAttributes } from '@brz/shared'
 import MediaFormEdit from '~/components/organisms/back-office/MediaFormEdit.vue'
 import { push } from 'notivue'
 import { useEditMedia } from '~/composables/back-office/useMedia'

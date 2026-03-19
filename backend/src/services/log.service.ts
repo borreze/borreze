@@ -4,12 +4,13 @@ import { Transaction, WhereOptions } from 'sequelize'
 import { Op } from 'sequelize'
 import { Pagination } from '@brz/shared'
 import { Order } from '@brz/shared'
-import { searchWhere, validateAll } from '../utils/model.utils'
+import { searchWhere } from '../utils/model.utils'
 import { LOG_CONSTRAINTS } from '../models/log.model'
 import { NotFound } from '../exceptions/request.exception'
 import { ValidationException } from '../exceptions/validation.exception'
 import { sequelize } from '../config/database'
 import { paginationDefault } from '@brz/shared'
+import { validateAll } from '../utils/validation.utils'
 
 export class LogService {
   public async count(options?: { search?: string }): Promise<number> {
