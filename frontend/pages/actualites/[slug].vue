@@ -1,5 +1,5 @@
 <template>
-    <PageHero v-if="post" :title="post?.title" image="https://picsum.photos/1200/400?random=1" />
+    <PageHero v-if="post" :title="post?.title" :image="post?.cover ? mediaUrl(post?.cover.file_path) : MEDIA_URL_DEFAULT_HERO" />
     <section class="safe-area-md">
         <div class="mx-auto max-w-6xl">
             <Breadcrumb :items="[
@@ -29,6 +29,7 @@ import Breadcrumb from '~/components/molecules/Breadcrumb.vue'
 import { usePost } from '~/composables/front-office/usePost';
 import PageHero from '~/components/organisms/front-office/PageHero.vue';
 import { formatDateRelativeNice } from '~/utils/date';
+import { mediaUrl, MEDIA_URL_DEFAULT_HERO } from '~/utils/media';
 
 const route = useRoute()
 const { post, loading } = await usePost(route.params.slug as string)

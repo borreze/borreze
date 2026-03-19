@@ -1,5 +1,6 @@
 import { Optional } from 'sequelize'
 import { CategoryAttributes } from './category.types'
+import { MediaAttributes } from './media.types'
 
 export const POST_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
 export type PostStatus = typeof POST_STATUSES_KEYS[number]
@@ -26,7 +27,7 @@ export interface PostAttributes {
     updated_at?: Date | null
 }
 
-export interface PostAttributesFrontend extends PostAttributes { categories?: CategoryAttributes[] }
+export interface PostAttributesFrontend extends PostAttributes { categories?: CategoryAttributes[], cover?: MediaAttributes }
 
 export type PostAttributesCreation = Optional<PostAttributes,
     'id' | 'cover_id' | 'abstract' | 'content' | 'meta_title' | 'meta_description' |

@@ -4,7 +4,7 @@
         <article
             :class="['group overflow-hidden rounded-lg bg-white shadow-md transition', clickable ? 'hover:shadow-xl' : '']">
             <div class="relative aspect-video overflow-hidden bg-gray-200">
-                <NuxtImg src="https://picsum.photos/400/300?random=1" alt="Actualité"
+                <NuxtImg :src="post?.cover ? mediaUrl(post?.cover.file_path) : MEDIA_URL_DEFAULT_CARD" alt="Actualité"
                     :class="['h-full w-full object-cover transition', clickable ? 'group-hover:scale-105' : '']" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 from-0% to-black/10 to-30%" />
                 <div v-if="post?.categories && post.categories.length > 0"
@@ -32,6 +32,7 @@ import { NuxtLink } from '#components';
 import type { PostAttributesFrontend } from '@brz/shared';
 import { formatDateRelativeNice } from '~/utils/date';
 import Pill from '~/components/atoms/Pill.vue';
+import { mediaUrl, MEDIA_URL_DEFAULT_CARD } from '~/utils/media';
 
 const props = withDefaults(defineProps<{
     post: PostAttributesFrontend
