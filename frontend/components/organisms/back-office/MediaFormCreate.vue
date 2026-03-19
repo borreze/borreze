@@ -63,12 +63,7 @@ const fileInputRef = ref<HTMLInputElement | null>(null)
 const isDragging = ref(false)
 const uploading = ref(false)
 
-interface PendingFile {
-    file: File
-    preview: string | null
-}
-
-const pendingFiles = ref<PendingFile[]>([])
+const pendingFiles = ref<{ file: File, preview: string | null }[]>([])
 
 const addFiles = (files: FileList | File[]) => {
     for (const file of Array.from(files)) {

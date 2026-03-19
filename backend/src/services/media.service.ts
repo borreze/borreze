@@ -57,7 +57,7 @@ export class MediaService {
 
   public async createFromUpload(file: Express.Multer.File, uploadedBy?: number, transaction?: Transaction): Promise<MediaAttributes> {
     const data: MediaAttributesCreation = {
-      title: file.filename,
+      title: file.originalname,
       file_name: file.filename,
       file_path: `/${MEDIA_UPLOAD_DIR}/${file.filename}`,
       type: resolveType(file.mimetype),

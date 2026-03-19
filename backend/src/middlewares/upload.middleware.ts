@@ -1,18 +1,16 @@
 import multer from 'multer'
-import path from 'path'
-import { isTypeAllowed, MEDIA_UPLOAD_LIMIT, slugify } from '@brz/shared'
+import { isTypeAllowed, MEDIA_UPLOAD_LIMIT } from '@brz/shared'
 import { MEDIA_UPLOAD_DIR } from '@brz/shared'
 import { MediaException } from '../exceptions/media.exception'
+import { makeFilenameUnique } from '../utils/media.utils'
 
 const storage = multer.diskStorage({
     destination: (_req, _file, cb) => {
         cb(null, MEDIA_UPLOAD_DIR)
     },
     filename: (_req, file, cb) => {
-        const ext = path.extname(file.originalname)
-        const name = slugify(path.basename(file.originalname, ext))
-        const unique = `${name}-${Date.now()}${ext}`
-        cb(null, unique)
+        const newFilename = makeFilenameUnique(file.originalname, MEDIA_UPLOAD_DIR)
+        cb(null, newFilename)
     }
 })
 
