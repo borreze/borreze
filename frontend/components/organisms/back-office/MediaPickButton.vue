@@ -23,7 +23,7 @@
             </div>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
             <div class="flex justify-end gap-2">
-                <Button label="Utiliser" icon="ic:baseline-send" variant="primary" size="sm" @click="handleSelect" />
+                <Button label="Utiliser" icon="ic:baseline-send" variant="primary" size="sm" @click="handleUse" />
             </div>
         </Modal>
     </div>
@@ -97,7 +97,7 @@ function isSelected(mediaId: number): boolean {
     return innerMedias.value.some(m => m.id === mediaId)
 }
 
-const handleSelect = () => {
+const handleUse = () => { // Juste close the modal, the media list is already updated on selection
     closeAddModal()
 }
 
