@@ -26,7 +26,7 @@ export const formatDate = (date: Date | string | null | undefined, format: DateF
     return new Intl.DateTimeFormat('fr-FR', options[format]).format(d)
 }
 
-export const formatDateRelativeNice = (date: Date | string | null | undefined): string => {
+export const formatDateRelative = (date: Date | string | null | undefined): string => {
     if (!date) return ''
 
     const d = new Date(date)

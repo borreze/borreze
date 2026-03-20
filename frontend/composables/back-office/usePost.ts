@@ -10,7 +10,7 @@ export const usePosts = async () => {
     const order = ref<Order | null>(null)
     const search = ref<string>('')
 
-    const { data, status, error, refresh, execute } = useLazyAsyncData(
+    const { data, status, error, execute } = useLazyAsyncData(
         `posts-page-${page.value}-search-${search.value}`,
         () => useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(
             '/back-office/posts',
@@ -54,7 +54,7 @@ export const usePosts = async () => {
 
     const setSearch = (newSearch: string) => {
         search.value = newSearch
-        // page.value = 1
+        page.value = 1
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 

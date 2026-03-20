@@ -13,7 +13,7 @@
             <Loader v-if="loading" />
             <article v-else-if="post" class="mt-6">
                 <p v-if="post.published_at" class="text-sm text-gray-500 mt-2">
-                    {{ formatDateRelativeNice(post.published_at) }}
+                    {{ formatDateRelative(post.published_at) }}
                 </p>
                 <p v-if="post.abstract" class="mt-4 text-gray-600 italic">{{ post.abstract }}</p>
                 <WysiwygRenderer v-if="post.content" class="mt-6 prose max-w-none" :html="post.content" />
@@ -28,7 +28,7 @@ import Loader from '~/components/molecules/Loader.vue'
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue'
 import { usePost } from '~/composables/front-office/usePost';
 import PageHero from '~/components/organisms/front-office/PageHero.vue';
-import { formatDateRelativeNice } from '~/utils/date';
+import { formatDateRelative } from '~/utils/date';
 import { mediaUrl, MEDIA_URL_DEFAULT_HERO } from '~/utils/media';
 import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
 

@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="px-6 pb-6 pt-4">
-                <div class="mb-2 text-sm text-gray-500">{{ formatDateRelativeNice(post?.published_at) }} </div>
+                <div class="mb-2 text-sm text-gray-500">{{ formatDateRelative(post?.published_at) }} </div>
                 <h3
                     :class="['mb-3 text-xl font-semibold text-dark transition line-clamp-1', clickable ? 'group-hover:text-primary' : '']">
                     {{ post?.title }}
@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { NuxtLink } from '#components';
 import type { PostAttributesFrontend } from '@brz/shared';
-import { formatDateRelativeNice } from '~/utils/date';
+import { formatDateRelative } from '~/utils/date';
 import Pill from '~/components/atoms/Pill.vue';
 import { mediaUrl, MEDIA_URL_DEFAULT_CARD } from '~/utils/media';
 

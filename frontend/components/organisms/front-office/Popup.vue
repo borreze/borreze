@@ -5,7 +5,7 @@
         <NuxtImg v-if="popup?.media && popup?.media.type === 'image'" class="w-full overflow-hidden rounded-lg"
             :src="mediaUrl(popup?.media.file_path)" alt="Actualité" />
 
-        <WysiwygRenderer v-if="popup?.content" class="mt-6 prose max-w-none" :html="popup.content" />
+        <div v-if="popup?.content" class="mt-6 prose max-w-none" v-html="popup.content" />
 
         <div v-if="popup?.media && popup?.media.type !== 'image'" class="mt-4">
             <Url :to="mediaUrl(popup?.media.file_path)" icon="ic:baseline-download" label="Plus d'informations" />

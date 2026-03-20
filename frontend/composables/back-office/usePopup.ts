@@ -1,26 +1,26 @@
 import { paginationDefault } from '@brz/shared';
-import type { HomeQuickAttributes, Order } from '@brz/shared'
+import type { Order, PopupAttributesFrontend } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 
 const DEBOUNCE_DELAY = 400
 
-export const useHomeQuicks = async () => {
+export const usePopups = async () => {
     const page = ref(1)
     const order = ref<Order | null>(null)
     const search = ref<string>('')
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `home-quicks-page-${page.value}-search-${search.value}`,
-        () => useApi().get<{ data: HomeQuickAttributes[], pagination: Pagination }>(
-            '/back-office/home-quicks',
+        `popups-page-${page.value}-search-${search.value}`,
+        () => useApi().get<{ data: PopupAttributesFrontend[], pagination: Pagination }>(
+            '/back-office/popups',
             {
                 params: {
                     page: page.value,
                     limit: paginationDefault().limit,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value.trim(),
-                    is_visible: 'all',
+                    is_active: 'all',
                 }
             }
         ).then(r => r.data),
@@ -65,7 +65,7 @@ export const useHomeQuicks = async () => {
     }
 
     return {
-        homeQuicks: computed(() => data.value?.data ?? []),
+        popups: computed(() => data.value?.data ?? []),
         pagination: computed(() => data.value?.pagination ?? null),
         loading: computed(() => status.value === 'pending'),
         error,
@@ -77,25 +77,25 @@ export const useHomeQuicks = async () => {
     }
 }
 
-export const useEditHomeQuick = async (id: number) => {
+export const useEditPopups = async (id: number) => {
     const { data, status, error } = await useAsyncData(
-        `home-quick-${id}`,
+        `popup-${id}`,
         () => useApi()
-            .get<{ data: HomeQuickAttributes, pagination: Pagination }>(
-                `/back-office/home-quicks/${id}`)
+            .get<{ data: PopupAttributesFrontend, pagination: Pagination }>(
+                `/back-office/popups/${id}`)
             .then(r => r.data),
     )
 
     const deleteSelf = async () => {
-        const response = await useApi().delete(`/back-office/home-quicks/${id}`)
+        const response = await useApi().delete(`/back-office/popups/${id}`)
 
         if (!response.ok) throw response.error
         return true
     }
 
-    const updateSelf = async (payload: Partial<HomeQuickAttributes>) => {
-        const response = await useApi().put<{ data: HomeQuickAttributes }>(
-            `/back-office/home-quicks/${id}`,
+    const updateSelf = async (payload: Partial<PopupAttributesFrontend>) => {
+        const response = await useApi().put<{ data: PopupAttributesFrontend }>(
+            `/back-office/popups/${id}`,
             { body: payload }
         )
 
@@ -104,7 +104,7 @@ export const useEditHomeQuick = async (id: number) => {
     }
 
     return {
-        homeQuick: computed(() => data.value?.data ?? null),
+        popup: computed(() => data.value?.data ?? null),
         loading: computed(() => status.value === 'pending'),
         error,
         deleteSelf,
@@ -112,10 +112,10 @@ export const useEditHomeQuick = async (id: number) => {
     }
 }
 
-export const useCreateHomeQuick = () => {
-    const createSelf = async (payload: Partial<HomeQuickAttributes>) => {
-        const response = await useApi().post<{ data: HomeQuickAttributes }>(
-            '/back-office/home-quicks',
+export const useCreatePopup = () => {
+    const createSelf = async (payload: Partial<PopupAttributesFrontend>) => {
+        const response = await useApi().post<{ data: PopupAttributesFrontend }>(
+            '/back-office/popups',
             { body: payload }
         )
         if (!response.ok) throw response.error

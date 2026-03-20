@@ -9,8 +9,6 @@
             <span class="font-medium text-dark"> Bonne utilisation ! </span>
         </p>
         <div class="mt-2 flex items-center gap-4 mt-4">
-            <Button as="link" icon="ic:baseline-settings" label="Paramètres" href="/back-office/settings" variant="outline"
-                size="md" />
             <Button as="link" icon="ic:baseline-laptop-mac" label="Voir le site" href="/" variant="primary" size="md"
                 target="_blank" />
         </div>

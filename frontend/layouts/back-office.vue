@@ -126,6 +126,24 @@ const menus = ref<MenuAttributesFrontend[]>([
         order: 0,
         is_visible: true,
     },
+    {
+        id: 9,
+        context: 'back-office',
+        icon: 'ic:baseline-settings',
+        label: 'Paramètres',
+        order: 1,
+        is_visible: true,
+        children: [
+            {
+                id: 10,
+                context: 'back-office',
+                label: 'Popups d\'alerte',
+                url: '/back-office/popups',
+                order: 0,
+                is_visible: true,
+            },
+        ],
+    },
 ]);
 </script>
 
