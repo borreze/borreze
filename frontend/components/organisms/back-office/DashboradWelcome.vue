@@ -1,5 +1,5 @@
 <template>
-    <section class="rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 ">
+    <section class="rounded-xl shadow-[2px_2px_10px_2px_#0000001a] xl:shadow-none p-4 ">
         <h2 class="title-submain">Bienvenue sur votre <span class="text-primary">Back-office </span> 👋</h2>
         <p class="mt-2 max-w-[600px] text-gray-600">Cet espace est dédié à la gestion de votre site internet. Ajoutez du
             contenu,
