@@ -1,4 +1,4 @@
-import { type PopupAttributes } from '@brz/shared';
+import { type PopupAttributesFrontend } from '@brz/shared';
 import useApi from '~/composables/useApi'
 
 export const usePopups = async () => {
@@ -6,7 +6,7 @@ export const usePopups = async () => {
         `popups`,
         async () => {
             try {
-                const res = await useApi().get<{ data: PopupAttributes[] }>('/popups')
+                const res = await useApi().get<{ data: PopupAttributesFrontend[] }>('/popups')
                 return res.data ?? null
             } catch (e) {
                 return null
@@ -15,7 +15,6 @@ export const usePopups = async () => {
     )
 
     return {
-        popup: computed(() => data.value?.data?.[0] ?? null),
         popups: computed(() => data.value?.data ?? []),
         loading: computed(() => status.value === 'pending'),
         error,

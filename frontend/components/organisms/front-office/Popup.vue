@@ -1,16 +1,28 @@
 <template>
     <Modal v-if="isReady" v-model:open="opened" :title="popup?.title || 'Information'" textConfirm="Fermer"
         textCancel="Ne plus afficher" :onConfirm="handleConfirm" :onCancel="handleCancel">
+
+        <NuxtImg v-if="popup?.media && popup?.media.type === 'image'" class="w-full overflow-hidden rounded-lg"
+            :src="mediaUrl(popup?.media.file_path)" alt="Actualité" />
+
         <WysiwygRenderer v-if="popup?.content" class="mt-6 prose max-w-none" :html="popup.content" />
+
+        <div v-if="popup?.media && popup?.media.type !== 'image'" class="mt-4">
+            <Url :to="mediaUrl(popup?.media.file_path)" icon="ic:baseline-download" label="Plus d'informations" />
+        </div>
     </Modal>
 </template>
 
 <script setup lang="ts">
+import Url from '~/components/atoms/Url.vue';
 import Modal from '~/components/molecules/Modal.vue';
 import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
 import { usePopups } from '~/composables/front-office/usePopup';
+import { mediaUrl } from '~/utils/media';
 
-const { popup } = await usePopups()
+const { popups } = await usePopups()
+
+const popup = computed(() => popups.value.length > 0 ? popups.value[0] : null);
 
 const STORAGE_KEY = 'brz-hidden-popups';
 

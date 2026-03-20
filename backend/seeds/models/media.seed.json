@@ -31,5 +31,16 @@
         "mime_type": "image/jpeg",
         "size": 34431,
         "uploaded_by": 1
+    },
+    {
+
+        "id": 4,
+        "title": "Document 4",
+        "file_name": "document-4.pdf",
+        "file_path": "/uploads/medias/document-4.pdf",
+        "type": "document",
+        "mime_type": "application/pdf",
+        "size": 3001,
+        "uploaded_by": 1
     }
 ]

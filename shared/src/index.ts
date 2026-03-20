@@ -43,7 +43,7 @@ export type { PageStatus, PageAttributes, PageAttributesCreation, PageAttributes
 
 export type { PageAttributeAttributes, PageAttributeAttributesCreation, PageAttributeAttributesUpdate } from './types/pageAttribute.types'
 
-export type { PopupAttributes, PopupAttributesCreation, PopupAttributesUpdate } from './types/popup.types'
+export type { PopupAttributesFrontend, PopupAttributes, PopupAttributesCreation, PopupAttributesUpdate } from './types/popup.types'
 
 export { POST_STATUSES_KEYS, POST_STATUSES_OBJECTS } from './types/post.types'
 export type { PostStatus, PostAttributes, PostAttributesFrontend, PostAttributesCreation, PostAttributesUpdate } from './types/post.types'
