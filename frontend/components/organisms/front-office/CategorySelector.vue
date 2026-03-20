@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 flex-wrap">
         <Pill v-for="category in categories" :key="category.id" clickable :label="category.name"
             :variant="selected?.includes(category.id) ? 'primary' : 'ghost'" size="md"
             @click="handleCategoryClick(category.id)" />

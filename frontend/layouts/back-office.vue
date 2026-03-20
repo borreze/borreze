@@ -18,14 +18,14 @@
             </Panel>
             <div class="flex-1">
                 <div class="flex items-center justify-between gap-4 mx-4 my-2 lg:pb-2 lg:border-b lg:border-gray-200">
-                    <span class="font-medium text-gray-500">Bonjour {{ auth.user?.first_name }},</span>
+                    <span class="font-medium text-gray-500">{{ hello() }} {{ auth.user?.first_name }},</span>
                     <Button icon="ic:baseline-logout" variant="ghost" size="sm" @click="auth.logout()" />
                 </div>
                 <main class="safe-area-sm">
                     <div class="flex justify-between items-center gap-4 flex-wrap mb-4">
                         <div class="flex items-center gap-4">
-                            <Button icon="ic:baseline-arrow-back" variant="ghost" size="md" class="mt-2"
-                                @click="goBack()" />
+                            <Button v-if="!isInDashboard()" icon="ic:baseline-arrow-back" variant="ghost" size="md"
+                                class="mt-2" @click="goBack()" />
                             <div id="page-heading" class="flex items-center gap-2" />
                         </div>
                         <div id="page-actions" class="flex items-center flex-wrap justify-end gap-2" />
@@ -47,7 +47,8 @@ import Panel from '~/components/molecules/Panel.vue';
 import AppName from '~/components/organisms/AppName.vue';
 import Menus from '~/components/molecules/Menus.vue';
 import { useAuthStore } from '~/stores/auth'
-import { goBack } from '#imports';
+import { goBack, isInDashboard } from '~/utils/routing';
+import { hello } from '~/utils/text';
 
 const auth = useAuthStore()
 

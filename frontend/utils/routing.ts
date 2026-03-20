@@ -5,6 +5,11 @@ export function isInBO() {
     return route.path.startsWith('/back-office') && !route.path.startsWith('/back-office/authentification')
 }
 
+export function isInDashboard() {
+    const route = useRoute()
+    return isInBO() && route.path === '/back-office'
+}
+
 export function isInFO() {
     const route = useRoute()
     return !route.path.startsWith('/back-office')

@@ -1,6 +1,7 @@
 <template>
     <div class="grid grid-cols-1 gap-6">
         <DashboradWelcome />
+        <hr class="hidden xl:block" />
         <DashboradQuicks />
     </div>
 </template>
