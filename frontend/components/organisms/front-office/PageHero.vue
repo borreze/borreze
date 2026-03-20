@@ -5,7 +5,7 @@
             loading="eager" />
 
         <!-- Dark overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-black/40 from-10% via-black/30 via-20% to-black/10 to-90%" />
+        <div class="absolute inset-0 bg-gradient-to-r from-black/30 from-10% via-black/40 via-40% to-black/10 to-90%" />
 
         <!-- Content -->
         <div class="relative mx-auto flex h-full max-w-6xl items-center px-4 md:px-8">

@@ -61,7 +61,7 @@ export default defineNuxtConfig({
     quality: 80,
     format: ['webp'],
     alias: {
-      '/default': '/images/placeholder.webp'
+      '/default': '/utils/placeholder.webp'
     },
     presets: {
       default: {
