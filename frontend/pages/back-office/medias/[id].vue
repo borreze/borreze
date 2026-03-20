@@ -27,13 +27,21 @@ const handleSave = async (editingMedia: MediaAttributes) => {
 }
 
 const handleDelete = async () => {
-    const ok = await confirm({
+    const ok1 = await confirm({
         title: 'Supprimer ce média ?',
-        message: 'Cette action est irréversible. Le fichier sera supprimé du serveur.',
+        message: 'Si d\'autre contenus utilisent ce média, ils ne pourront plus l\'afficher. Cette action est irréversible.',
         confirmLabel: 'Supprimer',
         variant: 'danger',
     })
-    if (!ok) return
+    if (!ok1) return
+
+    const ok2 = await confirm({
+        title: 'Êtes-vous vraiment sûr ?',
+        message: 'Cette action est irréversible et peut impacter d\'autres contenus. Assurez-vous de vouloir supprimer ce média.',
+        confirmLabel: 'Oui',
+        variant: 'danger',
+    })
+    if (!ok2) return
 
     try {
         await deleteSelf()

@@ -46,8 +46,8 @@ export class HomeQuickService {
       ...searchWhere(HOME_QUICK_CONSTRAINTS, search)
     }
 
-    const homequicks = await HomeQuick.findAll({ where, order, offset, limit })
-    return homequicks
+    const homeQuicks = await HomeQuick.findAll({ where, order, offset, limit })
+    return homeQuicks
   }
 
   public async getById(id: number, options?: { is_visible?: boolean | null }): Promise<HomeQuickAttributes | null> {
@@ -97,4 +97,4 @@ export class HomeQuickService {
   }
 }
 
-export const homequickService = new HomeQuickService()
+export const homeQuickService = new HomeQuickService()

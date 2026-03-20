@@ -7,6 +7,7 @@ import scheduleRoutes from './routes/schedule.routes'
 import categoryRoutes from './routes/category.routes'
 import homeQuickRoutes from './routes/homeQuick.routes'
 import userRoutes from './routes/user.routes'
+import popupRoutes from './routes/popup.routes'
 import contactRoutes from './routes/contact.routes'
 import mediaRoutes from './routes/media.routes'
 import logRoutes from './routes/log.routes'
@@ -56,6 +57,7 @@ app.use(homeQuickRoutes)
 app.use(logRoutes)
 app.use(schoolHolidayRoutes)
 app.use(userRoutes)
+app.use(popupRoutes)
 app.use(contactRoutes)
 app.use(mediaRoutes)
 app.use(authRoutes)

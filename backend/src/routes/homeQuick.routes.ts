@@ -6,10 +6,10 @@ const router = Router()
 
 router.get('/home-quicks/', homeQuickController.getAll)
 
-router.get('/back-office/home-quicks/', permissionMiddleware('post', 'read'), homeQuickController.getAll)
-router.get('/back-office/home-quicks/:id', permissionMiddleware('post', 'read'), homeQuickController.getById)
-router.post('/back-office/home-quicks/', permissionMiddleware('post', 'create'), homeQuickController.create)
-router.put('/back-office/home-quicks/:id', permissionMiddleware('post', 'update'), homeQuickController.update)
-router.delete('/back-office/home-quicks/:id', permissionMiddleware('post', 'delete'), homeQuickController.delete)
+router.get('/back-office/home-quicks/', permissionMiddleware('home-quick', 'read'), homeQuickController.getAll)
+router.get('/back-office/home-quicks/:id', permissionMiddleware('home-quick', 'read'), homeQuickController.getById)
+router.post('/back-office/home-quicks/', permissionMiddleware('home-quick', 'create'), homeQuickController.create)
+router.put('/back-office/home-quicks/:id', permissionMiddleware('home-quick', 'update'), homeQuickController.update)
+router.delete('/back-office/home-quicks/:id', permissionMiddleware('home-quick', 'delete'), homeQuickController.delete)
 
 export default router

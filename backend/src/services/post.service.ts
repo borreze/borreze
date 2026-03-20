@@ -115,7 +115,7 @@ export class PostService {
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {
-      const post = await Post.findByPk(id, { transaction })
+      const post = await Post.findByPk(id, { transaction, include: POST_INCLUDE_DEFAULTS })
       if (!post) throw new NotFound('Post not found')
 
       await post.update(data, { transaction })

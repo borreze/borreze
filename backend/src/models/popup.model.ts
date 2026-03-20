@@ -59,7 +59,7 @@ export const POPUP_CONSTRAINTS = {
   }
 } as const satisfies ModelConstraints<PopupAttributes>
 
-export const POST_INCLUDE_DEFAULTS = [
+export const POPUP_INCLUDE_DEFAULTS = [
   { model: Media, as: 'media' },
 ]
 

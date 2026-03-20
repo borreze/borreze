@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "title": "Alerte Météo : Orages en Approche",
+        "content": "<p>Des orages sont prévus cet après-midi. Restez à l'abri et évitez les déplacements non essentiels.</p>",
+        "media_id": 1,
+        "is_active": true
+    }
+]
