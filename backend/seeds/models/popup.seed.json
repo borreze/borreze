@@ -2,14 +2,14 @@
     {
         "id": 1,
         "title": "Maintenance Planifiée : Interruption de Service",
-        "content": "<p>Nous effectuerons une maintenance planifiée le 15 juin de 22h à 2h. Pendant cette période, certains services pourraient être indisponibles. Nous nous excusons pour la gêne occasionnée.</p>",
+        "content": "Nous effectuerons une maintenance planifiée le 15 juin de 22h à 2h. Pendant cette période, certains services pourraient être indisponibles. Nous nous excusons pour la gêne occasionnée.",
         "media_id": 4,
         "is_active": true
     },
     {
         "id": 2,
         "title": "Alerte Météo : Orages en Approche",
-        "content": "<p>Des orages sont prévus cet après-midi. Restez à l'abri et évitez les déplacements non essentiels.</p>",
+        "content": "Des orages sont prévus cet après-midi. Restez à l'abri et évitez les déplacements non essentiels.",
         "is_active": false,
         "date_from": "2025-06-01T08:00:00Z",
         "date_to": "2026-06-01T20:00:00Z"

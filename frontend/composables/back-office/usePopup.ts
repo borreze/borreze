@@ -77,7 +77,7 @@ export const usePopups = async () => {
     }
 }
 
-export const useEditPopups = async (id: number) => {
+export const useEditPopup = async (id: number) => {
     const { data, status, error } = await useAsyncData(
         `popup-${id}`,
         () => useApi()

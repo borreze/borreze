@@ -89,11 +89,6 @@ export class PostController {
     await postService.delete(id)
     res.status(200).json({ message: 'Post deleted successfully' } as Return)
   }
-
-  public computeStatuses: RequestHandler = async (req, res) => {
-    const result = await postService.computeStatuses()
-    res.status(200).json({ data: result, message: 'Post statuses computed successfully' } as Return)
-  }
 }
 
 export const postController = new PostController()

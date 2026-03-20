@@ -3,7 +3,7 @@
         <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
                 {{ mode === 'edit' ? `#${editingPopup.id}&nbsp;` : '' }}
-                {{ editingPopup.title || (mode === 'create' ? 'Nouvel popup d\'alerte' : '') }}
+                {{ editingPopup.title || (mode === 'create' ? 'Nouvelle popup d\'alerte' : '') }}
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
@@ -15,15 +15,14 @@
 
         <Loader v-if="loading" />
         <div v-else class="flex flex-col gap-6 2xl:gap-10">
-            <div class="w-full">
+            <div class="w-full space-y-12">
                 <section>
                     <h4 class="title-submain mb-6">Informations générales</h4>
                     <div class="flex flex-col gap-4">
                         <Field v-model="editingPopup.title" required label="Titre" hint="Titre principale"
                             roundness="md" :error="errors.title" @blur="touch('title')" />
-                        <Field v-model="editingPopup.content" type="textarea" label="content courte"
-                            hint="content affichée sous le titre" roundness="md" :error="errors.content"
-                            @blur="touch('content')" />
+                        <Field v-model="editingPopup.content" type="textarea" label="Contenu" hint="Contenu affiché"
+                            roundness="md" :error="errors.content" @blur="touch('content')" />
                     </div>
                 </section>
                 <section>
@@ -33,9 +32,12 @@
                         immédiatement et indéfiniment.<br>
                         Si vous saisissez une date de début dans le futur, elle sera programmée pour être active
                         à cette date.<br>
-                        Si vous saisissez une date de fin, elle sera retirée à cette date.
+                        Si vous saisissez une date de fin, elle sera retirée à cette date.<br>
+                        Les dates de sont prioritaires sur l'activation : une popup activé mais une date de début dans
+                        le futur sera automatiquement passé en non-visible jusqu'à la
+                        date de début.
                     </p>
-                    <div class="flex flex-row flex-wrap gap-4">
+                    <div class="flex flex-row flex-wrap gap-4 mb-6">
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPopup.date_from" :with-time="true" label="Date de début"
                                 type="date" roundness="md" :error="errors.date_from" @blur="touch('date_from')" />
@@ -47,8 +49,9 @@
                     </div>
                     <div class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
-                            <Switch v-model="editingPopup.is_active" label="Actif"
-                                hint="Activer ou masquer sur tout le site" text="Afficher ou masquer cette popup" />
+                            <Switch v-model="editingPopup.is_active" label="Actif" required
+                                hint="Une seule popup peut s'afficher à la fois sur le site publique, si plusieurs sont actives, elles s'afficheront une à la fois"
+                                text="Afficher ou masquer cette popup sur tout le site" />
                         </div>
                     </div>
                 </section>
@@ -67,6 +70,7 @@ import Field from '~/components/atoms/Field.vue'
 import Switch from '~/components/atoms/Switch.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
+import Datepicker from '~/components/atoms/Datepicker.vue'
 import { formatDateTime } from '~/utils/date'
 
 const props = withDefaults(defineProps<{

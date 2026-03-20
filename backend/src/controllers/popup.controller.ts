@@ -5,12 +5,11 @@ import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
 
 export class PopupController {
-
   public getAll: RequestHandler = async (req, res) => {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
-    const order = parseOrder(req, [['created_at', 'DESC'], ['id', 'DESC']])
+    const order = parseOrder(req, [['date_from', 'ASC'], ['created_at', 'DESC'], ['id', 'DESC']])
     const is_active = (req.query.is_active === 'all') ? null : (req.query.is_active !== undefined) ? (req.query.is_active === 'true') : true
 
     const options = { search, is_active }

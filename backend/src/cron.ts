@@ -1,3 +1,4 @@
+import { popupService } from './services/popup.service'
 import { postService } from './services/post.service'
 import { schoolHolidayService } from './services/schoolHoliday.service'
 import { Terminal } from './utils/terminal.utils'
@@ -6,6 +7,7 @@ import { Terminal } from './utils/terminal.utils'
   try {
     await schoolHolidayService.import()
     await postService.computeStatuses()
+    await popupService.computeActive()
 
     Terminal.success('Data import completed successfully')
     process.exit(0)

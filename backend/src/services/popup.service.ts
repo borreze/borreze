@@ -1,5 +1,5 @@
 import { Popup } from '../models'
-import { WhereOptions } from 'sequelize'
+import { Op, WhereOptions } from 'sequelize'
 import { Pagination, UserAttributesPublic } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
@@ -12,6 +12,7 @@ import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
 import { permissionCheck } from '../utils/auth.utils'
 import { validateAll } from '../utils/validation.utils'
+import { Terminal } from '../utils/terminal.utils'
 
 export class PopupService {
   private filterIsActive(is_active?: boolean | null): WhereOptions {
@@ -36,7 +37,7 @@ export class PopupService {
     const { offset, limit } = pagination || paginationDefault()
 
     if (
-      (!is_active) // only allow non-published posts if allowed to
+      (!is_active) // only allow non-published popups if allowed to
     ) {
       await permissionCheck(user, 'popup', 'read')
     }
@@ -94,6 +95,95 @@ export class PopupService {
     const result = await Popup.destroy({ where: { id } })
     if (!result) throw new NotFound('Popup not found')
     return result
+  }
+
+  /**
+   * Computes and updates popup is_active based on date_from and date_to dates.
+   *
+   * Rules:
+   * - date_from in the future              => flase (not yet visible)
+   * - date_to in the past                  => false (expired)
+   * - date_from in the past AND end future => true (within window)
+   *
+   * Processes updates in chunks to avoid long-running locks on the DB.
+   */
+  public async computeActive(): Promise<void> {
+    const CHUNK_SIZE = 500
+
+    Terminal.info('Computing popup is_active ...')
+
+    const now = new Date()
+
+    // Define each transition rule: a WHERE clause => target is_active
+    const transitions: { where: Record<string, unknown>; is_active: boolean; label: string }[] = [
+      {
+        label: 'date_from in future => not active',
+        is_active: false,
+        where: {
+          date_from: { [Op.gt]: now },
+          is_active: { [Op.ne]: false }
+        }
+      },
+      {
+        label: 'date_to in past => not active',
+        is_active: false,
+        where: {
+          date_to: { [Op.lt]: now },
+          is_active: { [Op.ne]: false }
+        }
+      },
+      {
+        label: 'within window => active',
+        is_active: true,
+        where: {
+          date_from: { [Op.lte]: now },
+          date_to: { [Op.gte]: now },
+          is_active: { [Op.ne]: true }
+        }
+      }
+    ]
+
+    for (const { where, is_active, label } of transitions) {
+      let totalUpdated = 0
+      let hasMore = true
+
+      // Process in chunks: fetch matching IDs, then bulk-update by ID batch
+      while (hasMore) {
+        // Fetch a limited batch of IDs matching the transition rule
+        const batch = await Popup.findAll({
+          attributes: ['id'],
+          where,
+          limit: CHUNK_SIZE,
+          raw: true
+        })
+
+        if (batch.length === 0) {
+          hasMore = false
+          break
+        }
+
+        const ids = batch.map((p) => p.id)
+
+        // Bulk update only the fetched chunk by primary key
+        const [affectedCount] = await Popup.update(
+          {
+            is_active,
+          },
+          { where: { id: { [Op.in]: ids } } }
+        )
+
+        totalUpdated += affectedCount
+
+        // If fewer results than chunk size, no more rows to process
+        if (batch.length < CHUNK_SIZE) hasMore = false
+      }
+
+      if (totalUpdated > 0) {
+        Terminal.success(`${label}: ${totalUpdated} popup(s) updated`)
+      }
+    }
+
+    Terminal.success('Popups is_active computation done')
   }
 }
 

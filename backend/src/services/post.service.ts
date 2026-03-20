@@ -184,7 +184,6 @@ export class PostService {
     // Define each transition rule: a WHERE clause => target status
     const transitions: { where: Record<string, unknown>; status: PostStatus; label: string }[] = [
       {
-        // Posts whose visibility window hasn't started yet => archive
         label: 'schedule_start in future => archived',
         status: 'archived',
         where: {
@@ -193,7 +192,6 @@ export class PostService {
         }
       },
       {
-        // Posts whose visibility window has expired => archive
         label: 'schedule_end in past => archived',
         status: 'archived',
         where: {
@@ -202,7 +200,6 @@ export class PostService {
         }
       },
       {
-        // Posts currently within their visibility window => publish
         label: 'within schedule window => published',
         status: 'published',
         where: {

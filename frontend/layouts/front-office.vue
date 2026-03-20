@@ -6,7 +6,7 @@
         <div>
             <EmergencyBar />
         </div>
-        <Popup />
+        <PopupModal />
         <Header />
         <main>
             <slot />
@@ -20,7 +20,7 @@ import Header from '~/components/organisms/front-office/Header.vue';
 import Footer from '~/components/organisms/front-office/Footer.vue';
 import AuthBar from '~/components/organisms/front-office/AuthBar.vue'
 import EmergencyBar from '~/components/organisms/front-office/EmergencyBar.vue'
-import Popup from '~/components/organisms/front-office/Popup.vue';
+import PopupModal from '~/components/organisms/front-office/PopupModal.vue';
 
 import { useAuthStore } from '~/stores/auth'
 

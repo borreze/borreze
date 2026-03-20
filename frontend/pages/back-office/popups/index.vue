@@ -27,7 +27,7 @@
             { key: 'title', label: 'Titre' },
             { key: 'date_from', label: 'Début', formatter: 'date' },
             { key: 'date_to', label: 'Fin', formatter: 'date' },
-            { key: 'is_active', label: 'Visible' },
+            { key: 'is_active', label: 'Active' },
         ]" :formatters="{
             date: (value) => value ? formatDate(value as string) : '-',
             id: (value) => `#${value}`,
