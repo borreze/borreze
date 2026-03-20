@@ -11,7 +11,7 @@
       enter-to-class="opacity-100 scale-100" leave-active-class="transition duration-150 ease-in"
       leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
       <div v-if="open" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none overflow-y-auto">
-        <div class="bg-white text-black rounded-lg p-6 m-3 w-[450px] shadow pointer-events-auto">
+        <div class="bg-white text-black rounded-lg p-6 m-3 shadow pointer-events-auto" :style="{ maxWidth: props.maxWidth + 'px' }">
           <div class="flex justify-between items-center mb-8">
             <h2 class="title-submain">
               {{ title }}
@@ -47,11 +47,13 @@ const props = withDefaults(defineProps<{
   closable?: boolean
   textConfirm?: string
   textCancel?: string
+  maxWidth?: number
 }>(), {
   title: 'Confirmation',
   closable: true,
   textConfirm: 'Confirmer',
-  textCancel: 'Annuler'
+  textCancel: 'Annuler',
+  maxWidth: 450
 })
 
 const emit = defineEmits<{

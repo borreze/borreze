@@ -51,9 +51,12 @@ import { push } from 'notivue';
 import Button from '~/components/atoms/Button.vue';
 import { useCreateMedia } from '~/composables/back-office/useMedia';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     initialMedia: MediaAttributes
-}>()
+    multiple?: boolean
+}>(), {
+    multiple: false
+})
 
 const emit = defineEmits<{
     uploaded: [medias: MediaAttributes[]]
@@ -74,6 +77,11 @@ const addFiles = (files: FileList | File[]) => {
         if (!isTypeAllowed(file.name, file.type)) {
             push.error({ title: 'Erreur', message: `Le fichier "${file.name}" n'est pas un type autorisé.` })
             continue
+        }
+
+        if (!props.multiple && pendingFiles.value.length > 0) {
+            push.error({ title: 'Erreur', message: `Vous ne pouvez sélectionner qu'un seul fichier.` })
+            break
         }
 
         const preview = file.type.startsWith('image/') ? URL.createObjectURL(file) : null

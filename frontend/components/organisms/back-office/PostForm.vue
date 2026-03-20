@@ -35,6 +35,10 @@
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
                             hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md"
                             :error="errors.abstract" @blur="touch('abstract')" />
+                        <div>
+                            <MediaSelector v-model="testMedia" label="Couverture"
+                                hint="Sélectionnez une image de couverture" />
+                        </div>
                         <div class="max-w-xs">
                             <Dropdown v-model="editingPostCategories" variant="light" size="md" label="Catégories"
                                 placeholder="Aucune" label-key="name" value-key="id" multiple :items="categories" />
@@ -103,7 +107,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PostAttributesFrontend, CategoryAttributes } from '@brz/shared'
+import type { PostAttributesFrontend, CategoryAttributes, MediaAttributes } from '@brz/shared'
 import { POST_STATUSES_OBJECTS, slugify } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
@@ -113,6 +117,7 @@ import Datepicker from '~/components/atoms/Datepicker.vue'
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import PostCard from '~/components/organisms/front-office/PostCard.vue'
 import { formatDateTime } from '~/utils/date'
+import MediaSelector from './MediaSelector.vue'
 
 const props = withDefaults(defineProps<{
     initialPost: PostAttributesFrontend
@@ -130,6 +135,8 @@ const emit = defineEmits<{
 }>()
 
 const editingPost = ref<PostAttributesFrontend>({ ...props.initialPost })
+
+const testMedia = ref<MediaAttributes[] | null>(null)
 
 const editingPostCategories = computed({
     get: () => editingPost.value.categories?.map(c => c.id) ?? [],

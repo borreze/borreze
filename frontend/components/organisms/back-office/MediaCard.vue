@@ -1,6 +1,6 @@
 <template>
     <div
-        class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 shadow-lg bg-white h-full">
+        :class="['z-10 group relative flex flex-col overflow-hidden rounded-lg border shadow-lg bg-white h-full', selected ? 'border-2 border-primary' : 'border-1 border-gray-200']">
         <MediaPreview :media="media" />
 
         <div class="flex flex-col gap-1 p-3 flex-1">
@@ -13,10 +13,14 @@
                 isMobile() ?
                     'flex-col justify-end p-3 gap-2' :
                     'absolute inset-0 flex flex-col items-center justify-center gap-2 bg-primary/30 bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity p-4']">
-            <Button as="link" :href="`/back-office/medias/${media.id}`" variant="primary" size="sm"
-                icon="ic:baseline-edit" label="Modifier" class="w-full" />
-            <Button as="link" :href="mediaUrl(media.file_path)" target="_blank" variant="light" size="sm"
-                icon="ic:baseline-open-in-new" label="Ouvrir" class="w-full mb-2" />
+            <Button v-if="editButton" :disabled="disabled" as="link" :href="`/back-office/medias/${media.id}`"
+                variant="primary" size="sm" icon="ic:baseline-edit" label="Modifier" class="w-full" />
+            <Button v-if="openButton" :disabled="disabled" as="link" :href="mediaUrl(media.file_path)" target="_blank"
+                variant="light" size="sm" icon="ic:baseline-open-in-new" label="Ouvrir" class="w-full mb-2" />
+            <Button v-if="deleteButton" :disabled="disabled" variant="warning" size="sm" icon="ic:baseline-delete"
+                label="Supprimer" class="w-full mb-2" @click="$emit('delete')" />
+            <Button v-if="selectButton" :disabled="disabled" variant="primary" size="sm"
+                icon="ic:sharp-library-add-check" label="Sélectionner" class="w-full mb-2" @click="$emit('select')" />
         </div>
     </div>
 </template>
@@ -28,8 +32,25 @@ import MediaPreview from '~/components/organisms/back-office/MediaPreview.vue';
 import { mediaUrl } from '~/utils/media'
 import { isMobile } from '~/utils/responsive';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     media: MediaAttributes
+    disabled?: boolean
+    selected?: boolean
+    editButton?: boolean
+    openButton?: boolean
+    deleteButton?: boolean
+    selectButton?: boolean
+}>(), {
+    disabled: false,
+    editButton: true,
+    openButton: true,
+    deleteButton: false,
+    selectButton: false
+})
+
+const emit = defineEmits<{
+    (e: 'delete'): void
+    (e: 'select'): void
 }>()
 
 </script>
