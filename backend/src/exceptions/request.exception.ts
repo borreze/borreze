@@ -1,20 +1,20 @@
 import { BaseException } from './base'
 
-export class HttpException extends BaseException { }
+export class RequestException extends BaseException { }
 
-export class BadRequest extends HttpException {
+export class BadRequest extends RequestException {
     constructor(message = 'Bad Request') {
         super(message, 400)
     }
 }
 
-export class NotFound extends HttpException {
+export class NotFound extends RequestException {
     constructor(message = 'Not Found') {
         super(message, 404)
     }
 }
 
-export class NoContent extends HttpException {
+export class NoContent extends RequestException {
     constructor(message = 'No Content') {
         super(message, 200) // No Content is 204, but we use 200 to avoid issues with empty responses
     }
