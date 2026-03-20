@@ -22,8 +22,8 @@
                 Aucun média sélectionné
             </div>
             <div class="mt-4 flex gap-2">
-                <MediaAddButton :multiple="multiple" :disabled="disabled" @uploaded="(medias) => addMedias(medias)" />
-                <MediaPickButton :multiple="multiple" :disabled="disabled" @selected="(medias) => addMedias(medias)" />
+                <MediaAddButton :multiple="multiple" :disabled="hasReachedMaxSelection()" @uploaded="(medias) => addMedias(medias)" />
+                <MediaPickButton v-model="innerMedias" :multiple="multiple" :disabled="hasReachedMaxSelection()" />
             </div>
         </div>
         <p v-if="error" class="text-sm text-red-500 mt-1">
@@ -54,14 +54,18 @@ const props = withDefaults(defineProps<{
     required: false,
 })
 
+const emit = defineEmits<{
+    (e: 'update:modelValue', value: MediaAttributes[] | null): void
+}>()
+
 const innerMedias = computed({
     get: () => props.modelValue,
     set: (val) => emit('update:modelValue', val as MediaAttributes[] | null)
 })
 
-const emit = defineEmits<{
-    (e: 'update:modelValue', value: MediaAttributes[] | null): void
-}>()
+function hasReachedMaxSelection() {
+    return (!props.multiple && innerMedias.value && innerMedias.value.length >= 1) || false
+}
 
 function addMedias(medias: MediaAttributes[]) {
     const currentMedias = innerMedias.value ?? []
@@ -72,11 +76,5 @@ function removeMedia(mediaId: number) {
     innerMedias.value = innerMedias.value?.filter(m => m.id !== mediaId) ?? null
 }
 
-const disabled = computed(() => {
-    if (props.multiple) {
-        return false
-    }
-    return (innerMedias.value && innerMedias.value.length > 0) || false
-})
 
 </script>

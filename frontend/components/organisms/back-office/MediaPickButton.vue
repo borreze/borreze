@@ -23,8 +23,7 @@
             </div>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
             <div class="flex justify-end gap-2">
-                <Button label="Sélectionner" icon="ic:baseline-send" variant="primary" size="sm"
-                    @click="handleSelect" />
+                <Button label="Utiliser" icon="ic:baseline-send" variant="primary" size="sm" @click="handleSelect" />
             </div>
         </Modal>
     </div>
@@ -43,6 +42,7 @@ import NoContent from '~/components/molecules/NoContent.vue';
 import Grid from '~/components/molecules/Grid.vue';
 
 const props = withDefaults(defineProps<{
+    modelValue?: MediaAttributes[] | null
     disabled?: boolean
     multiple?: boolean
 }>(), {
@@ -51,17 +51,22 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-    'selected': [medias: MediaAttributes[]]
+    (e: 'update:modelValue', value: MediaAttributes[] | null): void
 }>()
 
-const { loading, medias, pagination, setPage, setSearch } = await useMedias()
+const { loading, medias, pagination, setPage, setSearch, refresh } = await useMedias()
 
 const search = ref('')
 const modalOpen = ref(false)
-const innerMedias = ref<MediaAttributes[]>([])
+
+const innerMedias = computed({
+    get: () => props.modelValue,
+    set: (val) => emit('update:modelValue', val as MediaAttributes[] | null)
+})
+
 
 function hasReachedMaxSelection() {
-    return !props.multiple && innerMedias.value.length >= 1
+    return (!props.multiple && innerMedias.value && innerMedias.value.length >= 1) || false
 }
 
 function toggleMedia(mediaId: number) {
@@ -75,24 +80,26 @@ function toggleMedia(mediaId: number) {
 function addMedia(mediaId: number) {
     const media = medias.value.find(m => m.id === mediaId)
 
+    if (!innerMedias.value) innerMedias.value = []
+
     if (media && !isSelected(mediaId) && !hasReachedMaxSelection()) {
         innerMedias.value.push(media)
     }
 }
 
 function removeMedia(mediaId: number) {
+    if (!innerMedias.value) return
     innerMedias.value = innerMedias.value.filter(m => m.id !== mediaId)
 }
 
-function isSelected(mediaId: number) {
+function isSelected(mediaId: number): boolean {
+    if (!innerMedias.value) return false
     return innerMedias.value.some(m => m.id === mediaId)
 }
 
 const handleSelect = () => {
     closeAddModal()
-    emit('selected', innerMedias.value)
 }
-
 
 function openAddModal() {
     modalOpen.value = true
@@ -104,6 +111,11 @@ function closeAddModal() {
 
 watch(search, (newValue) => {
     setSearch(newValue)
+})
+
+// Watch for changes in modelValue to refresh the media list, so uploaded media can be unselected immediately
+watch(() => props.modelValue, () => {
+    refresh()
 })
 
 </script>

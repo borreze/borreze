@@ -36,7 +36,7 @@
                             hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md"
                             :error="errors.abstract" @blur="touch('abstract')" />
                         <div>
-                            <MediaSelector v-model="testMedia" label="Couverture"
+                            <MediaSelector v-model="testMedia" label="Couverture" multiple
                                 hint="Sélectionnez une image de couverture" />
                         </div>
                         <div class="max-w-xs">
