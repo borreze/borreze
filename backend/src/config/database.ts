@@ -42,7 +42,8 @@ if (isDockerized && !isTest) {
     }
     await sequelize.authenticate()
 })().then(async () => {
-    if (env === 'development') await sequelize.sync({ alter: true })
+    // if (env === 'development') await sequelize.sync({ alter: true })
+    if (env === 'development') await sequelize.sync({ alter: { drop: false } })
     // if (env === 'production') await sequelize.sync()
     // if (env === 'test') await sequelize.sync({ force: true })
 
