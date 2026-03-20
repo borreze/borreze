@@ -6,6 +6,7 @@ import { Terminal } from './utils/terminal.utils'
   try {
     await schoolHolidayService.import()
     await postService.computeStatuses()
+
     Terminal.success('Data import completed successfully')
     process.exit(0)
   } catch (error) {
