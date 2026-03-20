@@ -16,7 +16,7 @@
                     {{ formatDateRelativeNice(post.published_at) }}
                 </p>
                 <p v-if="post.abstract" class="mt-4 text-gray-600 italic">{{ post.abstract }}</p>
-                <div class="mt-6 prose max-w-none" v-html="post.content" />
+                <WysiwygRenderer v-if="post.content" class="mt-6 prose max-w-none" :html="post.content" />
             </article>
         </div>
     </section>
@@ -30,6 +30,7 @@ import { usePost } from '~/composables/front-office/usePost';
 import PageHero from '~/components/organisms/front-office/PageHero.vue';
 import { formatDateRelativeNice } from '~/utils/date';
 import { mediaUrl, MEDIA_URL_DEFAULT_HERO } from '~/utils/media';
+import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
 
 const route = useRoute()
 const { post, loading } = await usePost(route.params.slug as string)

@@ -1,13 +1,14 @@
 <template>
     <Modal v-if="isReady" v-model:open="opened" :title="popup?.title || 'Information'" textConfirm="Fermer"
         textCancel="Ne plus afficher" :onConfirm="handleConfirm" :onCancel="handleCancel">
-        <div class="text-dark" v-html="popup.content"></div>
+        <WysiwygRenderer v-if="popup.content" class="mt-6 prose max-w-none" :html="popup.content" />
     </Modal>
 </template>
 
 <script setup lang="ts">
 import type { PopupAttributes } from '@brz/shared'
 import Modal from '~/components/molecules/Modal.vue';
+import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
 
 const popup = ref<PopupAttributes>({
     id: 1,

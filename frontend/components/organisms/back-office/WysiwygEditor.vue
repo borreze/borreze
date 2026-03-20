@@ -9,6 +9,12 @@
                     size="sm" icon="ic:baseline-redo" @click="editor.chain().focus().redo().run()" />
             </div>
 
+            <!-- Copy HTML -->
+            <div class="wysiwyg-toolbar__group">
+                <Button variant="ghost" title="Exporter le HTML" icon="ic:baseline-import-export" roundness="sm"
+                    size="sm" @click="handleEditorExport" />
+            </div>
+
             <!-- Formatting -->
             <div v-if="anyFeature('bold', 'italic', 'underline', 'strike')" class="wysiwyg-toolbar__group">
                 <Button v-if="hasFeature('bold')" :variant="editor.isActive('bold') ? 'primary' : 'ghost'"
@@ -174,6 +180,7 @@ import Modal from '~/components/molecules/Modal.vue'
 import Field from '~/components/atoms/Field.vue'
 import Dropdown from '~/components/molecules/Dropdown.vue'
 import Button from '~/components/atoms/Button.vue'
+import { push } from 'notivue'
 
 type Feature =
     | 'bold' | 'italic' | 'underline' | 'strike'
@@ -227,6 +234,16 @@ onMounted(() => {
 
 function hasFeature(f: Feature) { return props.features.includes(f) }
 function anyFeature(...fs: Feature[]) { return fs.some(f => props.features.includes(f)) }
+
+// -----------------------------------------------------------------------------
+// HTML Export
+// -----------------------------------------------------------------------------
+
+async function handleEditorExport() {
+    if (!editor.value) return
+    await navigator.clipboard.writeText(editor.value.getHTML())
+    push.success({ title: 'Copié !', message: 'Le code HTML brut a été copié dans votre presse-papiers.' })
+}
 
 // -----------------------------------------------------------------------------
 // Resizable Image NodeView
