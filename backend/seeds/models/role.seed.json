@@ -10,8 +10,10 @@
         "id": 2,
         "name": "Éditeur de contenu",
         "permissions": [
+            "dashboard.*",
             "post.*",
-            "category.*"
+            "category.*",
+            "media.*"
         ]
     },
     {

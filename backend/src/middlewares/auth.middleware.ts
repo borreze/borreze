@@ -4,6 +4,7 @@ import { Unauthorized } from '../exceptions/auth.exception'
 import { userService } from '../services/user.service'
 import { UserAttributesPublic } from '@brz/shared'
 import { permissionCheck } from '../utils/auth.utils'
+import { Role } from '../models'
 
 /**
  * Extract and validate user from Authorization header.
@@ -20,6 +21,10 @@ async function resolveUser(req: Request): Promise<UserAttributesPublic | null> {
     const user = await userService.getById(payload.user_id)
     if (!user) return null
 
+    const role = await Role.findByPk(user?.role_id)
+    if (!role) return null
+    const permissions = Array.isArray(role.permissions) ? role.permissions : []
+
     return {
         id: user.id,
         email: user.email,
@@ -28,6 +33,7 @@ async function resolveUser(req: Request): Promise<UserAttributesPublic | null> {
         last_name: user.last_name,
         role_id: user.role_id,
         status: user.status,
+        permissions
     } as UserAttributesPublic
 }
 
