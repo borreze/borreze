@@ -38,7 +38,7 @@
                     <h4 class="title-submain mb-6">{{ mediaGetLabel(editingMedia.type) }}</h4>
                     <div
                         class="max-h-96 max-w-96 rounded-lg border border-gray-200 shadow-[2px_2px_10px_2px_#0000001a] overflow-hidden">
-                        <MediaPreview :media="editingMedia" />
+                        <MediaPicture :media="editingMedia" />
                     </div>
                     <div class="flex items-center justify-start gap-4 mt-4">
                         <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link"
@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import MediaPreview from '~/components/organisms/back-office/MediaPreview.vue';
+import MediaPicture from '~/components/organisms/back-office/MediaPicture.vue';
 import { mediaGetLabel, sizeToReadable, type MediaAttributes } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'

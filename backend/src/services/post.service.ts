@@ -247,7 +247,7 @@ export class PostService {
       }
 
       if (totalUpdated > 0) {
-        Terminal.success(`${label}: ${totalUpdated} post(s) updated`)
+        Terminal.log(`${label}: ${totalUpdated} post(s) updated`)
       }
     }
 

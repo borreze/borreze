@@ -179,7 +179,7 @@ export class PopupService {
       }
 
       if (totalUpdated > 0) {
-        Terminal.success(`${label}: ${totalUpdated} popup(s) updated`)
+        Terminal.log(`${label}: ${totalUpdated} popup(s) updated`)
       }
     }
 

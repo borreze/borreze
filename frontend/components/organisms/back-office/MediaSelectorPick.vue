@@ -14,8 +14,8 @@
                     <Grid v-if="medias?.length > 0" :items="medias" :min-width="150">
                         <template #item="{ item }">
                             <MediaCard :media="item" :disabled="hasReachedMaxSelection() && !isSelected(item.id)"
-                                :delete-button="false" :edit-button="false" :open-button="false" :select-button="true"
-                                :selected="isSelected(item.id)" @select="toggleMedia(item.id)" />
+                                :delete-button="false" :edit-button="false" :open-button="false" :toggle-button="true"
+                                :selected="isSelected(item.id)" @toggle="toggleMedia(item.id)" />
                         </template>
                     </Grid>
                     <NoContent v-else />
@@ -23,7 +23,7 @@
             </div>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
             <div class="flex justify-end gap-2">
-                <Button label="Utiliser" icon="ic:baseline-send" variant="primary" size="sm" @click="handleUse" />
+                <Button label="Utiliser ces médias" icon="ic:baseline-send" variant="primary" size="sm" @click="closeAddModal" />
             </div>
         </Modal>
     </div>
@@ -95,10 +95,6 @@ function removeMedia(mediaId: number) {
 function isSelected(mediaId: number): boolean {
     if (!innerMedias.value) return false
     return innerMedias.value.some(m => m.id === mediaId)
-}
-
-const handleUse = () => { // Juste close the modal, the media list is already updated on selection
-    closeAddModal()
 }
 
 function openAddModal() {

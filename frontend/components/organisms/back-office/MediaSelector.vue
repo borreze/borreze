@@ -14,16 +14,17 @@
         <div class="border-2 bg-white w-full border-gray-300 p-4 rounded-md">
             <Grid v-if="innerMedias && innerMedias.length > 0" :items="innerMedias" :min-width="150">
                 <template #item="{ item }">
-                    <MediaCard :media="item" :delete-button="true" :edit-button="false" :open-button="true"
-                        :select-button="false" @delete="removeMedia(item.id)" />
+                    <MediaCard :media="item" :delete-button="false" :edit-button="false" :open-button="true"
+                        :remove-button="true" :select-button="false" @remove="removeMedia(item.id)" />
                 </template>
             </Grid>
             <div v-else class="text-gray-500 text-sm">
                 Aucun média sélectionné
             </div>
             <div class="mt-4 flex gap-2">
-                <MediaAddButton :multiple="multiple" :disabled="hasReachedMaxSelection()" @uploaded="(medias) => addMedias(medias)" />
-                <MediaPickButton v-model="innerMedias" :multiple="multiple" :disabled="hasReachedMaxSelection()" />
+                <MediaAddButton :multiple="multiple" :disabled="hasReachedMaxSelection()"
+                    @uploaded="(medias) => addMedias(medias)" />
+                <MediaSelectorPick v-model="innerMedias" :multiple="multiple" :disabled="hasReachedMaxSelection()" />
             </div>
         </div>
         <p v-if="error" class="text-sm text-red-500 mt-1">
@@ -36,7 +37,7 @@
 <script setup lang="ts">
 import type { MediaAttributes } from '@brz/shared';
 import MediaAddButton from '~/components/organisms/back-office/MediaAddButton.vue';
-import MediaPickButton from '~/components/organisms/back-office/MediaPickButton.vue';
+import MediaSelectorPick from '~/components/organisms/back-office/MediaSelectorPick.vue';
 import MediaCard from './MediaCard.vue';
 import Grid from '~/components/molecules/Grid.vue';
 

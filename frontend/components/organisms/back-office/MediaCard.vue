@@ -1,7 +1,7 @@
 <template>
     <div
         :class="['z-10 group relative flex flex-col overflow-hidden rounded-lg border shadow-lg bg-white h-full', selected ? 'border-2 border-primary' : 'border-1 border-gray-200']">
-        <MediaPreview :media="media" />
+        <MediaPicture :media="media" />
 
         <div class="flex flex-col gap-1 p-3 flex-1">
             <span class="text-sm font-medium text-gray-800 truncate"> {{ media.title }} </span>
@@ -19,8 +19,10 @@
                 variant="light" size="sm" icon="ic:baseline-open-in-new" label="Ouvrir" class="w-full mb-2" />
             <Button v-if="deleteButton" :disabled="disabled" variant="warning" size="sm" icon="ic:baseline-delete"
                 label="Supprimer" class="w-full mb-2" @click="$emit('delete')" />
-            <Button v-if="selectButton" :disabled="disabled" variant="primary" size="sm"
-                icon="ic:sharp-library-add-check" label="Sélectionner" class="w-full mb-2" @click="$emit('select')" />
+            <Button v-if="removeButton" :disabled="disabled" variant="warning" size="sm" icon="ic:baseline-remove-circle"
+                label="Retirer" class="w-full mb-2" @click="$emit('remove')" />
+            <Button v-if="toggleButton" :disabled="disabled" variant="primary" size="sm"
+                :icon="selected ? 'ic:outline-check-box' : 'ic:round-check-box-outline-blank'" :label="selected ? 'Retirer' : 'Sélectionner'" class="w-full mb-2" @click="$emit('toggle')" />
         </div>
     </div>
 </template>
@@ -28,7 +30,7 @@
 <script setup lang="ts">
 import { sizeToReadable, type MediaAttributes } from '@brz/shared'
 import Button from '~/components/atoms/Button.vue';
-import MediaPreview from '~/components/organisms/back-office/MediaPreview.vue';
+import MediaPicture from '~/components/organisms/back-office/MediaPicture.vue';
 import { mediaUrl } from '~/utils/media'
 import { isMobile } from '~/utils/responsive';
 
@@ -38,19 +40,22 @@ const props = withDefaults(defineProps<{
     selected?: boolean
     editButton?: boolean
     openButton?: boolean
+    removeButton?: boolean
     deleteButton?: boolean
-    selectButton?: boolean
+    toggleButton?: boolean
 }>(), {
     disabled: false,
     editButton: true,
     openButton: true,
+    removeButton: false,
     deleteButton: false,
-    selectButton: false
+    toggleButton: false
 })
 
 const emit = defineEmits<{
     (e: 'delete'): void
-    (e: 'select'): void
+    (e: 'toggle'): void
+    (e: 'remove'): void
 }>()
 
 </script>
