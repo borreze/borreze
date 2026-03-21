@@ -15,7 +15,7 @@
                 position="right" :center="false" icon="ic:round-keyboard-arrow-down"
                 :iconClass="isOpen ? 'rotate-180' : ''" @click="toggle">
             </Button>
-            <p v-if="error" class="text-sm text-red-500 mt-1">
+            <p v-if="error" class="text-sm text-danger mt-1">
                 {{ error }}
             </p>
         </div>

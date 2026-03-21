@@ -17,22 +17,25 @@
                 <MediaCard v-for="media in innerMedias" :key="media.id" :media="media" :delete-button="false"
                     :edit-button="false" :open-button="true" :remove-button="true" :select-button="false"
                     @remove="removeMedia(media)" />
-                <button v-if="!hasReachedMaxSelection()"
-                    class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-md p-4 hover:border-gray-400 transition-colors cursor-pointer"
-                    @click="openAddModal">
+                <button
+                    class="flex flex-col items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed border-2 border-dashed border-gray-300 rounded-md p-4 hover:border-gray-400 transition-colors cursor-pointer"
+                    :disabled="disabled" @click="openAddModal">
                     <Icon class="text-gray-300" name="ic:outline-file-upload" size="2em" />
-                    <span class="text-sm text-gray-500">Envoyer depuis votre appareil</span>
+                    <span class="text-sm text-gray-400">Envoyer depuis votre appareil</span>
                 </button>
-                <button v-if="!hasReachedMaxSelection()"
-                    class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-md p-4 hover:border-gray-400 transition-colors cursor-pointer"
-                    @click="openPickModal">
+                <button
+                    class="flex flex-col items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed border-2 border-dashed border-gray-300 rounded-md p-4 hover:border-gray-400 transition-colors cursor-pointer"
+                    :disabled="disabled" @click="openPickModal">
                     <Icon class="text-gray-300" name="ic:round-plus" size="2em" />
-                    <span class="text-sm text-gray-500">Choisir dans la médiathèque</span>
+                    <span class="text-sm text-gray-400">Choisir dans la médiathèque</span>
                 </button>
             </div>
         </div>
-        <p v-if="error" class="text-sm text-red-500 mt-1">
+        <p v-if="error" class="text-sm text-danger mt-1">
             {{ error }}
+        </p>
+        <p v-if="warn" class="text-sm text-warning mt-1">
+            {{ warn }}
         </p>
 
         <!-- Add modal -->
@@ -52,8 +55,8 @@
                 <div v-else-if="medias" class="mt-6">
                     <Grid v-if="medias?.length > 0" :items="medias" :min-width="150">
                         <template #item="{ item }">
-                            <MediaCard :media="item" :disabled="hasReachedMaxSelection() && !isSelected(item)"
-                                :delete-button="false" :edit-button="false" :open-button="false" :toggle-button="true"
+                            <MediaCard :media="item" :disabled="disabled && !isSelected(item)" :delete-button="false"
+                                :edit-button="false" :open-button="false" :toggle-button="true"
                                 :selected="isSelected(item)" @toggle="toggleMedia(item)" />
                         </template>
                     </Grid>
@@ -134,10 +137,6 @@ const handleUploaded = (medias: MediaAttributes[]) => {
     closeAddModal()
 }
 
-function hasReachedMaxSelection() {
-    return (!props.multiple && innerMedias.value && innerMedias.value.length >= 1) || false
-}
-
 function isSelected(media: MediaAttributes): boolean {
     if (!innerMedias.value) return false
     return innerMedias.value.some(m => m.id === media.id)
@@ -160,6 +159,22 @@ function removeMedia(media: MediaAttributes) {
     if (!innerMedias.value) return
     innerMedias.value = innerMedias.value.filter(m => m.id !== media.id)
 }
+
+function hasReachedMax() {
+    return (!props.multiple && innerMedias.value && innerMedias.value.length >= 1) || false
+}
+
+const disabled = computed(() => {
+    return hasReachedMax() || loading.value
+})
+
+const warn = computed(() => {
+    if (hasReachedMax()) {
+        return 'Le nombre maximum de médias a été atteint.'
+    }
+
+    return null
+})
 
 // Watch for changes in modelValue to refresh the media list, so uploaded media can be unselected immediately
 watch(() => props.modelValue, () => {

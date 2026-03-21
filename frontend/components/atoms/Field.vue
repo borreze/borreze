@@ -16,7 +16,7 @@
         <input v-else v-bind="$attrs" :id="id" :name="name" :required="required" :placeholder="placeholder"
             :autocomplete="autocomplete" :type="type" v-model="innerValue" :class="inputClass" @blur="emit('blur')"
             @focus="emit('focus')" @input="emit('input')" />
-        <p v-if="error" class="text-sm text-red-500 mt-1">
+        <p v-if="error" class="text-sm text-danger mt-1">
             {{ error }}
         </p>
     </div>

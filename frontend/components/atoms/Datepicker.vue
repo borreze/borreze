@@ -21,7 +21,7 @@
                 @change="handleChange" />
         </div>
 
-        <p v-if="error" class="text-sm text-red-500 mt-1">
+        <p v-if="error" class="text-sm text-danger mt-1">
             {{ error }}
         </p>
     </div>
