@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import { Forbidden, Unauthorized } from '../exceptions/auth.exception'
 import { UserAttributesPublic } from '@brz/shared'
-import { get } from 'http'
 
 dotenv.config()
 
