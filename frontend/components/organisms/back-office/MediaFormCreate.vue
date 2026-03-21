@@ -116,6 +116,8 @@ const handleUpload = async () => {
         pendingFiles.value = []
 
         emit('uploaded', medias)
+    } catch (error) {
+        push.error({ title: 'Erreur', message: 'Une erreur est survenue lors de l\'upload. Veuillez réessayer.' })
     } finally {
         uploading.value = false
     }
