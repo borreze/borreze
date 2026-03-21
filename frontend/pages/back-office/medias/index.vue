@@ -5,7 +5,7 @@
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button label="Ajouter" icon="ic:baseline-plus" variant="primary" size="sm" @click="openAddModal" />
+            <Button label="Ajouter" icon="ic:outline-file-upload" variant="primary" size="sm" @click="openAddModal" />
         </Teleport>
 
         <div class="mt-4 flex gap-4 items-center justify-end ">

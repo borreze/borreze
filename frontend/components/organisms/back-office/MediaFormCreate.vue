@@ -38,7 +38,7 @@
             </section>
 
             <div v-if="pendingFiles.length" class="flex items-center justify-end gap-4">
-                <Button label="Envoyer" icon="ic:baseline-upload" variant="primary" size="sm" :loading="uploading"
+                <Button label="Envoyer" icon="ic:outline-file-upload" variant="primary" size="sm" :loading="uploading"
                     :disabled="!pendingFiles.length" @click="handleUpload" />
             </div>
         </div>
