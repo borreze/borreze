@@ -4,7 +4,7 @@
         <Transition enter-active-class="transition-opacity duration-300" enter-from-class="opacity-0"
             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300"
             leave-from-class="opacity-100" leave-to-class="opacity-0">
-            <div v-if="open && !isStaticMode" class="fixed inset-0 bg-black/70 z-40" @click="close" />
+            <div v-if="open && !isStaticMode" :class="['fixed inset-0 bg-black/70', zCLasses.backdrop]" @click="close" />
         </Transition>
 
         <!-- Panel animé (mobile / tablet) -->
@@ -13,7 +13,7 @@
             leave-active-class="transition-transform duration-300" leave-from-class="translate-x-0"
             :leave-to-class="leaveToClass">
             <aside v-if="open"
-                :class="['fixed top-0 bottom-0  bg-white shadow-2xl z-50 flex flex-col overflow-y-auto', sideClass]"
+                :class="['fixed top-0 bottom-0  bg-white shadow-2xl z-50 flex flex-col overflow-y-auto', zCLasses.panel, sideClass]"
                 :style="[`width: ${width}px`]">
                 <div :class="['flex items-center p-4', side === 'left' ? 'justify-end' : 'justify-start']">
                     <Button icon="ic:baseline-close" variant="ghost" size="lg" @click="close" />
@@ -38,10 +38,12 @@ const props = withDefaults(defineProps<{
     side?: 'left' | 'right'
     alwaysDisplay?: boolean
     width?: number
+    level?: 1 | 2
 }>(), {
     side: 'right',
     alwaysDisplay: false,
-    width: 320
+    width: 320,
+    level: 1
 })
 
 const emit = defineEmits<{
@@ -81,6 +83,17 @@ function handleKey(e: KeyboardEvent) {
         close()
     }
 }
+
+const zCLasses = computed(() => {
+    if (props.level === 1) {
+        return { backdrop: 'z-40', panel: 'z-50' }
+    }
+    if (props.level === 2) {
+        return { backdrop: 'z-60', panel: 'z-70' }
+    }
+
+    return { backdrop: 'z-40', panel: 'z-50' }
+})
 
 watch(() => props.open, (isOpen) => {
     if (isStaticMode.value) return

@@ -137,25 +137,25 @@
         </Modal>
 
         <!-- Image modal -->
-        <Modal v-model:open="showImageModal" title="Insérer une image" textConfirm="Ajouter" textCancel="Annuler"
+        <Modal v-model:open="imageModal" title="Insérer une image" textConfirm="Ajouter" textCancel="Annuler"
             :onConfirm="insertImage" :onCancel="closeImageModal">
             <div class="flex flex-col gap-4">
-                <Field v-model="imageUrl" roundness="md" type="url" label="URL de l'image"
-                    placeholder="https://exemple.com/image.jpg" />
+                <MediaSelector v-model="imageMedia" media-type="image" required label="Image" />
                 <Field v-model="imageAlt" roundness="md" label="Texte alternatif"
                     placeholder="Texte alternatif de l'image" />
                 <Field v-model="imageWidth" roundness="md" label="Largeur"
                     placeholder="Largeur de l'image (ex: 400px)" />
+
             </div>
         </Modal>
 
         <!-- Button modal -->
-        <Modal v-model:open="showButtonModal" title="Insérer un bouton" textConfirm="Ajouter" textCancel="Annuler"
+        <Modal v-model:open="buttonModal" title="Insérer un bouton" textConfirm="Ajouter" textCancel="Annuler"
             :onConfirm="insertButton" :onCancel="closeButtonModal">
             <div class="flex flex-col gap-4">
-                <Field v-model="btnLabel" roundness="md" label="Texte du bouton" placeholder="Cliquez moi" />
-                <Field v-model="btnHref" roundness="md" label="Lien" placeholder="https://exemple.com" />
-                <Dropdown v-model="btnVariant" label="Style" :items="buttonVariantOptions" valueKey="key" full-width
+                <Field v-model="boutonLabel" roundness="md" label="Texte du bouton" placeholder="Cliquez moi" />
+                <Field v-model="boutonHref" roundness="md" label="Lien" placeholder="https://exemple.com" />
+                <Dropdown v-model="boutonVariant" label="Style" :items="buttonVariantOptions" valueKey="key" full-width
                     variant="light" />
             </div>
         </Modal>
@@ -181,6 +181,8 @@ import Field from '~/components/atoms/Field.vue'
 import Dropdown from '~/components/molecules/Dropdown.vue'
 import Button from '~/components/atoms/Button.vue'
 import { push } from 'notivue'
+import type { MediaAttributes } from '@brz/shared'
+import MediaSelector from './MediaSelector.vue'
 
 type Feature =
     | 'bold' | 'italic' | 'underline' | 'strike'
@@ -428,27 +430,32 @@ function setLink() {
 // Modal state — Image
 // -----------------------------------------------------------------------------
 
-const showImageModal = ref(false)
-const imageUrl = ref('')
+const imageModal = ref(false)
+const imageMedia = ref<MediaAttributes | null>(null)
 const imageAlt = ref('')
 const imageWidth = ref('')
 
 function openImageModal() {
-    showImageModal.value = true
+    imageModal.value = true
 }
 
 function closeImageModal() {
-    showImageModal.value = false
-    imageUrl.value = ''; imageAlt.value = ''; imageWidth.value = ''
+    imageModal.value = false
+
+    imageMedia.value = null
+    imageAlt.value = ''
+    imageWidth.value = ''
 }
 
 function insertImage() {
-    if (!imageUrl.value) return
+    if (!imageMedia.value) return
+
     editor.value!.chain().focus().setImage({
-        src: imageUrl.value,
+        src: mediaUrl(imageMedia.value.file_path),
         alt: imageAlt.value || undefined,
         width: imageWidth.value || undefined,
     } as any).run()
+
     closeImageModal()
 }
 
@@ -462,27 +469,27 @@ const buttonVariantOptions = [
     { label: 'Coutours', key: 'outline' },
 ]
 
-const showButtonModal = ref(false)
-const btnLabel = ref('')
-const btnHref = ref('')
-const btnVariant = ref<string | null>(null)
+const buttonModal = ref(false)
+const boutonLabel = ref('')
+const boutonHref = ref('')
+const boutonVariant = ref<string | null>(null)
 
 function openButtonModal() {
-    showButtonModal.value = true
+    buttonModal.value = true
 }
 
 function closeButtonModal() {
-    showButtonModal.value = false
-    btnLabel.value = '';
-    btnHref.value = '';
-    btnVariant.value = null
+    buttonModal.value = false
+    boutonLabel.value = '';
+    boutonHref.value = '';
+    boutonVariant.value = null
 }
 
 function insertButton() {
-    if (!btnLabel.value) return
+    if (!boutonLabel.value) return
     editor.value!.chain().focus().insertContent({
         type: 'customButton',
-        attrs: { label: btnLabel.value, href: btnHref.value || '#', variant: btnVariant.value || 'primary' },
+        attrs: { label: boutonLabel.value, href: boutonHref.value || '#', variant: boutonVariant.value || 'primary' },
     }).run()
     closeButtonModal()
 }

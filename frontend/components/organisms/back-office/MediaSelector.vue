@@ -39,12 +39,12 @@
         </p>
 
         <!-- Add modal -->
-        <Modal v-model:open="addModal" title="Ajouter un média">
+        <Modal v-model:open="addModal" :level="2" title="Ajouter un média">
             <MediaFormCreate :multiple="multiple" :media-type="mediaType" @uploaded="handleUploaded" />
         </Modal>
 
         <!-- Pick modal -->
-        <Modal v-model:open="pickModal" title="Séléctionner des médias" :max-width="1200">
+        <Modal v-model:open="pickModal" :level="2" title="Séléctionner des médias" :max-width="1200">
             <div class="mb-4 max-w-lg">
                 <Field v-model="search" placeholder="Rechercher..." icon="ic:baseline-search" size="sm" roundness="md"
                     class="flex-1" />

@@ -3,15 +3,18 @@
     <Transition enter-active-class="transition-opacity duration-200" enter-from-class="opacity-0"
       enter-to-class="opacity-100" leave-active-class="transition-opacity duration-150" leave-from-class="opacity-100"
       leave-to-class="opacity-0">
-      <div v-if="open" class="fixed inset-0 z-40 flex items-center justify-center bg-black/50 backdrop-blur-xs"
+      <div v-if="open"
+        :class="['fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-xs', zCLasses.backdrop]"
         @click="handleBackdropClick" />
     </Transition>
 
     <Transition enter-active-class="transition duration-200 ease-out" enter-from-class="opacity-0 scale-95"
       enter-to-class="opacity-100 scale-100" leave-active-class="transition duration-150 ease-in"
       leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-      <div v-if="open" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none overflow-y-auto">
-        <div class="bg-white text-black rounded-lg p-6 m-3 shadow pointer-events-auto" :style="{ maxWidth: props.maxWidth + 'px' }">
+      <div v-if="open"
+        :class="['fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto', zCLasses.modal]">
+        <div class="bg-white text-black rounded-lg p-6 m-3 shadow pointer-events-auto"
+          :style="{ maxWidth: props.maxWidth + 'px', minWidth: props.minWidth + 'px' }" @click.stop>
           <div class="flex justify-between items-center mb-8">
             <h2 class="title-submain">
               {{ title }}
@@ -48,12 +51,16 @@ const props = withDefaults(defineProps<{
   textConfirm?: string
   textCancel?: string
   maxWidth?: number
+  minWidth?: number
+  level?: 1 | 2
 }>(), {
   title: 'Confirmation',
   closable: true,
   textConfirm: 'Confirmer',
   textCancel: 'Annuler',
-  maxWidth: 450
+  maxWidth: 450,
+  minWidth: 300,
+  level: 1
 })
 
 const emit = defineEmits<{
@@ -87,6 +94,17 @@ const handleKey = (e: KeyboardEvent) => {
     close()
   }
 }
+
+const zCLasses = computed(() => {
+  if (props.level === 1) {
+    return { backdrop: 'z-40', modal: 'z-50' }
+  }
+  if (props.level === 2) {
+    return { backdrop: 'z-60', modal: 'z-70' }
+  }
+
+  return { backdrop: 'z-40', modal: 'z-50' }
+})
 
 watch(() => props.open, (isOpen) => {
   if (isOpen) {
