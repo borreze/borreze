@@ -22,24 +22,30 @@
                 Aucun média sélectionné
             </div>
             <div class="mt-4 flex gap-2">
-                <MediaAddButton :multiple="multiple" :disabled="hasReachedMaxSelection()"
-                    @uploaded="(medias) => addMedias(medias)" />
+                <Button label="Ajouter" :disabled="hasReachedMaxSelection()" icon="ic:baseline-plus" variant="primary"
+                    size="sm" @click="openAddModal" />
                 <MediaSelectorPick v-model="innerMedias" :multiple="multiple" :disabled="hasReachedMaxSelection()" />
             </div>
         </div>
         <p v-if="error" class="text-sm text-red-500 mt-1">
             {{ error }}
         </p>
+
+        <Modal v-model:open="addModal" title="Ajouter un média">
+            <MediaFormCreate :multiple="multiple" @uploaded="handleUploaded" />
+        </Modal>
     </div>
 </template>
 
-
 <script setup lang="ts">
 import type { MediaAttributes } from '@brz/shared';
-import MediaAddButton from '~/components/organisms/back-office/MediaAddButton.vue';
 import MediaSelectorPick from '~/components/organisms/back-office/MediaSelectorPick.vue';
 import MediaCard from './MediaCard.vue';
 import Grid from '~/components/molecules/Grid.vue';
+import MediaFormCreate from './MediaFormCreate.vue';
+import Modal from '~/components/molecules/Modal.vue';
+import { push } from 'notivue';
+import Button from '~/components/atoms/Button.vue';
 
 const props = withDefaults(defineProps<{
     modelValue?: MediaAttributes[] | null
@@ -59,10 +65,26 @@ const emit = defineEmits<{
     (e: 'update:modelValue', value: MediaAttributes[] | null): void
 }>()
 
+const addModal = ref(false)
+
 const innerMedias = computed({
     get: () => props.modelValue,
     set: (val) => emit('update:modelValue', val as MediaAttributes[] | null)
 })
+
+function openAddModal() {
+    addModal.value = true
+}
+
+function closeAddModal() {
+    addModal.value = false
+}
+
+const handleUploaded = (medias: MediaAttributes[]) => {
+    addMedias(medias)
+    push.success({ title: 'Uploadé !', message: `${medias.length} fichier(s) ajouté(s).` })
+    closeAddModal()
+}
 
 function hasReachedMaxSelection() {
     return (!props.multiple && innerMedias.value && innerMedias.value.length >= 1) || false
@@ -76,6 +98,5 @@ function addMedias(medias: MediaAttributes[]) {
 function removeMedia(mediaId: number) {
     innerMedias.value = innerMedias.value?.filter(m => m.id !== mediaId) ?? null
 }
-
 
 </script>

@@ -52,7 +52,6 @@ import Button from '~/components/atoms/Button.vue';
 import { useCreateMedia } from '~/composables/back-office/useMedia';
 
 const props = withDefaults(defineProps<{
-    initialMedia: MediaAttributes
     multiple?: boolean
 }>(), {
     multiple: false

@@ -1,7 +1,7 @@
 <template>
     <div>
         <Button label="Séléctionner" :disabled="disabled" icon="ic:baseline-plus" variant="ghost" size="sm"
-            @click="openAddModal" />
+            @click="openModal" />
 
         <Modal v-model:open="modalOpen" title="Séléctionner des médias" :max-width="1200">
             <div class="mb-4 max-w-lg">
@@ -23,7 +23,7 @@
             </div>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
             <div class="flex justify-end gap-2">
-                <Button label="Utiliser ces médias" icon="ic:baseline-send" variant="primary" size="sm" @click="closeAddModal" />
+                <Button label="Utiliser ces médias" icon="ic:baseline-send" variant="primary" size="sm" @click="closeModal" />
             </div>
         </Modal>
     </div>
@@ -97,11 +97,11 @@ function isSelected(mediaId: number): boolean {
     return innerMedias.value.some(m => m.id === mediaId)
 }
 
-function openAddModal() {
+function openModal() {
     modalOpen.value = true
 }
 
-function closeAddModal() {
+function closeModal() {
     modalOpen.value = false
 }
 
