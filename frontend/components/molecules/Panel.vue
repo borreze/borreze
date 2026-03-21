@@ -1,13 +1,11 @@
 <template>
     <Teleport to="body" :disabled="isStaticMode">
-        <!-- Overlay : masqué en mode statique -->
         <Transition enter-active-class="transition-opacity duration-300" enter-from-class="opacity-0"
             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300"
             leave-from-class="opacity-100" leave-to-class="opacity-0">
             <div v-if="open && !isStaticMode" :class="['fixed inset-0 bg-black/70', zCLasses.backdrop]" @click="close" />
         </Transition>
 
-        <!-- Panel animé (mobile / tablet) -->
         <Transition v-if="!isStaticMode" enter-active-class="transition-transform duration-300"
             :enter-from-class="enterFromClass" enter-to-class="translate-x-0"
             leave-active-class="transition-transform duration-300" leave-from-class="translate-x-0"
@@ -22,7 +20,6 @@
             </aside>
         </Transition>
 
-        <!-- Panel statique (lg + alwaysDisplay) -->
         <aside v-else class="relative bg-white border-gray-200 flex flex-col overflow-y-auto shrink-0"
             :class="side === 'left' ? 'border-r' : 'border-l'" :style="[`width: ${width}px`]">
             <slot />
