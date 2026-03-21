@@ -80,6 +80,15 @@ export const useMenuStore = defineStore('menu', {
          */
         getMenusByScope(scope: MenuScope): MenuAttributesFrontend[] | null {
             return this.menus[scope] || null
+        },
+
+        /**
+         * Delete all cookies related to menus. This can be used on logout to clear cached menus.
+         */
+        clearMenus(scope: MenuScope) {
+            const menusCookie = useCookie<MenuAttributesFrontend[] | null>(`${MENU_COOKIE_PREFIX}${scope}`, MENU_COOKIE_OPTIONS)
+            menusCookie.value = null
+            this.menus[scope] = null
         }
     }
 })

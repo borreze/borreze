@@ -56,6 +56,7 @@
     {
         "id": 2001,
         "scope": "back-office",
+        "context": "dashboard",
         "icon": "ic:outline-space-dashboard",
         "label": "Dashboard",
         "url": "/back-office",
@@ -66,9 +67,10 @@
     {
         "id": 2002,
         "scope": "back-office",
+        "context": "profile",
         "icon": "ic:baseline-person",
         "label": "Mon profil",
-        "url": "/back-office/profile",
+        "url": "/back-office/profil",
         "order": 1,
         "parent_id": null,
         "is_visible": true
@@ -76,6 +78,7 @@
     {
         "id": 2008,
         "scope": "back-office",
+        "context": "media",
         "icon": "ic:round-image",
         "label": "Médias",
         "url": "/back-office/medias",
@@ -86,6 +89,7 @@
     {
         "id": 2003,
         "scope": "back-office",
+        "context": "home",
         "icon": "ic:baseline-home",
         "label": "Page d'accueil",
         "order": 3,
@@ -95,6 +99,7 @@
     {
         "id": 2004,
         "scope": "back-office",
+        "context": "home",
         "label": "Liste des accès rapides",
         "url": "/back-office/page-accueil/acces-rapides",
         "order": 0,
@@ -104,6 +109,7 @@
     {
         "id": 2005,
         "scope": "back-office",
+        "context": "post",
         "icon": "ic:baseline-newspaper",
         "label": "Actualités",
         "order": 4,
@@ -113,6 +119,7 @@
     {
         "id": 2006,
         "scope": "back-office",
+        "context": "post",
         "label": "Liste des actualités",
         "url": "/back-office/actualites",
         "order": 0,
@@ -122,6 +129,7 @@
     {
         "id": 2007,
         "scope": "back-office",
+        "context": "post",
         "label": "Créer une actualité",
         "url": "/back-office/actualites/ajouter",
         "order": 1,
@@ -131,6 +139,7 @@
     {
         "id": 2009,
         "scope": "back-office",
+        "context": "setting",
         "icon": "ic:baseline-settings",
         "label": "Paramètres",
         "order": 5,
@@ -140,6 +149,7 @@
     {
         "id": 20010,
         "scope": "back-office",
+        "context": "setting",
         "label": "Popups d'alerte",
         "url": "/back-office/popups",
         "order": 0,

@@ -31,7 +31,7 @@
                     <Url icon="ic:baseline-email" to="mailto:mairie.borreze@orange.fr"
                         label="mairie.borreze@orange.fr" />
                     <Url icon="ic:baseline-phone" to="tel:0553288338" label="05 53 28 83 38" />
-                    <p>Horaires d'ouverture :<br>
+                    <p v-if="schedules.length">Horaires d'ouverture :<br>
                         <span v-html="nl2br(renderSchedules(schedules))"></span>
                     </p>
                 </address>

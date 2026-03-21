@@ -10,7 +10,7 @@ import { MENU_CONSTRAINTS, MENU_INCLUDE_DEFAULTS } from '../models/menu.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
-import { permissionCheck } from '../utils/auth.utils'
+import { userCheck } from '../utils/auth.utils'
 import { validateAll } from '../utils/validation.utils'
 
 export class MenuService {
@@ -51,7 +51,7 @@ export class MenuService {
       (scope && scope !== 'front-office') || // only allow non-front-office menus if allowed to
       (!is_visible) // only allow non-published menus if allowed to
     ) {
-      await permissionCheck(user, 'menu', 'read')
+      userCheck(user)
     }
 
     const where: WhereOptions = {

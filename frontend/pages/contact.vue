@@ -27,7 +27,7 @@
                 <h4 class="title-submain">Adresse</h4>
                 <address class="flex flex-col items-start gap-3 my-2">
                     <p>Mairie de Borrèze<br>51 grandrue, 24590 Borrèze</p>
-                    <p>Horaires d'ouverture :<br>
+                    <p v-if="schedules.length">Horaires d'ouverture :<br>
                         <span v-html="nl2br(renderSchedules(schedules))"></span>
                     </p>
                     <Url icon="ic:baseline-email" to="mailto:mairie.borreze@orange.fr"

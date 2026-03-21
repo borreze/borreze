@@ -27,6 +27,7 @@ const props = defineProps<{
 }>()
 
 const authStore = useAuthStore()
+const menuStore = useMenuStore()
 
 const formContent = ref<{
     identifier: string;
@@ -50,6 +51,7 @@ const handleLogin = () => submit(async () => {
     formContent.value.password = formContent.value.password.trim()
 
     await authStore.login(formContent.value.identifier, formContent.value.password)
+    menuStore.clearMenus('back-office') // Fetch menus after login to ensure menus are filtered based on the user's permissions (useful when another user has logged in before and the menus are cached)
 
     if (authStore.error) {
         push.error(authStore.error)

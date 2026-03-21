@@ -1,7 +1,7 @@
 <template>
     <div>
         <Teleport defer to="#page-heading">
-            <h1 class="title-main line-clamp-1">Mon profile</h1>
+            <h1 class="title-main line-clamp-1">Mon profil</h1>
         </Teleport>
 
         <div v-if="authStore.isAuthenticated">
