@@ -64,7 +64,6 @@ const innerMedias = computed({
     set: (val) => emit('update:modelValue', val as MediaAttributes[] | null)
 })
 
-
 function hasReachedMaxSelection() {
     return (!props.multiple && innerMedias.value && innerMedias.value.length >= 1) || false
 }
