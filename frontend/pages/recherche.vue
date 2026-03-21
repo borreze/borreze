@@ -17,8 +17,7 @@
             <NoContent v-else-if="query" />
             <div v-else class="text-center">
                 <p class="text-sm text-gray-400">
-                    Entrez un terme de recherche pour trouver les informations qui vous intéressent.<br>
-                    Il vous faut écrire au moins 3 caractères pour lancer la recherche.
+                    Entrez un terme de recherche pour trouver les informations qui vous intéressent.
                 </p>
             </div>
         </div>

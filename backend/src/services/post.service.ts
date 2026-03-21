@@ -134,8 +134,6 @@ export class PostService {
       const post = await Post.findByPk(id, { transaction })
       if (!post) throw new NotFound('Post not found')
 
-      console.log('Updating post status:', { id, status, published_at: status === 'published' ? new Date() : undefined })
-
       await post.update({ status, published_at: status === 'published' ? new Date() : undefined }, { transaction })
       return post
     }).then(async (post) => {

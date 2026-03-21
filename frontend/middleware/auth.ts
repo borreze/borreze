@@ -8,7 +8,6 @@ export default defineNuxtRouteMiddleware((to) => {
     }
 
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-        console.log(to)
         console.warn('Redirecting to home page because user is not authenticated')
         return navigateTo('/')
     }
