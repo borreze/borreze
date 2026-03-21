@@ -14,6 +14,7 @@ export const errorMiddleware: ErrorRequestHandler = (err, _req, res, next) => {
     const errors = err instanceof ValidationException ? err.errors : null
 
     Terminal.error(`Error: ${message}`)
+    if (!obfuscate) console.error(err)
 
     res.status(code).json({ message, ...(errors ? { errors } : {}) } as Return)
 }

@@ -3,11 +3,11 @@ import type { Order, Pagination } from '@brz/shared'
 
 const DEBOUNCE_DELAY = 400
 
-export const useMedias = async () => {
+export const useMedias = async (options: { type?: MediaType | 'all' } = {}) => {
     const page = ref(1)
     const order = ref<Order | null>(null)
     const search = ref('')
-    const type = ref<MediaType | 'all'>('all')
+    const type = ref<MediaType | 'all'>(options.type ?? 'all')
 
     const { data, status, error, execute } = useLazyAsyncData(
         `medias-page-${page.value}`,
@@ -58,7 +58,6 @@ export const useMedias = async () => {
         page.value = 1
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-
 
     const setType = (newType: MediaType | 'all') => {
         type.value = newType;

@@ -46,13 +46,14 @@
 </template>
 
 <script setup lang="ts">
-import { isTypeAllowed, MEDIA_UPLOAD_LIMIT, sizeToReadable, type MediaAttributes } from '@brz/shared'
+import { isTypeAllowed, MEDIA_UPLOAD_LIMIT, resolveType, sizeToReadable, type MediaAttributes, type MediaType } from '@brz/shared'
 import { push } from 'notivue';
 import Button from '~/components/atoms/Button.vue';
 import { useCreateMedia } from '~/composables/back-office/useMedia';
 
 const props = withDefaults(defineProps<{
     multiple?: boolean
+    mediaType?: MediaType | null
 }>(), {
     multiple: false
 })
@@ -73,11 +74,14 @@ const addFiles = (files: FileList | File[]) => {
             push.error({ title: 'Erreur', message: `Le fichier "${file.name}" dépasse la limite de taille de ${sizeToReadable(MEDIA_UPLOAD_LIMIT, 0)}.` })
             continue
         }
+        if (props.mediaType && resolveType(file.type) !== props.mediaType) {
+            push.error({ title: 'Erreur', message: `Le fichier "${file.name}" n'est pas un type autorisé.` })
+            continue
+        }
         if (!isTypeAllowed(file.name, file.type)) {
             push.error({ title: 'Erreur', message: `Le fichier "${file.name}" n'est pas un type autorisé.` })
             continue
         }
-
         if (!props.multiple && pendingFiles.value.length > 0) {
             push.error({ title: 'Erreur', message: `Vous ne pouvez sélectionner qu'un seul fichier.` })
             break

@@ -19,10 +19,10 @@
                 variant="light" size="sm" icon="ic:baseline-open-in-new" label="Ouvrir" class="w-full mb-2" />
             <Button v-if="deleteButton" :disabled="disabled" variant="warning" size="sm" icon="ic:baseline-delete"
                 label="Supprimer" class="w-full mb-2" @click="$emit('delete')" />
-            <Button v-if="removeButton" :disabled="disabled" variant="warning" size="sm" icon="ic:baseline-remove-circle"
+            <Button v-if="removeButton" :disabled="disabled" variant="warning" size="sm" icon="ic:round-close"
                 label="Retirer" class="w-full mb-2" @click="$emit('remove')" />
-            <Button v-if="toggleButton" :disabled="disabled" variant="primary" size="sm"
-                :icon="selected ? 'ic:outline-check-box' : 'ic:round-check-box-outline-blank'" :label="selected ? 'Retirer' : 'Sélectionner'" class="w-full mb-2" @click="$emit('toggle')" />
+            <Button v-if="toggleButton" :disabled="disabled" :variant="selected ? 'warning' : 'primary'" size="sm"
+                :icon="selected ? 'ic:round-close' : 'ic:round-check'" :label="selected ? 'Retirer' : 'Sélectionner'" class="w-full mb-2" @click="$emit('toggle')" />
         </div>
     </div>
 </template>

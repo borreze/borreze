@@ -36,8 +36,9 @@
                             hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md"
                             :error="errors.abstract" @blur="touch('abstract')" />
                         <div>
-                            <MediaSelector v-model="testMedia" label="Couverture"
-                                hint="Sélectionnez une image de couverture" />
+                            <MediaSelector v-model="editingPost.cover" media-type="image" required label="Couverture"
+                                hint="Sélectionnez une image de couverture" :error="errors.cover"
+                                @update="touch('cover')" />
                         </div>
                         <div class="max-w-xs">
                             <Dropdown v-model="editingPostCategories" variant="light" size="md" label="Catégories"
@@ -107,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PostAttributesFrontend, CategoryAttributes, MediaAttributes } from '@brz/shared'
+import type { PostAttributesFrontend, CategoryAttributes } from '@brz/shared'
 import { POST_STATUSES_OBJECTS, slugify } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
@@ -136,8 +137,6 @@ const emit = defineEmits<{
 
 const editingPost = ref<PostAttributesFrontend>({ ...props.initialPost })
 
-const testMedia = ref<MediaAttributes[] | null>(null)
-
 const editingPostCategories = computed({
     get: () => editingPost.value.categories?.map(c => c.id) ?? [],
     set: (newValue: number[]) => {
@@ -146,15 +145,23 @@ const editingPostCategories = computed({
 })
 
 const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
-    ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content'],
+    ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content', 'cover'],
     {
         title: () => editingPost.value.title === '' ? 'Le titre est requis' : null,
         slug: () => editingPost.value.slug === '' ? 'Le slug est requis' : null,
         status: () => !editingPost.value.status ? 'Le status est requis' : null,
+        cover: () => !editingPost.value.cover ? 'La couverture est requise' : null,
     }
 )
 
 const handleSave = () => submit(() => {
+    if (editingPost.value.cover) { // ensure cover_id is set for backend, but remove cover object to avoid creating a new media
+        editingPost.value.cover_id = editingPost.value.cover?.id || null
+        delete editingPost.value.cover
+    }
+    if (editingPost.value.categories) { // remove categories array to avoid creating new media
+        delete editingPost.value.categories
+    }
     emit('save', editingPost.value, editingPostCategories.value)
 })
 

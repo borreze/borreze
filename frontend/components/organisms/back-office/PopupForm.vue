@@ -23,6 +23,11 @@
                             roundness="md" :error="errors.title" @blur="touch('title')" />
                         <Field v-model="editingPopup.content" type="textarea" label="Contenu" hint="Contenu affiché"
                             roundness="md" :error="errors.content" @blur="touch('content')" />
+                        <div>
+                            <MediaSelector v-model="editingPopup.media" required label="Média"
+                                hint="Sélectionnez une média à mettre en avant" :error="errors.media"
+                                @update="touch('media')" />
+                        </div>
                     </div>
                 </section>
                 <section>
@@ -72,6 +77,7 @@ import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import Datepicker from '~/components/atoms/Datepicker.vue'
 import { formatDateTime } from '~/utils/date'
+import MediaSelector from './MediaSelector.vue'
 
 const props = withDefaults(defineProps<{
     initialPopup: PopupAttributesFrontend
@@ -89,7 +95,7 @@ const emit = defineEmits<{
 const editingPopup = ref<PopupAttributesFrontend>({ ...props.initialPopup })
 
 const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
-    ['date_from', 'date_to', 'title', 'content', 'is_active'],
+    ['date_from', 'date_to', 'title', 'content', 'is_active', 'media'],
     {
         title: () => editingPopup.value.title === '' ? 'Le titre est requis' : null,
         is_active: () => editingPopup.value.is_active === null ? 'L\'icône est requise' : null,
@@ -97,6 +103,10 @@ const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
 )
 
 const handleSave = () => submit(() => {
+    if (editingPopup.value.media) { // ensure media is set for backend, but remove media object to avoid creating a new media
+        editingPopup.value.media_id = editingPopup.value.media?.id || null
+        delete editingPopup.value.media
+    }
     emit('save', editingPopup.value)
 })
 

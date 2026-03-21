@@ -40,7 +40,7 @@
 
         <!-- Add modal -->
         <Modal v-model:open="addModal" title="Ajouter un média">
-            <MediaFormCreate :multiple="multiple" @uploaded="handleUploaded" />
+            <MediaFormCreate :multiple="multiple" :media-type="mediaType" @uploaded="handleUploaded" />
         </Modal>
 
         <!-- Pick modal -->
@@ -50,7 +50,7 @@
                     class="flex-1" />
             </div>
             <!-- Picker medias grid -->
-            <div class="h-[60vh] = min-w-[70vw] overflow-y-auto">
+            <div class="h-[60vh] w-[80vw] md:w-[70vw] overflow-y-auto">
                 <Loader v-if="loading" />
                 <div v-else-if="medias" class="mt-6">
                     <Grid v-if="medias?.length > 0" :items="medias" :min-width="150">
@@ -65,15 +65,16 @@
             </div>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
             <div class="flex justify-end gap-2">
-                <Button label="Utiliser ces médias" icon="ic:baseline-send" variant="primary" size="sm"
+                <Button :label="pickLabel" :disabled="!hasReachedMax()" icon="ic:round-check" variant="primary" size="sm"
                     @click="closePickModal" />
             </div>
         </Modal>
     </div>
 </template>
 
-<script setup lang="ts">
-import type { MediaAttributes } from '@brz/shared';
++
+<script setup lang="ts" generic="TMultiple extends boolean = false">
+import type { MediaAttributes, MediaType } from '@brz/shared';
 import Grid from '~/components/molecules/Grid.vue';
 import MediaFormCreate from './MediaFormCreate.vue';
 import Modal from '~/components/molecules/Modal.vue';
@@ -86,33 +87,46 @@ import MediaCard from '~/components/organisms/back-office/MediaCard.vue';
 import Loader from '~/components/molecules/Loader.vue';
 import NoContent from '~/components/molecules/NoContent.vue';
 
+type PickerModelValue = TMultiple extends true ? MediaAttributes[] : MediaAttributes;
+
 const props = withDefaults(defineProps<{
-    modelValue?: MediaAttributes[] | null
+    modelValue?: PickerModelValue | null
+    mediaType?: MediaType | null
     label?: string
     hint?: string
     required?: boolean
-    multiple?: boolean
+    multiple?: TMultiple
     error?: string | null
 }>(), {
     label: 'Médias',
     hint: 'Sélectionnez des médias',
-    multiple: false,
     required: false,
 })
 
+const isMultiple = computed(() => props.multiple ?? false)
+
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: MediaAttributes[] | null): void
+    (e: 'update:modelValue', value: PickerModelValue | null): void
 }>()
 
-const { loading, medias, pagination, setPage, setSearch, refresh } = await useMedias()
+const { loading, medias, pagination, setPage, setSearch, refresh } = await useMedias({ type: (props.mediaType ?? 'all')})
 
 const search = ref('')
 const pickModal = ref(false)
 const addModal = ref(false)
 
 const innerMedias = computed({
-    get: () => props.modelValue,
-    set: (val) => emit('update:modelValue', val as MediaAttributes[] | null)
+    get: () => {
+        if (!props.modelValue) return []
+        return Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue]
+    },
+    set: (val) => {
+        if (isMultiple.value) {
+            emit('update:modelValue', (val.length ? val : null) as PickerModelValue | null)
+        } else {
+            emit('update:modelValue', (val[0] ?? null) as PickerModelValue | null)
+        }
+    }
 })
 
 function openAddModal() {
@@ -161,16 +175,24 @@ function removeMedia(media: MediaAttributes) {
 }
 
 function hasReachedMax() {
-    return (!props.multiple && innerMedias.value && innerMedias.value.length >= 1) || false
+    return !isMultiple.value && innerMedias.value.length >= 1
 }
 
 const disabled = computed(() => {
     return hasReachedMax() || loading.value
 })
 
+const pickLabel = computed(() => {
+    if (isMultiple.value) {
+        return 'Choisir ces médias'
+    } else {
+        return 'Choisir ce média'
+    }
+})
+
 const warn = computed(() => {
     if (hasReachedMax()) {
-        return 'Le nombre maximum de médias a été atteint.'
+        return 'Le nombre maximum de médias a été atteint pour ce champ.'
     }
 
     return null
