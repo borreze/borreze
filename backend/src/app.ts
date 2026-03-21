@@ -68,7 +68,12 @@ app.use(globalRoutes)
 // Serve uploaded media files statically
 app.use(`/${MEDIA_UPLOAD_DIR}`, express.static(MEDIA_UPLOAD_DIR, {
   maxAge: '1d',
-  immutable: true, // these files are never modified after upload, so we can safely cache them aggressively
+}))
+
+// Serve favicon
+app.use('/favicon.ico', express.static(path.resolve('public/favicon.ico'), {
+  maxAge: '365d',
+  immutable: true, // Tell browsers to cache the favicon for a loooong time
 }))
 
 // Health check
