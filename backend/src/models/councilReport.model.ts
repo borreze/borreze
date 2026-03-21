@@ -42,10 +42,6 @@ export const COUNCIL_REPORT_CONSTRAINTS = {
   }
 } as const satisfies ModelConstraints<CouncilReportAttributes>
 
-export const COUNCIL_REPORT_INCLUDE_DEFAULTS = [
-  { model: Media, as: 'pdf' }
-]
-
 export class CouncilReport extends Model<CouncilReportAttributes, CouncilReportAttributesCreation> implements CouncilReportAttributes {
   public id!: number
   public title!: string
@@ -54,6 +50,10 @@ export class CouncilReport extends Model<CouncilReportAttributes, CouncilReportA
   public readonly created_at!: Date
   public readonly updated_at!: Date
 }
+
+export const COUNCIL_REPORT_INCLUDE_DEFAULTS = [
+  { model: Media, as: 'pdf' }
+]
 
 export function initCouncilReportModel(sequelize: Sequelize) {
   CouncilReport.init(modelBuild(COUNCIL_REPORT_CONSTRAINTS), {

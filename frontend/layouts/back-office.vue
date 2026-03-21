@@ -14,12 +14,13 @@
                 <div class="hidden lg:block px-4 pt-8 pb-4 flex">
                     <AppName to="/back-office" />
                 </div>
-                <Menus :menus="menus" @close="panelOpened = false" />
+                <Menus v-if="menuStore.menus['back-office']" :menus="menuStore.menus['back-office']"
+                    @close="panelOpened = false" />
             </Panel>
             <div class="flex-1">
                 <div class="flex items-center justify-between gap-4 mx-4 my-2 lg:pb-2 lg:border-b lg:border-gray-200">
-                    <span class="font-medium text-gray-500">{{ hello() }} {{ auth.user?.first_name }},</span>
-                    <Button icon="ic:baseline-logout" variant="ghost" size="sm" @click="auth.logout()" />
+                    <span class="font-medium text-gray-500">{{ hello() }} {{ authStore.user?.first_name }},</span>
+                    <Button icon="ic:baseline-logout" variant="ghost" size="sm" @click="authStore.logout()" />
                 </div>
                 <main class="safe-area-sm">
                     <div class="flex justify-between items-center gap-4 flex-wrap mb-4">
@@ -41,110 +42,24 @@
 </template>
 
 <script setup lang="ts">
-import type { MenuAttributesFrontend } from '@brz/shared';
 import Button from '~/components/atoms/Button.vue';
 import Panel from '~/components/molecules/Panel.vue';
 import AppName from '~/components/organisms/AppName.vue';
 import Menus from '~/components/molecules/Menus.vue';
 import { useAuthStore } from '~/stores/auth'
+import { useMenuStore } from '~/stores/menu'
 import { goBack, isInDashboard } from '~/utils/routing';
 import { hello } from '~/utils/text';
 
-const auth = useAuthStore()
+const authStore = useAuthStore()
+const menuStore = useMenuStore()
 
 const panelOpened = ref(false)
 
-const menus = ref<MenuAttributesFrontend[]>([
-    {
-        id: 1,
-        context: 'back-office',
-        icon: 'ic:outline-space-dashboard',
-        label: 'Dashboard',
-        url: '/back-office',
-        order: 0,
-        is_visible: true,
-    },
-    {
-        id: 2,
-        context: 'back-office',
-        icon: 'ic:baseline-person',
-        label: 'Mon profil',
-        url: '/back-office/profile',
-        order: 1,
-        is_visible: true,
-    },
-    {
-        id: 3,
-        context: 'back-office',
-        icon: 'ic:baseline-home',
-        label: 'Page d\'accueil',
-        order: 1,
-        is_visible: true,
-        children: [
-            {
-                id: 4,
-                context: 'back-office',
-                label: 'Liste des accès rapides',
-                url: '/back-office/page-accueil/acces-rapides',
-                order: 0,
-                is_visible: true,
-            },
-        ],
-    },
-    {
-        id: 5,
-        context: 'back-office',
-        icon: 'ic:baseline-newspaper',
-        label: 'Actualités',
-        order: 1,
-        is_visible: true,
-        children: [
-            {
-                id: 6,
-                context: 'back-office',
-                label: 'Liste des actualités',
-                url: '/back-office/actualites',
-                order: 0,
-                is_visible: true,
-            },
-            {
-                id: 7,
-                context: 'back-office',
-                label: 'Créer une actualité',
-                url: '/back-office/actualites/ajouter',
-                order: 1,
-                is_visible: true,
-            },
-        ],
-    },
-    {
-        id: 8,
-        context: 'back-office',
-        icon: 'ic:round-image',
-        label: 'Médias',
-        url: '/back-office/medias',
-        order: 0,
-        is_visible: true,
-    },
-    {
-        id: 9,
-        context: 'back-office',
-        icon: 'ic:baseline-settings',
-        label: 'Paramètres',
-        order: 1,
-        is_visible: true,
-        children: [
-            {
-                id: 10,
-                context: 'back-office',
-                label: 'Popups d\'alerte',
-                url: '/back-office/popups',
-                order: 0,
-                is_visible: true,
-            },
-        ],
-    },
-]);
+onMounted(() => {
+    menuStore.loadMenus('back-office')
+})
+
 </script>
 
 <style>

@@ -37,7 +37,7 @@ export class PostService {
     }
   }
 
-  public async count(options?: { search?: string; status?: PostStatus | 'all' | null, categories?: number[] | null }): Promise<number> {
+  public async count(options?: { search?: string, status?: PostStatus | 'all' | null, categories?: number[] | null }): Promise<number> {
     const { status, search, categories } = options || {}
 
     const where: WhereOptions = {
@@ -50,7 +50,7 @@ export class PostService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; status?: PostStatus | 'all' | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
+  public async getAll(options?: { search?: string, status?: PostStatus | 'all' | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
     const { status, search, categories } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
@@ -182,7 +182,7 @@ export class PostService {
     const now = new Date()
 
     // Define each transition rule: a WHERE clause => target status
-    const transitions: { where: Record<string, unknown>; status: PostStatus; label: string }[] = [
+    const transitions: { where: Record<string, unknown>, status: PostStatus, label: string }[] = [
       {
         label: 'schedule_start in future => archived',
         status: 'archived',

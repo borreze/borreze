@@ -34,7 +34,7 @@ export class SchoolHolidayService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; year?: SchoolYear | null }, order: Order[] = [], pagination?: Pagination | null): Promise<SchoolHolidayAttributes[]> {
+  public async getAll(options?: { search?: string, year?: SchoolYear | null }, order: Order[] = [], pagination?: Pagination | null): Promise<SchoolHolidayAttributes[]> {
     const { search, year } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 

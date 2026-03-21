@@ -121,12 +121,6 @@ export const PAGE_NAMES: SearchResultNames = {
   type: 'model'
 }
 
-export const PAGE_INCLUDE_DEFAULTS = [
-  { model: Media, as: 'cover' },
-  { model: Gallery, as: 'gallery' },
-  { model: PageAttribute, as: 'attributes' }
-]
-
 export class Page extends Model<PageAttributes, PageAttributesCreation> implements PageAttributes {
   public id!: number
   public cover_id?: number | null
@@ -145,6 +139,12 @@ export class Page extends Model<PageAttributes, PageAttributesCreation> implemen
   public readonly created_at!: Date
   public readonly updated_at!: Date
 }
+
+export const PAGE_INCLUDE_DEFAULTS = [
+  { model: Media, as: 'cover' },
+  { model: Gallery, as: 'gallery' },
+  { model: PageAttribute, as: 'attributes' }
+]
 
 export function initPageModel(sequelize: Sequelize) {
   Page.init(modelBuild(PAGE_CONSTRAINTS), {

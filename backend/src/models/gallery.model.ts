@@ -32,10 +32,6 @@ export const GALLERY_CONSTRAINTS = {
     }
 } as const satisfies ModelConstraints<GalleryAttributes>
 
-export const GALLERY_INCLUDE_DEFAULTS = [
-    { model: Media, as: 'photos' }
-]
-
 export class Gallery extends Model<GalleryAttributes, GalleryAttributesCreation> implements GalleryAttributes {
     public id!: number
     public name!: string
@@ -45,6 +41,10 @@ export class Gallery extends Model<GalleryAttributes, GalleryAttributesCreation>
     public photos?: Media[]
     public setPhotos!: BelongsToManySetAssociationsMixin<Media, number>
 }
+
+export const GALLERY_INCLUDE_DEFAULTS = [
+    { model: Media, as: 'photos' }
+]
 
 export function initGalleryModel(sequelize: Sequelize) {
     Gallery.init(modelBuild(GALLERY_CONSTRAINTS), {

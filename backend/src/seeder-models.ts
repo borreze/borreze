@@ -1,14 +1,14 @@
 import path from 'path'
 import fs from 'fs'
 import { sequelize } from './config/database'
-import { Category, HomeQuick, Media, Popup, Post, Role, Schedule, User } from './models'
+import { Category, HomeQuick, Media, Menu, Popup, Post, Role, Schedule, User } from './models'
 import { Model, ModelStatic } from 'sequelize'
 import { hashPassword, isHash } from './utils/auth.utils'
 import { Terminal } from './utils/terminal.utils'
 import { Categorizable } from './models/categorizable.model'
 
 const seed = async () => {
-  const models: { model: ModelStatic<Model>; file: string }[] = [
+  const models: { model: ModelStatic<Model>, file: string }[] = [
     {
       model: Role,
       file: 'role.seed.json'
@@ -44,6 +44,10 @@ const seed = async () => {
     {
       model: Popup,
       file: 'popup.seed.json'
+    },
+    {
+      model: Menu,
+      file: 'menu.seed.json'
     },
   ]
 

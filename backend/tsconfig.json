@@ -22,6 +22,6 @@
       "@brz/shared": ["../shared/src/index.ts"],
     }
   },
-  "include": ["src/**/*", "../shared/src/types/categorizable.types.ts"],
+  "include": ["src/**/*", "../shared/src/**/*"],
   "exclude": ["dist"]
 }

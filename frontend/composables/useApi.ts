@@ -27,7 +27,7 @@ export default function useApi() {
     const config = useRuntimeConfig()
     const API_BASE_URL = import.meta.server ? config.apiBaseUrl : config.public.apiBaseUrl
 
-    const auth = useAuthStore()
+    const authStore = useAuthStore()
 
     /** Default query params & headers */
     const defaultParams: Params = {}
@@ -35,7 +35,7 @@ export default function useApi() {
     /** Default headers including auth token if available */
     const defaultHeaders: Headers = {
         'Content-Type': 'application/json',
-        ...(auth.accessToken ? { Authorization: `Bearer ${auth.accessToken}` } : {}),
+        ...(authStore.accessToken ? { Authorization: `Bearer ${authStore.accessToken}` } : {}),
     }
 
     /**
@@ -97,10 +97,10 @@ export default function useApi() {
                 if (!silent) {
                     if (status === 401) {
                         console.warn('Unauthorized, logging out...')
-                        auth.logout()
+                        authStore.logout()
                     } else if (status === 403) {
                         console.warn('Forbidden, logging out...')
-                        auth.logout()
+                        authStore.logout()
                     } else if (status >= 500) {
                         console.error('Server error, please try again later.')
                     }

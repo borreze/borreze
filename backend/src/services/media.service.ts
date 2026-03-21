@@ -18,7 +18,7 @@ export class MediaService {
     return { type }
   }
 
-  public async count(options?: { search?: string; type?: MediaType | 'all' | null }): Promise<number> {
+  public async count(options?: { search?: string, type?: MediaType | 'all' | null }): Promise<number> {
     const { search, type } = options || {}
 
     const where: WhereOptions = {
@@ -30,7 +30,7 @@ export class MediaService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; type?: MediaType | 'all' | null }, order: Order[] = [], pagination?: Pagination | null): Promise<MediaAttributes[]> {
+  public async getAll(options?: { search?: string, type?: MediaType | 'all' | null }, order: Order[] = [], pagination?: Pagination | null): Promise<MediaAttributes[]> {
     const { search, type } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 

@@ -13,7 +13,7 @@ export class Log {
             data.user_agent = req.headers['user-agent']
             data.ip_address = req.ip || req.connection.remoteAddress || ''
             data.user_id = Number(req?.params?.user_id || 0) || null
-            data.context = {
+            data.data = {
                 url: req.originalUrl,
                 method: req.method,
                 // body: req.body,

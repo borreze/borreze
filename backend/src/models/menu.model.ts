@@ -1,7 +1,8 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { MENU_CONTEXTS_KEYS, MenuAttributes, MenuAttributesCreation, MenuContext } from '@brz/shared'
+import {  MenuAttributes, MenuAttributesCreation } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
+import { MENU_SCOPES_KEYS, MenuScope } from '@brz/shared'
 
 export const MENU_CONSTRAINTS = {
   id: {
@@ -10,11 +11,17 @@ export const MENU_CONSTRAINTS = {
     primaryKey: true,
     autoIncrement: true
   },
+  scope: {
+    nicename: 'Scope',
+    type: DataTypes.ENUM(...MENU_SCOPES_KEYS),
+    enum: MENU_SCOPES_KEYS,
+    required: true,
+  },
   context: {
     nicename: 'Contexte',
-    type: DataTypes.ENUM(...MENU_CONTEXTS_KEYS),
-    enum: MENU_CONTEXTS_KEYS,
-    required: true,
+    type: DataTypes.STRING,
+    maxLength: 255,
+    required: false,
   },
   label: {
     nicename: 'Libellé',
@@ -39,7 +46,7 @@ export const MENU_CONSTRAINTS = {
     nicename: 'Icône',
     type: DataTypes.STRING,
     maxLength: 100,
-    required: true
+    required: false
   },
   order: {
     nicename: 'Ordre',
@@ -69,7 +76,8 @@ export const MENU_CONSTRAINTS = {
 
 export class Menu extends Model<MenuAttributes, MenuAttributesCreation> implements MenuAttributes {
   public id!: number
-  public context!: MenuContext
+  public scope!: MenuScope
+  public context?: string
   public label!: string
   public url?: string
   public parent_id?: number
@@ -79,6 +87,10 @@ export class Menu extends Model<MenuAttributes, MenuAttributesCreation> implemen
   public readonly created_at!: Date
   public readonly updated_at!: Date
 }
+
+export const MENU_INCLUDE_DEFAULTS = [
+  { model: Menu, as: 'children' }
+]
 
 export function initMenuModel(sequelize: Sequelize) {
   Menu.init(modelBuild(MENU_CONSTRAINTS), {
@@ -90,6 +102,7 @@ export function initMenuModel(sequelize: Sequelize) {
     underscored: true,
     indexes: [
       { fields: ['parent_id'] },
+      { fields: ['scope'] },
       { fields: ['context'] },
     ]
   })

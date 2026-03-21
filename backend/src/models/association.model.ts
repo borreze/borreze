@@ -109,11 +109,6 @@ export const PROJECT_NAMES: SearchResultNames = {
   type: 'model'
 }
 
-export const ASSOCIATION_INCLUDE_DEFAULTS = [
-  { model: Media, as: 'cover' },
-  { model: Category, as: 'categories' }
-]
-
 export class Association extends Model<AssociationAttributes, AssociationAttributesCreation> implements AssociationAttributes {
   public id!: number
   public slug!: string
@@ -132,6 +127,11 @@ export class Association extends Model<AssociationAttributes, AssociationAttribu
   public categories?: Category[]
   public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
+
+export const ASSOCIATION_INCLUDE_DEFAULTS = [
+  { model: Media, as: 'cover' },
+  { model: Category, as: 'categories' }
+]
 
 export function initAssociationModel(sequelize: Sequelize) {
   Association.init(modelBuild(ASSOCIATION_CONSTRAINTS), {

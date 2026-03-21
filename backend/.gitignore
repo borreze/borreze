@@ -146,15 +146,15 @@ dist
 # SQLite database files
 *.sqlite
 
-# Media uploads, fit MEDIA_UPLOAD_ALLOWED
-uploads/*.jpeg
-uploads/*.jpg
-uploads/*.png
-uploads/*.gif
-uploads/*.webp
-uploads/*.svg
-uploads/*.pdf
-uploads/*.mp4
-uploads/*.mp3
-uploads/*.ogg
-uploads/*.wav
+# Media storage, fit MEDIA_UPLOAD_ALLOWED
+storage/*.jpeg
+storage/*.jpg
+storage/*.png
+storage/*.gif
+storage/*.webp
+storage/*.svg
+storage/*.pdf
+storage/*.mp4
+storage/*.mp3
+storage/*.ogg
+storage/*.wav

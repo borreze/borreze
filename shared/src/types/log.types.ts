@@ -19,11 +19,11 @@ export interface LogAttributes {
     id: number
     level: LogLevel
     message: string
-    context?: object | null
+    data?: object | null
     user_id?: number | null
     ip_address?: string | null
     user_agent?: string | null
     created_at?: Date | null
 }
 
-export type LogAttributesCreation = Optional<LogAttributes, 'id' | 'context' | 'user_id' | 'ip_address' | 'user_agent' | 'created_at'>
+export type LogAttributesCreation = Optional<LogAttributes, 'id' | 'data' | 'user_id' | 'ip_address' | 'user_agent' | 'created_at'>

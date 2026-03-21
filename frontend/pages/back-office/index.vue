@@ -11,10 +11,10 @@ import DashboradWelcome from '~/components/organisms/back-office/DashboradWelcom
 import DashboradQuicks from '~/components/organisms/back-office/DashboradQuicks.vue';
 import { useAuthStore } from '~/stores/auth'
 
-const auth = useAuthStore()
+const authStore = useAuthStore()
 
 onMounted(() => {
-    auth.fetchMe()
+    authStore.fetchMe()
 })
 
 useAppHead({

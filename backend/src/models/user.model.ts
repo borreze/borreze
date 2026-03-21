@@ -79,10 +79,6 @@ export const USER_CONSTRAINTS = {
   }
 } as const satisfies ModelConstraints<UserAttributes>
 
-export const USER_INCLUDE_DEFAULTS = [
-  { model: Role, as: 'role' }
-]
-
 export class User extends Model<UserAttributes, UserAttributesCreation> implements UserAttributes {
   public id!: number
   public email!: string
@@ -96,6 +92,10 @@ export class User extends Model<UserAttributes, UserAttributesCreation> implemen
   public readonly created_at!: Date
   public readonly updated_at!: Date
 }
+
+export const USER_INCLUDE_DEFAULTS = [
+  { model: Role, as: 'role' }
+]
 
 export function initUserModel(sequelize: Sequelize) {
   User.init(modelBuild(USER_CONSTRAINTS), {

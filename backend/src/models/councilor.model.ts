@@ -76,10 +76,6 @@ export const COUNCILOR_CONSTRAINTS = {
   }
 } as const satisfies ModelConstraints<CouncilorAttributes>
 
-export const COUNCILOR_INCLUDE_DEFAULTS = [
-  { model: Media, as: 'picture' }
-]
-
 export class Councilor extends Model<CouncilorAttributes, CouncilorAttributesCreation> implements CouncilorAttributes {
   public id!: number
   public first_name!: string
@@ -93,6 +89,10 @@ export class Councilor extends Model<CouncilorAttributes, CouncilorAttributesCre
   public readonly created_at!: Date
   public readonly updated_at!: Date
 }
+
+export const COUNCILOR_INCLUDE_DEFAULTS = [
+  { model: Media, as: 'picture' }
+]
 
 export function initCouncilorModel(sequelize: Sequelize) {
   Councilor.init(modelBuild(COUNCILOR_CONSTRAINTS), {

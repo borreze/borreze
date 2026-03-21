@@ -31,7 +31,7 @@ export class HomeQuickService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; is_visible?: boolean | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<HomeQuickAttributes[]> {
+  public async getAll(options?: { search?: string, is_visible?: boolean | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<HomeQuickAttributes[]> {
     const { is_visible, search } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 

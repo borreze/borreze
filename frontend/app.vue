@@ -18,6 +18,6 @@ import { useAuthStore } from '~/stores/auth'
 import Confirm from './components/molecules/Confirm.vue';
 
 // This ensures persistence across reloads
-const auth = useAuthStore()
-auth.loadFromCookies()
+const authStore = useAuthStore()
+authStore.loadFromCookies()
 </script>

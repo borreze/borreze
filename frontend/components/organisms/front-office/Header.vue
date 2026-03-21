@@ -32,9 +32,10 @@
         </div>
     </header>
 
-    <div class="top-0 z-20 hidden md:flex py-1 flex items-center justify-center bg-primary text-light shadow-sm">
+    <div v-if="menuStore.menus['front-office']"
+        class="top-0 z-20 hidden md:flex py-1 flex items-center justify-center bg-primary text-light shadow-sm">
         <nav class="flex items-center gap-8 text-lg font-medium">
-            <div v-for="menu in menus" :key="menu.id" class="relative group">
+            <div v-for="menu in menuStore.menus['front-office']" :key="menu.id" class="relative group">
                 <!-- No children -->
                 <NuxtLink v-if="!menu.children || menu.children.length === 0" :to="menu.url || '#'"
                     class="flex items-center justify-start py-2 hover:text-white transition-colors">
@@ -70,13 +71,13 @@
 
     <Panel v-model:open="panelOpened">
         <div class="flex flex-col gap-4 p-4">
-            <Button as="link" label="Com com" icon="material-symbols:castle"
-                href="https://www.paysdefenelon.fr/" variant="outline" size="md" />
+            <Button as="link" label="Com com" icon="material-symbols:castle" href="https://www.paysdefenelon.fr/"
+                variant="outline" size="md" />
             <Button as="link" label="Nous contacter" icon="ic:baseline-email" href="/contact" variant="primary"
                 size="md" />
         </div>
-        <div class="px-2">
-            <Menus :menus="menus" @close="panelOpened = false" />
+        <div v-if="menuStore.menus['front-office']" class="px-2">
+            <Menus :menus="menuStore.menus['front-office']" @close="panelOpened = false" />
         </div>
     </Panel>
 
@@ -86,13 +87,15 @@
 </template>
 
 <script setup lang="ts">
-import type { MenuAttributesFrontend } from '@brz/shared';
 import Button from '~/components/atoms/Button.vue';
 import Field from '~/components/atoms/Field.vue';
 import Panel from '~/components/molecules/Panel.vue';
 import Modal from '~/components/molecules/Modal.vue';
 import AppName from '~/components/organisms/AppName.vue';
 import Menus from '~/components/molecules/Menus.vue';
+import { useMenuStore } from '~/stores/menu'
+
+const menuStore = useMenuStore()
 
 const panelOpened = ref(false)
 const searchOpened = ref(false)
@@ -115,6 +118,10 @@ function focusSearchInput() {
     }, 200)
 }
 
+onMounted(() => {
+    menuStore.loadMenus('front-office')
+})
+
 watch(searchOpened, (opened) => {
     if (opened) {
         clearSearchInput()
@@ -122,63 +129,4 @@ watch(searchOpened, (opened) => {
     }
 })
 
-const menus = ref<MenuAttributesFrontend[]>([
-    {
-        id: 1,
-        context: 'front-office',
-        label: 'Accueil',
-        url: '/',
-        order: 0,
-        is_visible: true,
-    },
-    {
-        id: 2,
-        context: 'front-office',
-        label: 'Actualités',
-        url: '/actualites',
-        order: 1,
-        is_visible: true,
-    },
-    {
-        id: 3,
-        context: 'front-office',
-        label: 'Projets',
-        url: '/projets',
-        order: 2,
-        is_visible: true,
-    },
-    {
-        id: 4,
-        context: 'front-office',
-        label: 'Événements',
-        url: '/evenements',
-        order: 3,
-        is_visible: true,
-    },
-    {
-        id: 5,
-        context: 'front-office',
-        label: 'Mairie',
-        order: 4,
-        is_visible: true,
-        children: [
-            {
-                id: 6,
-                context: 'front-office',
-                label: 'Contact',
-                url: '/contact',
-                order: 0,
-                is_visible: true,
-            },
-            {
-                id: 7,
-                context: 'front-office',
-                label: 'Communautés de communes',
-                url: 'https://www.paysdefenelon.fr/',
-                order: 1,
-                is_visible: true,
-            },
-        ],
-    },
-]);
 </script>

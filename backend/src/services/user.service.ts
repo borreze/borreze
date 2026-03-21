@@ -23,7 +23,7 @@ export class UserService {
     return { status: status ?? 'active' }
   }
 
-  public async count(options?: { search?: string; status?: UserStatus }): Promise<number> {
+  public async count(options?: { search?: string, status?: UserStatus }): Promise<number> {
     const { search, status } = options || {}
 
     const where: WhereOptions = {
@@ -35,7 +35,7 @@ export class UserService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; status?: UserStatus }, order: Order[] = [], pagination?: Pagination | null): Promise<UserAttributes[]> {
+  public async getAll(options?: { search?: string, status?: UserStatus }, order: Order[] = [], pagination?: Pagination | null): Promise<UserAttributes[]> {
     const { search, status } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 

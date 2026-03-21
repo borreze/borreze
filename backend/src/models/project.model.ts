@@ -94,12 +94,6 @@ export const PROJECT_NAMES: SearchResultNames = {
   type: 'model'
 }
 
-export const PROJECT_INCLUDE_DEFAULTS = [
-  { model: Media, as: 'cover' },
-  { model: Gallery, as: 'gallery' },
-  { model: Category, as: 'categories' }
-]
-
 export class Project extends Model<ProjectAttributes, ProjectAttributesCreation> implements ProjectAttributes {
   public id!: number
   public slug!: string
@@ -112,10 +106,16 @@ export class Project extends Model<ProjectAttributes, ProjectAttributesCreation>
   public meta_description?: string | null
   public readonly created_at!: Date
   public readonly updated_at!: Date
-
+  
   public categories?: Category[]
   public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
+
+export const PROJECT_INCLUDE_DEFAULTS = [
+  { model: Media, as: 'cover' },
+  { model: Gallery, as: 'gallery' },
+  { model: Category, as: 'categories' }
+]
 
 export function initProjectModel(sequelize: Sequelize) {
   Project.init(modelBuild(PROJECT_CONSTRAINTS), {

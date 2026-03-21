@@ -42,7 +42,7 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-      - brz-uploads_data:/app/backend/uploads
+      - brz-storage_data:/app/backend/storage
     working_dir: /app/backend
     ports:
       - "${BACKEND_PORT}:3000"
@@ -130,7 +130,7 @@ services:
   brz-backend-prod:
     image: ${BACKEND_IMAGE:-docker.io/lalbaanthony/borreze-backend:latest}
     volumes:
-      - brz-uploads_data:/app/backend/uploads
+      - brz-storage_data:/app/backend/storage
     deploy:
       resources:
         limits:
@@ -221,7 +221,7 @@ services:
 volumes:
   brz-postgres_data:
   brz-pgadmin_data:
-  brz-uploads_data:
+  brz-storage_data:
 
 networks:
   brz-network:

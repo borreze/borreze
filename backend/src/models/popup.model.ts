@@ -59,10 +59,6 @@ export const POPUP_CONSTRAINTS = {
   }
 } as const satisfies ModelConstraints<PopupAttributes>
 
-export const POPUP_INCLUDE_DEFAULTS = [
-  { model: Media, as: 'media' },
-]
-
 export class Popup extends Model<PopupAttributes, PopupAttributesCreation> implements PopupAttributes {
   public id!: number
   public media_id?: number
@@ -74,6 +70,10 @@ export class Popup extends Model<PopupAttributes, PopupAttributesCreation> imple
   public readonly created_at!: Date
   public readonly updated_at!: Date
 }
+
+export const POPUP_INCLUDE_DEFAULTS = [
+  { model: Media, as: 'media' },
+]
 
 export function initPopupModel(sequelize: Sequelize) {
   Popup.init(modelBuild(POPUP_CONSTRAINTS), {

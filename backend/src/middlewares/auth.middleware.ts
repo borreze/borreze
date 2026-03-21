@@ -1,64 +1,76 @@
-import { RequestHandler } from 'express'
+import { RequestHandler, Request } from 'express'
 import { verifyAccessToken } from '../utils/jwt.utils'
 import { Unauthorized } from '../exceptions/auth.exception'
-import { Request, Response, NextFunction } from 'express'
 import { userService } from '../services/user.service'
 import { UserAttributesPublic } from '@brz/shared'
 import { permissionCheck } from '../utils/auth.utils'
 
-export const authMiddleware: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+/**
+ * Extract and validate user from Authorization header.
+ * Returns null if no token or invalid.
+ */
+async function resolveUser(req: Request): Promise<UserAttributesPublic | null> {
+    const header = String(req.headers['authorization'] ?? '')
+    if (!header.startsWith('Bearer ')) return null
+
+    const token = header.split(' ')[1]
+    const payload = verifyAccessToken<{ user_id: number }>(token)
+    if (!payload?.user_id) return null
+
+    const user = await userService.getById(payload.user_id)
+    if (!user) return null
+
+    return {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        role_id: user.role_id,
+        status: user.status,
+    } as UserAttributesPublic
+}
+
+/**
+ * Silent auth: populates req.user if a valid token is present, passes through otherwise.
+ */
+export const softAuthMiddleware: RequestHandler = async (req, _res, next) => {
     try {
-        const header = String(req.headers['authorization'] ?? '')
-        if (!header || !header.startsWith('Bearer ')) {
-            next(new Unauthorized('Missing authorization header'))
-            return
-        }
+        req.user = await resolveUser(req) ?? undefined
+    } catch {
+        req.user = undefined
+    }
+    next()
+}
 
-        const token = header.split(' ')[1]
-        const payload = verifyAccessToken<{ user_id: number }>(token)
-        if (!payload || !payload.user_id) {
-            next(new Unauthorized('Invalid token'))
-            return
-        }
-
-        const user = await userService.getById(payload.user_id)
+/**
+ * Strict auth: requires a valid token. 401 if missing or invalid.
+ */
+export const authMiddleware: RequestHandler = async (req, _res, next) => {
+    try {
+        const user = await resolveUser(req)
         if (!user) {
-            next(new Unauthorized('User not found'))
+            next(new Unauthorized('Invalid or missing authentication'))
             return
         }
-
-        req.user = {
-            id: user.id,
-            email: user.email,
-            username: user.username,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            role_id: user.role_id,
-            status: user.status
-        } as UserAttributesPublic
-
+        req.user = user
         next()
     } catch {
         next(new Unauthorized('Invalid or expired token'))
     }
 }
 
-export function permissionMiddleware(context: string, action: string) {
-    return async (req: Request, res: Response, next: NextFunction) => {
-        // Calling authMiddleware to ensure req.user is populated
-        if (!req.user || !req.user.role_id) {
-            await authMiddleware(req, res, async (err) => {
-                if (err) {
-                    next(err)
-                    return
-                }
+/**
+ * Permission gate: ensures auth then checks permission.
+ */
+export function permissionMiddleware(context: string, action: string): RequestHandler {
+    return async (req, res, next) => {
+        if (!req.user) {
+            return authMiddleware(req, res, async (err) => {
+                if (err) return next(err)
+                permissionCheck(req.user!, context, action).then(() => next()).catch(next)
             })
         }
-
-        await permissionCheck(req.user, context, action).then(() => {
-            next()
-        }).catch((err) => {
-            next(err)
-        })
+        permissionCheck(req.user, context, action).then(() => next()).catch(next)
     }
 }

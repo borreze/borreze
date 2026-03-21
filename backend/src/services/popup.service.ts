@@ -32,7 +32,7 @@ export class PopupService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string; is_active?: boolean | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PopupAttributes[]> {
+  public async getAll(options?: { search?: string, is_active?: boolean | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PopupAttributes[]> {
     const { is_active, search } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
@@ -115,7 +115,7 @@ export class PopupService {
     const now = new Date()
 
     // Define each transition rule: a WHERE clause => target is_active
-    const transitions: { where: Record<string, unknown>; is_active: boolean; label: string }[] = [
+    const transitions: { where: Record<string, unknown>, is_active: boolean, label: string }[] = [
       {
         label: 'date_from in future => not active',
         is_active: false,

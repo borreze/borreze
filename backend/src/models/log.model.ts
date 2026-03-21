@@ -23,8 +23,8 @@ export const LOG_CONSTRAINTS = {
     required: true,
     searchable: true
   },
-  context: {
-    nicename: 'Contexte',
+  data: {
+    nicename: 'Données supplémentaires',
     type: DataTypes.JSONB,
     required: false,
     searchable: true
@@ -60,7 +60,7 @@ export class Log extends Model<LogAttributes, LogAttributesCreation> implements 
   public id!: number
   public level!: LogLevel
   public message!: string
-  public context?: object
+  public data?: object
   public user_id?: number
   public ip_address?: string
   public user_agent?: string

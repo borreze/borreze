@@ -45,8 +45,7 @@ export const useAuthStore = defineStore('auth', {
             this.error = null
             this.loading = true
 
-            const api = useApi()
-            const { status, data } = await api.get<{ data: UserAttributesFrontend }>('/back-office/auth/me', { silent: true })
+            const { status, data } = await useApi().get<{ data: UserAttributesFrontend }>('/back-office/auth/me', { silent: true })
 
             if (status === 200 && data) {
                 this.user = data.data
@@ -67,8 +66,7 @@ export const useAuthStore = defineStore('auth', {
             this.error = null
             this.loading = true
 
-            const api = useApi()
-            const { status, data } = await api.post<{ data: LoginData }>('/back-office/auth/login', {
+            const { status, data } = await useApi().post<{ data: LoginData }>('/back-office/auth/login', {
                 body: { identifier, password },
                 silent: true // to avoid being redirected to home on wrong credentials (handled by this action)
             })
@@ -108,8 +106,7 @@ export const useAuthStore = defineStore('auth', {
             const refreshCookie = useCookie('auth_refresh_token')
             if (!refreshCookie.value) return null
 
-            const api = useApi()
-            const { status, data } = await api.post<{ data: RefreshData }>('/back-office/auth/refresh', {
+            const { status, data } = await useApi().post<{ data: RefreshData }>('/back-office/auth/refresh', {
                 body: { refreshToken: refreshCookie.value }
             })
 
@@ -135,10 +132,9 @@ export const useAuthStore = defineStore('auth', {
          */
         async logout(redirect: string = '/') {
             const refreshCookie = useCookie('auth_refresh_token')
-            const api = useApi()
 
             if (refreshCookie.value) {
-                await api.post('/back-office/auth/logout', {
+                await useApi().post('/back-office/auth/logout', {
                     body: { refreshToken: refreshCookie.value }
                 })
             }

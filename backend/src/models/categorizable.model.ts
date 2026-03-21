@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { CATEGORIZABLE_TYPES_KEYS, CategorizableAttributes, CategorizableAttributesCreation, CategorizableType } from '../../../shared/src/types/categorizable.types'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
+import { CATEGORIZABLE_TYPES_KEYS, CategorizableAttributes, CategorizableAttributesCreation, CategorizableType } from '@brz/shared'
 
 export const CATEGORIZABLE_CONSTRAINTS = {
     category_id: {

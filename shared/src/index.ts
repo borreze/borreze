@@ -35,8 +35,8 @@ export type { LogLevel, LogAttributes, LogAttributesCreation } from './types/log
 export { MEDIA_UPLOAD_DIR, MEDIA_UPLOAD_LIMIT, MEDIA_UPLOAD_ALLOWED, MEDIA_TYPES_KEYS, MEDIA_TYPES_OBJECTS } from './types/media.types'
 export type { MediaType, MediaAttributes, MediaAttributesCreation, MediaAttributesUpdate } from './types/media.types'
 
-export { MENU_CONTEXTS_KEYS, MENU_CONTEXTS_OBJECTS } from './types/menu.types'
-export type { MenuContext, MenuAttributes, MenuAttributesFrontend, MenuAttributesCreation, MenuAttributesUpdate } from './types/menu.types'
+export { MENU_SCOPES_KEYS, MENU_SCOPES_OBJECTS } from './types/menu.types'
+export type { MenuScope, MenuAttributes, MenuAttributesFrontend, MenuAttributesCreation, MenuAttributesUpdate } from './types/menu.types'
 
 export { PAGE_STATUSES_KEYS, PAGE_STATUSES_OBJECTS } from './types/page.types'
 export type { PageStatus, PageAttributes, PageAttributesCreation, PageAttributesUpdate } from './types/page.types'

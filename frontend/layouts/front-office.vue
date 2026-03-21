@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="auth.isAuthenticated">
+        <div v-if="authStore.isAuthenticated">
             <AuthBar />
         </div>
         <div>
@@ -24,7 +24,7 @@ import PopupModal from '~/components/organisms/front-office/PopupModal.vue';
 
 import { useAuthStore } from '~/stores/auth'
 
-const auth = useAuthStore()
+const authStore = useAuthStore()
 
 </script>
 

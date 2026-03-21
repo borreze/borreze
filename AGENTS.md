@@ -230,7 +230,7 @@ The RBAC middleware is applied at the **route level**, never inside controllers.
 
 - All user inputs validated before processing (express-validator or zod)
 - No raw SQL — always go through Sequelize
-- File uploads: validate MIME type + extension + size (images < 5 MB, PDFs < 10 MB)
+- File storage: validate MIME type + extension + size (images < 5 MB, PDFs < 10 MB)
 - Secure sessions (httpOnly, secure, sameSite)
 - CORS restricted to known front-office origins
 

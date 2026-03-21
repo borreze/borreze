@@ -109,11 +109,6 @@ export const POST_NAMES: SearchResultNames = {
   type: 'model'
 }
 
-export const POST_INCLUDE_DEFAULTS = [
-  { model: Media, as: 'cover' },
-  { model: Category, as: 'categories' },
-]
-
 export class Post extends Model<PostAttributes, PostAttributesCreation> implements PostAttributes {
   public id!: number
   public cover_id?: number
@@ -133,6 +128,11 @@ export class Post extends Model<PostAttributes, PostAttributesCreation> implemen
   public categories?: Category[]
   public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
+
+export const POST_INCLUDE_DEFAULTS = [
+  { model: Media, as: 'cover' },
+  { model: Category, as: 'categories' },
+]
 
 export function initPostModel(sequelize: Sequelize) {
   Post.init(modelBuild(POST_CONSTRAINTS), {

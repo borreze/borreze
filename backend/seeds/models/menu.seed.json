@@ -1,0 +1,149 @@
+[
+    {
+        "id": 1001,
+        "scope": "front-office",
+        "label": "Accueil",
+        "url": "/",
+        "order": 0,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 1002,
+        "scope": "front-office",
+        "label": "Actualités",
+        "url": "/actualites",
+        "order": 1,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 1003,
+        "scope": "front-office",
+        "label": "Projets",
+        "url": "/projets",
+        "order": 2,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 1004,
+        "scope": "front-office",
+        "label": "Événements",
+        "url": "/evenements",
+        "order": 3,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 1006,
+        "scope": "front-office",
+        "label": "Mairie",
+        "url": null,
+        "order": 4,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 1007,
+        "scope": "front-office",
+        "label": "Vie municipale",
+        "url": "/vie-municipale",
+        "order": 0,
+        "parent_id": 1006,
+        "is_visible": true
+    },
+    {
+        "id": 2001,
+        "scope": "back-office",
+        "icon": "ic:outline-space-dashboard",
+        "label": "Dashboard",
+        "url": "/back-office",
+        "order": 0,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 2002,
+        "scope": "back-office",
+        "icon": "ic:baseline-person",
+        "label": "Mon profil",
+        "url": "/back-office/profile",
+        "order": 1,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 2008,
+        "scope": "back-office",
+        "icon": "ic:round-image",
+        "label": "Médias",
+        "url": "/back-office/medias",
+        "order": 2,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 2003,
+        "scope": "back-office",
+        "icon": "ic:baseline-home",
+        "label": "Page d'accueil",
+        "order": 3,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 2004,
+        "scope": "back-office",
+        "label": "Liste des accès rapides",
+        "url": "/back-office/page-accueil/acces-rapides",
+        "order": 0,
+        "parent_id": 2003,
+        "is_visible": true
+    },
+    {
+        "id": 2005,
+        "scope": "back-office",
+        "icon": "ic:baseline-newspaper",
+        "label": "Actualités",
+        "order": 4,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 2006,
+        "scope": "back-office",
+        "label": "Liste des actualités",
+        "url": "/back-office/actualites",
+        "order": 0,
+        "parent_id": 2005,
+        "is_visible": true
+    },
+    {
+        "id": 2007,
+        "scope": "back-office",
+        "label": "Créer une actualité",
+        "url": "/back-office/actualites/ajouter",
+        "order": 1,
+        "parent_id": 2005,
+        "is_visible": true
+    },
+    {
+        "id": 2009,
+        "scope": "back-office",
+        "icon": "ic:baseline-settings",
+        "label": "Paramètres",
+        "order": 5,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 20010,
+        "scope": "back-office",
+        "label": "Popups d'alerte",
+        "url": "/back-office/popups",
+        "order": 0,
+        "parent_id": 2009,
+        "is_visible": true
+    }
+]

@@ -143,12 +143,6 @@ export const EVENT_NAMES: SearchResultNames = {
     type: 'model'
 }
 
-export const EVENT_INCLUDE_DEFAULTS = [
-    { model: Media, as: 'cover' },
-    { model: Gallery, as: 'gallery' },
-    { model: Category, as: 'categories' }
-]
-
 export class Event extends Model<EventAttributes, EventAttributesCreation> implements EventAttributes {
     public id!: number
     public slug!: string
@@ -173,6 +167,12 @@ export class Event extends Model<EventAttributes, EventAttributesCreation> imple
     public categories?: Category[]
     public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
+
+export const EVENT_INCLUDE_DEFAULTS = [
+    { model: Media, as: 'cover' },
+    { model: Gallery, as: 'gallery' },
+    { model: Category, as: 'categories' }
+]
 
 export function initEventModel(sequelize: Sequelize) {
     Event.init(modelBuild(EVENT_CONSTRAINTS), {

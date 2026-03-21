@@ -127,12 +127,6 @@ export const COMMERCE_NAMES: SearchResultNames = {
   type: 'model'
 }
 
-export const COMMERCE_INCLUDE_DEFAULTS = [
-  { model: Media, as: 'cover' },
-  { model: Schedule, as: 'schedule' },
-  { model: Category, as: 'categories' }
-]
-
 export class Commerce extends Model<CommerceAttributes, CommerceAttributesCreation> implements CommerceAttributes {
   public id!: number
   public title!: string
@@ -155,6 +149,12 @@ export class Commerce extends Model<CommerceAttributes, CommerceAttributesCreati
   public categories?: Category[]
   public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
 }
+
+export const COMMERCE_INCLUDE_DEFAULTS = [
+  { model: Media, as: 'cover' },
+  { model: Schedule, as: 'schedule' },
+  { model: Category, as: 'categories' }
+]
 
 export function initCommerceModel(sequelize: Sequelize) {
   Commerce.init(modelBuild(COMMERCE_CONSTRAINTS), {
