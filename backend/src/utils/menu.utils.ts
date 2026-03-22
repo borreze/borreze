@@ -1,5 +1,4 @@
-import { MenuAttributes, UserAttributesPublic } from "@brz/shared"
-import { getPermsContexts, isAdmin } from "./auth.utils"
+import { getPermsContexts, isAdmin, MenuAttributes, UserAttributesPublic } from "@brz/shared"
 
 export async function filterMenusByPermissions(menus: MenuAttributes[], user?: UserAttributesPublic): Promise<MenuAttributes[]> {
     if (!user) return [] // No user, no menus

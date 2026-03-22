@@ -1,4 +1,4 @@
-import { AuthRefreshToken, AuthPasswordResetToken } from '../models'
+import { AuthRefreshToken, AuthPasswordResetToken, Role } from '../models'
 import { sequelize } from '../config/database'
 import { Op } from 'sequelize'
 import { hashPassword, comparePassword, randomTokenString, randomNumericCode } from '../utils/auth.utils'
@@ -12,9 +12,13 @@ import { UserAttributesFrontend } from '@brz/shared'
 export class AuthService {
     public async getCurrentUser(accessToken: string): Promise<UserAttributesFrontend> {
         const payload = verifyAccessToken(accessToken)
-        const user = await userService.getById(payload.user_id)
 
+        const user = await userService.getById(payload.user_id)
         if (!user) throw new NotFound('User not found')
+
+        const role = await Role.findByPk(user?.role_id)
+        if (!role) throw new AuthException('User role not found')
+        const permissions = Array.isArray(role.permissions) ? role.permissions : []
 
         return {
             id: user.id,
@@ -23,7 +27,8 @@ export class AuthService {
             first_name: user.first_name,
             last_name: user.last_name,
             role_id: user.role_id,
-            status: user.status
+            status: user.status,
+            permissions
         }
     }
 
@@ -33,6 +38,10 @@ export class AuthService {
         const user = await userService.getByEmailOrUsername(emailOrUsername)
         if (!user) throw new AuthException('Invalid credentials')
         if (!user.password) throw new AuthException('Invalid credentials')
+
+        const role = await Role.findByPk(user?.role_id)
+        if (!role) throw new AuthException('User role not found')
+        const permissions = Array.isArray(role.permissions) ? role.permissions : []
 
         if (user.status !== 'active') throw new AuthException('Account is not active')
 
@@ -67,7 +76,8 @@ export class AuthService {
                 first_name: user.first_name,
                 last_name: user.last_name,
                 role_id: user.role_id,
-                status: user.status
+                status: user.status,
+                permissions
             }
         }
     }

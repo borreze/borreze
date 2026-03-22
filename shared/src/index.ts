@@ -10,6 +10,8 @@ export { resolveType, sizeToReadable, mediaGetIcon, mediaGetLabel, isTypeAllowed
 
 export { parseValidationErrors } from './utils/validation.utils'
 
+export { canDo, isAdmin, getPermsContexts, getPerms } from './utils/auth.utils'
+
 // TYPES
 
 export type { AssociationAttributes, AssociationAttributesCreation, AssociationAttributesUpdate } from './types/association.types'

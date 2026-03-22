@@ -6,14 +6,17 @@
 
         <div v-if="authStore.isAuthenticated">
             <p><strong>Email:</strong> {{ authStore.user?.email }}</p>
-            <p><strong>Username:</strong> {{ authStore.user?.username }}</p>
-            <p><strong>First Name:</strong> {{ authStore.user?.first_name || '-' }}</p>
-            <p><strong>Last Name:</strong> {{ authStore.user?.last_name || '-' }}</p>
+            <p><strong>Nom d'utilisateur:</strong> {{ authStore.user?.username }}</p>
+            <p><strong>Prénom:</strong> {{ authStore.user?.first_name || '-' }}</p>
+            <p><strong>Nom:</strong> {{ authStore.user?.last_name || '-' }}</p>
+            <p><strong>Permissions:</strong> {{ authStore.user?.permissions.join(', ') || '-' }}</p>
+            <p><strong>Permissions contextes:</strong> {{ getPermsContexts(authStore.user).join(', ') || '-' }}</p>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { getPermsContexts } from '@brz/shared'
 import { useAuthStore } from '~/stores/auth'
 
 const authStore = useAuthStore()

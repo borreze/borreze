@@ -2,7 +2,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import { Forbidden, Unauthorized } from '../exceptions/auth.exception'
-import { UserAttributesPublic } from '@brz/shared'
+import { canDo, UserAttributesPublic } from '@brz/shared'
 
 dotenv.config()
 
@@ -50,52 +50,6 @@ export function userCheck(user: UserAttributesPublic | null | undefined): boolea
     if (user?.status !== 'active') throw new Unauthorized('Account is not active')
 
     return true
-}
-
-export function isAdmin(user: UserAttributesPublic | null | undefined): boolean {
-    if (!user) return false
-
-    for (const perm of user.permissions) {
-        if (perm === '*') return true // Admin
-    }
-
-    return false
-}
-
-export function getPermsContexts(user: UserAttributesPublic | null | undefined): string[] {
-    if (!user) return []
-
-    const permContexts = user.permissions
-        .filter(perm => perm !== '*')
-        .map(perm => perm.split('.')[0]) // Get context part of permission
-
-    return Array.from(new Set(permContexts)) // Unique contexts
-}
-
-export function getPerms(user: UserAttributesPublic | null | undefined): string[] {
-    if (!user) return []
-
-    const perms = user.permissions
-        .filter(perm => perm !== '*')
-
-    return Array.from(new Set(perms)) // Unique permissions
-}
-
-function canDo(user: UserAttributesPublic | null | undefined, context: string, action: string): boolean {
-    if (!user) return false
-
-    if (isAdmin(user)) return true
-
-    const perms = getPerms(user)
-    for (const perm of perms) {
-        const [permContext, permAction] = perm.split('.')
-
-        if (permContext === context && (permAction === action || permAction === '*')) {
-            return true
-        }
-    }
-
-    return false
 }
 
 export async function permissionCheck(user: UserAttributesPublic | null | undefined, context: string, action: string): Promise<void> {

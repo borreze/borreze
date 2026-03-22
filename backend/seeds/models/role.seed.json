@@ -11,6 +11,7 @@
         "name": "Éditeur de contenu",
         "permissions": [
             "dashboard.*",
+            "profile.*",
             "post.*",
             "category.*",
             "media.*"
