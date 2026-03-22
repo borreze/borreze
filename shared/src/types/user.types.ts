@@ -18,15 +18,14 @@ export interface UserAttributes {
     username: string
     first_name?: string | null
     last_name?: string | null
-    email_verified_at?: Date | null
     role_id: number
     status: UserStatus
-    created_at: Date
-    updated_at: Date
+    created_at?: Date | null
+    updated_at?: Date | null
 }
 
 export interface UserAttributesFrontend extends Omit<UserAttributes, 'password'> { role?: RoleAttributes }
 export type UserAttributesAuth = Pick<UserAttributes, 'id' | 'email' | 'username' | 'first_name' | 'last_name' | 'role_id' | 'status'> & { permissions: string[] }
 export type UserAttributesPublic = Pick<UserAttributes, 'id' | 'email' | 'username' | 'role_id' | 'status'> & { permissions: string[] }
-export type UserAttributesCreation = Optional<UserAttributes, 'id' | 'first_name' | 'last_name' | 'email_verified_at' | 'created_at' | 'updated_at'>
-export type UserAttributesUpdate = Optional<UserAttributes, 'id' | 'email' | 'password' | 'username' | 'first_name' | 'last_name' | 'email_verified_at' | 'role_id' | 'status' | 'created_at' | 'updated_at'>
+export type UserAttributesCreation = Optional<UserAttributes, 'id' | 'first_name' | 'last_name' | 'created_at' | 'updated_at'>
+export type UserAttributesUpdate = Optional<UserAttributes, 'id' | 'email' | 'password' | 'username' | 'first_name' | 'last_name' | 'role_id' | 'status' | 'created_at' | 'updated_at'>

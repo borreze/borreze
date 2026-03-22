@@ -40,6 +40,14 @@ export class UserController {
     res.status(200).json({ data: sanitizeUser(user), message: 'User updated successfully' } as Return)
   }
 
+  public updateStatus: RequestHandler<{ id: string }> = async (req, res) => {
+    const id = Number(req.params.id)
+    const { status } = req.body
+
+    const user = await userService.updateStatus(id, status)
+    res.status(200).json({ data: user, message: 'User status updated successfully' } as Return)
+  }
+  
   public delete: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
 

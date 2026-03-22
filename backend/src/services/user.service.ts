@@ -15,7 +15,7 @@ import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { hashPassword, isHash, isStrongPassword } from '../utils/auth.utils'
 import { paginationDefault } from '@brz/shared'
-import { validateAll } from '../utils/validation.utils'
+import { validateAll, validateOne } from '../utils/validation.utils'
 
 export class UserService {
   private filterStatus(status?: UserStatus | 'all' | null): WhereOptions {
@@ -134,6 +134,22 @@ export class UserService {
       if (!user) return null
 
       await user.update(data, { transaction })
+      return user
+    }).then(async (user) => {
+      if (!user) return null
+      return user
+    })
+  }
+
+  public async updateStatus(id: number, status: UserStatus): Promise<UserAttributes | null> {
+    const { valid, errors } = validateOne('status', status, USER_CONSTRAINTS)
+    if (!valid) throw new ValidationException('Erreur sur les champs', errors)
+
+    return sequelize.transaction(async (transaction: Transaction) => {
+      const user = await User.findByPk(id, { transaction })
+      if (!user) throw new NotFound('User not found')
+
+      await user.update({ status }, { transaction })
       return user
     }).then(async (user) => {
       if (!user) return null

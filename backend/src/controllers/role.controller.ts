@@ -14,7 +14,7 @@ export class RoleController {
     const options = { search }
 
     const count = await roleService.count(options)
-    const pagination = paginate(page, limit, count)
+    const pagination = paginate(page, limit, count, req?.user)
     const data = await roleService.getAll(options, order, pagination)
     res.json({ pagination, data, message: 'Roles retrieved successfully' } as Return)
   }

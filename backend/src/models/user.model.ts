@@ -47,11 +47,6 @@ export const USER_CONSTRAINTS = {
     required: false,
     searchable: true
   },
-  email_verified_at: {
-    nicename: 'Date de vérification de l\'email',
-    type: DataTypes.DATE,
-    required: false
-  },
   role_id: {
     nicename: 'Rôle',
     type: DataTypes.INTEGER,
@@ -86,7 +81,6 @@ export class User extends Model<UserAttributes, UserAttributesCreation> implemen
   public username!: string
   public first_name?: string
   public last_name?: string
-  public email_verified_at?: Date
   public status!: UserStatus
   public role_id!: number
   public readonly created_at!: Date

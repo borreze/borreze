@@ -1,5 +1,5 @@
-import { paginationDefault } from '@brz/shared';
-import type { Order, UserAttributesFrontend } from '@brz/shared'
+import { paginationDefault, type UserAttributesFrontend } from '@brz/shared';
+import type { Order, UserStatus } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 
@@ -20,7 +20,7 @@ export const useUsers = async () => {
                     limit: paginationDefault().limit,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value.trim(),
-                    is_active: 'all',
+                    status: 'all',
                 }
             }
         ).then(r => r.data),
@@ -82,7 +82,12 @@ export const useEditUser = async (id: number) => {
         `user-${id}`,
         () => useApi()
             .get<{ data: UserAttributesFrontend, pagination: Pagination }>(
-                `/back-office/users/${id}`)
+                `/back-office/users/${id}`,
+                {
+                    params: {
+                        status: 'all',
+                    }
+                })
             .then(r => r.data),
     )
 
@@ -103,12 +108,23 @@ export const useEditUser = async (id: number) => {
         return response.data
     }
 
+    const updateStatus = async (status: UserStatus) => {
+        const response = await useApi().put<{ data: UserAttributesFrontend }>(
+            `/back-office/users/${id}/status`,
+            { body: { status } }
+        )
+
+        if (!response.ok) throw response.error
+        return response.data
+    }
+
     return {
         user: computed(() => data.value?.data ?? null),
         loading: computed(() => status.value === 'pending'),
         error,
         deleteSelf,
         updateSelf,
+        updateStatus
     }
 }
 
