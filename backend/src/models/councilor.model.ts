@@ -7,7 +7,7 @@ import { modelBuild } from '../utils/model.utils'
 export const COUNCILOR_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
@@ -44,7 +44,7 @@ export const COUNCILOR_CONSTRAINTS = {
   },
   picture_id: {
     nicename: 'Photo',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   email: {

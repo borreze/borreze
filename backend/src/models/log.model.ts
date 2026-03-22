@@ -6,7 +6,7 @@ import { modelBuild } from '../utils/model.utils'
 export const LOG_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
@@ -31,7 +31,7 @@ export const LOG_CONSTRAINTS = {
   },
   user_id: {
     nicename: 'Utilisateur',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   ip_address: {

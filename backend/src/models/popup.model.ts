@@ -7,13 +7,13 @@ import { modelBuild } from '../utils/model.utils'
 export const POPUP_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
   media_id: {
     nicename: 'Média',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   date_from: {

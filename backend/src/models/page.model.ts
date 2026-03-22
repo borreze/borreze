@@ -10,18 +10,18 @@ import { modelBuild } from '../utils/model.utils'
 export const PAGE_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
   cover_id: {
     nicename: 'Couverture',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   gallery_id: {
     nicename: 'Galerie',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   status: {

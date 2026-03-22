@@ -1,6 +1,6 @@
 import { User } from '../models'
 import { WhereOptions } from 'sequelize'
-import { Pagination, USER_ROLE_ID_DEFAULT } from '@brz/shared'
+import { isPasswordStrong, Pagination, USER_ROLE_ID_DEFAULT } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { UserStatus } from '@brz/shared'
 import { sequelize } from '../config/database'
@@ -16,7 +16,6 @@ import { NotFound } from '../exceptions/request.exception'
 import { hashPassword, isHash } from '../utils/auth.utils'
 import { paginationDefault } from '@brz/shared'
 import { validateAll, validateOne } from '../utils/validation.utils'
-import { isPasswordStrong } from '@brz/shared'
 
 export class UserService {
   private filterStatus(status?: UserStatus | 'all' | null): WhereOptions {
@@ -24,7 +23,7 @@ export class UserService {
     return { status: status ?? 'active' }
   }
 
-  public async count(options?: { search?: string, status?: UserStatus }): Promise<number> {
+  public async count(options?: { search?: string, status?: UserStatus | 'all' | null }): Promise<number> {
     const { search, status } = options || {}
 
     const where: WhereOptions = {
@@ -36,7 +35,7 @@ export class UserService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string, status?: UserStatus }, order: Order[] = [], pagination?: Pagination | null): Promise<UserAttributes[]> {
+  public async getAll(options?: { search?: string, status?: UserStatus | 'all' | null }, order: Order[] = [], pagination?: Pagination | null): Promise<UserAttributes[]> {
     const { search, status } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
@@ -49,7 +48,7 @@ export class UserService {
     return users
   }
 
-  public async getByEmailOrUsername(emailOrUsername: string, options?: { status?: UserStatus, throwError?: boolean }): Promise<UserAttributes | null> {
+  public async getByEmailOrUsername(emailOrUsername: string, options?: { status?: UserStatus | 'all' | null, throwError?: boolean }): Promise<UserAttributes | null> {
     const { status, throwError } = options || {}
 
     const where: WhereOptions = {
@@ -69,7 +68,7 @@ export class UserService {
     return user
   }
 
-  public async getByUsername(username: string, options?: { status?: UserStatus }): Promise<UserAttributes | null> {
+  public async getByUsername(username: string, options?: { status?: UserStatus | 'all' | null }): Promise<UserAttributes | null> {
     const { status } = options || {}
 
     const where: WhereOptions = {
@@ -82,7 +81,7 @@ export class UserService {
     return user
   }
 
-  public async getByEmail(email: string, options?: { status?: UserStatus }): Promise<UserAttributes | null> {
+  public async getByEmail(email: string, options?: { status?: UserStatus | 'all' | null }): Promise<UserAttributes | null> {
     const { status } = options || {}
 
     const where: WhereOptions = {
@@ -95,7 +94,7 @@ export class UserService {
     return user
   }
 
-  public async getById(id: number, options?: { status?: UserStatus }): Promise<UserAttributes | null> {
+  public async getById(id: number, options?: { status?: UserStatus | 'all' | null }): Promise<UserAttributes | null> {
     const { status } = options || {}
 
     const where: WhereOptions = {

@@ -6,7 +6,7 @@ import { modelBuild } from '../utils/model.utils'
 export const SCHEDULE_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
@@ -18,7 +18,7 @@ export const SCHEDULE_CONSTRAINTS = {
   },
   commerce_id: {
     nicename: 'Commerce',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   day: {

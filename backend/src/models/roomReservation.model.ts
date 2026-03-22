@@ -6,7 +6,7 @@ import { modelBuild } from '../utils/model.utils'
 export const ROOM_RESERVATION_CONSTRAINTS = {
     id: {
         nicename: 'ID',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },

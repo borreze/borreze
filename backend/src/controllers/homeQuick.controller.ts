@@ -17,7 +17,7 @@ export class HomeQuickController {
     const count = await homeQuickService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await homeQuickService.getAll(options, order, pagination, req?.user)
-    res.json({ pagination, data, message: 'HomeQuicks retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'HomeQuicks retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
@@ -27,7 +27,7 @@ export class HomeQuickController {
     const options = { is_visible }
 
     const homequick = await homeQuickService.getById(id, options)
-    res.json({ data: homequick, message: 'HomeQuick retrieved successfully' } as Return)
+    res.status(200).json({ data: homequick, message: 'HomeQuick retrieved successfully' } as Return)
   }
 
   public create: RequestHandler = async (req, res) => {

@@ -2,7 +2,7 @@ import { Optional } from 'sequelize'
 import { RoleAttributes } from './role.types'
 
 export const USER_PASSWORD_SCORE_REQUIRED = 8 // Minimum password score required for a password to be considered valid
-export const USER_ROLE_ID_DEFAULT = 2 // Default role for new users
+export const USER_ROLE_ID_DEFAULT = 3 // Default role for new users
 
 export const USER_STATUSES_KEYS = ['active', 'inactive', 'banned'] as const
 export type UserStatus = typeof USER_STATUSES_KEYS[number]

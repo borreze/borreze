@@ -38,11 +38,11 @@
                     <div class="max-w-xs">
                         <Dropdown v-model="editingUser.status" required position="left" variant="light" size="md"
                             label="Status de l'utilisateur" placeholder="Status" :items="USER_STATUSES_OBJECTS"
-                            @close="touch('status')" />
+                            label-key="label" value-key="value" :error="errors.status" @close="touch('status')" />
                     </div>
                     <div class="max-w-xs">
                         <Dropdown v-model="editingUser.role_id" required position="right" variant="light" size="md"
-                            label="Rôle" placeholder="Rôle" :items="roles" label-key="name" value-key="id"
+                            label="Rôle" :items="roles" label-key="name" value-key="id" :error="errors.role_id"
                             @close="touch('role_id')" />
                     </div>
                 </div>
@@ -66,7 +66,7 @@
 
 <script setup lang="ts">
 import type { RoleAttributes, UserAttributesFrontendPassword } from '@brz/shared'
-import { USER_STATUSES_OBJECTS, isEmail, slugify } from '@brz/shared'
+import { USER_ROLE_ID_DEFAULT, USER_STATUSES_OBJECTS, isEmail, slugify } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'

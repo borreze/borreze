@@ -5,7 +5,7 @@ import { Return } from '../types/utils/api.types'
 export class ContactController {
   public send: RequestHandler = async (req, res) => {
     await contactService.send(req.body)
-    res.json({ message: 'Contact request sent successfully' } as Return)
+    res.status(200).json({ message: 'Contact request sent successfully' } as Return)
   }
 }
 

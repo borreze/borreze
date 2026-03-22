@@ -9,13 +9,13 @@ import { Category } from './category.model'
 export const POST_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
   cover_id: {
     nicename: 'Couverture',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   status: {

@@ -16,7 +16,7 @@ export class PostController {
     const pagination: Pagination = { page, limit, total: Infinity }
 
     const data = await postService.getAll(options, order, pagination, req?.user)
-    res.json({ data, message: 'Posts retrieved successfully' } as Return)
+    res.status(200).json({ data, message: 'Posts retrieved successfully' } as Return)
   }
 
   public getAll: RequestHandler = async (req, res) => {
@@ -32,7 +32,7 @@ export class PostController {
     const count = await postService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await postService.getAll(options, order, pagination, req?.user)
-    res.json({ pagination, data, message: 'Posts retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Posts retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
@@ -42,7 +42,7 @@ export class PostController {
     const options = { status }
 
     const post = await postService.getById(id, options)
-    res.json({ data: post, message: 'Post retrieved successfully' } as Return)
+    res.status(200).json({ data: post, message: 'Post retrieved successfully' } as Return)
   }
 
   public getBySlug: RequestHandler<{ slug: string }> = async (req, res) => {
@@ -51,7 +51,7 @@ export class PostController {
     const options = { status: 'published' as PostStatus}
 
     const post = await postService.getBySlug(slug, options)
-    res.json({ data: post, message: 'Post retrieved successfully' } as Return)
+    res.status(200).json({ data: post, message: 'Post retrieved successfully' } as Return)
   }
 
   public create: RequestHandler = async (req, res) => {

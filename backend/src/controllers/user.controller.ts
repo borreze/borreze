@@ -4,27 +4,32 @@ import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
 import { sanitizeUser, sanitizeUsers } from '../utils/auth.utils'
+import { UserStatus } from '@brz/shared'
 
 export class UserController {
   public getAll: RequestHandler = async (req, res) => {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
+    const status = String(req.query.status || 'active') as UserStatus | 'all'
     const order = parseOrder(req, [['created_at', 'DESC'], ['id', 'DESC']])
 
-    const options = { search }
+    const options = { search, status }
 
     const count = await userService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await userService.getAll(options, order, pagination)
-    res.json({ pagination, data: sanitizeUsers(data), message: 'Users retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data: sanitizeUsers(data), message: 'Users retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
+    const status = String(req.query.status || 'active') as UserStatus | 'all'
 
-    const user = await userService.getById(id)
-    res.json({ data: sanitizeUser(user), message: 'User retrieved successfully' } as Return)
+    const options = { status }
+
+    const user = await userService.getById(id, options)
+    res.status(200).json({ data: sanitizeUser(user), message: 'User retrieved successfully' } as Return)
   }
 
   public create: RequestHandler = async (req, res) => {
@@ -47,7 +52,7 @@ export class UserController {
     const user = await userService.updateStatus(id, status)
     res.status(200).json({ data: user, message: 'User status updated successfully' } as Return)
   }
-  
+
   public delete: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
 

@@ -6,7 +6,7 @@ import { modelBuild } from '../utils/model.utils'
 export const AUTH_REFRESH_TOKEN_CONSTRAINTS = {
     id: {
         nicename: 'ID',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
@@ -18,7 +18,7 @@ export const AUTH_REFRESH_TOKEN_CONSTRAINTS = {
     },
     user_id: {
         nicename: 'Utilisateur',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         required: true
     },
     expires_at: {

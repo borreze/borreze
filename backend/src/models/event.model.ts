@@ -10,7 +10,7 @@ import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 export const EVENT_CONSTRAINTS = {
     id: {
         nicename: 'ID',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
@@ -58,7 +58,7 @@ export const EVENT_CONSTRAINTS = {
     },
     cover_id: {
         nicename: 'Couverture',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         required: false
     },
     status: {

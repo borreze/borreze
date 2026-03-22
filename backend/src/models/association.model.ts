@@ -9,7 +9,7 @@ import { modelBuild } from '../utils/model.utils'
 export const ASSOCIATION_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
@@ -37,7 +37,7 @@ export const ASSOCIATION_CONSTRAINTS = {
   },
   cover_id: {
     nicename: 'Couverture',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   contact_name: {

@@ -6,12 +6,12 @@ import { CATEGORIZABLE_TYPES_KEYS, CategorizableAttributes, CategorizableAttribu
 export const CATEGORIZABLE_CONSTRAINTS = {
     category_id: {
         nicename: 'Catégorie',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         required: true
     },
     categorizable_id: {
         nicename: 'Entité catégorisable',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         required: true
     },
     type: {

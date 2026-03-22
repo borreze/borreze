@@ -6,7 +6,7 @@ import { ModelConstraints } from '../types/utils/model.types'
 export const SCHOOL_HOLIDAY_CONSTRAINTS = {
     id: {
         nicename: 'ID',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },

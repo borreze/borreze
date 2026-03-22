@@ -16,14 +16,14 @@ export class RoleController {
     const count = await roleService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await roleService.getAll(options, order, pagination)
-    res.json({ pagination, data, message: 'Roles retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Roles retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
 
     const role = await roleService.getById(id)
-    res.json({ data: role, message: 'Role retrieved successfully' } as Return)
+    res.status(200).json({ data: role, message: 'Role retrieved successfully' } as Return)
   }
 
   public create: RequestHandler = async (req, res) => {

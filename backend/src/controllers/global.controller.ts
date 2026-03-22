@@ -8,7 +8,7 @@ export class GlobalController {
 
     const data = await globalService.search({ query })
 
-    res.json({ data, message: 'Results retrieved successfully' } as Return)
+    res.status(200).json({ data, message: 'Results retrieved successfully' } as Return)
   }
 }
 

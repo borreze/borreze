@@ -7,7 +7,7 @@ import { Gallery } from './gallery.model'
 export const MEDIA_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
@@ -51,7 +51,7 @@ export const MEDIA_CONSTRAINTS = {
   },
   uploaded_by: {
     nicename: 'Utilisateur',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   created_at: {

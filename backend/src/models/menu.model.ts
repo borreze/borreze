@@ -7,7 +7,7 @@ import { MENU_SCOPES_KEYS, MenuScope } from '@brz/shared'
 export const MENU_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
@@ -39,7 +39,7 @@ export const MENU_CONSTRAINTS = {
   },
   parent_id: {
     nicename: 'Parent',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   icon: {

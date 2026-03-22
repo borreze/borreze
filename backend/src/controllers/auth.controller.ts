@@ -8,7 +8,7 @@ export class AuthController {
         const accessToken = req.headers['authorization']?.split(' ')[1] || ''
 
         const user = await authService.getCurrentUser(accessToken)
-        res.json({ data: user, message: 'User info retrieved' } as Return)
+        res.status(200).json({ data: user, message: 'User info retrieved' } as Return)
     }
 
     public login: RequestHandler = async (req, res) => {
@@ -16,21 +16,21 @@ export class AuthController {
 
         const result = await authService.login(identifier, password)
         Log.info(`User of email ${result.user.email} logged in`, req)
-        res.json({ data: result, message: 'Login successful' } as Return)
+        res.status(200).json({ data: result, message: 'Login successful' } as Return)
     }
 
     public refresh: RequestHandler = async (req, res) => {
         const { refreshToken } = req.body
 
         const tokens = await authService.refreshToken(refreshToken)
-        res.json({ data: tokens, message: 'Token refreshed' } as Return)
+        res.status(200).json({ data: tokens, message: 'Token refreshed' } as Return)
     }
 
     public logout: RequestHandler = async (req, res) => {
         const { refreshToken } = req.body
 
         await authService.logout(refreshToken)
-        res.json({ message: 'Logged out' } as Return)
+        res.status(200).json({ message: 'Logged out' } as Return)
     }
 
     public sendResetCode: RequestHandler = async (req, res) => {
@@ -38,7 +38,7 @@ export class AuthController {
 
         await authService.sendPasswordResetCode(email)
         Log.info(`Sent password reset code to user of email ${email}`, req)
-        res.json({ message: 'Reset code sent if account exists' } as Return)
+        res.status(200).json({ message: 'Reset code sent if account exists' } as Return)
     }
 
     public resetPassword: RequestHandler = async (req, res) => {
@@ -46,7 +46,7 @@ export class AuthController {
 
         await authService.resetPassword(email, code, newPassword)
         Log.info(`New password set for user of email ${email}`, req)
-        res.json({ message: 'Password reset successful' } as Return)
+        res.status(200).json({ message: 'Password reset successful' } as Return)
     }
 }
 

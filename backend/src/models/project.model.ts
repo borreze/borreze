@@ -10,7 +10,7 @@ import { modelBuild } from '../utils/model.utils'
 export const PROJECT_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
@@ -38,12 +38,12 @@ export const PROJECT_CONSTRAINTS = {
   },
   cover_id: {
     nicename: 'Couverture',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   gallery_id: {
     nicename: 'Galerie',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   status: {

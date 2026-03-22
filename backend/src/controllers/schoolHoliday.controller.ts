@@ -19,7 +19,7 @@ export class SchoolHolidayController {
     const count = await schoolHolidayService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await schoolHolidayService.getAll(options, order, pagination)
-    res.json({ pagination, data, message: 'School holidays retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'School holidays retrieved successfully' } as Return)
   }
 
   public getFromYear: RequestHandler = async (req, res) => {
@@ -28,12 +28,12 @@ export class SchoolHolidayController {
     const order: Order[] = [['date_start', 'ASC']]
   
     const data = await schoolHolidayService.getAll(options, order)
-    res.json({ data, message: 'School holidays retrieved successfully' } as Return)
+    res.status(200).json({ data, message: 'School holidays retrieved successfully' } as Return)
   }
 
   public import: RequestHandler = async (req, res) => {
     const data = await schoolHolidayService.import()
-    res.json({ data, message: 'School holidays imported successfully' } as Return)
+    res.status(200).json({ data, message: 'School holidays imported successfully' } as Return)
   }
 }
 

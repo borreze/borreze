@@ -18,7 +18,7 @@ export class MenuController {
 
     let data = await menuService.getAll(options, order, pagination, req?.user)
     if (scope === 'back-office') data = await filterMenusByPermissions(data, req?.user)
-    res.json({ pagination, data, message: 'Menus retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Menus retrieved successfully' } as Return)
   }
 
   public getAll: RequestHandler = async (req, res) => {
@@ -33,7 +33,7 @@ export class MenuController {
     const count = await menuService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await menuService.getAll(options, order, pagination, req?.user)
-    res.json({ pagination, data, message: 'Menus retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Menus retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
@@ -43,7 +43,7 @@ export class MenuController {
     const options = { is_visible }
 
     const menu = await menuService.getById(id, options)
-    res.json({ data: menu, message: 'Menu retrieved successfully' } as Return)
+    res.status(200).json({ data: menu, message: 'Menu retrieved successfully' } as Return)
   }
 
   public create: RequestHandler = async (req, res) => {

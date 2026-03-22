@@ -7,7 +7,7 @@ import { modelBuild } from '../utils/model.utils'
 export const SCHOOL_MEAL_CONSTRAINTS = {
     id: {
         nicename: 'ID',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
@@ -23,7 +23,7 @@ export const SCHOOL_MEAL_CONSTRAINTS = {
     },
     pdf_id: {
         nicename: 'PDF',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         required: false
     },
     is_archived: {

@@ -6,7 +6,7 @@ import { modelBuild } from '../utils/model.utils'
 export const HOME_QUICK_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },

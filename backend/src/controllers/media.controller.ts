@@ -19,7 +19,7 @@ export class MediaController {
     const count = await mediaService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await mediaService.getAll(options, order, pagination)
-    res.json({ pagination, data, message: 'Medias retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Medias retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
@@ -29,7 +29,7 @@ export class MediaController {
     const options = { type }
 
     const data = await mediaService.getById(id, options)
-    res.json({ data, message: 'Media retrieved successfully' } as Return)
+    res.status(200).json({ data, message: 'Media retrieved successfully' } as Return)
   }
 
   public upload: RequestHandler = async (req, res) => {
@@ -57,21 +57,21 @@ export class MediaController {
     const id = Number(req.params.id)
 
     const data = await mediaService.update(id, req.body)
-    res.json({ data, message: 'Media updated successfully' } as Return)
+    res.status(200).json({ data, message: 'Media updated successfully' } as Return)
   }
 
   public delete: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
 
     await mediaService.delete(id)
-    res.json({ message: 'Media deleted successfully' } as Return)
+    res.status(200).json({ message: 'Media deleted successfully' } as Return)
   }
 
   public deleteMultiple: RequestHandler = async (req, res) => {
     const { ids } = req.body
 
     const count = await mediaService.deleteMultiple(ids)
-    res.json({ data: { deleted: count }, message: 'Medias deleted successfully' } as Return)
+    res.status(200).json({ data: { deleted: count }, message: 'Medias deleted successfully' } as Return)
   }
 }
 

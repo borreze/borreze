@@ -10,7 +10,7 @@ import { modelBuild } from '../utils/model.utils'
 export const COMMERCE_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
@@ -38,7 +38,7 @@ export const COMMERCE_CONSTRAINTS = {
   },
   cover_id: {
     nicename: 'Couverture',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: false
   },
   contact_name: {

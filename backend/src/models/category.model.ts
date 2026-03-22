@@ -9,7 +9,7 @@ import { Commerce } from './commerce.model'
 export const CATEGORY_CONSTRAINTS = {
     id: {
         nicename: 'ID',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },

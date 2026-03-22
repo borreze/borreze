@@ -6,13 +6,13 @@ import { modelBuild } from '../utils/model.utils'
 export const AUTH_PASSWORD_RESET_TOKEN_CONSTRAINTS = {
     id: {
         nicename: 'ID',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
     user_id: {
         nicename: 'Utilisateur',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         required: true
     },
     code_hash: {

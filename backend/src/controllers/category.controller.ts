@@ -17,7 +17,7 @@ export class CategoryController {
     const count = await categoryService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await categoryService.getAll(options, order, pagination)
-    res.json({ pagination, data, message: 'Categories retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Categories retrieved successfully' } as Return)
   }
 
   public getAllByType: RequestHandler<{ type: string }> = async (req, res) => {
@@ -32,7 +32,7 @@ export class CategoryController {
     const count = await categoryService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await categoryService.getAll(options, order, pagination)
-    res.json({ pagination, data, message: 'Categories retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Categories retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
@@ -42,7 +42,7 @@ export class CategoryController {
     const options = { type }
 
     const category = await categoryService.getById(id, options)
-    res.json({ data: category, message: 'Category retrieved successfully' } as Return)
+    res.status(200).json({ data: category, message: 'Category retrieved successfully' } as Return)
   }
 
   public create: RequestHandler = async (req, res) => {

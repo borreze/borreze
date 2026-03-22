@@ -15,7 +15,7 @@ public profile: RequestHandler = (req, res, next) => {
         next(new Unauthorized('Not authenticated'))
     return
   }
-  res.json({ data: [req.user], message: 'Profile retrieved' })
+  res.status(200).json({ data: [req.user], message: 'Profile retrieved' })
 }
 ```
 
@@ -25,7 +25,7 @@ A protected route example
 import { authMiddleware } from '../middleware/auth.middleware'
 
 router.get('/me', authMiddleware, (req, res) => {
-    res.json({ data: [req.user], message: 'Current user' })
+    res.status(200).json({ data: [req.user], message: 'Current user' })
 })
 ```
 

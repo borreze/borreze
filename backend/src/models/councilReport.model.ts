@@ -7,7 +7,7 @@ import { modelBuild } from '../utils/model.utils'
 export const COUNCIL_REPORT_CONSTRAINTS = {
   id: {
     nicename: 'ID',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
@@ -25,7 +25,7 @@ export const COUNCIL_REPORT_CONSTRAINTS = {
   },
   pdf_id: {
     nicename: 'PDF',
-    type: DataTypes.BIGINT,
+    type: DataTypes.INTEGER,
     required: true
   },
   created_at: {

@@ -15,7 +15,7 @@ export class ScheduleController {
     const pagination: Pagination = { page, limit, total: Infinity }
 
     const data = await scheduleService.getAll(options, order, pagination)
-    res.json({ data, message: 'Schedules retrieved successfully' } as Return)
+    res.status(200).json({ data, message: 'Schedules retrieved successfully' } as Return)
   }
 
   public getAll: RequestHandler = async (req, res) => {
@@ -29,7 +29,7 @@ export class ScheduleController {
     const count = await scheduleService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await scheduleService.getAll(options, order, pagination)
-    res.json({ pagination, data, message: 'Schedules retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Schedules retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
@@ -39,7 +39,7 @@ export class ScheduleController {
     const options = { type }
 
     const schedule = await scheduleService.getById(id, options)
-    res.json({ data: schedule, message: 'Schedule retrieved successfully' } as Return)
+    res.status(200).json({ data: schedule, message: 'Schedule retrieved successfully' } as Return)
   }
 
   public create: RequestHandler = async (req, res) => {

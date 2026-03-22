@@ -17,7 +17,7 @@ export class PopupController {
     const count = await popupService.count(options)
     const pagination = paginate(page, limit, count, req?.user)
     const data = await popupService.getAll(options, order, pagination, req?.user)
-    res.json({ pagination, data, message: 'Popups retrieved successfully' } as Return)
+    res.status(200).json({ pagination, data, message: 'Popups retrieved successfully' } as Return)
   }
 
   public getById: RequestHandler<{ id: string }> = async (req, res) => {
@@ -27,7 +27,7 @@ export class PopupController {
     const options = { is_active }
 
     const popup = await popupService.getById(id, options)
-    res.json({ data: popup, message: 'Popup retrieved successfully' } as Return)
+    res.status(200).json({ data: popup, message: 'Popup retrieved successfully' } as Return)
   }
 
   public create: RequestHandler = async (req, res) => {

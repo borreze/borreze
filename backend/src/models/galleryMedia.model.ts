@@ -6,12 +6,12 @@ import { ModelConstraints } from '../types/utils/model.types'
 export const GALLERY_MEDIA_CONSTRAINTS = {
     gallery_id: {
         nicename: 'Galerie',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         required: true
     },
     media_id: {
         nicename: 'Média',
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER,
         required: true
     },
     order: {
