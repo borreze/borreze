@@ -15,7 +15,7 @@
                             parcourir
                         </button>
                     </p>
-                    <p class="text-xs text-gray-400">{{ sizeToReadable(MEDIA_UPLOAD_LIMIT, 0) }} max par fichier</p>
+                    <p class="text-xs text-gray-400">{{ sizeToReadable(MEDIA_UPLOAD_SIZE_LIMIT, 0) }} max par fichier. {{ MEDIA_UPLOAD_NB_LIMIT }} fichiers max.</p>
                 </div>
             </section>
 
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { isTypeAllowed, MEDIA_UPLOAD_LIMIT, resolveType, sizeToReadable, type MediaAttributes, type MediaType } from '@brz/shared'
+import { isTypeAllowed, MEDIA_UPLOAD_NB_LIMIT, MEDIA_UPLOAD_SIZE_LIMIT, resolveType, sizeToReadable, type MediaAttributes, type MediaType } from '@brz/shared'
 import { push } from 'notivue';
 import Button from '~/components/atoms/Button.vue';
 import { useCreateMedia } from '~/composables/back-office/useMedia';
@@ -70,8 +70,8 @@ const pendingFiles = ref<{ file: File, preview: string | null }[]>([])
 
 const addFiles = (files: FileList | File[]) => {
     for (const file of Array.from(files)) {
-        if (file.size > MEDIA_UPLOAD_LIMIT) {
-            push.error({ title: 'Erreur', message: `Le fichier "${file.name}" dépasse la limite de taille de ${sizeToReadable(MEDIA_UPLOAD_LIMIT, 0)}.` })
+        if (file.size > MEDIA_UPLOAD_SIZE_LIMIT) {
+            push.error({ title: 'Erreur', message: `Le fichier "${file.name}" dépasse la limite de taille de ${sizeToReadable(MEDIA_UPLOAD_SIZE_LIMIT, 0)}.` })
             continue
         }
         if (props.mediaType && resolveType(file.type) !== props.mediaType) {
@@ -83,8 +83,12 @@ const addFiles = (files: FileList | File[]) => {
             continue
         }
         if (!props.multiple && pendingFiles.value.length > 0) {
-            push.error({ title: 'Erreur', message: `Vous ne pouvez sélectionner qu'un seul fichier.` })
-            break
+            push.error({ title: 'Erreur', message: `Vous ne pouvez envoyer qu'un seul fichier.` })
+            break // no need to check further files
+        }
+        if (pendingFiles.value.length >= MEDIA_UPLOAD_NB_LIMIT) {
+            push.error({ title: 'Erreur', message: `Vous ne pouvez envoyer que ${MEDIA_UPLOAD_NB_LIMIT} fichiers à la fois.` })
+            break // no need to check further files
         }
 
         const preview = file.type.startsWith('image/') ? URL.createObjectURL(file) : null

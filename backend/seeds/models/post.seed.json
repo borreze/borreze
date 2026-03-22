@@ -1,6 +1,7 @@
 [
     {
         "id": 1,
+        "cover_id": 1, 
         "status": "published",
         "title": "First post title",
         "slug": "first-post-slug",
@@ -8,11 +9,11 @@
         "content": "<p>This is the content of the first post.</p>",
         "meta_title": "First Post Meta Title",
         "meta_description": "This is the meta description for the first post.",
-        "cover_id": 1,
         "published_at": "2026-02-01T12:00:00Z"
     },
     {
         "id": 2,
+        "cover_id": 2, 
         "status": "published",
         "title": "Second post title",
         "slug": "seconde-post-slug",
@@ -20,22 +21,22 @@
         "content": "<p>This is the content of the seconde post.</p>",
         "meta_title": "Second Post Meta Title",
         "meta_description": "This is the meta description for the second post.",
-        "cover_id": 2,
         "published_at": "2024-02-02T12:00:00Z"
     },
     {
         "id": 3,
+        "cover_id": 3, 
         "status": "draft",
         "title": "Third post title",
         "slug": "third-post-slug",
         "abstract": "This is the abstract of the third post.",
         "content": "<p>This is the content of the third post.</p>",
         "meta_title": "Third Post Meta Title",
-        "cover_id": 3,
         "meta_description": "This is the meta description for the third post."
     },
     {
         "id": 4,
+        "cover_id": 4, 
         "status": "archived",
         "title": "Fourth post title",
         "slug": "fourth-post-slug",
@@ -46,6 +47,7 @@
     },
     {
         "id": 5,
+        "cover_id": 5, 
         "status": "published",
         "title": "Fifth post title",
         "slug": "fifth-post-slug",
@@ -59,6 +61,7 @@
     },
     {
         "id": 6,
+        "cover_id": 6, 
         "status": "archived",
         "title": "Sixth post title",
         "slug": "sixth-post-slug",
@@ -72,6 +75,7 @@
     },
     {
         "id": 7,
+        "cover_id": 7, 
         "status": "published",
         "title": "Seventh post title",
         "slug": "seventh-post-slug",
@@ -85,6 +89,7 @@
     },
     {
         "id": 8,
+        "cover_id": 8, 
         "status": "published",
         "title": "Eighth post title",
         "slug": "eighth-post-slug",
@@ -96,6 +101,7 @@
     },
     {
         "id": 9,
+        "cover_id": 9, 
         "status": "published",
         "title": "Ninth post title",
         "slug": "ninth-post-slug",
@@ -106,6 +112,7 @@
     },
     {
         "id": 10,
+        "cover_id":  10,
         "status": "published",
         "title": "Tenth post title",
         "slug": "tenth-post-slug",
@@ -117,6 +124,7 @@
     },
     {
         "id": 11,
+        "cover_id":  11,
         "status": "published",
         "title": "Eleventh post title",
         "slug": "eleventh-post-slug",
@@ -127,6 +135,7 @@
     },
     {
         "id": 12,
+        "cover_id":  12,
         "status": "published",
         "title": "Twelfth post title",
         "slug": "twelfth-post-slug",
@@ -134,15 +143,5 @@
         "content": "<p>This is the content of the twelfth post.</p>",
         "meta_title": "Twelfth Post Meta Title",
         "meta_description": "This is the meta description for the twelfth post."
-    },
-    {
-        "id": 13,
-        "status": "published",
-        "title": "Thirteenth post title",
-        "slug": "thirteenth-post-slug",
-        "abstract": "This is the abstract of the thirteenth post.",
-        "content": "<p>This is the content of the thirteenth post.</p>",
-        "meta_title": "Thirteenth Post Meta Title",
-        "meta_description": "This is the meta description for the thirteenth post."
     }
 ]
