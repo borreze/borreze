@@ -139,9 +139,10 @@
     {
         "id": 2009,
         "scope": "back-office",
-        "context": "setting",
-        "icon": "ic:baseline-settings",
-        "label": "Paramètres",
+        "context": "user",
+        "icon": "ic:baseline-people",
+        "label": "Utilisateurs",
+        "url": "/back-office/utilisateurs",
         "order": 5,
         "parent_id": null,
         "is_visible": true
@@ -150,20 +151,30 @@
         "id": 20010,
         "scope": "back-office",
         "context": "setting",
-        "label": "Popups d'alerte",
-        "url": "/back-office/popups",
-        "order": 0,
-        "parent_id": 2009,
+        "icon": "ic:baseline-settings",
+        "label": "Paramètres",
+        "order": 6,
+        "parent_id": null,
         "is_visible": true
     },
     {
         "id": 20011,
         "scope": "back-office",
+        "context": "setting",
+        "label": "Popups d'alerte",
+        "url": "/back-office/popups",
+        "order": 0,
+        "parent_id": 20010,
+        "is_visible": true
+    },
+    {
+        "id": 20012,
+        "scope": "back-office",
         "context": "log",
         "label": "Journaux d'activité",
         "url": "/back-office/journaux-activite",
         "order": 0,
-        "parent_id": 2009,
+        "parent_id": 20010,
         "is_visible": true
     }
 ]

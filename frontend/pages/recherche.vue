@@ -11,7 +11,7 @@
         <div v-else-if="results" class="mt-6">
             <Grid v-if="results?.length > 0" :items="results">
                 <template #item="{ item }">
-                    <SearchCard :result="item" />
+                    <SearchCard :result="item" :query="query" />
                 </template>
             </Grid>
             <NoContent v-else-if="query" />

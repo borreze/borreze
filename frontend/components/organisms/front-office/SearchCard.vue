@@ -6,11 +6,10 @@
                     {{ result?._names.nice }}
                 </span>
                 <div class="flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
-                    <span class="text-xl font-semibold text-dark group-hover:text-primary transition line-clamp-1">
-                        {{ result.title }}
-                    </span>
+                    <span class="text-xl font-semibold text-dark group-hover:text-primary transition line-clamp-1"
+                        v-html="highlightedTitle" />
                     <Icon name="ic:baseline-arrow-forward" size="1.5em" class="mt-1" />
-                </div>  
+                </div>
             </div>
         </article>
     </NuxtLink>
@@ -21,6 +20,17 @@ import type { SearchResult } from '@brz/shared'
 
 const props = defineProps<{
     result: SearchResult
+    query?: string
 }>();
+
+const highlightedTitle = computed(() => {
+    if (!props.query?.trim() || !props.result.title) return props.result.title
+
+    const escaped = props.query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    return props.result.title.replace(
+        new RegExp(`(${escaped})`, 'gi'),
+        '<mark class="bg-primary/20 rounded">$1</mark>'
+    )
+})
 
 </script>
