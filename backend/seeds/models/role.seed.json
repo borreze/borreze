@@ -1,15 +1,20 @@
 [
     {
         "id": 1,
-        "name": "Administrateur",
+        "name": "Super-administrateur",
         "permissions": [
             "*"
         ]
     },
     {
         "id": 2,
-        "name": "Éditeur de contenu",
+        "name": "Administrateur",
         "permissions": [
+            "popup.*",
+            "schedule.*",
+            "menu.*",
+            "log.*",
+            "home-quick.*",
             "dashboard.*",
             "profile.*",
             "post.*",
@@ -19,6 +24,21 @@
     },
     {
         "id": 3,
+        "name": "Éditeur de contenu",
+        "permissions": [
+            "popup.*",
+            "schedule.*",
+            "menu.*",
+            "home-quick.*",
+            "dashboard.*",
+            "profile.*",
+            "post.*",
+            "category.*",
+            "media.*"
+        ]
+    },
+    {
+        "id": 4,
         "name": "Éditeur de l'école",
         "permissions": [
             "school-meal.*"

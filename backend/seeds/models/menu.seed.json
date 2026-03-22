@@ -155,5 +155,15 @@
         "order": 0,
         "parent_id": 2009,
         "is_visible": true
+    },
+    {
+        "id": 20011,
+        "scope": "back-office",
+        "context": "log",
+        "label": "Journaux d'activité",
+        "url": "/back-office/journaux-activite",
+        "order": 0,
+        "parent_id": 2009,
+        "is_visible": true
     }
 ]
