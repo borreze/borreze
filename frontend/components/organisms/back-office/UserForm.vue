@@ -56,7 +56,6 @@
                     </div>
                 </div>
             </section>
-            {{ errors }}
             <section v-if="mode === 'edit'">
                 <span class="text-sm text-gray-600"><strong>Date de dernière modification:</strong> {{
                     formatDateTime(editingUser.updated_at) }}</span>
