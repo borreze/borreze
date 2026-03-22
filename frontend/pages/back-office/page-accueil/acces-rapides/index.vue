@@ -34,15 +34,15 @@
             ]" :formatters="{
                 id: (value) => `#${value}`,
             }" :actions="[
-            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/page-accueil/acces-rapides/${item.id}` },
-        ]">
+                { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/page-accueil/acces-rapides/${item.id}` },
+            ]">
             <template #cell-icon="{ item }">
-                <div class="flex flex-wrap gap-1">
+                <div class="flex flex-wrap items-center gap-2">
                     <Icon :name="item.icon" size="2em" class="text-dark" />
                 </div>
             </template>
             <template #cell-is_visible="{ item }">
-                <div class="flex flex-wrap gap-1">
+                <div class="flex flex-wrap items-center gap-2">
                     <Pill size="sm" :label="item.is_visible ? 'Oui' : 'Non'"
                         :variant="item.is_visible ? 'success' : 'danger'" />
                 </div>

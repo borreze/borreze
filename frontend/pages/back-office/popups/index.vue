@@ -32,10 +32,10 @@
             date: (value) => value ? formatDate(value as string) : '-',
             id: (value) => `#${value}`,
         }" :actions="[
-                { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/popups/${item.id}` },
-            ]">
+            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/popups/${item.id}` },
+        ]">
             <template #cell-is_active="{ item }">
-                <div class="flex flex-wrap gap-1">
+                <div class="flex flex-wrap items-center gap-2">
                     <Pill size="sm" :label="item.is_active ? 'Oui' : 'Non'"
                         :variant="item.is_active ? 'success' : 'danger'" />
                 </div>

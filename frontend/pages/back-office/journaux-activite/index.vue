@@ -33,8 +33,10 @@
             { label: 'Consulter', icon: 'ic:outline-remove-red-eye', variant: 'primary', buildLink: (item) => `/back-office/journaux-activite/${item.id}` },
         ]">
             <template #cell-level="{ item }">
-                <Pill :label="LOG_LEVELS_OBJECTS.find(level => level.value === item.level)?.label || item.level"
-                    :color="LOG_LEVELS_OBJECTS.find(level => level.value === item.level)?.color" size="sm" />
+                <div class="flex flex-wrap items-center gap-2">
+                    <Pill :label="LOG_LEVELS_OBJECTS.find(level => level.value === item.level)?.label || item.level"
+                        :color="LOG_LEVELS_OBJECTS.find(level => level.value === item.level)?.color" size="sm" />
+                </div>
             </template>
         </Table>
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />

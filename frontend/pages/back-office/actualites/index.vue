@@ -38,14 +38,17 @@
             { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/actualites/${item.id}` },
         ]">
             <template #cell-categories="{ item }">
-                <div class="flex flex-wrap gap-1">
+                <div class="flex flex-wrap items-center gap-2">
                     <Pill v-for="category in item.categories" :key="category.id" :label="category.name" variant="light"
                         size="sm" />
                 </div>
             </template>
             <template #cell-status="{ item }">
-                <Pill :label="POST_STATUSES_OBJECTS.find(status => status.value === item.status)?.label || item.status"
-                    :color="POST_STATUSES_OBJECTS.find(status => status.value === item.status)?.color" size="sm" />
+                <div class="flex flex-wrap items-center gap-2">
+                    <Pill
+                        :label="POST_STATUSES_OBJECTS.find(status => status.value === item.status)?.label || item.status"
+                        :color="POST_STATUSES_OBJECTS.find(status => status.value === item.status)?.color" size="sm" />
+                </div>
             </template>
         </Table>
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
