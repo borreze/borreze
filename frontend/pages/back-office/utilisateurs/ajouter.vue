@@ -25,7 +25,7 @@ const defaultUser: UserAttributesFrontendPassword = {
 
 const handleSave = async (user: UserAttributesFrontendPassword) => {
     try {
-        const created = await createSelf(user)
+        await createSelf(user)
         navigateTo('/back-office/utilisateurs')
         push.success({ title: 'Créé !', message: 'L\'utilisateur a été créé avec succès.' })
     } catch (err: any) {

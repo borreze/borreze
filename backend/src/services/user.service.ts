@@ -126,7 +126,7 @@ export class UserService {
   }
 
   public async update(id: number, data: UserAttributesUpdate): Promise<UserAttributes | null> {
-    const { valid, errors } = validateAll(data, USER_CONSTRAINTS)
+    const { valid, errors } = validateAll(data, USER_CONSTRAINTS, ['password'])
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     return sequelize.transaction(async (transaction: Transaction) => {

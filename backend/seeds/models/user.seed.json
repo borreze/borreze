@@ -13,7 +13,7 @@
         "id": 2,
         "email": "j.smith@test.com",
         "username": "jsmith",
-        "role_id": 1,
+        "role_id": 2,
         "password": "password",
         "first_name": "John",
         "last_name": "Smith",

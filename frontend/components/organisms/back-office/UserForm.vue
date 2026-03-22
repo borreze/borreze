@@ -66,7 +66,7 @@
 
 <script setup lang="ts">
 import type { RoleAttributes, UserAttributesFrontendPassword } from '@brz/shared'
-import { USER_ROLE_ID_DEFAULT, USER_STATUSES_OBJECTS, isEmail, slugify } from '@brz/shared'
+import { USER_ROLE_ID_DEFAULT, USER_STATUSES_OBJECTS, isEmail, isPasswordStrong, slugify } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
@@ -97,7 +97,10 @@ const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
         email: () => editingUser.value.email === '' || !isEmail(editingUser.value.email) ? 'L\'e-mail est requis et doit être une adresse e-mail valide' : null,
         status: () => !editingUser.value.status ? 'Le status est requis' : null,
         role_id: () => !editingUser.value.role_id ? 'Le rôle est requis' : null,
-        password: () => props.mode === 'create' && editingUser.value.password === '' ? 'Le mot de passe est requis' : null,
+        password: () => (
+            (props.mode === 'create' && (editingUser.value.password === '' || !isPasswordStrong(editingUser.value.password))) || // In create mode, password is required and must be strong
+            (props.mode === 'edit' && (editingUser.value.password !== '' && !isPasswordStrong(editingUser.value.password))) // In edit mode, password is optional but if filled it must be strong
+        ) ? 'Le mot de passe est requis et doit être fort' : null,
     }
 )
 
