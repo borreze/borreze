@@ -32,41 +32,45 @@
         </div>
     </header>
 
-    <div v-if="menuStore.menus['front-office']"
-        class="top-0 z-20 hidden md:flex py-1 flex items-center justify-center bg-primary text-light shadow-sm">
-        <nav class="flex items-center gap-8 text-lg font-medium">
-            <div v-for="menu in menuStore.menus['front-office']" :key="menu.id" class="relative group">
-                <!-- No children -->
-                <NuxtLink v-if="!menu.children || menu.children.length === 0" :to="menu.url || '#'"
-                    class="flex items-center justify-start py-2 hover:text-white transition-colors">
-                    <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
-                    {{ menu.label }}
-                </NuxtLink>
+    <div class="top-0 z-20 hidden md:flex py-1 flex items-center justify-center bg-primary text-light shadow-sm">
+        <Transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 -translate-y-full"
+            enter-to-class="opacity-100 translate-y-0" leave-active-class="transition duration-200 ease-in"
+            leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 -translate-y-full">
+            <nav v-if="menuStore.menus['front-office']" class="flex items-center gap-8 text-lg font-medium">
+                <div v-for="menu in menuStore.menus['front-office']" :key="menu.id" class="relative group">
+                    <!-- No children -->
+                    <NuxtLink v-if="!menu.children || menu.children.length === 0" :to="menu.url || '#'"
+                        class="flex items-center justify-start py-2 hover:text-white transition-colors">
+                        <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
+                        {{ menu.label }}
+                    </NuxtLink>
 
-                <!-- With children -->
-                <div v-else class="relative">
-                    <button class="flex items-center gap-1 py-2 hover:text-white transition-colors">
-                        <div class="flex items-center">
-                            <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
-                            {{ menu.label }}
+                    <!-- With children -->
+                    <div v-else class="relative">
+                        <button class="flex items-center gap-1 py-2 hover:text-white transition-colors">
+                            <div class="flex items-center">
+                                <Icon v-if="menu.icon" :name="menu.icon" size="1.2em" class="inline-block mr-2" />
+                                {{ menu.label }}
+                            </div>
+                            <Icon name="ic:baseline-keyboard-arrow-down" size="1.2em"
+                                class="transition-transform group-hover:rotate-180" />
+                        </button>
+
+                        <!-- Dropdown -->
+                        <div
+                            class="absolute top-full z-20 left-0 mt-1 w-56 bg-white shadow-lg rounded-b-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                            <ul class="py-2">
+                                <li v-for="child in menu.children" :key="child.id">
+                                    <Button as="link" :label="child.label" :href="child.url || '#'"
+                                        variant="transparent" :icon="child.icon || undefined" size="md"
+                                        :center="false" />
+                                </li>
+                            </ul>
                         </div>
-                        <Icon name="ic:baseline-keyboard-arrow-down" size="1.2em"
-                            class="transition-transform group-hover:rotate-180" />
-                    </button>
-
-                    <!-- Dropdown -->
-                    <div
-                        class="absolute top-full z-20 left-0 mt-1 w-56 bg-white shadow-lg rounded-b-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                        <ul class="py-2">
-                            <li v-for="child in menu.children" :key="child.id">
-                                <Button as="link" :label="child.label" :href="child.url || '#'" variant="transparent"
-                                    :icon="child.icon || undefined" size="md" :center="false" />
-                            </li>
-                        </ul>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </Transition>
     </div>
 
     <Panel v-model:open="panelOpened">
@@ -118,9 +122,9 @@ function focusSearchInput() {
     }, 200)
 }
 
-onMounted(() => {
+// onMounted(() => { // ! Removed from onMounted to avoid loading front-office menus on every page, only load them in the header when needed
     menuStore.loadMenus('front-office')
-})
+// })
 
 watch(searchOpened, (opened) => {
     if (opened) {
