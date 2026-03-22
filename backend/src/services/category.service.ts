@@ -5,7 +5,7 @@ import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { CategoryAttributes, CategoryAttributesCreation, CategoryAttributesUpdate } from '@brz/shared'
 import { slugify } from '@brz/shared'
-import { searchWhere } from '../utils/model.utils'
+import { isUnique, searchWhere } from '../utils/model.utils'
 import { CATEGORY_CONSTRAINTS } from '../models/category.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -74,6 +74,9 @@ export class CategoryService {
     const { valid, errors } = validateAll(data, CATEGORY_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
+    const unique = await isUnique(Category, 'slug', data.slug)
+    if (!unique) throw new ValidationException('Erreur sur les champs', [{ field: 'slug', message: 'Une catégorie avec ce slug existe déjà' }])
+
     return sequelize.transaction(async (transaction: Transaction) => {
       return Category.create(data, { transaction })
     })
@@ -84,6 +87,9 @@ export class CategoryService {
 
     const { valid, errors } = validateAll(data, CATEGORY_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
+
+    const unique = await isUnique(Category, 'slug', data.slug, { excludeId: id })
+    if (!unique) throw new ValidationException('Erreur sur les champs', [{ field: 'slug', message: 'Une catégorie avec ce slug existe déjà' }])
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const category = await Category.findByPk(id, { transaction })

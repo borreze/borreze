@@ -6,7 +6,7 @@ import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { PostAttributes, PostAttributesCreation, PostAttributesUpdate, PostStatus } from '@brz/shared'
 import { slugify } from '@brz/shared'
-import { searchWhere } from '../utils/model.utils'
+import { isUnique, searchWhere } from '../utils/model.utils'
 import { POST_CONSTRAINTS, POST_INCLUDE_DEFAULTS } from '../models/post.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -103,6 +103,9 @@ export class PostService {
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
+    const unique = await isUnique(Post, 'slug', data.slug)
+    if (!unique) throw new ValidationException('Erreur sur les champs', [{ field: 'slug', message: 'Une actualité avec ce slug existe déjà' }])
+
     return sequelize.transaction(async (transaction: Transaction) => {
       return Post.create(data, { transaction, include: POST_INCLUDE_DEFAULTS })
     })
@@ -113,6 +116,9 @@ export class PostService {
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
+
+    const unique = await isUnique(Post, 'slug', data.slug, { excludeId: id })
+    if (!unique) throw new ValidationException('Erreur sur les champs', [{ field: 'slug', message: 'Une actualité avec ce slug existe déjà' }])
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const post = await Post.findByPk(id, { transaction, include: POST_INCLUDE_DEFAULTS })

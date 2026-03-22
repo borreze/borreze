@@ -8,7 +8,7 @@
         </Teleport>
         <Teleport defer to="#page-actions">
             <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
-                :disabled="couldHaveErrors" @click="handleSave" />
+                :disabled="couldHaveErrors && couldHaveErrors" @click="handleSave" />
             <Button v-if="mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
                 :loading="loading" @click="handleDelete" />
         </Teleport>
@@ -56,6 +56,7 @@
                     </div>
                 </div>
             </section>
+            {{ errors }}
             <section v-if="mode === 'edit'">
                 <span class="text-sm text-gray-600"><strong>Date de dernière modification:</strong> {{
                     formatDateTime(editingUser.updated_at) }}</span>
@@ -66,7 +67,7 @@
 
 <script setup lang="ts">
 import type { RoleAttributes, UserAttributesFrontendPassword } from '@brz/shared'
-import { USER_ROLE_ID_DEFAULT, USER_STATUSES_OBJECTS, isEmail, isPasswordStrong, slugify } from '@brz/shared'
+import { USER_STATUSES_OBJECTS, isEmail, isPasswordStrong, slugify } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'

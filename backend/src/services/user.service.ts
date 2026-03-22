@@ -9,7 +9,7 @@ import { Op } from 'sequelize'
 import { UserAttributesCreation } from '@brz/shared'
 import { UserAttributesUpdate } from '@brz/shared'
 import { UserAttributes } from '@brz/shared'
-import { searchWhere } from '../utils/model.utils'
+import { isUnique, searchWhere } from '../utils/model.utils'
 import { USER_CONSTRAINTS, USER_INCLUDE_DEFAULTS } from '../models/user.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -110,9 +110,15 @@ export class UserService {
   public async create(data: UserAttributesCreation): Promise<UserAttributes> {
     if (!data.role_id) data.role_id = USER_ROLE_ID_DEFAULT
     delete data.id // ensure id is not set
+    if (data.password) data.password = await hashPassword(data.password)
 
     const { valid, errors } = validateAll(data, USER_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
+
+    const uniqueEmail = await isUnique(User, 'email', data.email)
+    if (!uniqueEmail) throw new ValidationException('Erreur sur les champs', [{ field: 'email', message: 'Un utilisateur avec cet e-mail existe déjà' }])
+    const uniqueUsername = await isUnique(User, 'username', data.username)
+    if (!uniqueUsername) throw new ValidationException('Erreur sur les champs', [{ field: 'username', message: 'Un utilisateur avec ce nom d\'utilisateur existe déjà' }])
 
     if (!data.password || !isPasswordStrong(data.password)) throw new ValidationException('Erreur sur les champs', [{ field: 'password', message: 'Le mot de passe n\'est pas assez fort' }])
 
@@ -126,8 +132,15 @@ export class UserService {
   }
 
   public async update(id: number, data: UserAttributesUpdate): Promise<UserAttributes | null> {
+    if (data.password) data.password = await hashPassword(data.password)
+
     const { valid, errors } = validateAll(data, USER_CONSTRAINTS, ['password'])
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
+
+    const uniqueEmail = await isUnique(User, 'email', data.email, { excludeId: id })
+    if (!uniqueEmail) throw new ValidationException('Erreur sur les champs', [{ field: 'email', message: 'Un utilisateur avec cet e-mail existe déjà' }])
+    const uniqueUsername = await isUnique(User, 'username', data.username, { excludeId: id })
+    if (!uniqueUsername) throw new ValidationException('Erreur sur les champs', [{ field: 'username', message: 'Un utilisateur avec ce nom d\'utilisateur existe déjà' }])
 
     return sequelize.transaction(async (transaction: Transaction) => {
       const user = await User.findByPk(id, { transaction, include: USER_INCLUDE_DEFAULTS })

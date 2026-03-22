@@ -14,7 +14,6 @@ export const AUTH_REFRESH_TOKEN_CONSTRAINTS = {
         nicename: 'Token',
         type: DataTypes.TEXT,
         required: true,
-        unique: true
     },
     user_id: {
         nicename: 'Utilisateur',

@@ -1,6 +1,6 @@
 import { ModelFieldConstraint, ModelConstraints } from '../types/utils/model.types'
 import { SearchResultLinks, SearchResultNames } from '@brz/shared'
-import { Op, WhereOptions, ModelAttributes, ModelAttributeColumnOptions, Model } from 'sequelize'
+import { Op, WhereOptions, ModelAttributes, ModelAttributeColumnOptions, Model, ModelStatic } from 'sequelize'
 
 export function modelBuild<M extends Model>(constraints: ModelConstraints<M['_attributes']>): ModelAttributes<M, M['_creationAttributes']> {
     return Object.fromEntries(
@@ -46,6 +46,17 @@ function modelBuildLink(template: string | null, data: Model | Record<string, un
         }
         return encodeURIComponent(String(value))
     })
+}
+
+export async function isUnique(model: ModelStatic<Model>, field: string, value: unknown, options?: { excludeId?: number | null }): Promise<boolean> {
+    const where: WhereOptions = { [field]: value }
+
+    if (options?.excludeId) {
+        where.id = { [Op.ne]: options.excludeId }
+    }
+
+    const count = await model.count({ where })
+    return count === 0
 }
 
 export function modelAttach(data: Record<string, unknown> | Record<string, unknown>[], options?: { links?: SearchResultLinks; names?: SearchResultNames }): void {
