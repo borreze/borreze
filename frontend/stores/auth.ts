@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useCookie } from '#app'
 import useApi from '~/composables/useApi'
-import type { UserAttributesFrontend } from '@brz/shared'
+import type { UserAttributesAuth } from '@brz/shared'
 
 export interface RefreshData {
     accessToken: string
@@ -11,11 +11,11 @@ export interface RefreshData {
 export interface LoginData {
     accessToken: string
     refreshToken: string
-    user: UserAttributesFrontend
+    user: UserAttributesAuth
 }
 
 export interface AuthStoreState {
-    user: UserAttributesFrontend | null
+    user: UserAttributesAuth | null
     accessToken: string | null
     refreshToken: string | null
     loading: boolean
@@ -45,7 +45,7 @@ export const useAuthStore = defineStore('auth', {
             this.error = null
             this.loading = true
 
-            const { status, data } = await useApi().get<{ data: UserAttributesFrontend }>('/back-office/auth/me', { silent: true })
+            const { status, data } = await useApi().get<{ data: UserAttributesAuth }>('/back-office/auth/me', { silent: true })
 
             if (status === 200 && data) {
                 this.user = data.data
@@ -82,7 +82,7 @@ export const useAuthStore = defineStore('auth', {
                 // SSR-safe persistence
                 const accessCookie = useCookie('auth_access_token')
                 const refreshCookie = useCookie('auth_refresh_token')
-                const userCookie = useCookie<UserAttributesFrontend | null>('auth_user', { default: () => null })
+                const userCookie = useCookie<UserAttributesAuth | null>('auth_user', { default: () => null })
                 accessCookie.value = result.accessToken
                 refreshCookie.value = result.refreshToken
                 userCookie.value = result.user
@@ -159,7 +159,7 @@ export const useAuthStore = defineStore('auth', {
         loadFromCookies() {
             const accessCookie = useCookie('auth_access_token')
             const refreshCookie = useCookie('auth_refresh_token')
-            const userCookie = useCookie<UserAttributesFrontend | null>('auth_user')
+            const userCookie = useCookie<UserAttributesAuth | null>('auth_user')
             this.accessToken = accessCookie.value ?? null
             this.refreshToken = refreshCookie.value ?? null
             this.user = userCookie.value ?? null

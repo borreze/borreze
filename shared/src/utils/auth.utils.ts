@@ -1,6 +1,6 @@
-import { UserAttributesFrontend, UserAttributesPublic } from "../types/user.types"
+import { UserAttributesAuth, UserAttributesPublic } from "../types/user.types"
 
-export function isAdmin(user: UserAttributesPublic | UserAttributesFrontend | null | undefined): boolean {
+export function isAdmin(user: UserAttributesPublic | UserAttributesAuth | null | undefined): boolean {
     if (!user) return false
 
     for (const perm of user.permissions) {
@@ -10,7 +10,7 @@ export function isAdmin(user: UserAttributesPublic | UserAttributesFrontend | nu
     return false
 }
 
-export function getPermsContexts(user: UserAttributesPublic | UserAttributesFrontend | null | undefined): string[] {
+export function getPermsContexts(user: UserAttributesPublic | UserAttributesAuth | null | undefined): string[] {
     if (!user) return []
 
     const permContexts = user.permissions
@@ -20,7 +20,7 @@ export function getPermsContexts(user: UserAttributesPublic | UserAttributesFron
     return Array.from(new Set(permContexts)) // Unique contexts
 }
 
-export function getPerms(user: UserAttributesPublic | UserAttributesFrontend | null | undefined): string[] {
+export function getPerms(user: UserAttributesPublic | UserAttributesAuth | null | undefined): string[] {
     if (!user) return []
 
     const perms = user.permissions
@@ -29,7 +29,7 @@ export function getPerms(user: UserAttributesPublic | UserAttributesFrontend | n
     return Array.from(new Set(perms)) // Unique permissions
 }
 
-export function canDo(user: UserAttributesPublic | UserAttributesFrontend | null | undefined, context: string, action: string): boolean {
+export function canDo(user: UserAttributesPublic | UserAttributesAuth | null | undefined, context: string, action: string): boolean {
     if (!user) return false
 
     if (isAdmin(user)) return true

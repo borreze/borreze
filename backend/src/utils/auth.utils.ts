@@ -2,7 +2,7 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import { Forbidden, Unauthorized } from '../exceptions/auth.exception'
-import { canDo, UserAttributesPublic } from '@brz/shared'
+import { canDo, UserAttributes, UserAttributesFrontend, UserAttributesPublic } from '@brz/shared'
 
 dotenv.config()
 
@@ -43,6 +43,19 @@ export function randomNumericCode(length: number = 6): string {
     const min = 10 ** (length - 1)
     const max = 10 ** length - 1
     return String(Math.floor(Math.random() * (max - min + 1) + min))
+}
+
+export function sanitizeUser(user: UserAttributes | UserAttributesFrontend | null): Omit<UserAttributes, 'password'> | UserAttributesFrontend | null {
+    if (!user) return null
+
+    const plain = 'toJSON' in user && typeof user.toJSON === 'function' ? user.toJSON() : { ...user }
+    delete (plain as Record<string, unknown>).password
+
+    return plain
+}
+
+export function sanitizeUsers(users: UserAttributes[] | UserAttributesFrontend[]): UserAttributes[] | UserAttributesFrontend[] {
+    return users.map(sanitizeUser) as UserAttributes[] | UserAttributesFrontend[]
 }
 
 export function userCheck(user: UserAttributesPublic | null | undefined): boolean {
