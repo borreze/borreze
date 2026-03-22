@@ -110,7 +110,7 @@
                         icon="fluent:table-insert-row-20-filled" @click="editor.chain().focus().addRowAfter().run()" />
                     <Button title="Supprimer ligne" roundness="sm" size="sm" variant="ghost"
                         icon="fluent:table-delete-row-20-filled" @click="editor.chain().focus().deleteRow().run()" />
-                    <Button title="Supprimer le tableau" roundness="sm" size="sm" variant="danger"
+                    <Button title="Supprimer le tableau" roundness="sm" size="sm" variant="warning"
                         icon="fluent:table-dismiss-24-filled" @click="editor.chain().focus().deleteTable().run()" />
                 </template>
             </div>
@@ -540,7 +540,7 @@ function insertButton() {
 
 .wysiwyg-toolbar__group {
     display: flex;
-    gap: 1px;
+    gap: 5px;
     align-items: center;
 }
 
