@@ -57,7 +57,7 @@ const menuStore = useMenuStore()
 const panelOpened = ref(false)
 
 onMounted(() => {
-    menuStore.loadMenus('back-office')
+    menuStore.loadMenus('back-office', true) // Force refresh to ensure we have the latest menus based on the user's permissions, especially after login/logout actions
 })
 
 </script>

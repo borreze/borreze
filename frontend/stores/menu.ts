@@ -34,6 +34,8 @@ export const useMenuStore = defineStore('menu', {
             this.error = null
             this.loading = true
 
+            this.clearMenus(scope)
+
             const { status, data } = await useApi().get<{ data: MenuAttributesFrontend[] }>(`/menus/${scope}`)
 
             this.loading = false
@@ -63,17 +65,6 @@ export const useMenuStore = defineStore('menu', {
         },
 
         /**
-         * Retrieve menus for a given scope, first attempting to restore from cookies, then fetching from the API if not already loaded.
-         */
-        loadMenus(scope: MenuScope) {
-            this.restoreMenus(scope)
-
-            if (this.menus[scope]) return
-
-            this.fetchMenus(scope)
-        },
-
-        /**
          * Get menus for a specific scope.
          * @param scope The scope of the menus to retrieve (e.g. 'front-office' or 'back-office').
          * @returns The menus for the specified scope, or null if not found.
@@ -89,6 +80,21 @@ export const useMenuStore = defineStore('menu', {
             const menusCookie = useCookie<MenuAttributesFrontend[] | null>(`${MENU_COOKIE_PREFIX}${scope}`, MENU_COOKIE_OPTIONS)
             menusCookie.value = null
             this.menus[scope] = null
-        }
+        },
+
+        /**
+        * Retrieve menus for a given scope, first attempting to restore from cookies, then fetching from the API if not already loaded.
+        */
+        loadMenus(scope: MenuScope, force = false) {
+            if (force) this.clearMenus(scope)
+
+            if (!force) {
+                if (this.menus[scope]) return
+                this.restoreMenus(scope)
+            }
+
+            if (this.menus[scope]) return
+            this.fetchMenus(scope)
+        },
     }
 })

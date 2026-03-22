@@ -23,7 +23,6 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
   ],
-  spaLoadingTemplate: true,
   runtimeConfig: {
     apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL_SSR, // for SSR requests
     public: {

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-gray-50">
-    <div class="w-full max-w-md space-y-8 text-center">
+  <div class="flex min-h-screen items-center justify-center bg-light">
+    <div class="w-full max-w-[90%] sm:max-w-md space-y-8 text-center">
       <div>
         <h1 class="text-9xl text-gray-300 century-gothic-bold">{{ error.statusCode }}</h1>
         <h2 class="text-3xl text-dark mt-8 century-gothic-bold">
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import Button from '~/components/atoms/Button.vue'
+import { goBack, goToHome } from '~/utils/routing'
 
 const props = defineProps<{
   error: {

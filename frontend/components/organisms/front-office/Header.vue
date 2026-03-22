@@ -122,9 +122,9 @@ function focusSearchInput() {
     }, 200)
 }
 
-// onMounted(() => { // ! Removed from onMounted to avoid loading front-office menus on every page, only load them in the header when needed
+onMounted(() => {
     menuStore.loadMenus('front-office')
-// })
+})
 
 watch(searchOpened, (opened) => {
     if (opened) {
