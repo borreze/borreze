@@ -3,6 +3,7 @@ import { Return } from './types/utils/api.types'
 import swaggerUi from "swagger-ui-express"
 import swaggerDocument from "./swagger.json"
 import postRoutes from './routes/post.routes'
+import roleRoutes from './routes/role.routes'
 import scheduleRoutes from './routes/schedule.routes'
 import categoryRoutes from './routes/category.routes'
 import homeQuickRoutes from './routes/homeQuick.routes'
@@ -52,6 +53,7 @@ if (process.env.NODE_ENV === 'production') { // ! DO NOT REMOVE: this is to prev
 
 // Register routes
 app.use(postRoutes)
+app.use(roleRoutes)
 app.use(scheduleRoutes)
 app.use(categoryRoutes)
 app.use(homeQuickRoutes)

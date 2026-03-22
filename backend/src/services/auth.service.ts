@@ -8,6 +8,7 @@ import { userService } from '../services/user.service'
 import { BadRequest, NotFound } from '../exceptions/request.exception'
 import { AuthException } from '../exceptions/auth.exception'
 import { UserAttributesFrontend } from '@brz/shared'
+import { roleService } from './role.service'
 
 export class AuthService {
     public async getCurrentUser(accessToken: string): Promise<UserAttributesFrontend> {
@@ -16,7 +17,7 @@ export class AuthService {
         const user = await userService.getById(payload.user_id)
         if (!user) throw new NotFound('User not found')
 
-        const role = await Role.findByPk(user?.role_id)
+        const role = await roleService.getById(user?.role_id)
         if (!role) throw new AuthException('User role not found')
         const permissions = Array.isArray(role.permissions) ? role.permissions : []
 
