@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import { parseValidationErrors, type UserAttributesFrontend } from '@brz/shared'
+import { parseValidationErrors, type UserAttributesFrontendPassword } from '@brz/shared'
 import UserForm from '~/components/organisms/back-office/UserForm.vue'
 import { push } from 'notivue'
 import { useEditUser } from '~/composables/back-office/useUser'
@@ -19,7 +19,7 @@ if (!user.value) {
     throw createError({ statusCode: 404, statusMessage: 'Utilisateur introuvable' })
 }
 
-const handleSave = async (editedUser: UserAttributesFrontend) => {
+const handleSave = async (editedUser: UserAttributesFrontendPassword) => {
     try {
         await updateSelf(editedUser)
         navigateTo('/back-office/utilisateurs')

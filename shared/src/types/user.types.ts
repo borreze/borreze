@@ -1,6 +1,7 @@
 import { Optional } from 'sequelize'
 import { RoleAttributes } from './role.types'
 
+export const USER_PASSWORD_SCORE_REQUIRED = 8 // Minimum password score required for a password to be considered valid
 export const USER_ROLE_ID_DEFAULT = 2 // Default role for new users
 
 export const USER_STATUSES_KEYS = ['active', 'inactive', 'banned'] as const
@@ -25,6 +26,7 @@ export interface UserAttributes {
 }
 
 export interface UserAttributesFrontend extends Omit<UserAttributes, 'password'> { role?: RoleAttributes }
+export interface UserAttributesFrontendPassword extends UserAttributes { role?: RoleAttributes }
 export type UserAttributesAuth = Pick<UserAttributes, 'id' | 'email' | 'username' | 'first_name' | 'last_name' | 'role_id' | 'status'> & { permissions: string[] }
 export type UserAttributesPublic = Pick<UserAttributes, 'id' | 'email' | 'username' | 'role_id' | 'status'> & { permissions: string[] }
 export type UserAttributesCreation = Optional<UserAttributes, 'id' | 'first_name' | 'last_name' | 'created_at' | 'updated_at'>

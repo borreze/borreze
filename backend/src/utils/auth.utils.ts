@@ -20,21 +20,6 @@ export function isHash(str: string): boolean {
     return str.startsWith('$2b$') && str.length === 60
 }
 
-export function isStrongPassword(password: string, min: number = 8): boolean | number {
-    if (min < 1 || min > 10) throw new Error('min must be between 1 and 10')
-
-    let score = 0
-
-    if (password.length >= 8) score += 2
-    if (password.length >= 12) score += 1
-    if (/[A-Z]/.test(password)) score += 2 // uppercase
-    if (/[a-z]/.test(password)) score += 2 // lowercase
-    if (/[0-9]/.test(password)) score += 2 // number
-    if (/[^A-Za-z0-9]/.test(password)) score += 1 // special char
-
-    return score >= min
-}
-
 export function randomTokenString(bytes: number = 48): string {
     return crypto.randomBytes(bytes).toString('hex')
 }

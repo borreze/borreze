@@ -4,13 +4,15 @@ export { slugify } from './utils/model.utils'
 
 export { paginationDefault } from './utils/pagination.utils'
 
-export { isEmail, isURL, isURLRelative } from './utils/text.utils'
+export { isEmail, isURL, isURLRelative, isPasswordStrong } from './utils/text.utils'
 
 export { resolveType, sizeToReadable, mediaGetIcon, mediaGetLabel, isTypeAllowed } from './utils/media.utils'
 
 export { parseValidationErrors } from './utils/validation.utils'
 
 export { canDo, isAdmin, getPermsContexts, getPerms } from './utils/auth.utils'
+
+export { AUTH_PASSWORD_LEVELS, AUTH_PASSWORD_RULES, AUTH_PASSWORD_RULES_SCORE_MAX, passwordGetScore, passwordGetMissing, passwordGetLevel } from './utils/password.utils'
 
 // TYPES
 
@@ -73,7 +75,7 @@ export type { SchoolMealAttributes, SchoolMealAttributesCreation, SchoolMealAttr
 export type { SettingAttributes, SettingAttributesCreation, SettingAttributesUpdate } from './types/setting.types'
 
 export { USER_ROLE_ID_DEFAULT, USER_STATUSES_KEYS, USER_STATUSES_OBJECTS } from './types/user.types'
-export type { UserStatus, UserAttributes, UserAttributesAuth, UserAttributesFrontend, UserAttributesPublic, UserAttributesCreation, UserAttributesUpdate } from './types/user.types'
+export type { UserStatus, UserAttributes, UserAttributesAuth, UserAttributesFrontend, UserAttributesFrontendPassword, UserAttributesPublic, UserAttributesCreation, UserAttributesUpdate } from './types/user.types'
 
 export type { SearchResultNames, SearchResultLinks, SearchResult } from './types/search.types'
 

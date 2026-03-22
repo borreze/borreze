@@ -1,5 +1,5 @@
 import { paginationDefault, type UserAttributesFrontend } from '@brz/shared';
-import type { Order, UserStatus } from '@brz/shared'
+import type { Order, UserAttributesFrontendPassword, UserStatus } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 
@@ -81,7 +81,7 @@ export const useEditUser = async (id: number) => {
     const { data, status, error } = await useAsyncData(
         `user-${id}`,
         () => useApi()
-            .get<{ data: UserAttributesFrontend, pagination: Pagination }>(
+            .get<{ data: UserAttributesFrontendPassword, pagination: Pagination }>(
                 `/back-office/users/${id}`,
                 {
                     params: {
@@ -98,7 +98,7 @@ export const useEditUser = async (id: number) => {
         return true
     }
 
-    const updateSelf = async (payload: Partial<UserAttributesFrontend>) => {
+    const updateSelf = async (payload: Partial<UserAttributesFrontendPassword>) => {
         const response = await useApi().put<{ data: UserAttributesFrontend }>(
             `/back-office/users/${id}`,
             { body: payload }
@@ -129,7 +129,7 @@ export const useEditUser = async (id: number) => {
 }
 
 export const useCreateUser = () => {
-    const createSelf = async (payload: Partial<UserAttributesFrontend>) => {
+    const createSelf = async (payload: Partial<UserAttributesFrontendPassword>) => {
         const response = await useApi().post<{ data: UserAttributesFrontend }>(
             '/back-office/users',
             { body: payload }

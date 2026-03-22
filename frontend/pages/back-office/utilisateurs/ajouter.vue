@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { parseValidationErrors, USER_ROLE_ID_DEFAULT, type UserAttributesFrontend } from '@brz/shared'
+import { parseValidationErrors, USER_ROLE_ID_DEFAULT, type UserAttributesFrontendPassword } from '@brz/shared'
 import UserForm from '~/components/organisms/back-office/UserForm.vue'
 import { push } from 'notivue'
 import { useCreateUser } from '~/composables/back-office/useUser'
@@ -12,17 +12,18 @@ import { useRolesAll } from '~/composables/back-office/useRole'
 const { roles } = await useRolesAll()
 const { createSelf } = useCreateUser()
 
-const defaultUser: UserAttributesFrontend = {
+const defaultUser: UserAttributesFrontendPassword = {
     id: 0, // trick to satisfy types, will be ignored by backend
     email: '',
     username: '',
     first_name: null,
     last_name: null,
     role_id: USER_ROLE_ID_DEFAULT,
+    password: '',
     status: 'active',
 }
 
-const handleSave = async (user: UserAttributesFrontend) => {
+const handleSave = async (user: UserAttributesFrontendPassword) => {
     try {
         const created = await createSelf(user)
         navigateTo('/back-office/utilisateurs')

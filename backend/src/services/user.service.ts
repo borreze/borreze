@@ -13,9 +13,10 @@ import { searchWhere } from '../utils/model.utils'
 import { USER_CONSTRAINTS, USER_INCLUDE_DEFAULTS } from '../models/user.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
-import { hashPassword, isHash, isStrongPassword } from '../utils/auth.utils'
+import { hashPassword, isHash } from '../utils/auth.utils'
 import { paginationDefault } from '@brz/shared'
 import { validateAll, validateOne } from '../utils/validation.utils'
+import { isPasswordStrong } from '@brz/shared'
 
 export class UserService {
   private filterStatus(status?: UserStatus | 'all' | null): WhereOptions {
@@ -114,7 +115,7 @@ export class UserService {
     const { valid, errors } = validateAll(data, USER_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
-    if (!data.password || !isStrongPassword(data.password)) throw new ValidationException('Erreur sur les champs', [{ field: 'password', message: 'Le mot de passe n\'est pas assez fort' }])
+    if (!data.password || !isPasswordStrong(data.password)) throw new ValidationException('Erreur sur les champs', [{ field: 'password', message: 'Le mot de passe n\'est pas assez fort' }])
 
     if (data.password && !isHash(data.password)) {
       data.password = await hashPassword(data.password)
