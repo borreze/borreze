@@ -15,7 +15,8 @@
                             parcourir
                         </button>
                     </p>
-                    <p class="text-xs text-gray-400">{{ sizeToReadable(MEDIA_UPLOAD_SIZE_LIMIT, 0) }} max par fichier. {{ MEDIA_UPLOAD_NB_LIMIT }} fichiers max.</p>
+                    <p class="text-xs text-gray-400">{{ sizeToReadable(MEDIA_UPLOAD_SIZE_LIMIT, 0) }} max par fichier</p>
+                    <p v-if="props.multiple" class="text-xs text-gray-400">{{ MEDIA_UPLOAD_NB_LIMIT }} fichiers max. à la fois</p>
                 </div>
             </section>
 
