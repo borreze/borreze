@@ -15,7 +15,7 @@
             <section>
                 <h4 class="title-submain mb-6">Informations techniques</h4>
                 <p><strong>ID utilisateur:</strong> #{{ authStore.user?.id }}</p>
-                <p><strong>ID Role:</strong> #{{ authStore.user?.role_id }}</p>
+                <p><strong>ID role:</strong> #{{ authStore.user?.role_id }}</p>
                 <p><strong>Permissions:</strong> {{ authStore.user?.permissions.join(', ') || '-' }}</p>
                 <p><strong>Permissions contextes:</strong> {{ getPermsContexts(authStore.user).join(', ') || '-' }}</p>
             </section>
