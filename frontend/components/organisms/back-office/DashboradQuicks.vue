@@ -3,14 +3,14 @@
         <h4 class="title-submain">Accès rapides</h4>
         <p class="mt-2 text-gray-600">Gérez rapidement les sections les plus importantes de votre site.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 2xl:grid-cols-4 gap-4 mt-4">
-            <DashboradQuickCard v-if="canDo(authStore.user, 'post', 'read')" to="/back-office/actualites"
+            <DashboradQuickCard v-if="authStore.canIDo('post', 'read')" to="/back-office/actualites"
                 class="from-teal-600 to-teal-500" icon="ic:baseline-newspaper" text="Accéder aux" name="Actualités" />
-            <DashboradQuickCard v-if="canDo(authStore.user, 'media', 'read')" to="/back-office/medias"
+            <DashboradQuickCard v-if="authStore.canIDo('media', 'read')" to="/back-office/medias"
                 class="from-blue-600 to-blue-500" icon="ic:round-image" text="Voir tout" name="Les médias" />
-            <DashboradQuickCard v-if="canDo(authStore.user, 'page', 'read')" to="/back-office/pages"
+            <DashboradQuickCard v-if="authStore.canIDo('page', 'read')" to="/back-office/pages"
                 class="from-amber-600 to-amber-500" icon="ic:outline-sticky-note-2" text="Voir toutes"
                 name="Les pages" />
-            <DashboradQuickCard v-if="canDo(authStore.user, 'menu', 'create')" to="/back-office/menus"
+            <DashboradQuickCard v-if="authStore.canIDo('menu', 'create')" to="/back-office/menus"
                 class="from-violet-600 to-violet-500" icon="ic:round-menu-book" text="Éditer" name="Les Menus" />
         </div>
     </section>
@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import DashboradQuickCard from './DashboradQuickCard.vue';
-import { canDo } from '@brz/shared'
 import { useAuthStore } from '~/stores/auth'
 
 const authStore = useAuthStore()

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useCookie } from '#app'
 import useApi from '~/composables/useApi'
-import type { UserAttributesAuth } from '@brz/shared'
+import { canDo, type UserAttributesAuth } from '@brz/shared'
 
 export interface RefreshData {
     accessToken: string
@@ -163,6 +163,14 @@ export const useAuthStore = defineStore('auth', {
             this.accessToken = accessCookie.value ?? null
             this.refreshToken = refreshCookie.value ?? null
             this.user = userCookie.value ?? null
-        }
+        },
+
+        /**
+         * Check if user has permission to perform an action in a context
+         */
+        canIDo(context: string, action: string): boolean {
+            if (!this.user) return false
+            return canDo(this.user, context, action)
+        },
     }
 })
