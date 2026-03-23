@@ -33,4 +33,31 @@ const highlightedTitle = computed(() => {
     )
 })
 
+// TODO: Test this version of the highlight function, it should be more efficient and handle accents better
+// const highlightedTitle = computed(() => {
+//     if (!props.query?.trim() || !props.result.title) return props.result.title
+
+//     const normalize = (str: string) =>
+//         str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+
+//     const escaped = normalize(props.query).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+//     const regex = new RegExp(escaped, 'gi')
+
+//     const titleNormalized = normalize(props.result.title)
+//     const title = props.result.title
+
+//     let result = ''
+//     let lastIndex = 0
+//     let match: RegExpExecArray | null
+
+//     while ((match = regex.exec(titleNormalized)) !== null) {
+//         result += title.slice(lastIndex, match.index)
+//         result += `<mark class="bg-primary/20 rounded">${title.slice(match.index, match.index + match[0].length)}</mark>`
+//         lastIndex = match.index + match[0].length
+//     }
+
+//     result += title.slice(lastIndex)
+//     return result
+// })
+
 </script>
