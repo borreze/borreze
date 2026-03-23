@@ -10,7 +10,7 @@ export { resolveType, sizeToReadable, mediaGetIcon, mediaGetLabel, isTypeAllowed
 
 export { parseValidationErrors } from './utils/validation.utils'
 
-export { canDo, isAdmin, getPermsContexts, getPerms } from './utils/auth.utils'
+export { canDo, isAdmin, getPermsContexts, hasContext, getPerms } from './utils/auth.utils'
 
 export { AUTH_PASSWORD_LEVELS, AUTH_PASSWORD_RULES, AUTH_PASSWORD_RULES_SCORE_MAX, passwordGetScore, passwordGetMissing, passwordGetLevel } from './utils/password.utils'
 

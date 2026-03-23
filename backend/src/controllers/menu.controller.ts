@@ -4,7 +4,7 @@ import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
 import { Order, Pagination } from '@brz/shared'
-import { filterMenusByPermissions } from '../utils/menu.utils'
+import { filterMenusForUser } from '../utils/menu.utils'
 
 export class MenuController {
   public getAllByScope: RequestHandler = async (req, res) => {
@@ -17,7 +17,7 @@ export class MenuController {
     const options = { scope, is_visible: true, noParent: true }
 
     let data = await menuService.getAll(options, order, pagination, req?.user)
-    if (scope === 'back-office') data = await filterMenusByPermissions(data, req?.user)
+    if (scope === 'back-office') data = await filterMenusForUser(data, req?.user)
     res.status(200).json({ pagination, data, message: 'Menus retrieved successfully' } as Return)
   }
 

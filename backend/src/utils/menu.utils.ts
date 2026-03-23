@@ -1,17 +1,10 @@
-import { getPermsContexts, isAdmin, MenuAttributes, UserAttributesPublic } from "@brz/shared"
+import { hasContext, MenuAttributes, UserAttributesPublic } from "@brz/shared"
 
-export async function filterMenusByPermissions(menus: MenuAttributes[], user?: UserAttributesPublic): Promise<MenuAttributes[]> {
-    if (!user) return [] // No user, no menus
-
+export async function filterMenusForUser(menus: MenuAttributes[], user?: UserAttributesPublic): Promise<MenuAttributes[]> {
     const filteredMenus: MenuAttributes[] = []
 
-    // Admin
-    if (isAdmin(user)) return menus
-
-    // Regular user
-    const permContexts = getPermsContexts(user)
     for (const menu of menus) {
-        if (menu.context && permContexts.includes(menu.context)) {
+        if (menu.context && hasContext(user, menu.context)) {
             filteredMenus.push(menu)
         }
     }

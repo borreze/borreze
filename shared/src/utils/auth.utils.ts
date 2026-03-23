@@ -29,6 +29,15 @@ export function getPerms(user: UserAttributesPublic | UserAttributesAuth | null 
     return Array.from(new Set(perms)) // Unique permissions
 }
 
+export function hasContext(user: UserAttributesPublic | UserAttributesAuth | null | undefined, context: string): boolean {
+    if (!user) return false
+
+    if (isAdmin(user)) return true
+
+    const permContexts = getPermsContexts(user)
+    return permContexts.includes(context)
+}
+
 export function canDo(user: UserAttributesPublic | UserAttributesAuth | null | undefined, context: string, action: string): boolean {
     if (!user) return false
 
