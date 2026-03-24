@@ -1,4 +1,4 @@
-import { Order } from '@brz/shared'
+import { isQueryValid, Order } from '@brz/shared'
 import { Pagination } from '@brz/shared'
 import { modelAttach } from '../utils/model.utils'
 import { POST_LINKS, POST_NAMES } from '../models/post.model'
@@ -7,10 +7,9 @@ import { BadRequest } from '../exceptions/request.exception'
 
 export class GlobalService {
   public async search(options?: { query?: string }): Promise<Record<string, unknown>[]> {
-    let { query } = options || {}
+    const { query } = options || {}
 
-    query = query?.trim() ?? ''
-    if (!query || query.length <= 2) throw new BadRequest('Missing parameter')
+    if (!isQueryValid(query)) throw new BadRequest('Missing parameter')
 
     const page = 1
     const limit = 2

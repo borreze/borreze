@@ -1,5 +1,5 @@
 import type { RouteRecordNormalized } from 'vue-router'
-import type { SearchResult } from '@brz/shared'
+import { isQueryValid, type SearchResult } from '@brz/shared'
 import useApi from '~/composables/useApi'
 import { getRoutes } from '~/utils/routing'
 
@@ -11,13 +11,12 @@ export const useSearch = async (q: string) => {
     const { data, status, error, execute } = await useAsyncData(
         `search`,
         async () => {
-            const val = query.value.trim()
-            if (!val || val.length <= 2) return null
+            if (!isQueryValid(query.value)) return null
 
             try {
                 const res = await useApi().get<{ data: SearchResult[] }>(
                     '/global/search',
-                    { params: { query: val } }
+                    { params: { query: query.value } }
                 )
                 return res.data ?? null
             } catch (e) {

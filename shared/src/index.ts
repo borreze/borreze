@@ -12,7 +12,9 @@ export { parseValidationErrors } from './utils/validation.utils'
 
 export { canDo, isAdmin, getPermsContexts, hasContext, getPerms } from './utils/auth.utils'
 
-export { AUTH_PASSWORD_LEVELS, AUTH_PASSWORD_RULES, AUTH_PASSWORD_RULES_SCORE_MAX, passwordGetScore, passwordGetMissing, passwordGetLevel } from './utils/password.utils'
+export { passwordGetScore, passwordGetMissing, passwordGetLevel } from './utils/password.utils'
+
+export { isQueryValid } from './utils/global.utils'
 
 // TYPES
 
@@ -86,3 +88,7 @@ export type { Order } from './types/order.types'
 export type { ContactRequest } from './types/contact.types'
 
 export type { ValidationError, ValidationResult } from './types/validation.types'
+
+export { AUTH_PASSWORD_RULES_SCORE_MAX, AUTH_PASSWORD_LEVELS, AUTH_PASSWORD_RULES, } from './types/password.types'
+
+export { GLOBAL_SEARCH_LENGHT_MIN } from './types/global.types'

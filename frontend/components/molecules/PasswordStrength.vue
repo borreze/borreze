@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { AUTH_PASSWORD_RULES_SCORE_MAX, passwordGetLevel, passwordGetMissing, passwordGetScore } from '@brz/shared';
+import {  AUTH_PASSWORD_RULES_SCORE_MAX, passwordGetLevel, passwordGetMissing, passwordGetScore } from '@brz/shared';
 
 const props = withDefaults(defineProps<{
     password?: string | null
