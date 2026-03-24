@@ -126,7 +126,7 @@
         <editor-content class="wysiwyg-content wy-prose" :editor="editor" />
 
         <!-- Link modal -->
-        <Modal v-model:open="showLinkModal" title="Insérer un lien" textConfirm="Ajouter" textCancel="Annuler"
+        <Modal v-model:open="showLinkModal" :level="2" title="Insérer un lien" textConfirm="Ajouter" textCancel="Annuler"
             :onConfirm="setLink" :onCancel="closeLinkModal">
             <div class="flex flex-col gap-4">
                 <Field v-model="linkUrl" roundness="md" type="url" label="URL du lien"
@@ -137,7 +137,7 @@
         </Modal>
 
         <!-- Image modal -->
-        <Modal v-model:open="imageModal" title="Insérer une image" textConfirm="Ajouter" textCancel="Annuler"
+        <Modal v-model:open="imageModal" :level="2" title="Insérer une image" textConfirm="Ajouter" textCancel="Annuler"
             :onConfirm="insertImage" :onCancel="closeImageModal">
             <div class="flex flex-col gap-4">
                 <MediaPicker v-model="imageMedia" media-type="image" required label="Image" />
@@ -150,7 +150,7 @@
         </Modal>
 
         <!-- Button modal -->
-        <Modal v-model:open="buttonModal" title="Insérer un bouton" textConfirm="Ajouter" textCancel="Annuler"
+        <Modal v-model:open="buttonModal" :level="2" title="Insérer un bouton" textConfirm="Ajouter" textCancel="Annuler"
             :onConfirm="insertButton" :onCancel="closeButtonModal">
             <div class="flex flex-col gap-4">
                 <Field v-model="boutonLabel" roundness="md" label="Texte du bouton" placeholder="Cliquez moi" />
