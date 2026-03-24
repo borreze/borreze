@@ -15,7 +15,7 @@ export class AuthController {
         const { identifier, password } = req.body
 
         const result = await authService.login(identifier, password)
-        Log.info(`User of email ${result.user.email} logged in`, req)
+        Log.info(`User of email ${result.user.email} logged in`)
         res.status(200).json({ data: result, message: 'Login successful' } as Return)
     }
 
@@ -37,7 +37,7 @@ export class AuthController {
         const { email } = req.body
 
         await authService.sendPasswordResetCode(email)
-        Log.info(`Sent password reset code to user of email ${email}`, req)
+        Log.info(`Sent password reset code to user of email ${email}`)
         res.status(200).json({ message: 'Reset code sent if account exists' } as Return)
     }
 
@@ -45,7 +45,7 @@ export class AuthController {
         const { email, code, newPassword } = req.body
 
         await authService.resetPassword(email, code, newPassword)
-        Log.info(`New password set for user of email ${email}`, req)
+        Log.info(`New password set for user of email ${email}`)
         res.status(200).json({ message: 'Password reset successful' } as Return)
     }
 }
