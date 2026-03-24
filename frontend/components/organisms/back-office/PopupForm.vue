@@ -24,7 +24,7 @@
                         <Field v-model="editingPopup.content" type="textarea" label="Contenu" hint="Contenu affiché"
                             roundness="md" :error="errors.content" @blur="touch('content')" />
                         <div>
-                            <MediaSelector v-model="editingPopup.media" required label="Média"
+                            <MediaPicker v-model="editingPopup.media" required label="Média"
                                 hint="Sélectionnez une média à mettre en avant" :error="errors.media"
                                 @update="touch('media')" />
                         </div>
@@ -77,7 +77,7 @@ import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import Datepicker from '~/components/atoms/Datepicker.vue'
 import { formatDateTime } from '~/utils/date'
-import MediaSelector from './MediaSelector.vue'
+import MediaPicker from './MediaPicker.vue'
 
 const props = withDefaults(defineProps<{
     initialPopup: PopupAttributesFrontend

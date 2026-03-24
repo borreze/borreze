@@ -36,7 +36,7 @@
                             hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md"
                             :error="errors.abstract" @blur="touch('abstract')" />
                         <div>
-                            <MediaSelector v-model="editingPost.cover" media-type="image" required label="Couverture"
+                            <MediaPicker v-model="editingPost.cover" media-type="image" required label="Couverture"
                                 hint="Sélectionnez une image de couverture" :error="errors.cover"
                                 @update="touch('cover')" />
                         </div>
@@ -118,7 +118,7 @@ import Datepicker from '~/components/atoms/Datepicker.vue'
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import PostCard from '~/components/organisms/front-office/PostCard.vue'
 import { formatDateTime } from '~/utils/date'
-import MediaSelector from './MediaSelector.vue'
+import MediaPicker from './MediaPicker.vue'
 
 const props = withDefaults(defineProps<{
     initialPost: PostAttributesFrontend

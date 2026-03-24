@@ -140,7 +140,7 @@
         <Modal v-model:open="imageModal" title="Insérer une image" textConfirm="Ajouter" textCancel="Annuler"
             :onConfirm="insertImage" :onCancel="closeImageModal">
             <div class="flex flex-col gap-4">
-                <MediaSelector v-model="imageMedia" media-type="image" required label="Image" />
+                <MediaPicker v-model="imageMedia" media-type="image" required label="Image" />
                 <Field v-model="imageAlt" roundness="md" label="Texte alternatif"
                     placeholder="Texte alternatif de l'image" />
                 <Field v-model="imageWidth" roundness="md" label="Largeur"
@@ -182,7 +182,7 @@ import Dropdown from '~/components/molecules/Dropdown.vue'
 import Button from '~/components/atoms/Button.vue'
 import { push } from 'notivue'
 import type { MediaAttributes } from '@brz/shared'
-import MediaSelector from './MediaSelector.vue'
+import MediaPicker from './MediaPicker.vue'
 
 type Feature =
     | 'bold' | 'italic' | 'underline' | 'strike'
