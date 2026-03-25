@@ -80,7 +80,7 @@ const { couldHaveErrors, touch, touched, errors, untouchAll, submit } = useForm(
         firstname: () => formContent.value.firstname === '' ? 'Le titre est requis' : null,
         lastname: () => formContent.value.lastname === '' ? 'Le slug est requis' : null,
         email: () => formContent.value.email === '' || !isEmail(formContent.value.email) ? 'Le champ e-mail est requis et doit être une adresse e-mail valide' : null,
-        message: () => formContent.value.message === '' ? 'Le champ message est requis' : null,
+        message: () => formContent.value.message === '' || formContent.value.message.length < 100 ? 'Le champ message est requis et doit contenir au moins 100 caractères' : null,
     }
 )
 
@@ -96,7 +96,7 @@ const handleSubmit = () => submit(async () => {
     try {
         await sendContact(formContent.value)
         handleClear()
-        push.success({ title: 'Envoyé!', message: 'Votre demande a été envoyée avec succès.' })
+        push.success({ title: 'Envoyé!', message: 'Votre demande a été envoyée avec succès. La mairie de Borrèze vous répondra dans les plus brefs délais.' })
     } catch (err: any) {
         push.error(parseValidationErrors(err?.data))
     }

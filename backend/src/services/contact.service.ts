@@ -11,6 +11,10 @@ export class ContactService {
       throw new ContactException('All fields are required')
     }
 
+    if (message.length < 100) {
+      throw new ContactException('Message must be at least 100 characters long')
+    }
+
     firstname = firstname.trim()
     lastname = lastname.trim()
     email = email.trim()
