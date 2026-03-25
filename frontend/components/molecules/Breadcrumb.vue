@@ -2,8 +2,8 @@
   <nav aria-label="breadcrumb" class="my-4">
     <ol class="flex flex-wrap items-center list-none p-0 m-0 text-sm">
       <li v-for="(item, index) in breadcrumbs" :key="index" class="flex items-center">
-        <Url v-if="index !== breadcrumbs.length - 1" :to="item.path" :label="item.name"
-          :icon="item.path === '/' ? 'ic:baseline-home' : ''" />
+        <Url v-if="index !== breadcrumbs.length - 1" :to="item.url" :label="item.name"
+          :icon="item.url === '/' ? 'ic:baseline-home' : ''" />
         <span v-else class="font-base">
           {{ item.name }}
         </span>
@@ -21,7 +21,7 @@ import { computed } from 'vue'
 import Url from '~/components/atoms/Url.vue';
 
 const props = withDefaults(defineProps<{
-  items: { name: string; path: string }[],
+  items: { name: string; url: string }[],
   home?: boolean
 }>(), {
   items: () => [],
@@ -36,7 +36,7 @@ const breadcrumbs = computed(() => {
   if (props.home) {
     items.push({
       name: 'Accueil',
-      path: '/'
+      url: '/'
     })
   }
 
@@ -45,22 +45,43 @@ const breadcrumbs = computed(() => {
     return items
   }
 
-  const pathSegments = route.path.split('/').filter(segment => segment !== '')
-  let currentPath = ''
+  const urlSegments = route.path.split('/').filter(segment => segment !== '')
+  let currenturl = ''
 
-  pathSegments.forEach(segment => {
-    currentPath += `/${segment}`
+  urlSegments.forEach(segment => {
+    currenturl += `/${segment}`
 
     const name = segment
       .replace(/-/g, ' ')
-      .replace(/\b\w/g, l => l.toUpperCase())
+      .replace(/\b\w/g, l => l.toUpperCase()) // Capitalize first letter of each word
 
     items.push({
       name,
-      path: currentPath
+      url: currenturl
     })
   })
 
   return items
 })
+
+const breadcrumbJsonLd = computed(() => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: props.items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    ...(item.url ? { item: item.url } : {}),
+  })),
+}));
+
+useHead({
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify(breadcrumbJsonLd.value),
+    },
+  ],
+});
+
 </script>

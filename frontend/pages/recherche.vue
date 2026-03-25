@@ -1,7 +1,7 @@
 <template>
     <div class="safe-area-md">
         <h1 class="title-main pt-2 pb-4">Recherche</h1>
-        <Breadcrumb :items="[{ name: 'Recherche', path: '/recherche' }]" />
+        <Breadcrumb :items="[{ name: 'Recherche', url: '/recherche' }]" />
         <div class="flex justify-center mt-8">
             <div class="max-w-xl w-full flex flex-col md:flex-row items-center gap-2">
                 <Field v-model="query" name="query" type="search" roundness="full" placeholder="Rechercher ..." />

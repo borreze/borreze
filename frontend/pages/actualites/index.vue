@@ -1,7 +1,7 @@
 <template>
     <div class="safe-area-md">
         <h1 class="title-main pt-2 pb-4">Actualités</h1>
-        <Breadcrumb :items="[{ name: 'Actualités', path: '/actualites' }]" />
+        <Breadcrumb :items="[{ name: 'Actualités', url: '/actualites' }]" />
         <div class="flex justify-between items-center mt-4 gap-4 flex-wrap">
             <CategorySelector :categories="categories" :selected="getCategories()" @remove="removeCategory"
                 @add="addCategory" @reset="resetCategories" />

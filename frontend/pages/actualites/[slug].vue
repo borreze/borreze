@@ -3,8 +3,8 @@
     <section class="safe-area-md">
         <div class="mx-auto max-w-6xl">
             <Breadcrumb :items="[
-                { name: 'Actualités', path: '/actualites' },
-                ...(post ? [{ name: post.title, path: `/actualites/${post.slug}` }] : [])
+                { name: 'Actualités', url: '/actualites' },
+                ...(post ? [{ name: post.title, url: `/actualites/${post.slug}` }] : [])
             ]" />
             <div v-if="post?.categories && post.categories.length > 0" class="mt-6 flex items-center flex-wrap gap-2">
                 <Pill v-for="category in post.categories" :key="category.id" :label="category.name" size="md"

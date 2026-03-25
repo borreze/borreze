@@ -1,7 +1,7 @@
 <template>
     <div class="safe-area-md">
         <h1 class="title-main pt-2 pb-4">Contact</h1>
-        <Breadcrumb :items="[{ name: 'Contact', path: '/contact' }]" />
+        <Breadcrumb :items="[{ name: 'Contact', url: '/contact' }]" />
         <div class="contact-grid mt-6">
             <section
                 class="contact-form bg-white rounded-xl shadow-[2px_2px_10px_2px_#0000001a] p-4 md:p-6 2xl:min-w-[500px]">
