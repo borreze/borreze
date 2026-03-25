@@ -27,6 +27,7 @@ import { initSchoolHolidayCron } from './crons/schoolHoliday.cron'
 import { multerErrorHandler } from './middlewares/multer.middleware'
 import { MEDIA_UPLOAD_DIR } from '@brz/shared'
 import { initPostCron } from './crons/post.cron'
+import { config } from './config/config'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -40,13 +41,13 @@ app.use(express.urlencoded({ extended: true }))
 
 // CORS middleware to allow cross-origin requests. It MUST be before any route cuz of preflight requests
 app.use(cors({
-  origin: process.env.BACKEND_CORS_ORIGIN || '*',
+  origin: config.corsOrigin,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true,
 }))
 
 // Register cron jobs
-if (process.env.NODE_ENV === 'production') { // ! DO NOT REMOVE: this is to prevent cron from running infinite times in pipeline
+if (config.env === 'production') { // ! DO NOT REMOVE: this is to prevent cron from running infinite times in pipeline
   initSchoolHolidayCron()
   initPostCron()
 }
@@ -87,7 +88,7 @@ app.get('/health', (req: Request, res: Response) => {
 })
 
 // Serve Swagger documentation
-if (process.env.NODE_ENV === 'development') {
+if (config.env === 'development') {
   app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
   Terminal.info('Swagger documentation available at /swagger')
 }

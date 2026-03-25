@@ -1,5 +1,6 @@
 import rateLimit, { Options as RateLimitOptions } from "express-rate-limit";
 import { Request, Response, NextFunction } from "express";
+import { config } from "../config/config";
 
 export enum TimeSpans {
     ONE_SECOND = 1 * 1000,
@@ -21,7 +22,7 @@ export const createRateLimiter = (
     max: number = 50,
     span: TimeSpanKey = "FIFTEEN_MINUTES"
 ) => {
-    if (process.env.NODE_ENV === 'development') { // ! THERE IS NO RATE LIMIT IN DEV MODE TO AVOID HINDERING TESTS
+    if (config.env === 'development') { // ! THERE IS NO RATE LIMIT IN DEV MODE TO AVOID HINDERING TESTS
         return (req: Request, res: Response, next: NextFunction) => next();
     }
 

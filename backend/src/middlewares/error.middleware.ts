@@ -3,11 +3,12 @@ import { BaseException } from '../exceptions/base'
 import { Return } from '../types/utils/api.types'
 import { Terminal } from '../utils/terminal.utils'
 import { ValidationException } from '../exceptions/validation.exception'
+import { config } from '../config/config'
 
 export const errorMiddleware: ErrorRequestHandler = (err, _req, res, next) => {
     if (res.headersSent) next(err) // If headers are already sent, delegate to the default Express error handler
 
-    const obfuscate: boolean = process.env.NODE_ENV === 'production'
+    const obfuscate: boolean = (config.env === 'production')
 
     const message = obfuscate ? 'An error occurred' : (err.message)
     const code = err instanceof BaseException ? err.code : 500

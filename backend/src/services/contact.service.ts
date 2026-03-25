@@ -1,6 +1,7 @@
 import { ContactRequest } from "@brz/shared"
 import { ContactException } from "../exceptions/contact.exception"
 import { emailService } from "./email.service"
+import { config } from "../config/config"
 
 export class ContactService {
   public async send(data?: ContactRequest): Promise<boolean> {
@@ -16,7 +17,7 @@ export class ContactService {
     message = message.trim()
 
     await emailService.sendMail({
-      to: process.env.BACKEND_CONTACT_MAIL_TO as string,
+      to: config.contactMailTo,
       subject: `Demande de contact ${email} - Borrèze`,
       html: `
         <h1>Demande de contact</h1>

@@ -1,7 +1,8 @@
+import { config } from "../config/config";
 import { TERMINAL_STYLES, TerminalStyleName, TerminalStyleType } from "../types/utils/terminal.types";
 
 export class Terminal {
-    private static readonly appName: string = process.env.BACKEND_APP_NAME ?? "app";
+    private static readonly appName = config.appName;
 
     private static getColor(styleName: TerminalStyleName): string {
         return TERMINAL_STYLES.find((c) => c.name === styleName)!.code;

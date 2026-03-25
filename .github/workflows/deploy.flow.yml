@@ -109,7 +109,7 @@ jobs:
         run: |
           cat <<EOF > .env
           NODE_ENV=production
-          DATABASE_DB=${{ secrets.PREPROD_DATABASE_DB }}
+          DATABASE_NAME=${{ secrets.PREPROD_DATABASE_NAME }}
           DATABASE_USER=${{ secrets.PREPROD_DATABASE_USER }}
           DATABASE_PASSWORD=${{ secrets.PREPROD_DATABASE_PASSWORD }}
           DBMS_PORT=${{ secrets.PREPROD_DBMS_PORT }}
@@ -177,7 +177,7 @@ jobs:
         run: |
           cat <<EOF > .env
           NODE_ENV=production
-          DATABASE_DB=${{ secrets.PROD_DATABASE_DB }}
+          DATABASE_NAME=${{ secrets.PROD_DATABASE_NAME }}
           DATABASE_USER=${{ secrets.PROD_DATABASE_USER }}
           DATABASE_PASSWORD=${{ secrets.PROD_DATABASE_PASSWORD }}
           DBMS_PORT=${{ secrets.PROD_DBMS_PORT }}

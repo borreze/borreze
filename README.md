@@ -208,7 +208,7 @@ Setup:
     - Port: `5432`
     - Username: `${DATABASE_USER}` (from the .env)
     - Password: `${DATABASE_PASSWORD}` (from the .env)
-    - Maintenance DB: `${DATABASE_DB}` (from the .env)
+    - Maintenance DB: `${DATABASE_NAME}` (from the .env)
 - Save and connect.
 
 ## 👨‍💻 - Snippets
@@ -255,7 +255,7 @@ Pre-production specific secrets:
 - `PREPROD_SSH_USER`: The SSH user for the pre-production server.
 - `PREPROD_SSH_PRIVATE_KEY`: The private SSH key for the pre-production server.
 - `PREPROD_FOLDER`: The folder on the pre-production server where the project will be deployed (from `/home/<PREPROD_SSH_USER>/`).
-- `PREPROD_DATABASE_DB`
+- `PREPROD_DATABASE_NAME`
 - `PREPROD_DATABASE_USER`
 - `PREPROD_DATABASE_PASSWORD`
 - `PREPROD_DBMS_PORT`
@@ -283,7 +283,7 @@ Production specific secrets:
 - `PROD_SSH_USER`: The SSH user for the production server.
 - `PROD_SSH_PRIVATE_KEY`: The private SSH key for the production server.
 - `PROD_FOLDER`: The folder on the production server where the project will be deployed (from `/home/<PROD_SSH_USER>/`).
-- `PROD_DATABASE_DB`
+- `PROD_DATABASE_NAME`
 - `PROD_DATABASE_USER`
 - `PROD_DATABASE_PASSWORD`
 - `PROD_DBMS_PORT`

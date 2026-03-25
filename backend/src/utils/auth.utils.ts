@@ -1,15 +1,11 @@
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
-import dotenv from 'dotenv'
 import { Forbidden, Unauthorized } from '../exceptions/auth.exception'
 import { canDo, UserAttributes, UserAttributesFrontend, UserAttributesPublic } from '@brz/shared'
-
-dotenv.config()
-
-const SALT_ROUNDS = Number(process.env.BACKEND_BCRYPT_SALT_ROUNDS ?? 12)
+import { config } from '../config/config'
 
 export async function hashPassword(plain: string): Promise<string> {
-    return bcrypt.hash(plain, SALT_ROUNDS)
+    return bcrypt.hash(plain, Number(config.bcryptSaltRounds))
 }
 
 export async function comparePassword(plain: string, hash: string): Promise<boolean> {
