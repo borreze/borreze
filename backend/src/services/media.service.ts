@@ -8,9 +8,8 @@ import { MEDIA_CONSTRAINTS } from '../models/media.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
-import fs from 'fs/promises'
-import path from 'path'
 import { validateAll } from '../utils/validation.utils'
+import { mediaDeleteFile } from '../utils/media.utils'
 
 export class MediaService {
   private filterType(type?: MediaType | 'all' | null): WhereOptions {
@@ -104,9 +103,7 @@ export class MediaService {
     const media = await Media.findByPk(id)
     if (!media) throw new NotFound('Media not found')
 
-    // Suppression physique du fichier
-    const filePath = path.join(MEDIA_UPLOAD_DIR, media.file_name)
-    await fs.unlink(filePath)
+    mediaDeleteFile(media.file_name)
 
     const result = await Media.destroy({ where: { id } })
     return result
@@ -116,8 +113,7 @@ export class MediaService {
     const medias = await Media.findAll({ where: { id: { [Op.in]: ids } } })
 
     for (const media of medias) {
-      const filePath = path.join(MEDIA_UPLOAD_DIR, media.file_name)
-      try { await fs.unlink(filePath) } catch { /* noop */ }
+      mediaDeleteFile(media.file_name)
     }
 
     const result = await Media.destroy({ where: { id: { [Op.in]: ids } } })

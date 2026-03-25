@@ -1,8 +1,9 @@
-import fs from 'fs'
 import path from 'path'
+import fs from 'fs'
 import { MediaException } from '../exceptions/media.exception'
+import { MEDIA_UPLOAD_DIR } from '@brz/shared'
 
-export const cleanFilename = (text: string | null | undefined): string => { // cnat use slugify since it removes too much chars, e.g. "photo de l'été.jpg" -> "photo-de-l-t-jpg"
+export const normalizeFilename = (text: string | null | undefined): string => { // cant use slugify since it removes too much chars, e.g. "photo de l'été.jpg" -> "photo-de-l-t-jpg"
     if (!text) return ''
 
     return text
@@ -18,7 +19,7 @@ export const cleanFilename = (text: string | null | undefined): string => { // c
         .replace(/-+$/, '')                   // trim - end
 }
 
-export function makeFilenameUnique(filename: string, dir: string): string {
+export function uniqueFilename(filename: string, dir: string): string {
     const MAX_UNIQUE_ATTEMPTS = 100
 
     const ext = path.extname(filename)          // ".jpg"
@@ -35,4 +36,17 @@ export function makeFilenameUnique(filename: string, dir: string): string {
     }
 
     throw new MediaException(`Unable to generate a unique filename for "${filename}" after ${MAX_UNIQUE_ATTEMPTS} attempts`)
+}
+
+export function createFilename(filename: string, dir: string): string {
+    return uniqueFilename(normalizeFilename(filename), dir)
+}
+
+export async function mediaDeleteFile(filename: string): Promise<void> {
+    const filePath = path.join(MEDIA_UPLOAD_DIR, filename)
+    await fs.promises.unlink(filePath).catch(err => {
+        if (err.code !== 'ENOENT') { // ignore file not found errors
+            throw new MediaException(`Failed to delete file "${filename}": ${err.message}`)
+        }
+    })
 }
