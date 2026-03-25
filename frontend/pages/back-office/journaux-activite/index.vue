@@ -9,6 +9,10 @@
                 variant="primary" size="sm" />
         </Teleport>
 
+        <p class="text-sm text-gray-600">
+            Les journaux d'activité ne sont conservés que pendant une durée limitée ({{ LOG_RENTENTION_DAYS }} jours)
+        </p>
+
         <div class="mt-4 flex gap-4 items-center justify-end ">
             <div class="max-w-xl flex gap-4 items-center">
                 <Field v-model="search" placeholder="Rechercher..." icon="ic:baseline-search" size="sm" roundness="md"
@@ -23,7 +27,7 @@
         <Table class="mt-4" :loading="loading" :items="logs" titleKey="id" descriptionKey="message" :columns="[
             { key: 'id', label: 'ID', formatter: 'id' },
             { key: 'message', label: 'Contenu' },
-            { key: 'level', label: 'Niveau de gravité' },
+            { key: 'level', label: 'Niveau' },
             { key: 'ip_address', label: 'Adresse IP' },
             { key: 'created_at', label: 'Date', formatter: 'date' },
         ]" :formatters="{
@@ -52,7 +56,7 @@ import Field from '~/components/atoms/Field.vue';
 import Button from '~/components/atoms/Button.vue';
 import { useLogs } from '~/composables/back-office/useLog';
 import { formatDateTime } from '~/utils/date';
-import { LOG_LEVELS_OBJECTS } from '@brz/shared';
+import { LOG_LEVELS_OBJECTS, LOG_RENTENTION_DAYS } from '@brz/shared';
 
 const { logs, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await useLogs()
 

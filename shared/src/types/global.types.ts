@@ -1,1 +1,1 @@
-export const GLOBAL_SEARCH_LENGHT_MIN = 2
+export const GLOBAL_SEARCH_LENGTH_MIN = 2

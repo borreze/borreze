@@ -3,6 +3,7 @@ import { roleService } from '../services/role.service'
 import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
+import { Log } from '../utils/log.utils'
 
 export class RoleController {
   public getAll: RequestHandler = async (req, res) => {
@@ -29,6 +30,7 @@ export class RoleController {
   public create: RequestHandler = async (req, res) => {
     const role = await roleService.create(req.body)
 
+    Log.info(`Le rôle d'ID #${role?.id} a été créé`, req)
     res.status(201).json({ data: role, message: 'Role created successfully' } as Return)
   }
 
@@ -36,6 +38,7 @@ export class RoleController {
     const id = Number(req.params.id)
 
     const role = await roleService.update(id, req.body)
+    Log.info(`Le rôle d'ID #${id} a été mis à jour`, req)
     res.status(200).json({ data: role, message: 'Role updated successfully' } as Return)
   }
 
@@ -43,6 +46,7 @@ export class RoleController {
     const id = Number(req.params.id)
 
     await roleService.delete(id)
+    Log.info(`Le rôle d'ID #${id} a été supprimé`, req)
     res.status(200).json({ message: 'Role deleted successfully' } as Return)
   }
 }

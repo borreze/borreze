@@ -91,4 +91,4 @@ export type { ValidationError, ValidationResult } from './types/validation.types
 
 export { AUTH_PASSWORD_RULES_SCORE_MAX, AUTH_PASSWORD_LEVELS, AUTH_PASSWORD_RULES, } from './types/password.types'
 
-export { GLOBAL_SEARCH_LENGHT_MIN } from './types/global.types'
+export { GLOBAL_SEARCH_LENGTH_MIN } from './types/global.types'

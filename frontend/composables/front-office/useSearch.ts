@@ -3,7 +3,7 @@ import { isQueryValid, type SearchResult } from '@brz/shared'
 import useApi from '~/composables/useApi'
 import { getRoutes } from '~/utils/routing'
 
-const DEBOUNCE_DELAY = 400
+const DEBOUNCE_DELAY = 1000
 
 export const useSearch = async (q: string) => {
     const query = ref<string>(q ?? '')
@@ -73,6 +73,7 @@ export const useSearch = async (q: string) => {
         }),
         loading: computed(() => status.value === 'pending'),
         error,
+        execute,
         setQuery,
         resetQuery,
     }

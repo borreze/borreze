@@ -3,6 +3,7 @@ import { categoryService } from '../services/category.service'
 import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
+import { Log } from '../utils/log.utils'
 
 export class CategoryController {
   public getAll: RequestHandler = async (req, res) => {
@@ -48,6 +49,7 @@ export class CategoryController {
   public create: RequestHandler = async (req, res) => {
     const category = await categoryService.create(req.body)
 
+    Log.info(`La catégorie d'ID #${category?.id} a été créée`, req)
     res.status(201).json({ data: category, message: 'Category created successfully' } as Return)
   }
 
@@ -55,6 +57,7 @@ export class CategoryController {
     const id = Number(req.params.id)
 
     const category = await categoryService.update(id, req.body)
+    Log.info(`La catégorie d'ID #${id} a été mise à jour`, req)
     res.status(200).json({ data: category, message: 'Category updated successfully' } as Return)
   }
 
@@ -62,6 +65,7 @@ export class CategoryController {
     const id = Number(req.params.id)
 
     await categoryService.delete(id)
+    Log.info(`La catégorie d'ID #${id} a été supprimée`, req)
     res.status(200).json({ message: 'Category deleted successfully' } as Return)
   }
 }

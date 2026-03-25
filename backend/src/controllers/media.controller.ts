@@ -4,6 +4,7 @@ import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
 import { MediaType } from '@brz/shared'
+import { Log } from '../utils/log.utils'
 import 'multer' // augmente Express.Request avec .file et .files
 
 export class MediaController {
@@ -39,6 +40,7 @@ export class MediaController {
     }
 
     const data = await mediaService.createFromUpload(req.file, req.user?.id)
+    Log.info(`Le media d'ID #${data.id} a été créé à partir d'un upload`, req)
     res.status(201).json({ data, message: 'Media uploaded successfully' } as Return)
   }
 
@@ -49,7 +51,8 @@ export class MediaController {
       return
     }
 
-    const data = await mediaService.createMultipleFromUpload(files, req.user?.id,)
+    const data = await mediaService.createMultipleFromUpload(files, req.user?.id)
+    Log.info(`Les medias d'ID #${data.map(m => m.id).join(', ')} ont été créés à partir d'un upload`, req)
     res.status(201).json({ data, message: 'Medias uploaded successfully' } as Return)
   }
 
@@ -57,6 +60,7 @@ export class MediaController {
     const id = Number(req.params.id)
 
     const data = await mediaService.update(id, req.body)
+    Log.info(`Le media d'ID #${id} a été mise à jour`, req)
     res.status(200).json({ data, message: 'Media updated successfully' } as Return)
   }
 
@@ -64,6 +68,7 @@ export class MediaController {
     const id = Number(req.params.id)
 
     await mediaService.delete(id)
+    Log.info(`Le media d'ID #${id} a été supprimée`, req)
     res.status(200).json({ message: 'Media deleted successfully' } as Return)
   }
 
@@ -71,6 +76,7 @@ export class MediaController {
     const { ids } = req.body
 
     const count = await mediaService.deleteMultiple(ids)
+    Log.info(`Les medias d'ID #${ids.join(', ')} ont été supprimés`, req)
     res.status(200).json({ data: { deleted: count }, message: 'Medias deleted successfully' } as Return)
   }
 }

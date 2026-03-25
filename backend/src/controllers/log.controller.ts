@@ -26,9 +26,9 @@ export class LogController {
     res.status(200).json({ data: log, message: 'Log retrieved successfully' } as Return)
   }
 
-  public clear: RequestHandler = async (req, res) => {
+  public clearOlds: RequestHandler = async (req, res) => {
 
-    const deletedCount = await logService.clear()
+    const deletedCount = await logService.clearOlds()
     res.status(200).json({ message: `Cleared ${deletedCount} logs older than retention period` } as Return)
   }
 }

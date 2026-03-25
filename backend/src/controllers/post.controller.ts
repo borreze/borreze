@@ -6,12 +6,13 @@ import { paginate } from '../utils/pagination.utils'
 import { PostStatus } from '@brz/shared'
 import { Order } from '@brz/shared'
 import { Pagination } from '@brz/shared'
+import { Log } from '../utils/log.utils'
 
 export class PostController {
   public getRecents: RequestHandler = async (req, res) => {
     const page = 1
     const limit = 3
-    const options = { status: 'published' as PostStatus}
+    const options = { status: 'published' as PostStatus }
     const order: Order[] = [['published_at', 'DESC'], ['created_at', 'DESC']]
     const pagination: Pagination = { page, limit, total: Infinity }
 
@@ -48,7 +49,7 @@ export class PostController {
   public getBySlug: RequestHandler<{ slug: string }> = async (req, res) => {
     const slug = String(req.params.slug)
 
-    const options = { status: 'published' as PostStatus}
+    const options = { status: 'published' as PostStatus }
 
     const post = await postService.getBySlug(slug, options)
     res.status(200).json({ data: post, message: 'Post retrieved successfully' } as Return)
@@ -57,6 +58,7 @@ export class PostController {
   public create: RequestHandler = async (req, res) => {
     const post = await postService.create(req.body)
 
+    Log.info(`L'actualité d'ID #${post?.id} a été créée`, req)
     res.status(201).json({ data: post, message: 'Post created successfully' } as Return)
   }
 
@@ -64,6 +66,7 @@ export class PostController {
     const id = Number(req.params.id)
 
     const post = await postService.update(id, req.body)
+    Log.info(`L'actualité d'ID #${id} a été mise à jour`, req)
     res.status(200).json({ data: post, message: 'Post updated successfully' } as Return)
   }
 
@@ -72,21 +75,24 @@ export class PostController {
     const { status } = req.body
 
     const post = await postService.updateStatus(id, status)
+    Log.info(`Le statut de l'actualité d'ID #${id} a été mis à jour à ${status}`, req)
     res.status(200).json({ data: post, message: 'Post status updated successfully' } as Return)
   }
-
+  
   public updateCategories: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
     const { ids } = req.body
-
+    
     const post = await postService.updateCategories(id, ids)
+    Log.info(`Les catégories de l'actualité d'ID #${id} ont été mises à jour`, req)
     res.status(200).json({ data: post, message: 'Post categories updated successfully' } as Return)
   }
-
+  
   public delete: RequestHandler<{ id: string }> = async (req, res) => {
     const id = Number(req.params.id)
-
+    
     await postService.delete(id)
+    Log.info(`L'actualité d'ID #${id} a été supprimée`, req)
     res.status(200).json({ message: 'Post deleted successfully' } as Return)
   }
 }

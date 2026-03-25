@@ -3,8 +3,12 @@
         <h1 class="title-main pt-2 pb-4">Recherche</h1>
         <Breadcrumb :items="[{ name: 'Recherche', path: '/recherche' }]" />
         <div class="flex justify-center mt-8">
-            <div class="max-w-md w-full">
+            <div class="max-w-xl w-full flex flex-col md:flex-row items-center gap-2">
                 <Field v-model="query" name="query" type="search" roundness="full" placeholder="Rechercher ..." />
+                <!-- <div class="flex justify-end w-full md:w-auto"> -->
+                <Button :disabled="!isQueryValid(query)" icon="ic:search" label="Rechercher" variant="primary" size="md"
+                    @click="execute" />
+                <!-- </div> -->
             </div>
         </div>
         <Loader v-if="loading" />
@@ -14,7 +18,7 @@
                     <SearchCard :result="item" :query="query" />
                 </template>
             </Grid>
-            <NoContent v-else-if="query" />
+            <NoContent v-else-if="query && isQueryValid(query)" />
             <div v-else class="text-center">
                 <p class="text-sm text-gray-400">
                     Entrez un terme de recherche pour trouver les informations qui vous intéressent.
@@ -32,12 +36,14 @@ import Breadcrumb from '~/components/molecules/Breadcrumb.vue'
 import Field from '~/components/atoms/Field.vue'
 import { useSearch } from '~/composables/front-office/useSearch';
 import SearchCard from '~/components/organisms/front-office/SearchCard.vue'
+import Button from '~/components/atoms/Button.vue'
+import { isQueryValid } from '@brz/shared'
 
 const route = useRoute()
 const router = useRouter()
 const initialQuery = (route.query.q as string) ?? ''
 
-const { results, loading, setQuery } = await useSearch(initialQuery)
+const { results, loading, setQuery, execute } = await useSearch(initialQuery)
 
 const query = ref(initialQuery)
 

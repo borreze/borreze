@@ -3,6 +3,7 @@ import { popupService } from '../services/popup.service'
 import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
+import { Log } from '../utils/log.utils'
 
 export class PopupController {
   public getAll: RequestHandler = async (req, res) => {
@@ -33,6 +34,7 @@ export class PopupController {
   public create: RequestHandler = async (req, res) => {
     const popup = await popupService.create(req.body)
 
+    Log.info(`La popup d'ID #${popup?.id} a été créée`, req)
     res.status(201).json({ data: popup, message: 'Popup created successfully' } as Return)
   }
 
@@ -40,6 +42,7 @@ export class PopupController {
     const id = Number(req.params.id)
 
     const popup = await popupService.update(id, req.body)
+    Log.info(`La popup d'ID #${id} a été mise à jour`, req)
     res.status(200).json({ data: popup, message: 'Popup updated successfully' } as Return)
   }
 
@@ -47,6 +50,7 @@ export class PopupController {
     const id = Number(req.params.id)
 
     await popupService.delete(id)
+    Log.info(`La popup d'ID #${id} a été supprimée`, req)
     res.status(200).json({ message: 'Popup deleted successfully' } as Return)
   }
 }

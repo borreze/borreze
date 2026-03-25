@@ -1,7 +1,7 @@
 import { paginationDefault, type MediaAttributes, type MediaType } from '@brz/shared'
 import type { Order, Pagination } from '@brz/shared'
 
-const DEBOUNCE_DELAY = 400
+const DEBOUNCE_DELAY = 600
 
 export const useMedias = async (options: { type?: MediaType | 'all' } = {}) => {
     const page = ref(1)

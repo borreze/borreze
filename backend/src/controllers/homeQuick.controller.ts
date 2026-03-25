@@ -3,6 +3,7 @@ import { homeQuickService } from '../services/homeQuick.service'
 import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
+import { Log } from '../utils/log.utils'
 
 export class HomeQuickController {
   public getAll: RequestHandler = async (req, res) => {
@@ -33,6 +34,7 @@ export class HomeQuickController {
   public create: RequestHandler = async (req, res) => {
     const homequick = await homeQuickService.create(req.body)
 
+    Log.info(`L'accès rapide de page d'accueil d'ID #${homequick?.id} a été créée`, req)
     res.status(201).json({ data: homequick, message: 'HomeQuick created successfully' } as Return)
   }
 
@@ -40,6 +42,7 @@ export class HomeQuickController {
     const id = Number(req.params.id)
 
     const homequick = await homeQuickService.update(id, req.body)
+    Log.info(`L'accès rapide de page d'accueil d'ID #${id} a été mise à jour`, req)
     res.status(200).json({ data: homequick, message: 'HomeQuick updated successfully' } as Return)
   }
 
@@ -47,6 +50,7 @@ export class HomeQuickController {
     const id = Number(req.params.id)
 
     await homeQuickService.delete(id)
+    Log.info(`L'accès rapide de page d'accueil d'ID #${id} a été supprimé`, req)
     res.status(200).json({ message: 'HomeQuick deleted successfully' } as Return)
   }
 }

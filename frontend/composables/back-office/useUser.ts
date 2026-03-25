@@ -3,7 +3,7 @@ import type { Order, UserAttributesFrontendPassword, UserStatus } from '@brz/sha
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 
-const DEBOUNCE_DELAY = 400
+const DEBOUNCE_DELAY = 600
 
 export const useUsers = async () => {
     const page = ref(1)

@@ -9,7 +9,7 @@ export function initPostCron(): void {
         try {
             await postService.computeStatuses()
         } catch (error) {
-            Log.error(`Error computing posts statuses ${error}`)
+            Log.error(`Erreur lors du calcul des statuts des actualités : ${error}`)
             Terminal.error(`Error computing posts statuses ${error}`)
         }
     })

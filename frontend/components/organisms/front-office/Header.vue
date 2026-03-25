@@ -85,8 +85,10 @@
         </div>
     </Panel>
 
-    <Modal v-model:open="searchOpened" title="Rechercher" textConfirm="Rechercher" :onConfirm="handleSearch">
-        <Field v-model="searchQuery" name="searchModal" type="search" placeholder="Entrez votre recherche..." />
+    <Modal v-model:open="searchOpened" title="Rechercher" textConfirm="Rechercher" iconConfirm="ic:baseline-search" :onConfirm="handleSearch">
+        <div class="sm:min-w-[300px] md:min-w-[400px]">
+            <Field v-model="searchQuery" name="searchModal" type="search" placeholder="Entrez votre recherche..." />
+        </div>
     </Modal>
 </template>
 

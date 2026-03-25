@@ -11,7 +11,7 @@
             <section>
                 <h4 class="title-submain mb-6">Informations générales</h4>
                 <p><strong>Contenu:</strong> {{ log?.message }}</p>
-                <p><strong>Niveau de gravité:</strong> {{ log?.level }}</p>
+                <p><strong>Niveau:</strong> {{ log?.level }}</p>
                 <p><strong>Date :</strong> {{ formatDateTime(log?.created_at) }}</p>
             </section>
             <section>

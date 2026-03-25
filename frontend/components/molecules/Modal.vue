@@ -30,8 +30,8 @@
           </div>
 
           <div v-if="onCancel || onConfirm" class="flex justify-end space-x-2">
-            <Button v-if="onCancel" variant="ghost" :label="textCancel" @click="handleCancel" />
-            <Button v-if="onConfirm" variant="primary" :label="textConfirm" @click="handleConfirm" />
+            <Button v-if="onCancel" variant="ghost" :label="textCancel" :icon="iconCancel" @click="handleCancel" />
+            <Button v-if="onConfirm" variant="primary" :label="textConfirm" :icon="iconConfirm" @click="handleConfirm" />
           </div>
         </div>
       </div>
@@ -50,6 +50,8 @@ const props = withDefaults(defineProps<{
   closable?: boolean
   textConfirm?: string
   textCancel?: string
+  iconConfirm?: string
+  iconCancel?: string
   maxWidth?: number
   minWidth?: number
   level?: 1 | 2
@@ -92,6 +94,9 @@ const handleBackdropClick = () => {
 const handleKey = (e: KeyboardEvent) => {
   if (e.key === 'Escape' && props.open && props.closable) {
     close()
+  }
+  if (e.key === 'Enter' && props.open && props.onConfirm) {
+    handleConfirm()
   }
 }
 

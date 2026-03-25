@@ -66,7 +66,7 @@ export class LogService {
     throw new Error('Method not implemented.')
   }
 
-  public async clear(): Promise<number> {
+  public async clearOlds(): Promise<number> {
     const cutoffDate = new Date()
     cutoffDate.setDate(cutoffDate.getDate() - LOG_RENTENTION_DAYS)
 

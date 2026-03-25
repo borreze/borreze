@@ -4,6 +4,7 @@ import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
 import { Order, Pagination, ScheduleType } from '@brz/shared'
+import { Log } from '../utils/log.utils'
 
 export class ScheduleController {
   public getByType: RequestHandler = async (req, res) => {
@@ -45,6 +46,7 @@ export class ScheduleController {
   public create: RequestHandler = async (req, res) => {
     const schedule = await scheduleService.create(req.body)
 
+    Log.info(`La plage horaire d'ID #${schedule?.id} a été créée`, req)
     res.status(201).json({ data: schedule, message: 'Schedule created successfully' } as Return)
   }
 
@@ -52,6 +54,7 @@ export class ScheduleController {
     const id = Number(req.params.id)
 
     const schedule = await scheduleService.update(id, req.body)
+    Log.info(`La plage horaire d'ID #${id} a été mise à jour`, req)
     res.status(200).json({ data: schedule, message: 'Schedule updated successfully' } as Return)
   }
 
@@ -59,6 +62,7 @@ export class ScheduleController {
     const id = Number(req.params.id)
 
     await scheduleService.delete(id)
+    Log.info(`La plage horaire d'ID #${id} a été supprimée`, req)
     res.status(200).json({ message: 'Schedule deleted successfully' } as Return)
   }
 }

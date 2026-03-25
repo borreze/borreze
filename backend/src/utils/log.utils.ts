@@ -3,7 +3,15 @@ import { Request } from 'express'
 import { LogAttributesCreation, LogLevel } from "@brz/shared";
 
 export class Log {
-    private static async make(message: string, level: LogLevel, req?: Request): Promise<Log> {
+    /**
+     * Create a log entry
+     * @param message The log message
+     * @param level The log level
+     * @param req The request object
+     * @param capture Whether to capture request data. Can be set to false to avoid logging sensitive data in the request body or query (e.g. for auth routes)
+     * @returns The created log entry
+     */
+    private static async make(message: string, level: LogLevel, req?: Request, capture: boolean = true): Promise<Log> {
         const data: LogAttributesCreation = {
             message,
             level,
@@ -12,12 +20,12 @@ export class Log {
         if (req) {
             data.user_agent = req.headers['user-agent']
             data.ip_address = req.ip || req.connection.remoteAddress || ''
-            data.user_id = Number(req?.params?.user_id || 0) || null
+            data.user_id = Number(req?.params?.user_id || req?.user?.id || 0) || null
             data.data = {
                 url: req.originalUrl,
                 method: req.method,
-                // body: req.body,
-                // query: req.query,
+                body: capture ? req.body : undefined,
+                query: capture ? req.query : undefined,
                 params: req.params
             }
         }
@@ -27,12 +35,12 @@ export class Log {
         return log
     }
 
-    static emergency(msg: string, req?: Request): void { Log.make(msg, "emergency", req); }
-    static alert(msg: string, req?: Request): void { Log.make(msg, "alert", req); }
-    static critical(msg: string, req?: Request): void { Log.make(msg, "critical", req); }
-    static error(msg: string, req?: Request): void { Log.make(msg, "error", req); }
-    static warning(msg: string, req?: Request): void { Log.make(msg, "warning", req); }
-    static notice(msg: string, req?: Request): void { Log.make(msg, "notice", req); }
-    static info(msg: string, req?: Request): void { Log.make(msg, "info", req); }
-    static debug(msg: string, req?: Request): void { Log.make(msg, "debug", req); }
+    static emergency(msg: string, req?: Request, capture: boolean = true): void { Log.make(msg, "emergency", req, capture); }
+    static alert(msg: string, req?: Request, capture: boolean = true): void { Log.make(msg, "alert", req, capture); }
+    static critical(msg: string, req?: Request, capture: boolean = true): void { Log.make(msg, "critical", req, capture); }
+    static error(msg: string, req?: Request, capture: boolean = true): void { Log.make(msg, "error", req, capture); }
+    static warning(msg: string, req?: Request, capture: boolean = true): void { Log.make(msg, "warning", req, capture); }
+    static notice(msg: string, req?: Request, capture: boolean = true): void { Log.make(msg, "notice", req, capture); }
+    static info(msg: string, req?: Request, capture: boolean = true): void { Log.make(msg, "info", req, capture); }
+    static debug(msg: string, req?: Request, capture: boolean = true): void { Log.make(msg, "debug", req, capture); }
 }

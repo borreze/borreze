@@ -9,7 +9,7 @@ export function initPopupCron(): void {
         try {
             await popupService.computeActive()
         } catch (error) {
-            Log.error(`Error computing popups statuses ${error}`)
+            Log.error(`Erreur lors du calcul des statuts des popups : ${error}`)
             Terminal.error(`Error computing popups statuses ${error}`)
         }
     })

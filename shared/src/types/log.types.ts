@@ -1,18 +1,18 @@
 import { Optional } from 'sequelize'
 
-export const LOG_RENTENTION_DAYS = 30
+export const LOG_RENTENTION_DAYS = 15
 
 export const LOG_LEVELS_KEYS = ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'] as const
 export type LogLevel = typeof LOG_LEVELS_KEYS[number]
 export const LOG_LEVELS_OBJECTS: { value: LogLevel, label: string, color?: string }[] = [
-    { value: 'emergency', label: 'Emergency', color: '#FF0000' },
-    { value: 'alert', label: 'Alert', color: '#FF7F00' },
-    { value: 'critical', label: 'Critical', color: '#FFBF00' },
-    { value: 'error', label: 'Error', color: '#FFFF00' },
-    { value: 'warning', label: 'Warning', color: '#7FFF00' },
-    { value: 'notice', label: 'Notice', color: '#00FF00' },
-    { value: 'info', label: 'Info', color: '#00FFFF' },
-    { value: 'debug', label: 'Debug', color: '#0000FF' },
+    { value: 'emergency', label: 'Emergency', color: '#E57373' },
+    { value: 'alert', label: 'Alert', color: '#FFB074' },
+    { value: 'critical', label: 'Critical', color: '#FFD580' },
+    { value: 'error', label: 'Error', color: '#FFE082' },
+    { value: 'warning', label: 'Warning', color: '#C5E1A5' },
+    { value: 'notice', label: 'Notice', color: '#81C784' },
+    { value: 'info', label: 'Info', color: '#80DEEA' },
+    { value: 'debug', label: 'Debug', color: '#90CAF9' },
 ]
 
 export interface LogAttributes {

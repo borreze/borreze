@@ -9,7 +9,7 @@ export function initSchoolHolidayCron(): void {
         try {
             await schoolHolidayService.import()
         } catch (error) {
-            Log.error(`Error importing school holidays ${error}`)
+            Log.error(`Erreur lors de l'importation des vacances scolaires : ${error}`)
             Terminal.error(`Error importing school holidays ${error}`)
         }
     })

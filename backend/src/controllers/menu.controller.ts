@@ -5,6 +5,7 @@ import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
 import { Order, Pagination } from '@brz/shared'
 import { filterMenusForUser } from '../utils/menu.utils'
+import { Log } from '../utils/log.utils'
 
 export class MenuController {
   public getAllByScope: RequestHandler = async (req, res) => {
@@ -49,6 +50,7 @@ export class MenuController {
   public create: RequestHandler = async (req, res) => {
     const menu = await menuService.create(req.body)
 
+    Log.info(`Le menu d'ID #${menu?.id} a été créé`, req)
     res.status(201).json({ data: menu, message: 'Menu created successfully' } as Return)
   }
 
@@ -56,6 +58,7 @@ export class MenuController {
     const id = Number(req.params.id)
 
     const menu = await menuService.update(id, req.body)
+    Log.info(`Le menu d'ID #${id} a été mis à jour`, req)
     res.status(200).json({ data: menu, message: 'Menu updated successfully' } as Return)
   }
 
@@ -63,6 +66,7 @@ export class MenuController {
     const id = Number(req.params.id)
 
     await menuService.delete(id)
+    Log.info(`Le menu d'ID #${id} a été supprimé`, req)
     res.status(200).json({ message: 'Menu deleted successfully' } as Return)
   }
 }

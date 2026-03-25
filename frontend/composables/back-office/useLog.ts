@@ -3,7 +3,7 @@ import type { Order, LogAttributes } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 
-const DEBOUNCE_DELAY = 400
+const DEBOUNCE_DELAY = 600
 
 export const useLogs = async () => {
     const page = ref(1)
