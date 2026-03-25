@@ -1,5 +1,6 @@
 import { paginationDefault, type MediaAttributes, type MediaType } from '@brz/shared'
 import type { Order, Pagination } from '@brz/shared'
+import { useDebounce } from '../useDebounce'
 
 const DEBOUNCE_DELAY = 600
 
@@ -26,11 +27,8 @@ export const useMedias = async (options: { type?: MediaType | 'all' } = {}) => {
         { watch: [page, order, type] }
     )
 
-    let debounceTimer: ReturnType<typeof setTimeout> | null = null
-    watch(search, () => {
-        if (debounceTimer) clearTimeout(debounceTimer)
-        debounceTimer = setTimeout(() => execute(), DEBOUNCE_DELAY)
-    })
+    const { run: debouncedExecute } = useDebounce(execute, DEBOUNCE_DELAY)
+    watch(search, debouncedExecute)
 
     const setOrder = (newOrder: Order) => {
         order.value = newOrder;

@@ -2,6 +2,7 @@ import type { RouteRecordNormalized } from 'vue-router'
 import { isQueryValid, type SearchResult } from '@brz/shared'
 import useApi from '~/composables/useApi'
 import { getRoutes } from '~/utils/routing'
+import { useDebounce } from '../useDebounce'
 
 const DEBOUNCE_DELAY = 1000
 
@@ -26,13 +27,8 @@ export const useSearch = async (q: string) => {
         { immediate: true }
     )
 
-    let debounceTimer: ReturnType<typeof setTimeout> | null = null
-    watch(query, () => {
-        if (debounceTimer) clearTimeout(debounceTimer)
-        debounceTimer = setTimeout(() => {
-            execute()
-        }, DEBOUNCE_DELAY)
-    })
+    const { run: debouncedExecute } = useDebounce(execute, DEBOUNCE_DELAY)
+    watch(query, debouncedExecute)
 
     const setQuery = (newQuery: string) => {
         query.value = newQuery

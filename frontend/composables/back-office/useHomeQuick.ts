@@ -2,6 +2,7 @@ import { paginationDefault } from '@brz/shared';
 import type { HomeQuickAttributes, Order } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
+import { useDebounce } from '../useDebounce';
 
 const DEBOUNCE_DELAY = 600
 
@@ -27,13 +28,8 @@ export const useHomeQuicks = async () => {
         { watch: [page, order] }
     )
 
-    let debounceTimer: ReturnType<typeof setTimeout> | null = null
-    watch(search, () => {
-        if (debounceTimer) clearTimeout(debounceTimer)
-        debounceTimer = setTimeout(() => {
-            execute()
-        }, DEBOUNCE_DELAY)
-    })
+    const { run: debouncedExecute } = useDebounce(execute, DEBOUNCE_DELAY)
+    watch(search, debouncedExecute)
 
     const setOrder = (newOrder: Order) => {
         order.value = newOrder
