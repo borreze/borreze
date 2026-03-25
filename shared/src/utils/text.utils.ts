@@ -1,6 +1,28 @@
 import { USER_PASSWORD_SCORE_REQUIRED } from "../types/user.types";
 import { passwordGetScore } from "./password.utils";
 
+export const normalize = (text: string | null | undefined, keepNonWord = false): string => {
+    if (!text) return ''
+
+    let result = text
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim()
+        .replace(/['’]/g, '-')
+        .replace(/\s+/g, '-')
+
+    if (!keepNonWord) {
+        result = result.replace(/[^\w-]+/g, '')
+    }
+
+    return result
+        .replace(/--+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '')
+}
+
 export function isEmail(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 255 && email.length >= 5 && !email.includes("&") && !email.includes(" ");
 }

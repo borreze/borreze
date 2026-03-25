@@ -1,31 +1,15 @@
 import path from 'path'
 import fs from 'fs'
 import { MediaException } from '../exceptions/media.exception'
-import { MEDIA_UPLOAD_DIR } from '@brz/shared'
+import { MEDIA_UPLOAD_DIR, MEDIA_UPLOAD_UNIQUE_ATTEMPTS, normalize } from '@brz/shared'
 
-export const normalizeFilename = (text: string | null | undefined): string => { // cant use slugify since it removes too much chars, e.g. "photo de l'été.jpg" -> "photo-de-l-t-jpg"
-    if (!text) return ''
+const normalizeFilename = (text: string | null | undefined): string => normalize(text, true)
 
-    return text
-        .toString()
-        .normalize('NFD')                     // separate accent from letter
-        .replace(/[\u0300-\u036f]/g, '')      // remove all accents
-        .toLowerCase()
-        .trim()
-        .replace(/['’]/g, '-')                // replace apostrophes
-        .replace(/\s+/g, '-')                 // spaces -> -
-        .replace(/--+/g, '-')                 // multiple - -> single -
-        .replace(/^-+/, '')                   // trim - start
-        .replace(/-+$/, '')                   // trim - end
-}
-
-export function uniqueFilename(filename: string, dir: string): string {
-    const MAX_UNIQUE_ATTEMPTS = 100
-
+function uniqueFilename(filename: string, dir: string): string {
     const ext = path.extname(filename)          // ".jpg"
     const base = path.basename(filename, ext)   // "photo"
 
-    for (let i = 0; i < MAX_UNIQUE_ATTEMPTS; i++) {
+    for (let i = 0; i < MEDIA_UPLOAD_UNIQUE_ATTEMPTS; i++) {
         const candidate = i === 0
             ? `${base}${ext}`
             : `${base}-${i}${ext}`
@@ -35,10 +19,10 @@ export function uniqueFilename(filename: string, dir: string): string {
         }
     }
 
-    throw new MediaException(`Unable to generate a unique filename for "${filename}" after ${MAX_UNIQUE_ATTEMPTS} attempts`)
+    throw new MediaException(`Unable to generate a unique filename for "${filename}" after ${MEDIA_UPLOAD_UNIQUE_ATTEMPTS} attempts`)
 }
 
-export function createFilename(filename: string, dir: string): string {
+export function mediaMakeFilename(filename: string, dir: string): string {
     return uniqueFilename(normalizeFilename(filename), dir)
 }
 

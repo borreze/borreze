@@ -16,7 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import type { SearchResult } from '@brz/shared'
+import { type SearchResult } from '@brz/shared'
+import { normalize } from 'node:path';
 
 const props = defineProps<{
     result: SearchResult
@@ -25,9 +26,6 @@ const props = defineProps<{
 
 const highlightedTitle = computed(() => {
     if (!props.query?.trim() || !props.result.title) return props.result.title
-
-    const normalize = (str: string) =>
-        str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
     const escaped = normalize(props.query).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     const regex = new RegExp(escaped, 'gi')
