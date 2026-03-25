@@ -3,7 +3,8 @@
         <Transition enter-active-class="transition-opacity duration-300" enter-from-class="opacity-0"
             enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300"
             leave-from-class="opacity-100" leave-to-class="opacity-0">
-            <div v-if="open && !isStaticMode" :class="['fixed inset-0 bg-black/70', zCLasses.backdrop]" @click="close" />
+            <div v-if="open && !isStaticMode" :class="['fixed inset-0 bg-black/70', zClasses.backdrop]"
+                @click="close" />
         </Transition>
 
         <Transition v-if="!isStaticMode" enter-active-class="transition-transform duration-300"
@@ -11,7 +12,7 @@
             leave-active-class="transition-transform duration-300" leave-from-class="translate-x-0"
             :leave-to-class="leaveToClass">
             <aside v-if="open"
-                :class="['fixed top-0 bottom-0  bg-white shadow-2xl z-50 flex flex-col overflow-y-auto', zCLasses.panel, sideClass]"
+                :class="['fixed top-0 bottom-0  bg-white shadow-2xl z-50 flex flex-col overflow-y-auto', zClasses.panel, sideClass]"
                 :style="[`width: ${width}px`]">
                 <div :class="['flex items-center p-4', side === 'left' ? 'justify-end' : 'justify-start']">
                     <Button icon="ic:baseline-close" variant="ghost" size="lg" @click="close" />
@@ -29,18 +30,19 @@
 
 <script setup lang="ts">
 import Button from '~/components/atoms/Button.vue';
+import type { ComponentZIndexLevel } from '~/types/component';
 
 const props = withDefaults(defineProps<{
     open: boolean
     side?: 'left' | 'right'
     alwaysDisplay?: boolean
     width?: number
-    level?: 1 | 2
+    zLevel?: ComponentZIndexLevel
 }>(), {
     side: 'right',
     alwaysDisplay: false,
     width: 320,
-    level: 1
+    zLevel: 1
 })
 
 const emit = defineEmits<{
@@ -81,12 +83,15 @@ function handleKey(e: KeyboardEvent) {
     }
 }
 
-const zCLasses = computed(() => {
-    if (props.level === 1) {
+const zClasses = computed(() => {
+    if (props.zLevel === 1) {
         return { backdrop: 'z-40', panel: 'z-50' }
     }
-    if (props.level === 2) {
+    if (props.zLevel === 2) {
         return { backdrop: 'z-60', panel: 'z-70' }
+    }
+    if (props.zLevel === 3) {
+        return { backdrop: 'z-80', panel: 'z-90' }
     }
 
     return { backdrop: 'z-40', panel: 'z-50' }

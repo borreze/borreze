@@ -39,12 +39,12 @@
         </p>
 
         <!-- Add modal -->
-        <Modal v-model:open="addModal" :level="2" title="Ajouter un média">
+        <Modal v-model:open="addModal" :z-level="modalZLevel" title="Ajouter un média">
             <MediaFormCreate :multiple="multiple" :media-type="mediaType" @uploaded="handleUploaded" />
         </Modal>
 
         <!-- Pick modal -->
-        <Modal v-model:open="pickModal" :level="2" title="Séléctionner des médias" :max-width="1200">
+        <Modal v-model:open="pickModal" :z-level="modalZLevel" title="Séléctionner des médias">
             <div class="mb-4 max-w-lg">
                 <Field v-model="search" placeholder="Rechercher..." icon="ic:baseline-search" size="sm" roundness="md"
                     class="flex-1" />
@@ -72,7 +72,6 @@
     </div>
 </template>
 
-+
 <script setup lang="ts" generic="TMultiple extends boolean = false">
 import type { MediaAttributes, MediaType } from '@brz/shared';
 import Grid from '~/components/molecules/Grid.vue';
@@ -86,6 +85,7 @@ import Field from '~/components/atoms/Field.vue';
 import MediaCard from '~/components/organisms/back-office/MediaCard.vue';
 import Loader from '~/components/molecules/Loader.vue';
 import NoContent from '~/components/molecules/NoContent.vue';
+import type { ComponentZIndexLevel } from '~/types/component';
 
 type PickerModelValue = TMultiple extends true ? MediaAttributes[] : MediaAttributes;
 
@@ -97,10 +97,12 @@ const props = withDefaults(defineProps<{
     required?: boolean
     multiple?: TMultiple
     error?: string | null
+    modalZLevel?: ComponentZIndexLevel
 }>(), {
     label: 'Médias',
     hint: 'Sélectionnez des médias',
     required: false,
+    modalZLevel: 1,
 })
 
 const isMultiple = computed(() => props.multiple ?? false)

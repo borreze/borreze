@@ -1,165 +1,182 @@
 <template>
-    <div ref="editorRef" id="wysiwyg-editor" class="wysiwyg-editor">
-        <div v-if="editor" :class="['wysiwyg-toolbar']" :style="{ opacity: editorToolbarVisible ? 1 : 0 }">
-            <!-- Undo et Redo -->
-            <div class="wysiwyg-toolbar__group">
-                <Button variant="ghost" :disabled="!editor.can().undo()" title="Annuler (Ctrl+Z)" roundness="sm"
-                    size="sm" icon="ic:baseline-undo" @click="editor.chain().focus().undo().run()" />
-                <Button variant="ghost" :disabled="!editor.can().redo()" title="Rétablir (Ctrl+Y)" roundness="sm"
-                    size="sm" icon="ic:baseline-redo" @click="editor.chain().focus().redo().run()" />
-            </div>
+    <component :is="mainContainerComponent" v-model:open="fullscreen" :z-level="1">
+        <div
+            :class="[fullscreen ? 'h-[60vh] w-[80vw] md:w-[70vw] md:h-[70vh] lg:w-[80vw] lg:h-[80vh] overflow-y-scroll' : '']">
+            <div ref="editorRef" id="wysiwyg-editor" class="wysiwyg-editor">
+                <div v-if="editor" :class="['wysiwyg-toolbar']" :style="{ opacity: editorToolbarVisible ? 1 : 0 }">
+                    <!-- Undo et Redo -->
+                    <div class="wysiwyg-toolbar__group">
+                        <Button variant="ghost" :disabled="!editor.can().undo()" title="Annuler (Ctrl+Z)" roundness="sm"
+                            size="sm" icon="ic:baseline-undo" @click="editor.chain().focus().undo().run()" />
+                        <Button variant="ghost" :disabled="!editor.can().redo()" title="Rétablir (Ctrl+Y)"
+                            roundness="sm" size="sm" icon="ic:baseline-redo"
+                            @click="editor.chain().focus().redo().run()" />
+                    </div>
 
-            <!-- Copy HTML -->
-            <div class="wysiwyg-toolbar__group">
-                <Button variant="ghost" title="Exporter le HTML" icon="ic:baseline-import-export" roundness="sm"
-                    size="sm" @click="handleEditorExport" />
-            </div>
+                    <!-- Fullscreen -->
+                    <div class="wysiwyg-toolbar__group !hidden lg:!flex">
+                        <Button variant="ghost" title="Plein écran"
+                            :icon="fullscreen ? 'ic:baseline-fullscreen-exit' : 'ic:baseline-fullscreen'" roundness="sm"
+                            size="sm" @click="toggleFullscreen" />
+                    </div>
 
-            <!-- Formatting -->
-            <div v-if="anyFeature('bold', 'italic', 'underline', 'strike')" class="wysiwyg-toolbar__group">
-                <Button v-if="hasFeature('bold')" :variant="editor.isActive('bold') ? 'primary' : 'ghost'"
-                    title="Gras (Ctrl+B)" roundness="sm" size="sm" icon="ic:baseline-format-bold"
-                    @click="editor.chain().focus().toggleBold().run()" />
-                <Button v-if="hasFeature('italic')" :variant="editor.isActive('italic') ? 'primary' : 'ghost'"
-                    title="Italique (Ctrl+I)" roundness="sm" size="sm" icon="ic:baseline-format-italic"
-                    @click="editor.chain().focus().toggleItalic().run()" />
-                <Button v-if="hasFeature('underline')" :variant="editor.isActive('underline') ? 'primary' : 'ghost'"
-                    title="Souligné (Ctrl+U)" roundness="sm" size="sm" icon="ic:baseline-format-underlined"
-                    @click="editor.chain().focus().toggleUnderline().run()" />
-                <Button v-if="hasFeature('strike')" :variant="editor.isActive('strike') ? 'primary' : 'ghost'"
-                    title="Barré" roundness="sm" size="sm" icon="ic:baseline-format-strikethrough"
-                    @click="editor.chain().focus().toggleStrike().run()" />
-            </div>
+                    <!-- Copy HTML -->
+                    <div class="wysiwyg-toolbar__group">
+                        <Button variant="ghost" title="Exporter le HTML" icon="ic:baseline-import-export" roundness="sm"
+                            size="sm" @click="handleEditorExport" />
+                    </div>
 
-            <!-- Headings -->
-            <div v-if="hasFeature('heading')" class="wysiwyg-toolbar__group">
-                <Button v-for="lvl in headingLevels" :key="lvl"
-                    :variant="editor.isActive('heading', { level: lvl }) ? 'primary' : 'ghost'" :label="`H${lvl}`"
-                    roundness="sm" size="sm" class="font-mono font-bold" title="Titre"
-                    @click="editor.chain().focus().toggleHeading({ level: lvl as HeadingLevel }).run()" />
-            </div>
+                    <!-- Formatting -->
+                    <div v-if="anyFeature('bold', 'italic', 'underline', 'strike')" class="wysiwyg-toolbar__group">
+                        <Button v-if="hasFeature('bold')" :variant="editor.isActive('bold') ? 'primary' : 'ghost'"
+                            title="Gras (Ctrl+B)" roundness="sm" size="sm" icon="ic:baseline-format-bold"
+                            @click="editor.chain().focus().toggleBold().run()" />
+                        <Button v-if="hasFeature('italic')" :variant="editor.isActive('italic') ? 'primary' : 'ghost'"
+                            title="Italique (Ctrl+I)" roundness="sm" size="sm" icon="ic:baseline-format-italic"
+                            @click="editor.chain().focus().toggleItalic().run()" />
+                        <Button v-if="hasFeature('underline')"
+                            :variant="editor.isActive('underline') ? 'primary' : 'ghost'" title="Souligné (Ctrl+U)"
+                            roundness="sm" size="sm" icon="ic:baseline-format-underlined"
+                            @click="editor.chain().focus().toggleUnderline().run()" />
+                        <Button v-if="hasFeature('strike')" :variant="editor.isActive('strike') ? 'primary' : 'ghost'"
+                            title="Barré" roundness="sm" size="sm" icon="ic:baseline-format-strikethrough"
+                            @click="editor.chain().focus().toggleStrike().run()" />
+                    </div>
 
-            <!-- Alignment -->
-            <div v-if="hasFeature('textAlign')" class="wysiwyg-toolbar__group">
-                <Button :variant="editor.isActive({ textAlign: 'left' }) ? 'primary' : 'ghost'" title="Aligner à gauche"
-                    icon="ic:baseline-format-align-left" roundness="sm" size="sm"
-                    @click="editor.chain().focus().setTextAlign('left').run()" />
-                <Button :variant="editor.isActive({ textAlign: 'center' }) ? 'primary' : 'ghost'" title="Centrer"
-                    icon="ic:baseline-format-align-center" roundness="sm" size="sm"
-                    @click="editor.chain().focus().setTextAlign('center').run()" />
-                <Button :variant="editor.isActive({ textAlign: 'right' }) ? 'primary' : 'ghost'"
-                    icon="ic:baseline-format-align-right" title="Aligner à droite" roundness="sm" size="sm"
-                    @click="editor.chain().focus().setTextAlign('right').run()" />
-                <Button :variant="editor.isActive({ textAlign: 'justify' }) ? 'primary' : 'ghost'" title="Justifier"
-                    icon="ic:baseline-format-align-justify" roundness="sm" size="sm"
-                    @click="editor.chain().focus().setTextAlign('justify').run()" />
-            </div>
+                    <!-- Headings -->
+                    <div v-if="hasFeature('heading')" class="wysiwyg-toolbar__group">
+                        <Button v-for="lvl in headingLevels" :key="lvl"
+                            :variant="editor.isActive('heading', { level: lvl }) ? 'primary' : 'ghost'"
+                            :label="`H${lvl}`" roundness="sm" size="sm" class="font-mono font-bold" title="Titre"
+                            @click="editor.chain().focus().toggleHeading({ level: lvl as HeadingLevel }).run()" />
+                    </div>
 
-            <!-- Lists -->
-            <div v-if="anyFeature('bulletList', 'orderedList')" class="wysiwyg-toolbar__group">
-                <Button v-if="hasFeature('bulletList')" :variant="editor.isActive('bulletList') ? 'primary' : 'ghost'"
-                    title="Liste à puces" roundness="sm" size="sm" icon="ic:baseline-format-list-bulleted"
-                    @click="editor.chain().focus().toggleBulletList().run()" />
-                <Button v-if="hasFeature('orderedList')" :variant="editor.isActive('orderedList') ? 'primary' : 'ghost'"
-                    title="Liste numérotée" roundness="sm" size="sm" icon="ic:baseline-format-list-numbered"
-                    @click="editor.chain().focus().toggleOrderedList().run()" />
-            </div>
+                    <!-- Alignment -->
+                    <div v-if="hasFeature('textAlign')" class="wysiwyg-toolbar__group">
+                        <Button :variant="editor.isActive({ textAlign: 'left' }) ? 'primary' : 'ghost'"
+                            title="Aligner à gauche" icon="ic:baseline-format-align-left" roundness="sm" size="sm"
+                            @click="editor.chain().focus().setTextAlign('left').run()" />
+                        <Button :variant="editor.isActive({ textAlign: 'center' }) ? 'primary' : 'ghost'"
+                            title="Centrer" icon="ic:baseline-format-align-center" roundness="sm" size="sm"
+                            @click="editor.chain().focus().setTextAlign('center').run()" />
+                        <Button :variant="editor.isActive({ textAlign: 'right' }) ? 'primary' : 'ghost'"
+                            icon="ic:baseline-format-align-right" title="Aligner à droite" roundness="sm" size="sm"
+                            @click="editor.chain().focus().setTextAlign('right').run()" />
+                        <Button :variant="editor.isActive({ textAlign: 'justify' }) ? 'primary' : 'ghost'"
+                            title="Justifier" icon="ic:baseline-format-align-justify" roundness="sm" size="sm"
+                            @click="editor.chain().focus().setTextAlign('justify').run()" />
+                    </div>
 
-            <!-- Block -->
-            <div v-if="anyFeature('blockquote', 'codeBlock', 'horizontalRule')" class="wysiwyg-toolbar__group">
-                <Button v-if="hasFeature('blockquote')" :variant="editor.isActive('blockquote') ? 'primary' : 'ghost'"
-                    title="Citation" roundness="sm" size="sm" icon="ic:baseline-format-quote"
-                    @click="editor.chain().focus().toggleBlockquote().run()" />
-                <Button v-if="hasFeature('codeBlock')" :variant="editor.isActive('codeBlock') ? 'primary' : 'ghost'"
-                    title="Bloc de code" roundness="sm" size="sm" icon="ic:baseline-code"
-                    @click="editor.chain().focus().toggleCodeBlock().run()" />
-                <Button v-if="hasFeature('horizontalRule')" variant="ghost" title="Ligne horizontale" roundness="sm"
-                    size="sm" icon="ic:baseline-horizontal-rule"
-                    @click="editor.chain().focus().setHorizontalRule().run()" />
-            </div>
+                    <!-- Lists -->
+                    <div v-if="anyFeature('bulletList', 'orderedList')" class="wysiwyg-toolbar__group">
+                        <Button v-if="hasFeature('bulletList')"
+                            :variant="editor.isActive('bulletList') ? 'primary' : 'ghost'" title="Liste à puces"
+                            roundness="sm" size="sm" icon="ic:baseline-format-list-bulleted"
+                            @click="editor.chain().focus().toggleBulletList().run()" />
+                        <Button v-if="hasFeature('orderedList')"
+                            :variant="editor.isActive('orderedList') ? 'primary' : 'ghost'" title="Liste numérotée"
+                            roundness="sm" size="sm" icon="ic:baseline-format-list-numbered"
+                            @click="editor.chain().focus().toggleOrderedList().run()" />
+                    </div>
 
-            <!-- Link -->
-            <div v-if="hasFeature('link')" class="wysiwyg-toolbar__group">
-                <Button :variant="editor.isActive('link') ? 'primary' : 'ghost'" title="Lien" roundness="sm" size="sm"
-                    icon="ic:baseline-link" @click="openLinkModal" />
-                <Button v-if="editor.isActive('link')" variant="ghost" roundness="sm" size="sm"
-                    icon="ic:baseline-link-off" title="Supprimer le lien"
-                    @click="editor.chain().focus().unsetLink().run()" />
-            </div>
+                    <!-- Block -->
+                    <div v-if="anyFeature('blockquote', 'codeBlock', 'horizontalRule')" class="wysiwyg-toolbar__group">
+                        <Button v-if="hasFeature('blockquote')"
+                            :variant="editor.isActive('blockquote') ? 'primary' : 'ghost'" title="Citation"
+                            roundness="sm" size="sm" icon="ic:baseline-format-quote"
+                            @click="editor.chain().focus().toggleBlockquote().run()" />
+                        <Button v-if="hasFeature('codeBlock')"
+                            :variant="editor.isActive('codeBlock') ? 'primary' : 'ghost'" title="Bloc de code"
+                            roundness="sm" size="sm" icon="ic:baseline-code"
+                            @click="editor.chain().focus().toggleCodeBlock().run()" />
+                        <Button v-if="hasFeature('horizontalRule')" variant="ghost" title="Ligne horizontale"
+                            roundness="sm" size="sm" icon="ic:baseline-horizontal-rule"
+                            @click="editor.chain().focus().setHorizontalRule().run()" />
+                    </div>
 
-            <!-- Image -->
-            <div v-if="hasFeature('image')" class="wysiwyg-toolbar__group">
-                <Button variant="ghost" roundness="sm" size="sm" icon="ic:baseline-image" title="Insérer une image"
-                    @click="openImageModal" />
-            </div>
+                    <!-- Link -->
+                    <div v-if="hasFeature('link')" class="wysiwyg-toolbar__group">
+                        <Button :variant="editor.isActive('link') ? 'primary' : 'ghost'" title="Lien" roundness="sm"
+                            size="sm" icon="ic:baseline-link" @click="openLinkModal" />
+                        <Button v-if="editor.isActive('link')" variant="ghost" roundness="sm" size="sm"
+                            icon="ic:baseline-link-off" title="Supprimer le lien"
+                            @click="editor.chain().focus().unsetLink().run()" />
+                    </div>
 
-            <!-- Table -->
-            <div v-if="hasFeature('table')" class="wysiwyg-toolbar__group">
-                <Button title="Insérer un tableau" roundness="sm" size="sm" variant="ghost"
-                    icon="fluent:table-add-20-filled"
-                    @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()" />
+                    <!-- Image -->
+                    <div v-if="hasFeature('image')" class="wysiwyg-toolbar__group">
+                        <Button variant="ghost" roundness="sm" size="sm" icon="ic:baseline-image"
+                            title="Insérer une image" @click="openImageModal" />
+                    </div>
 
-                <template v-if="editor.isActive('table')">
-                    <Button title="Ajouter colonne après" roundness="sm" size="sm" variant="ghost"
-                        icon="fluent:table-insert-column-20-filled"
-                        @click="editor.chain().focus().addColumnAfter().run()" />
-                    <Button title="Supprimer colonne" roundness="sm" size="sm" variant="ghost"
-                        icon="fluent:table-delete-column-20-filled"
-                        @click="editor.chain().focus().deleteColumn().run()" />
-                    <Button title="Ajouter ligne après" roundness="sm" size="sm" variant="ghost"
-                        icon="fluent:table-insert-row-20-filled" @click="editor.chain().focus().addRowAfter().run()" />
-                    <Button title="Supprimer ligne" roundness="sm" size="sm" variant="ghost"
-                        icon="fluent:table-delete-row-20-filled" @click="editor.chain().focus().deleteRow().run()" />
-                    <Button title="Supprimer le tableau" roundness="sm" size="sm" variant="warning"
-                        icon="fluent:table-dismiss-24-filled" @click="editor.chain().focus().deleteTable().run()" />
-                </template>
-            </div>
+                    <!-- Table -->
+                    <div v-if="hasFeature('table')" class="wysiwyg-toolbar__group">
+                        <Button title="Insérer un tableau" roundness="sm" size="sm" variant="ghost"
+                            icon="fluent:table-add-20-filled"
+                            @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()" />
 
-            <!-- Button -->
-            <div v-if="hasFeature('button')" class="wysiwyg-toolbar__group">
-                <Button title="Bouton" roundness="sm" size="sm" variant="ghost" icon="fluent:button-20-filled"
-                    @click="openButtonModal" />
+                        <template v-if="editor.isActive('table')">
+                            <Button title="Ajouter colonne après" roundness="sm" size="sm" variant="ghost"
+                                icon="fluent:table-insert-column-20-filled"
+                                @click="editor.chain().focus().addColumnAfter().run()" />
+                            <Button title="Supprimer colonne" roundness="sm" size="sm" variant="ghost"
+                                icon="fluent:table-delete-column-20-filled"
+                                @click="editor.chain().focus().deleteColumn().run()" />
+                            <Button title="Ajouter ligne après" roundness="sm" size="sm" variant="ghost"
+                                icon="fluent:table-insert-row-20-filled"
+                                @click="editor.chain().focus().addRowAfter().run()" />
+                            <Button title="Supprimer ligne" roundness="sm" size="sm" variant="ghost"
+                                icon="fluent:table-delete-row-20-filled"
+                                @click="editor.chain().focus().deleteRow().run()" />
+                            <Button title="Supprimer le tableau" roundness="sm" size="sm" variant="warning"
+                                icon="fluent:table-dismiss-24-filled"
+                                @click="editor.chain().focus().deleteTable().run()" />
+                        </template>
+                    </div>
+
+                    <!-- Button -->
+                    <div v-if="hasFeature('button')" class="wysiwyg-toolbar__group">
+                        <Button title="Bouton" roundness="sm" size="sm" variant="ghost" icon="fluent:button-20-filled"
+                            @click="openButtonModal" />
+                    </div>
+                </div>
+
+                <!-- editor -->
+                <editor-content class="wysiwyg-content wy-prose" :editor="editor" />
             </div>
         </div>
+    </component>
 
-        <!-- editor -->
-        <editor-content class="wysiwyg-content wy-prose" :editor="editor" />
+    <!-- Link modal -->
+    <Modal v-model:open="showLinkModal" :z-level="2" title="Insérer un lien" textConfirm="Ajouter" textCancel="Annuler"
+        :onConfirm="setLink" :onCancel="closeLinkModal">
+        <div class="flex flex-col gap-4 min-w-[300px]">
+            <Field v-model="linkUrl" roundness="md" type="url" label="URL du lien" placeholder="https://exemple.com" />
+            <Field v-model="linkLabel" roundness="md" label="Texte du lien" placeholder="Texte du lien (optionnel)" />
+        </div>
+    </Modal>
 
-        <!-- Link modal -->
-        <Modal v-model:open="showLinkModal" :level="2" title="Insérer un lien" textConfirm="Ajouter" textCancel="Annuler"
-            :onConfirm="setLink" :onCancel="closeLinkModal">
-            <div class="flex flex-col gap-4">
-                <Field v-model="linkUrl" roundness="md" type="url" label="URL du lien"
-                    placeholder="https://exemple.com" />
-                <Field v-model="linkLabel" roundness="md" label="Texte du lien"
-                    placeholder="Texte du lien (optionnel)" />
-            </div>
-        </Modal>
+    <!-- Image modal -->
+    <Modal v-model:open="imageModal" :z-level="2" title="Insérer une image" textConfirm="Ajouter" textCancel="Annuler"
+        :onConfirm="insertImage" :onCancel="closeImageModal">
+        <div class="flex flex-col gap-4 min-w-[300px]">
+            <MediaPicker v-model="imageMedia" :modal-z-level="3" media-type="image" required label="Image" />
+            <Field v-model="imageAlt" roundness="md" label="Texte alternatif"
+                placeholder="Texte alternatif de l'image" />
+            <Field v-model="imageWidth" roundness="md" label="Largeur" placeholder="Largeur de l'image (ex: 400px)" />
+        </div>
+    </Modal>
 
-        <!-- Image modal -->
-        <Modal v-model:open="imageModal" :level="2" title="Insérer une image" textConfirm="Ajouter" textCancel="Annuler"
-            :onConfirm="insertImage" :onCancel="closeImageModal">
-            <div class="flex flex-col gap-4">
-                <MediaPicker v-model="imageMedia" media-type="image" required label="Image" />
-                <Field v-model="imageAlt" roundness="md" label="Texte alternatif"
-                    placeholder="Texte alternatif de l'image" />
-                <Field v-model="imageWidth" roundness="md" label="Largeur"
-                    placeholder="Largeur de l'image (ex: 400px)" />
-
-            </div>
-        </Modal>
-
-        <!-- Button modal -->
-        <Modal v-model:open="buttonModal" :level="2" title="Insérer un bouton" textConfirm="Ajouter" textCancel="Annuler"
-            :onConfirm="insertButton" :onCancel="closeButtonModal">
-            <div class="flex flex-col gap-4">
-                <Field v-model="boutonLabel" roundness="md" label="Texte du bouton" placeholder="Cliquez moi" />
-                <Field v-model="boutonHref" roundness="md" label="Lien" placeholder="https://exemple.com" />
-                <Dropdown v-model="boutonVariant" label="Style" :items="buttonVariantOptions" valueKey="key" full-width
-                    variant="light" />
-            </div>
-        </Modal>
-    </div>
+    <!-- Button modal -->
+    <Modal v-model:open="buttonModal" :z-level="2" title="Insérer un bouton" textConfirm="Ajouter" textCancel="Annuler"
+        :onConfirm="insertButton" :onCancel="closeButtonModal">
+        <div class="flex flex-col gap-4 min-w-[300px]">
+            <Field v-model="boutonLabel" roundness="md" label="Texte du bouton" placeholder="Cliquez moi" />
+            <Field v-model="boutonHref" roundness="md" label="Lien" placeholder="https://exemple.com" />
+            <Dropdown v-model="boutonVariant" label="Style" :items="buttonVariantOptions" valueKey="key" full-width
+                variant="light" />
+        </div>
+    </Modal>
 </template>
 
 <script setup lang="ts">
@@ -176,13 +193,13 @@ import TableRow from '@tiptap/extension-table-row'
 import TableHeader from '@tiptap/extension-table-header'
 import TableCell from '@tiptap/extension-table-cell'
 import { Node, mergeAttributes } from '@tiptap/core'
-import Modal from '~/components/molecules/Modal.vue'
 import Field from '~/components/atoms/Field.vue'
 import Dropdown from '~/components/molecules/Dropdown.vue'
 import Button from '~/components/atoms/Button.vue'
 import { push } from 'notivue'
 import type { MediaAttributes } from '@brz/shared'
 import MediaPicker from './MediaPicker.vue'
+import Modal from '~/components/molecules/Modal.vue'
 
 type Feature =
     | 'bold' | 'italic' | 'underline' | 'strike'
@@ -236,6 +253,20 @@ onMounted(() => {
 
 function hasFeature(f: Feature) { return props.features.includes(f) }
 function anyFeature(...fs: Feature[]) { return fs.some(f => props.features.includes(f)) }
+
+// -----------------------------------------------------------------------------
+// Fullscreen handling (for mobile)
+// -----------------------------------------------------------------------------
+
+const fullscreen = ref(false)
+
+function toggleFullscreen() {
+    fullscreen.value = !fullscreen.value
+}
+
+const mainContainerComponent = computed(() => {
+    return fullscreen.value ? Modal : 'div'
+})
 
 // -----------------------------------------------------------------------------
 // HTML Export
@@ -524,7 +555,7 @@ function insertButton() {
 
 .wysiwyg-toolbar {
     position: sticky;
-    top: -8px;
+    top: 0px;
     z-index: 10;
     /* Opacity transition for smooth hide/show when scrolling */
     transition: opacity 0.1s ease;

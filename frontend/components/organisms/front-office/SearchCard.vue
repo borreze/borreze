@@ -16,8 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { type SearchResult } from '@brz/shared'
-import { normalize } from 'node:path';
+import { normalize, type SearchResult } from '@brz/shared'
 
 const props = defineProps<{
     result: SearchResult

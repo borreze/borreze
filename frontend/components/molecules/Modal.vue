@@ -4,7 +4,7 @@
       enter-to-class="opacity-100" leave-active-class="transition-opacity duration-150" leave-from-class="opacity-100"
       leave-to-class="opacity-0">
       <div v-if="open"
-        :class="['fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-xs', zCLasses.backdrop]"
+        :class="['fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-xs', zClasses.backdrop]"
         @click="handleBackdropClick" />
     </Transition>
 
@@ -12,11 +12,10 @@
       enter-to-class="opacity-100 scale-100" leave-active-class="transition duration-150 ease-in"
       leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
       <div v-if="open"
-        :class="['fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto', zCLasses.modal]">
-        <div class="bg-white text-black rounded-lg p-6 m-3 shadow pointer-events-auto"
-          :style="{ maxWidth: props.maxWidth + 'px', minWidth: props.minWidth + 'px' }" @click.stop>
-          <div class="flex justify-between items-center mb-8">
-            <h2 class="title-submain">
+        :class="['fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto', zClasses.modal]">
+        <div class="bg-white text-black rounded-lg p-6 m-3 shadow pointer-events-auto" @click.stop>
+          <div :class="['flex items-center mb-8', (closable && !title) ? 'justify-end' : 'justify-between']">
+            <h2 v-if="title" class="title-submain">
               {{ title }}
             </h2>
             <button v-if="closable" @click="close"
@@ -31,7 +30,8 @@
 
           <div v-if="onCancel || onConfirm" class="flex justify-end space-x-2">
             <Button v-if="onCancel" variant="ghost" :label="textCancel" :icon="iconCancel" @click="handleCancel" />
-            <Button v-if="onConfirm" variant="primary" :label="textConfirm" :icon="iconConfirm" @click="handleConfirm" />
+            <Button v-if="onConfirm" variant="primary" :label="textConfirm" :icon="iconConfirm"
+              @click="handleConfirm" />
           </div>
         </div>
       </div>
@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import Button from '~/components/atoms/Button.vue'
+import type { ComponentZIndexLevel } from '~/types/component';
 
 const props = withDefaults(defineProps<{
   open: boolean
@@ -52,17 +53,14 @@ const props = withDefaults(defineProps<{
   textCancel?: string
   iconConfirm?: string
   iconCancel?: string
-  maxWidth?: number
-  minWidth?: number
-  level?: 1 | 2
+  zLevel?: ComponentZIndexLevel
+  fullscreen?: boolean
 }>(), {
-  title: 'Confirmation',
   closable: true,
   textConfirm: 'Confirmer',
   textCancel: 'Annuler',
-  maxWidth: 450,
-  minWidth: 300,
-  level: 1
+  zLevel: 1,
+  fullscreen: false,
 })
 
 const emit = defineEmits<{
@@ -100,12 +98,15 @@ const handleKey = (e: KeyboardEvent) => {
   }
 }
 
-const zCLasses = computed(() => {
-  if (props.level === 1) {
+const zClasses = computed(() => {
+  if (props.zLevel === 1) {
     return { backdrop: 'z-40', modal: 'z-50' }
   }
-  if (props.level === 2) {
+  if (props.zLevel === 2) {
     return { backdrop: 'z-60', modal: 'z-70' }
+  }
+  if (props.zLevel === 3) {
+    return { backdrop: 'z-80', modal: 'z-90' }
   }
 
   return { backdrop: 'z-40', modal: 'z-50' }
