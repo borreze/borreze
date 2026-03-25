@@ -74,7 +74,7 @@ const formContent = ref<ContactRequest>({
     message: ''
 })
 
-const { couldHaveErrors, touch, hasErrors, touched, errors, untouchAll, submit } = useForm(
+const { couldHaveErrors, touch, touched, errors, untouchAll, submit } = useForm(
     ['firstname', 'lastname', 'email', 'message'],
     {
         firstname: () => formContent.value.firstname === '' ? 'Le titre est requis' : null,

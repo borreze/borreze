@@ -144,7 +144,7 @@ const editingPostCategories = computed({
     },
 })
 
-const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
+const { couldHaveErrors, touch, errors, submit } = useForm(
     ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content', 'cover'],
     {
         title: () => editingPost.value.title === '' ? 'Le titre est requis' : null,

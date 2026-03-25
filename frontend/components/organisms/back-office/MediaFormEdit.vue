@@ -72,7 +72,7 @@ const emit = defineEmits<{
 
 const editingMedia = ref<MediaAttributes>({ ...props.initialMedia })
 
-const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
+const { couldHaveErrors, touch, errors, submit } = useForm(
     ['title'],
     {
         title: () => editingMedia.value.title === '' ? 'Le nom est requis' : null,

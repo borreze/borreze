@@ -94,7 +94,7 @@ const emit = defineEmits<{
 
 const editingPopup = ref<PopupAttributesFrontend>({ ...props.initialPopup })
 
-const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
+const { couldHaveErrors, touch, errors, submit } = useForm(
     ['date_from', 'date_to', 'title', 'content', 'is_active', 'media'],
     {
         title: () => editingPopup.value.title === '' ? 'Le titre est requis' : null,

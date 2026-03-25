@@ -91,7 +91,7 @@ const emit = defineEmits<{
 
 const editingHomeQuick = ref<HomeQuickAttributes>({ ...props.initialHomeQuick })
 
-const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
+const { couldHaveErrors, touch, errors, submit } = useForm(
     ['title', 'url', 'description', 'icon', 'order', 'is_visible'],
     {
         title: () => editingHomeQuick.value.title === '' ? 'Le titre est requis' : null,

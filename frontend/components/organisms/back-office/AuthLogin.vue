@@ -37,7 +37,7 @@ const formContent = ref<{
     password: '',
 })
 
-const { couldHaveErrors, touch, hasErrors, errors, submit } = useForm(
+const { couldHaveErrors, touch, errors, submit } = useForm(
     ['identifier', 'password'],
     {
         identifier: () => formContent.value.identifier === '' ? 'Le nom d\'utilisateur ou l\'e-mail est requis' : null,

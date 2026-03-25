@@ -90,7 +90,7 @@ const emit = defineEmits<{
 
 const editingUser = ref<UserAttributesFrontendPassword>({ ...props.initialUser })
 
-const { couldHaveErrors, hasErrors, touch, errors, submit } = useForm(
+const { couldHaveErrors, touch, errors, submit } = useForm(
     ['username', 'email', 'first_name', 'last_name', 'status', 'role_id', 'password'],
     {
         username: () => editingUser.value.username === '' ? 'Le nom d\'utilisateur est requis' : null,
