@@ -1,8 +1,8 @@
-import multer from 'multer'
 import { isTypeAllowed, MEDIA_UPLOAD_NB_LIMIT, MEDIA_UPLOAD_SIZE_LIMIT } from '@brz/shared'
 import { MEDIA_UPLOAD_DIR } from '@brz/shared'
 import { MediaException } from '../exceptions/media.exception'
 import { mediaMakeFilename } from '../utils/media.utils'
+import multer from 'multer'
 
 const storage = multer.diskStorage({
     destination: (_req, _file, cb) => {
