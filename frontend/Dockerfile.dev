@@ -15,10 +15,10 @@ COPY package*.json ./
 COPY shared/package*.json ./shared/
 COPY frontend/package*.json ./frontend/
 
-RUN npm ci
+RUN rm -f package-lock.json && npm install
 
 WORKDIR /app/frontend
 
 EXPOSE 5173
 
-CMD ["npm", "run", "dev"]
+CMD ["sh", "-c", "npm run dev"]

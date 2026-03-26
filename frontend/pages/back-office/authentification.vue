@@ -1,7 +1,7 @@
 <template>
     <div class="relative p-4 flex items-center justify-center md:min-h-screen">
         <NuxtImg
-            src="/images/borreze-centre.webp"
+            src="/photos/borreze-centre.webp"
             :quality="80"
             fit="cover"
             class="absolute inset-0 w-full h-full object-cover"

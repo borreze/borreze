@@ -1,7 +1,7 @@
 <template>
     <section id="home-hero" class="relative h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] min-h-[500px] overflow-hidden">
         <!-- Background image -->
-        <NuxtImg src="/images/borreze-place.webp" alt="Village de Borrèze"
+        <NuxtImg src="/photos/borreze-place.webp" alt="Village de Borrèze"
             class="absolute inset-0 h-full w-full object-cover" loading="eager" />
 
         <!-- Dark overlay -->
