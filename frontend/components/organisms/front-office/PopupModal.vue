@@ -1,13 +1,12 @@
 <template>
     <Modal v-if="isReady" v-model:open="opened" :title="popup?.title || 'Information'" textConfirm="Fermer"
         textCancel="Ne plus afficher" :onConfirm="handleConfirm" :onCancel="handleCancel">
-        <NuxtImg v-if="popup?.media && popup?.media.type === 'image'" class="w-full overflow-hidden rounded-lg"
-            :src="mediaUrl(popup?.media.file_path)" alt="Actualité" />
-
-        <p v-if="popup?.content" class="mt-6 text-dark prose max-w-none">{{ popup.content }}</p>
-
-        <div v-if="popup?.media && popup?.media.type !== 'image'" class="mt-4">
-            <Url :to="mediaUrl(popup?.media.file_path)" icon="ic:baseline-download" label="Plus d'informations" />
+        <div class="flex flex-col max-w-lg overflow-y-auto">
+            <p v-if="popup?.content" class="text-dark prose max-w-none">{{ popup.content }}</p>
+            
+            <div v-if="popup?.media" class="mt-4">
+                <Url :to="mediaUrl(popup?.media.file_path)" icon="ic:baseline-download" label="Plus d'informations" />
+            </div>
         </div>
     </Modal>
 </template>

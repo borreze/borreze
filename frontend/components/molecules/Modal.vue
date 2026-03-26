@@ -14,7 +14,7 @@
       <div v-if="open"
         :class="['fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto', zClasses.modal]">
         <div class="bg-white text-black rounded-lg p-6 m-3 shadow pointer-events-auto" @click.stop>
-          <div :class="['flex items-center mb-8', (closable && !title) ? 'justify-end' : 'justify-between']">
+          <div :class="['flex items-center mb-8 gap-8', (closable && !title) ? 'justify-end' : 'justify-between']">
             <h2 v-if="title" class="title-submain">
               {{ title }}
             </h2>
