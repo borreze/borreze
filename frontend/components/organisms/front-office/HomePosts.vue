@@ -17,7 +17,7 @@
                 </NuxtLink>
             </div>
 
-            <Grid v-if="posts?.length > 0" :items="posts">
+            <Grid v-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 2, md: 3 }">
                 <template #item="{ item }">
                     <PostCard :post="item" />
                 </template>

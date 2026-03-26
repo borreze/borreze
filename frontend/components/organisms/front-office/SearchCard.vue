@@ -1,6 +1,7 @@
 <template>
     <NuxtLink :to="result?._links.self_front">
-        <article class="group cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition hover:shadow-xl">
+        <article
+            class="group cursor-pointer overflow-hidden rounded-lg bg-white transition shadow-[2px_2px_10px_2px_#0000001a] hover:shadow-[4px_4px_20px_4px_#0000001a]">
             <div class="p-6 flex flex-col gap-2">
                 <span class="text-sm text-gray-500">
                     {{ result?._names.nice }}

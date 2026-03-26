@@ -53,7 +53,7 @@
             <div class="h-[60vh] w-[80vw] md:w-[70vw] overflow-y-auto">
                 <Loader v-if="loading" />
                 <div v-else-if="medias" class="mt-6">
-                    <Grid v-if="medias?.length > 0" :items="medias" :min-width="150">
+                    <Grid v-if="medias?.length > 0" :items="medias" :layouts="{ default: 2, sm: 3, md: 3, lg: 4, xl: 5, '2xl': 6 }" gap="1.5rem">
                         <template #item="{ item }">
                             <MediaCard :media="item" :disabled="disabled && !isSelected(item)" :delete-button="false"
                                 :edit-button="false" :open-button="false" :toggle-button="true"

@@ -12,8 +12,9 @@
             </div>
         </div>
         <Loader v-if="loading" />
-        <div v-else-if="results" class="mt-6">
-            <Grid v-if="results?.length > 0" :items="results">
+        <div v-else-if="results" class="mt-6 max-w-5xl mx-auto">
+            <Grid v-if="results?.length > 0" :items="results"
+                :layouts="{ default: 1, ...(results?.length > 1 ? { sm: 2, md: 3 } : {}) }">
                 <template #item="{ item }">
                     <SearchCard :result="item" :query="query" />
                 </template>

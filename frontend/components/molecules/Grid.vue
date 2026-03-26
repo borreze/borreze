@@ -7,50 +7,44 @@
 </template>
 
 <script setup lang="ts" generic="T">
+import type { Breakpoint } from '~/types/component';
+
 const props = withDefaults(defineProps<{
     items?: T[] | null
-    minWidth?: number | string | null
-    maxWidth?: number | string | null
     gap?: number | string
-    cols?: number
     keyField?: string
+    layouts?: Partial<Record<Breakpoint, number>>
 }>(), {
-    minWidth: 350,
-    maxWidth: null,
     gap: 'responsive',
-    keyField: 'id'
+    keyField: 'id',
+    layouts: () => ({ default: 1, sm: 2, lg: 3, xl: 4 }),
 })
 
 const gridStyle = computed(() => {
-    const minWidthValue =
-        typeof props.minWidth === 'number'
-            ? `${props.minWidth}px`
-            : props.minWidth
-
-    const maxWidthValue =
-        typeof props.maxWidth === 'number'
-            ? `${props.maxWidth}px`
-            : props.maxWidth
-
-    let gapValue: string
-    if (typeof props.gap === 'number') {
-        gapValue = `${props.gap}rem`
-    } else if (props.gap === 'responsive') {
-        gapValue = ''
-    } else {
-        gapValue = props.gap
-    }
-
     const styles: Record<string, string> = {}
 
-    if (props.cols) {
-        styles.gridTemplateColumns = `repeat(${props.cols}, 1fr)`
+    if (typeof props.gap === 'number') {
+        styles.gap = `${props.gap}rem`
+    } else if (props.gap === 'responsive') {
+        // do nothing
     } else {
-        styles.gridTemplateColumns = `repeat(auto-fill, minmax(${minWidthValue}, ${maxWidthValue ?? '1fr'}))`
+        styles.gap = props.gap
     }
 
-    if (gapValue) {
-        styles.gap = gapValue
+    if (props.layouts) {
+        const bpMap: Record<Breakpoint, string> = {
+            'default': '--grid-cols-default',
+            'xs':      '--grid-cols-xs',
+            'sm':      '--grid-cols-sm',
+            'md':      '--grid-cols-md',
+            'lg':      '--grid-cols-lg',
+            'xl':      '--grid-cols-xl',
+            '2xl':     '--grid-cols-2xl',
+            '3xl':     '--grid-cols-3xl',
+        }
+        for (const [bp, cols] of Object.entries(props.layouts) as [Breakpoint, number][]) {
+            if (cols !== undefined) styles[bpMap[bp]] = String(cols)
+        }
     }
 
     return styles
@@ -67,6 +61,49 @@ const getKey = (item: T, index: number): string | number => {
 <style scoped>
 .grid {
     display: grid;
+    grid-template-columns: repeat(var(--grid-cols-default, 1), minmax(0, 1fr));
+}
+
+@media (min-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(var(--grid-cols-xs, var(--grid-cols-default, 1)), minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(var(--grid-cols-sm, var(--grid-cols-default, 1)), minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(var(--grid-cols-md, var(--grid-cols-sm, var(--grid-cols-default, 1))), minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(var(--grid-cols-lg, var(--grid-cols-md, var(--grid-cols-sm, var(--grid-cols-default, 1)))), minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1280px) {
+    .grid {
+        grid-template-columns: repeat(var(--grid-cols-xl, var(--grid-cols-lg, var(--grid-cols-md, var(--grid-cols-sm, var(--grid-cols-default, 1))))), minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1536px) {
+    .grid {
+        grid-template-columns: repeat(var(--grid-cols-2xl, var(--grid-cols-xl, var(--grid-cols-lg, var(--grid-cols-md, var(--grid-cols-sm, var(--grid-cols-default, 1)))))), minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1920px) {
+    .grid {
+        grid-template-columns: repeat(var(--grid-cols-3xl, var(--grid-cols-2xl, var(--grid-cols-xl, var(--grid-cols-lg, var(--grid-cols-md, var(--grid-cols-sm, var(--grid-cols-default, 1))))))), minmax(0, 1fr));
+    }
 }
 
 .grid:not([style*="gap"]) {
