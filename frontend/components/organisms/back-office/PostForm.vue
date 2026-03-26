@@ -176,6 +176,7 @@ const handleDelete = () => {
 }
 
 watch(() => editingPost.value.title, (newTitle) => {
+    if (props.mode === 'edit') return // prevent slug from changing in edit so URL doesnt change
     editingPost.value.slug = slugify(newTitle)
 })
 </script>

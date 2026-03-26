@@ -113,10 +113,12 @@ const handleDelete = () => {
 }
 
 watch(() => editingUser.value.first_name, (firstName) => {
+    if (props.mode === 'edit') return
     editingUser.value.username = slugify(`${firstName}${editingUser.value.last_name || ''}`)
 })
 
 watch(() => editingUser.value.last_name, (lastName) => {
+    if (props.mode === 'edit') return
     editingUser.value.username = slugify(`${editingUser.value.first_name || ''}${lastName}`)
 })
 
