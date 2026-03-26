@@ -19,7 +19,6 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxtjs/sitemap',
-    '@vite-pwa/nuxt',
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
   ],
@@ -93,47 +92,4 @@ export default defineNuxtConfig({
   //     ignore: ['/robots.txt']
   //   }
   // },
-  pwa: {
-    registerType: 'autoUpdate',
-    manifest: {
-      name: project.name,
-      short_name: project.name,
-      description: project.description,
-      theme_color: '#ffffff',
-      background_color: '#ffffff',
-      display: 'standalone',
-      start_url: '/',
-      icons: [
-        {
-          src: '/pwa/web-app-manifest-192x192.png',
-          sizes: '192x192',
-          type: 'image/png'
-        },
-        {
-          src: '/pwa/web-app-manifest-512x512.png',
-          sizes: '512x512',
-          type: 'image/png'
-        }
-      ]
-    },
-    workbox: {
-      cleanupOutdatedCaches: true,
-      navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'], // precache assets
-      runtimeCaching: [
-        {
-          // Cache images
-          urlPattern: ({ request }: { request: Request }) => request.destination === 'image',
-          handler: 'CacheFirst',
-          options: {
-            cacheName: 'images-cache',
-            expiration: { maxEntries: 100, maxAgeSeconds: 7 * 24 * 60 * 60 } // 7 days
-          }
-        }
-      ]
-    },
-    devOptions: {
-      enabled: true
-    }
-  }
 })
