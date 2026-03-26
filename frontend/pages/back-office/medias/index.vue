@@ -23,7 +23,7 @@
 
         <Loader v-if="loading" />
         <div v-else-if="medias" class="mt-6">
-            <Grid v-if="medias?.length > 0" :items="medias" :layouts="{ default: 2, sm: 3, md: 3, lg: 4, xl: 5, '2xl': 6 }" gap="1.5rem">
+            <Grid v-if="medias?.length > 0" :items="medias" :layouts="{ default: 2, sm: 3, md: 3, lg: 4, xl: 5, '2xl': 6 }">
                 <template #item="{ item }">
                     <MediaCard :media="item" />
                 </template>
