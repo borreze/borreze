@@ -25,15 +25,12 @@
 
         <Table class="mt-4" :loading="loading" :items="homeQuicks" titleKey="title" descriptionKey="description"
             :columns="[
-                { key: 'id', label: 'ID', formatter: 'id' },
                 { key: 'icon', label: 'Icon' },
                 { key: 'title', label: 'Titre' },
                 { key: 'url', label: 'URL' },
                 { key: 'order', label: 'Ordre' },
                 { key: 'is_visible', label: 'Visible' },
-            ]" :formatters="{
-                id: (value) => `#${value}`,
-            }" :actions="[
+            ]" :actions="[
                 { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/page-accueil/acces-rapides/${item.id}` },
             ]">
             <template #cell-icon="{ item }">

@@ -10,7 +10,7 @@ import { useCreatePost } from '~/composables/back-office/usePost'
 import { useCategoriesAll } from '~/composables/back-office/useCategory'
 
 const { categories } = await useCategoriesAll()
-const { createSelf, assignCategories } = useCreatePost()
+const { createSelf, assignCategories } = useCreatePost('new')
 
 const defaultPost: PostAttributesFrontend = {
     id: 0, // trick to satisfy types, will be ignored by backend
@@ -19,6 +19,7 @@ const defaultPost: PostAttributesFrontend = {
     abstract: '',
     content: '',
     status: 'draft',
+    type: 'new',
     meta_title: '',
     meta_description: '',
     schedule_start: null,

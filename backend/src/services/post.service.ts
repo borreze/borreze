@@ -1,6 +1,6 @@
 import { Post } from '../models'
 import { literal, Op, WhereOptions } from 'sequelize'
-import { Pagination } from '@brz/shared'
+import { Pagination, PostType } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
@@ -22,6 +22,11 @@ export class PostService {
     return { status: status ?? 'published' }
   }
 
+  private filterType(type?: PostType | null): WhereOptions {
+    if (!type) return {}
+    return { type }
+  }
+
   private filterCategories(categories?: number[] | null): WhereOptions {
     if (!categories || categories.length === 0) return {}
 
@@ -37,12 +42,13 @@ export class PostService {
     }
   }
 
-  public async count(options?: { search?: string, status?: PostStatus | 'all' | null, categories?: number[] | null }): Promise<number> {
-    const { status, search, categories } = options || {}
+  public async count(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, categories?: number[] | null }): Promise<number> {
+    const { status, search, categories, type } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
       ...this.filterCategories(categories),
+      ...this.filterType(type),
       ...searchWhere(POST_CONSTRAINTS, search)
     }
 
@@ -50,8 +56,8 @@ export class PostService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string, status?: PostStatus | 'all' | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
-    const { status, search, categories } = options || {}
+  public async getAll(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
+    const { status, type, search, categories } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
     if (
@@ -62,6 +68,7 @@ export class PostService {
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
+      ...this.filterType(type),
       ...this.filterCategories(categories),
       ...searchWhere(POST_CONSTRAINTS, search)
     }
@@ -70,11 +77,12 @@ export class PostService {
     return posts
   }
 
-  public async getById(id: number, options?: { status?: PostStatus | 'all' | null }): Promise<PostAttributes | null> {
-    const { status } = options || {}
+  public async getById(id: number, options?: { status?: PostStatus | 'all' | null, type?: PostType | null }): Promise<PostAttributes | null> {
+    const { status, type } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
+      ...this.filterType(type),
       id
     }
 
@@ -83,11 +91,12 @@ export class PostService {
     return post
   }
 
-  public async getBySlug(slug: string, options?: { status?: PostStatus | 'all' | null }): Promise<PostAttributes | null> {
-    const { status } = options || {}
+  public async getBySlug(slug: string, options?: { status?: PostStatus | 'all' | null, type?: PostType | null }): Promise<PostAttributes | null> {
+    const { status, type } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
+      ...this.filterType(type),
       slug
     }
 

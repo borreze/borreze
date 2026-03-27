@@ -23,14 +23,11 @@
         </div>
 
         <Table class="mt-4" :loading="loading" :items="users" titleKey="username" descriptionKey="description" :columns="[
-            { key: 'id', label: 'ID', formatter: 'id' },
             { key: 'email', label: 'E-mail' },
             { key: 'username', label: 'Nom d\'utilisateur' },
             { key: 'role', label: 'Rôle' },
             { key: 'status', label: 'Statut' },
-        ]" :formatters="{
-            id: (value) => `#${value}`,
-        }" :actions="[
+        ]" :actions="[
             { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/utilisateurs/${item.id}` },
         ]">
             <template #cell-role="{ item }">

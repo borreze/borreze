@@ -6,7 +6,7 @@ export const useCategories = async () => {
     const page = ref(1)
 
     const { data, status, error } = await useAsyncData(
-        `categories-page-${page.value}`,
+        `categories-${page.value}`,
         async () => {
             try {
                 const res = await useApi().get<{ data: CategoryAttributes[], pagination: Pagination }>(

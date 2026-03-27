@@ -4,16 +4,16 @@ import { permissionMiddleware } from '../middlewares/auth.middleware'
 
 const router = Router()
 
-router.get('/posts/recents', postController.getRecents)
-router.get('/posts/', postController.getAll)
-router.get('/posts/:slug', postController.getBySlug)
+router.get('/posts/:type/recents', postController.getRecents)
+router.get('/posts/:type/', postController.getAll)
+router.get('/posts/:type/:slug', postController.getBySlug)
 
-router.get('/back-office/posts/', permissionMiddleware('post', 'read'), postController.getAll)
-router.get('/back-office/posts/:id', permissionMiddleware('post', 'read'), postController.getById)
-router.post('/back-office/posts/', permissionMiddleware('post', 'create'), postController.create)
-router.put('/back-office/posts/:id', permissionMiddleware('post', 'update'), postController.update)
-router.put('/back-office/posts/:id/status', permissionMiddleware('post', 'update'), postController.updateStatus)
-router.put('/back-office/posts/:id/categories', permissionMiddleware('post', 'update'), postController.updateCategories)
-router.delete('/back-office/posts/:id', permissionMiddleware('post', 'delete'), postController.delete)
+router.get('/back-office/posts/:type/', permissionMiddleware('post', 'read'), postController.getAll)
+router.get('/back-office/posts/:type/:id', permissionMiddleware('post', 'read'), postController.getById)
+router.post('/back-office/posts/:type/', permissionMiddleware('post', 'create'), postController.create)
+router.put('/back-office/posts/:type/:id', permissionMiddleware('post', 'update'), postController.update)
+router.put('/back-office/posts/:type/:id/status', permissionMiddleware('post', 'update'), postController.updateStatus)
+router.put('/back-office/posts/:type/:id/categories', permissionMiddleware('post', 'update'), postController.updateCategories)
+router.delete('/back-office/posts/:type/:id', permissionMiddleware('post', 'delete'), postController.delete)
 
 export default router

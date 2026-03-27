@@ -12,7 +12,7 @@ export const useHomeQuicks = async () => {
     const search = ref<string>('')
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `home-quicks-page-${page.value}-search-${search.value}`,
+        `home-quicks-${page.value}-${search.value}`,
         () => useApi().get<{ data: HomeQuickAttributes[], pagination: Pagination }>(
             '/back-office/home-quicks',
             {

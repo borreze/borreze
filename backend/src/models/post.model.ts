@@ -5,7 +5,7 @@ import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 import { Media } from './media.model'
 import { Category } from './category.model'
-import { POST_TYPES_KEYS, PostType } from '@brz/shared/src/types/post.types'
+import { POST_TYPES_KEYS, PostType } from '@brz/shared'
 
 export const POST_CONSTRAINTS = {
   id: {

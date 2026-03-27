@@ -12,7 +12,7 @@ export const useLogs = async () => {
     const search = ref<string>('')
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `logs-page-${page.value}-search-${search.value}`,
+        `logs-${page.value}-${search.value}`,
         () => useApi().get<{ data: LogAttributes[], pagination: Pagination }>(
             '/back-office/logs',
             {

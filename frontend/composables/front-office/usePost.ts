@@ -1,19 +1,19 @@
 import { paginationDefault, type PostAttributesFrontend } from '@brz/shared';
-import type { Order } from '@brz/shared'
+import type { Order, PostType } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 
-export const usePosts = async () => {
+export const usePosts = async (type: PostType) => {
     const page = ref(1)
     const categories = ref<number[]>([])
     const order = ref<Order | null>(null)
 
     const { data, status, error } = await useAsyncData(
-        `posts-page-${page.value}-categories-${categories.value.join(',')}`,
+        `posts-${page.value}-${type}-${categories.value.join(',')}`,
         async () => {
             try {
                 const res = await useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(
-                    '/posts',
+                    `/posts/${type}/`,
                     {
                         params: {
                             page: page.value,
@@ -87,13 +87,13 @@ export const usePosts = async () => {
     }
 }
 
-export const usePostsRecents = async () => {
+export const usePostsRecents = async (type: PostType) => {
     const { data, status, error } = await useAsyncData(
-        'posts-recents',
+        `posts-recents-${type}`,
         async () => {
             try {
                 const res = await useApi().get<{ data: PostAttributesFrontend[] }>(
-                    '/posts/recents'
+                    `/posts/${type}/recents`
                 )
                 return res.data ?? null
             } catch (e) {
@@ -109,12 +109,12 @@ export const usePostsRecents = async () => {
     }
 }
 
-export const usePost = async (slug: string) => {
+export const usePost = async (type: PostType, slug: string) => {
     const { data, status, error } = await useAsyncData(
-        `post-${slug}`,
+        `post-${type}-${slug}`,
         async () => {
             try {
-                const res = await useApi().get<{ data: PostAttributesFrontend }>(`/posts/${slug}`)
+                const res = await useApi().get<{ data: PostAttributesFrontend }>(`/posts/${type}/${slug}`)
                 return res.data ?? null
             } catch (e) {
                 return null

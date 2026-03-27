@@ -11,7 +11,7 @@ export const useMedias = async (options: { type?: MediaType | 'all' } = {}) => {
     const type = ref<MediaType | 'all'>(options.type ?? 'all')
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `medias-page-${page.value}`,
+        `medias-${page.value}`,
         () => useApi().get<{ data: MediaAttributes[], pagination: Pagination }>(
             '/back-office/medias',
             {

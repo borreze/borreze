@@ -2,7 +2,6 @@
     <div>
         <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
-                {{ mode === 'edit' ? `#${editingPost.id}&nbsp;` : '' }}
                 {{ editingPost.title || (mode === 'create' ? 'Nouvelle actualité' : '') }}
             </h1>
         </Teleport>
@@ -99,7 +98,10 @@
             <div class="px-auto xl:w-3/12">
                 <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
                     <h4 class="title-submain mb-6">Prévisualisation</h4>
-                    <PostCard v-if="!couldHaveErrors" :clickable="false" :post="editingPost" class="max-w-96" />
+                    <div v-if="!couldHaveErrors" class="max-w-96">
+                        <NewCard v-if="editingPost.type === 'new'" :clickable="false" :post="editingPost" />
+                        <div v-else class="text-gray-400">Prévisualisation non disponible pour ce type de contenu</div>
+                    </div>
                     <div v-else class="text-gray-400">Saisissez les informations manquantes pour prévisualiser</div>
                 </div>
             </div>
@@ -116,7 +118,7 @@ import Loader from '~/components/molecules/Loader.vue'
 import Dropdown from '~/components/molecules/Dropdown.vue'
 import Datepicker from '~/components/atoms/Datepicker.vue'
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
-import PostCard from '~/components/organisms/front-office/PostCard.vue'
+import NewCard from '~/components/organisms/front-office/NewCard.vue'
 import { formatDateTime } from '~/utils/date'
 import MediaPicker from './MediaPicker.vue'
 

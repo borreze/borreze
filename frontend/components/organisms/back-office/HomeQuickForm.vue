@@ -2,7 +2,6 @@
     <div>
         <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
-                {{ mode === 'edit' ? `#${editingHomeQuick.id}&nbsp;` : '' }}
                 {{ editingHomeQuick.title || (mode === 'create' ? 'Nouvel accès rapide' : '') }}
             </h1>
         </Teleport>

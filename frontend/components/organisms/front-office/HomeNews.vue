@@ -19,7 +19,7 @@
 
             <Grid v-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 2, md: 3 }">
                 <template #item="{ item }">
-                    <PostCard :post="item" />
+                    <NewCard :post="item" />
                 </template>
             </Grid>
 
@@ -36,9 +36,9 @@
 
 <script setup lang="ts">
 import Grid from '~/components/molecules/Grid.vue';
-import PostCard from './PostCard.vue';
+import NewCard from './NewCard.vue';
 import { usePostsRecents } from '~/composables/front-office/usePost';
 
-const { posts, loading } = await usePostsRecents()
+const { posts, loading } = await usePostsRecents('new')
 
 </script>

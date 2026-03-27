@@ -12,7 +12,7 @@ export const useUsers = async () => {
     const search = ref<string>('')
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `users-page-${page.value}-search-${search.value}`,
+        `users-${page.value}-${search.value}`,
         () => useApi().get<{ data: UserAttributesFrontend[], pagination: Pagination }>(
             '/back-office/users',
             {

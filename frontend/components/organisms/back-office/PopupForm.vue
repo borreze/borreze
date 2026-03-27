@@ -2,7 +2,6 @@
     <div>
         <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
-                {{ mode === 'edit' ? `#${editingPopup.id}&nbsp;` : '' }}
                 {{ editingPopup.title || (mode === 'create' ? 'Nouvelle popup d\'alerte' : '') }}
             </h1>
         </Teleport>

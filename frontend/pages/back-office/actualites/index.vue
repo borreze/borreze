@@ -25,13 +25,11 @@
         </div>
 
         <Table class="mt-4" :loading="loading" :items="posts" titleKey="title" descriptionKey="abstract" :columns="[
-            { key: 'id', label: 'ID', formatter: 'id' },
             { key: 'title', label: 'Titre' },
             { key: 'categories', label: 'Catégories' },
             { key: 'status', label: 'Status' },
             { key: 'published_at', label: 'Publication', formatter: 'date' },
         ]" :formatters="{
-            id: (value) => `#${value}`,
             date: (value) => value ? formatDateRelative(value as string) : '-'
         }" :actions="[
             { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', buildLink: (item) => `/actualites/${item.slug}`, external: true },
@@ -67,7 +65,7 @@ import { formatDateRelative } from '~/utils/date';
 import { POST_STATUSES_OBJECTS } from '@brz/shared';
 import Button from '~/components/atoms/Button.vue';
 
-const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts()
+const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts('new')
 
 const search = ref('')
 

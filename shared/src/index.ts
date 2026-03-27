@@ -51,8 +51,8 @@ export type { PageAttributeAttributes, PageAttributeAttributesCreation, PageAttr
 
 export type { PopupAttributesFrontend, PopupAttributes, PopupAttributesCreation, PopupAttributesUpdate } from './types/popup.types'
 
-export { POST_STATUSES_KEYS, POST_STATUSES_OBJECTS } from './types/post.types'
-export type { PostStatus, PostAttributes, PostAttributesFrontend, PostAttributesCreation, PostAttributesUpdate } from './types/post.types'
+export { POST_TYPES_KEYS, POST_STATUSES_KEYS, POST_STATUSES_OBJECTS } from './types/post.types'
+export type { PostType, PostStatus, PostAttributes, PostAttributesFrontend, PostAttributesCreation, PostAttributesUpdate } from './types/post.types'
 
 export { CATEGORIZABLE_TYPES_KEYS, CATEGORIZABLE_TYPES_OBJECTS } from './types/categorizable.types'
 export type { CategorizableType, CategorizableAttributes, CategorizableAttributesCreation, CategorizableAttributesUpdate } from './types/categorizable.types'

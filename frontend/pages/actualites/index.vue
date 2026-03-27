@@ -16,7 +16,7 @@
         <div v-else-if="posts" class="mt-6">
             <Grid v-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 2, md: 3, lg: 4 }">
                 <template #item="{ item }">
-                    <PostCard :post="item" />
+                    <NewCard :post="item" />
                 </template>
             </Grid>
             <NoContent v-else message="Aucune actualité pour le moment." />
@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import Grid from '~/components/molecules/Grid.vue';
 import NoContent from '~/components/molecules/NoContent.vue';
-import PostCard from '~/components/organisms/front-office/PostCard.vue';
+import NewCard from '~/components/organisms/front-office/NewCard.vue';
 import CategorySelector from '~/components/organisms/front-office/CategorySelector.vue';
 import OrderBy from '~/components/organisms/OrderBy.vue';
 import Paging from '~/components/molecules/Paging.vue';
@@ -37,7 +37,7 @@ import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
 import { usePosts } from '~/composables/front-office/usePost';
 import { useCategoriesByType } from '~/composables/front-office/useCategory';
 
-const { posts, pagination, loading, setPage, removeCategory, addCategory, resetCategories, getCategories, setOrder, resetOrder } = await usePosts()
+const { posts, pagination, loading, setPage, removeCategory, addCategory, resetCategories, getCategories, setOrder, resetOrder } = await usePosts('new')
 const { categories } = await useCategoriesByType('post')
 
 useAppHead({

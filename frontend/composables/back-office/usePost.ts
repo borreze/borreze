@@ -1,20 +1,20 @@
 import { paginationDefault, type PostAttributesFrontend } from '@brz/shared';
-import type { Order, PostStatus } from '@brz/shared'
+import type { Order, PostStatus, PostType } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 import { useDebounce } from '../useDebounce';
 
 const DEBOUNCE_DELAY = 600
 
-export const usePosts = async () => {
+export const usePosts = async (type: PostType) => {
     const page = ref(1)
     const order = ref<Order | null>(null)
     const search = ref<string>('')
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `posts-page-${page.value}-search-${search.value}`,
+        `posts-${page.value}-${type}-${search.value}`,
         () => useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(
-            '/back-office/posts',
+            `/back-office/posts/${type}`,
             {
                 params: {
                     page: page.value,
@@ -73,12 +73,12 @@ export const usePosts = async () => {
     }
 }
 
-export const useEditPost = async (id: number) => {
+export const useEditPost = async (type: PostType, id: number) => {
     const { data, status, error } = await useAsyncData(
-        `post-${id}`,
+        `post-${type}-${id}`,
         () => useApi()
             .get<{ data: PostAttributesFrontend, pagination: Pagination }>(
-                `/back-office/posts/${id}`,
+                `/back-office/posts/${type}/${id}`,
                 {
                     params: {
                         status: 'all',
@@ -88,7 +88,7 @@ export const useEditPost = async (id: number) => {
     )
 
     const deleteSelf = async () => {
-        const response = await useApi().delete(`/back-office/posts/${id}`)
+        const response = await useApi().delete(`/back-office/posts/${type}/${id}`)
 
         if (!response.ok) throw response.error
         return true
@@ -96,7 +96,7 @@ export const useEditPost = async (id: number) => {
 
     const updateSelf = async (payload: Partial<PostAttributesFrontend>) => {
         const response = await useApi().put<{ data: PostAttributesFrontend }>(
-            `/back-office/posts/${id}`,
+            `/back-office/posts/${type}/${id}`,
             { body: payload }
         )
 
@@ -106,7 +106,7 @@ export const useEditPost = async (id: number) => {
 
     const updateStatus = async (status: PostStatus) => {
         const response = await useApi().put<{ data: PostAttributesFrontend }>(
-            `/back-office/posts/${id}/status`,
+            `/back-office/posts/${type}/${id}/status`,
             { body: { status } }
         )
 
@@ -116,7 +116,7 @@ export const useEditPost = async (id: number) => {
 
     const updateCategories = async (ids: number[]) => {
         const response = await useApi().put<{ data: PostAttributesFrontend }>(
-            `/back-office/posts/${id}/categories`,
+            `/back-office/posts/${type}/${id}/categories`,
             { body: { ids } }
         )
 
@@ -135,10 +135,10 @@ export const useEditPost = async (id: number) => {
     }
 }
 
-export const useCreatePost = () => {
+export const useCreatePost = (type: PostType) => {
     const createSelf = async (payload: Partial<PostAttributesFrontend>) => {
         const response = await useApi().post<{ data: PostAttributesFrontend }>(
-            '/back-office/posts',
+            `/back-office/posts/${type}`,
             { body: payload }
         )
         if (!response.ok) throw response.error
@@ -147,7 +147,7 @@ export const useCreatePost = () => {
 
     const assignCategories = async (postId: number, ids: number[]) => {
         const response = await useApi().put<{ data: PostAttributesFrontend }>(
-            `/back-office/posts/${postId}/categories`,
+            `/back-office/posts/${type}/${postId}/categories`,
             { body: { ids } }
         )
         if (!response.ok) throw response.error

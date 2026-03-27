@@ -2,7 +2,7 @@
     <div>
         <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
-                {{ `Media #${editingMedia.id}` }}
+                {{ editingMedia.title || `Media #${editingMedia.id}` }}
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="flex items-center justify-start gap-4 mt-4">
                         <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link"
-                        :href="mediaUrl(editingMedia.file_path)" target="_blank" variant="light" size="sm" />
+                            :href="mediaUrl(editingMedia.file_path)" target="_blank" variant="light" size="sm" />
                     </div>
                 </div>
             </div>

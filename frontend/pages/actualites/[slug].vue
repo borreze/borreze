@@ -33,7 +33,7 @@ import { mediaUrl, MEDIA_URL_DEFAULT_HERO } from '~/utils/media';
 import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
 
 const route = useRoute()
-const { post, loading } = await usePost(route.params.slug as string)
+const { post, loading } = await usePost('new', route.params.slug as string)
 
 if (!post.value) {
     throw createError({ statusCode: 404, statusMessage: 'Actualité introuvable' })

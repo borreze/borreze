@@ -23,14 +23,12 @@
         </div>
 
         <Table class="mt-4" :loading="loading" :items="popups" titleKey="title" descriptionKey="description" :columns="[
-            { key: 'id', label: 'ID', formatter: 'id' },
             { key: 'title', label: 'Titre' },
             { key: 'date_from', label: 'Début', formatter: 'date' },
             { key: 'date_to', label: 'Fin', formatter: 'date' },
             { key: 'is_active', label: 'Active' },
         ]" :formatters="{
             date: (value) => value ? formatDate(value as string) : '-',
-            id: (value) => `#${value}`,
         }" :actions="[
             { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/popups/${item.id}` },
         ]">

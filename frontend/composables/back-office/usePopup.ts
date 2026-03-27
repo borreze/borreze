@@ -12,7 +12,7 @@ export const usePopups = async () => {
     const search = ref<string>('')
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `popups-page-${page.value}-search-${search.value}`,
+        `popups-${page.value}-${search.value}`,
         () => useApi().get<{ data: PopupAttributesFrontend[], pagination: Pagination }>(
             '/back-office/popups',
             {

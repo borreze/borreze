@@ -11,7 +11,7 @@ import { useEditPost } from '~/composables/back-office/usePost'
 import { useCategoriesAll } from '~/composables/back-office/useCategory'
 
 const route = useRoute()
-const { post, loading, deleteSelf, updateSelf, updateStatus, updateCategories } = await useEditPost(route.params.id as unknown as number)
+const { post, loading, deleteSelf, updateSelf, updateStatus, updateCategories } = await useEditPost('new', route.params.id as unknown as number)
 const { categories } = await useCategoriesAll()
 const { confirm } = useConfirm()
 
