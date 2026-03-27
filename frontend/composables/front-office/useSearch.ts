@@ -51,7 +51,6 @@ export const useSearch = async (q: string) => {
         _names: {
             nice: 'Page',
             name: 'page',
-            type: 'page'
         }
     })
 

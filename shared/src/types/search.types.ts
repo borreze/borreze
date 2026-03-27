@@ -1,7 +1,6 @@
 export interface SearchResultNames {
     nice: string
     name: string
-    type: 'model' | 'page' | string
 }
 
 export interface SearchResultLinks {

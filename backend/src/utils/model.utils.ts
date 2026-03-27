@@ -1,5 +1,4 @@
 import { ModelFieldConstraint, ModelConstraints } from '../types/utils/model.types'
-import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { Op, WhereOptions, ModelAttributes, ModelAttributeColumnOptions, Model, ModelStatic } from 'sequelize'
 
 export function modelBuild<M extends Model>(constraints: ModelConstraints<M['_attributes']>): ModelAttributes<M, M['_creationAttributes']> {
@@ -33,7 +32,7 @@ export function modelBuild<M extends Model>(constraints: ModelConstraints<M['_at
     ) as ModelAttributes<M, M['_creationAttributes']>
 }
 
-function modelBuildLink(template: string | null, data: Model | Record<string, unknown>): string {
+export function modelBuildLink(template: string | null, data: Model | Record<string, unknown>): string {
     if (!template) return '#'
     if (!template.includes('<') || !template.includes('>')) return template
 
@@ -57,31 +56,6 @@ export async function isUnique(model: ModelStatic<Model>, field: string, value: 
 
     const count = await model.count({ where })
     return count === 0
-}
-
-export function modelAttach(data: Record<string, unknown> | Record<string, unknown>[], options?: { links?: SearchResultLinks; names?: SearchResultNames }): void {
-    const { links, names } = options || {}
-
-    const elements = Array.isArray(data) ? data : [data]
-
-    for (const el of elements) {
-        if (links) {
-            el._links = {
-                self_front: modelBuildLink(links.self_front || null, el),
-                self_api: modelBuildLink(links.self_api || null, el),
-                list_front: modelBuildLink(links.list_front || null, el),
-                list_api: modelBuildLink(links.list_api || null, el),
-            }
-        }
-
-        if (names) {
-            el._names = {
-                nice: names.nice || null,
-                name: names.name || null,
-                type: names.type || null,
-            }
-        }
-    }
 }
 
 function getSearchableFields<T>(constraints: ModelConstraints<T>): string[] {

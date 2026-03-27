@@ -140,7 +140,6 @@ export const EVENT_LINKS: SearchResultLinks = {
 export const EVENT_NAMES: SearchResultNames = {
     nice: 'Evénement',
     name: 'event',
-    type: 'model'
 }
 
 export class Event extends Model<EventAttributes, EventAttributesCreation> implements EventAttributes {

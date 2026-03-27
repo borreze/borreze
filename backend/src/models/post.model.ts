@@ -105,8 +105,7 @@ export const POST_LINKS: SearchResultLinks = {
 
 export const POST_NAMES: SearchResultNames = {
   nice: 'Actualité',
-  name: 'post',
-  type: 'model'
+  name: 'post'
 }
 
 export class Post extends Model<PostAttributes, PostAttributesCreation> implements PostAttributes {

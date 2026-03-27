@@ -1,9 +1,9 @@
 import { isQueryValid, Order } from '@brz/shared'
 import { Pagination } from '@brz/shared'
-import { modelAttach } from '../utils/model.utils'
 import { POST_LINKS, POST_NAMES } from '../models/post.model'
 import { postService } from '../services/post.service'
 import { BadRequest } from '../exceptions/request.exception'
+import { modelBuildLink } from '../utils/model.utils'
 
 export class GlobalService {
   public async search(options?: { query?: string }): Promise<Record<string, unknown>[]> {
@@ -20,12 +20,13 @@ export class GlobalService {
 
     // Posts
     const posts = await postService.getAll({ search: query }, order, pagination)
-    const postsTransformed = posts.map(post => ({ title: post.title, slug: post.slug }))
-    modelAttach(postsTransformed, { links: POST_LINKS, names: POST_NAMES })
-    data.push(...postsTransformed)
-
-    // Events
-    // ...
+    const postsTransformed = posts.map(post => ({ title: post.title, slug: post.slug, _links: {}, _names: {} }))
+    const elements = Array.isArray(postsTransformed) ? postsTransformed : [postsTransformed]
+    for (const el of elements) {
+      el._links = { self_front: modelBuildLink(POST_LINKS.self_front || null, el), self_api: modelBuildLink(POST_LINKS.self_api || null, el), list_front: modelBuildLink(POST_LINKS.list_front || null, el), list_api: modelBuildLink(POST_LINKS.list_api || null, el), }
+      el._names = { nice: POST_NAMES.nice || null, name: POST_NAMES.name || null }
+    }
+    data.push(...elements)
 
     // TODO: Add search in more models ...
 
