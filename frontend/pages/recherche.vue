@@ -19,7 +19,7 @@
                     <SearchCard :result="item" :query="query" />
                 </template>
             </Grid>
-            <NoContent v-else-if="query && isQueryValid(query)" />
+            <NoContent v-else-if="query && isQueryValid(query)" message="Aucun résultat trouvé pour votre recherche." />
             <div v-else class="text-center">
                 <p class="text-sm text-gray-400">
                     Entrez un terme de recherche pour trouver les informations qui vous intéressent.

@@ -28,7 +28,7 @@
                     <MediaCard :media="item" />
                 </template>
             </Grid>
-            <NoContent v-else />
+            <NoContent v-else message="Aucun média trouvé." />
         </div>
 
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />

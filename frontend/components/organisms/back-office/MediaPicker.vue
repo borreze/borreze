@@ -60,7 +60,7 @@
                                 :selected="isSelected(item)" @toggle="toggleMedia(item)" />
                         </template>
                     </Grid>
-                    <NoContent v-else />
+                    <NoContent v-else message="Aucun média trouvé." />
                 </div>
             </div>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />

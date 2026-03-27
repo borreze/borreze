@@ -19,7 +19,7 @@
                     <PostCard :post="item" />
                 </template>
             </Grid>
-            <NoContent v-else />
+            <NoContent v-else message="Aucune actualité pour le moment." />
         </div>
         <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
     </div>
