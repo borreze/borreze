@@ -55,7 +55,6 @@ export const PROJECT_LINKS: SearchResultLinks = {
 export const PROJECT_NAMES: SearchResultNames = {
   nice: 'Informations pratiques',
   name: 'practical-information',
-  type: 'model'
 }
 
 export class PracticalInformation extends Model<PracticalInformationAttributes, PracticalInformationAttributesCreation> implements PracticalInformationAttributes {

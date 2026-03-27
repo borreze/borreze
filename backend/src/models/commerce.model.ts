@@ -124,7 +124,6 @@ export const COMMERCE_LINKS: SearchResultLinks = {
 export const COMMERCE_NAMES: SearchResultNames = {
   nice: 'Commerces',
   name: 'commerce',
-  type: 'model'
 }
 
 export class Commerce extends Model<CommerceAttributes, CommerceAttributesCreation> implements CommerceAttributes {

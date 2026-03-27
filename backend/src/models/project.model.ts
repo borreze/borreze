@@ -91,7 +91,6 @@ export const PROJECT_LINKS: SearchResultLinks = {
 export const PROJECT_NAMES: SearchResultNames = {
   nice: 'Projet',
   name: 'project',
-  type: 'model'
 }
 
 export class Project extends Model<ProjectAttributes, ProjectAttributesCreation> implements ProjectAttributes {

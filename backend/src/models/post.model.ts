@@ -5,6 +5,7 @@ import { SearchResultLinks, SearchResultNames } from '@brz/shared'
 import { modelBuild } from '../utils/model.utils'
 import { Media } from './media.model'
 import { Category } from './category.model'
+import { POST_TYPES_KEYS, PostType } from '@brz/shared/src/types/post.types'
 
 export const POST_CONSTRAINTS = {
   id: {
@@ -24,6 +25,13 @@ export const POST_CONSTRAINTS = {
     enum: POST_STATUSES_KEYS,
     required: true,
     defaultValue: 'draft'
+  },
+  type: {
+    nicename: 'Type',
+    type: DataTypes.ENUM(...POST_TYPES_KEYS),
+    enum: POST_TYPES_KEYS,
+    required: true,
+    defaultValue: 'new'
   },
   title: {
     nicename: 'Titre',
@@ -104,7 +112,7 @@ export const POST_LINKS: SearchResultLinks = {
 }
 
 export const POST_NAMES: SearchResultNames = {
-  nice: 'Actualité',
+  nice: 'Contenu',
   name: 'post'
 }
 
@@ -112,6 +120,7 @@ export class Post extends Model<PostAttributes, PostAttributesCreation> implemen
   public id!: number
   public cover_id?: number
   public status!: PostStatus
+  public type!: PostType
   public title!: string
   public slug!: string
   public abstract?: string

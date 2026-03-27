@@ -118,7 +118,6 @@ export const PAGE_LINKS: SearchResultLinks = {
 export const PAGE_NAMES: SearchResultNames = {
   nice: 'Page',
   name: 'page',
-  type: 'model'
 }
 
 export class Page extends Model<PageAttributes, PageAttributesCreation> implements PageAttributes {

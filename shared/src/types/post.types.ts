@@ -10,11 +10,23 @@ export const POST_STATUSES_OBJECTS: { value: PostStatus, label: string, color?: 
     { value: 'draft', label: 'Brouillon', color: '#5dd7d9' },
 ]
 
+export const POST_TYPES_KEYS = ['association', 'commerce', 'event', 'page', 'new', 'project'] as const
+export type PostType = typeof POST_TYPES_KEYS[number]
+export const POST_TYPES_OBJECTS: { value: PostType, label: string, }[] = [
+    { value: 'association', label: 'Association' },
+    { value: 'commerce', label: 'Commerce' },
+    { value: 'event', label: 'Événement' },
+    { value: 'page', label: 'Page' },
+    { value: 'new', label: 'Actualité' },
+    { value: 'project', label: 'Projet' },
+]
+
 export interface PostAttributes {
     id: number
     slug: string
     cover_id?: number | null
     status: PostStatus
+    type: PostType
     title: string
     abstract?: string | null
     content?: string | null
@@ -35,6 +47,6 @@ export type PostAttributesCreation = Optional<PostAttributes,
 >
 
 export type PostAttributesUpdate = Optional<PostAttributes,
-    'id' | 'cover_id' | 'status' | 'title' | 'slug' | 'abstract' | 'content' | 'meta_title' |
+    'id' | 'cover_id' | 'status' | 'type' | 'title' | 'slug' | 'abstract' | 'content' | 'meta_title' |
     'meta_description' | 'published_at' | 'schedule_start' | 'schedule_end' | 'created_at' | 'updated_at'
 >
