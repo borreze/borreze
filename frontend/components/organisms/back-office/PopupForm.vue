@@ -60,8 +60,10 @@
                     </div>
                 </section>
                 <section v-if="mode === 'edit'">
-                    <span class="text-sm text-gray-600"><strong>Date de dernière modification:</strong> {{
-                        formatDateTime(editingPopup.updated_at) }}</span>
+                    <p class="text-sm text-gray-600"><strong>Date de dernière modification:</strong>
+                        {{ formatDateTime(editingPopup.updated_at) }}</p>
+                    <p class="text-sm text-gray-600"><strong>Date de création:</strong>
+                        {{ formatDateTime(editingPopup.created_at) }}</p>
                 </section>
             </div>
         </div>

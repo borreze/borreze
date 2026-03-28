@@ -7,7 +7,8 @@ import { Terminal } from './utils/terminal.utils'
 (async () => {
   try {
     await schoolHolidayService.import()
-    await postService.computeStatuses()
+    await postService.computeStatus()
+    await postService.computeLocation()
     await popupService.computeActive()
     await logService.clearOlds()
 

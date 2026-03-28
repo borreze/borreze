@@ -1,10 +1,8 @@
-import { Association, BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
+import { BelongsToManySetAssociationsMixin, DataTypes, Model, Sequelize } from 'sequelize'
 import { CategoryAttributes, CategoryAttributesCreation } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 import { Post } from './post.model'
-import { Project } from './project.model'
-import { Commerce } from './commerce.model'
 
 export const CATEGORY_CONSTRAINTS = {
     id: {
@@ -51,14 +49,6 @@ export class Category extends Model<CategoryAttributes, CategoryAttributesCreati
 
     public posts?: Post[]
     public setPosts!: BelongsToManySetAssociationsMixin<Post, number>
-    public events?: Event[]
-    public setEvents!: BelongsToManySetAssociationsMixin<Event, number>
-    public projects?: Project[]
-    public setProjects!: BelongsToManySetAssociationsMixin<Project, number>
-    public commerces?: Commerce[]
-    public setCommerces!: BelongsToManySetAssociationsMixin<Commerce, number>
-    public associations?: Association[]
-    public setAssociations!: BelongsToManySetAssociationsMixin<Association, number>
 }
 
 export function initCategoryModel(sequelize: Sequelize) {

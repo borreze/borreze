@@ -1,17 +1,17 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { PageAttributeAttributes, PageAttributeAttributesCreation } from '@brz/shared'
+import { PostAttributeAttributes, PostAttributeAttributesCreation } from '@brz/shared'
 import { ModelConstraints } from '../types/utils/model.types'
 import { modelBuild } from '../utils/model.utils'
 
-export const PAGE_ATTRIBUTE_CONSTRAINTS = {
+export const POST_ATTRIBUTE_CONSTRAINTS = {
   id: {
     nicename: 'ID',
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  page_id: {
-    nicename: 'Page',
+  post_id: {
+    nicename: 'Post',
     type: DataTypes.INTEGER,
     required: true
   },
@@ -40,24 +40,24 @@ export const PAGE_ATTRIBUTE_CONSTRAINTS = {
     required: true,
     defaultValue: DataTypes.NOW
   }
-} as const satisfies ModelConstraints<PageAttributeAttributes>
+} as const satisfies ModelConstraints<PostAttributeAttributes>
 
-export class PageAttribute extends Model<PageAttributeAttributes, PageAttributeAttributesCreation> implements PageAttributeAttributes {
+export class PostAttribute extends Model<PostAttributeAttributes, PostAttributeAttributesCreation> implements PostAttributeAttributes {
   public id!: number
-  public page_id!: number
+  public post_id!: number
   public key!: string
   public value?: string
   public readonly created_at!: Date
   public readonly updated_at!: Date
 }
 
-export function initPageAttributeModel(sequelize: Sequelize) {
-  PageAttribute.init(modelBuild(PAGE_ATTRIBUTE_CONSTRAINTS), {
+export function initPostAttributeModel(sequelize: Sequelize) {
+  PostAttribute.init(modelBuild(POST_ATTRIBUTE_CONSTRAINTS), {
     sequelize,
     timestamps: true,
     updatedAt: 'updated_at',
     createdAt: 'created_at',
-    tableName: 'page_attribute',
+    tableName: 'post_attribute',
     underscored: true,
     indexes: [
       { fields: ['key'] },

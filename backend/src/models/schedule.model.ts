@@ -16,8 +16,8 @@ export const SCHEDULE_CONSTRAINTS = {
     enum: SCHEDULE_TYPES_KEYS,
     required: true
   },
-  commerce_id: {
-    nicename: 'Commerce',
+  post_id: {
+    nicename: 'Post',
     type: DataTypes.INTEGER,
     required: false
   },
@@ -49,7 +49,7 @@ export const SCHEDULE_CONSTRAINTS = {
 export class Schedule extends Model<ScheduleAttributes, ScheduleAttributesCreation> implements ScheduleAttributes {
   public id!: number
   public type!: ScheduleType
-  public commerce_id?: number
+  public post_id?: number
   public day!: ScheduleDay
   public intervals!: TimeInterval[]
   public readonly created_at!: Date

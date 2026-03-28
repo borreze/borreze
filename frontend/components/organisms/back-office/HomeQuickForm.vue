@@ -49,8 +49,10 @@
                     </div>
                 </section>
                 <section v-if="mode === 'edit'">
-                    <span class="text-sm text-gray-600"><strong>Date de dernière modification:</strong> {{
-                        formatDateTime(editingHomeQuick.updated_at) }}</span>
+                    <p class="text-sm text-gray-600"><strong>Date de dernière modification:</strong>
+                        {{ formatDateTime(editingHomeQuick.updated_at) }}</p>
+                    <p class="text-sm text-gray-600"><strong>Date de création:</strong>
+                        {{ formatDateTime(editingHomeQuick.created_at) }}</p>
                 </section>
             </div>
             <div class="px-auto xl:w-3/12">

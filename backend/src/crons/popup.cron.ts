@@ -5,6 +5,7 @@ import { Log } from '../utils/log.utils'
 
 export function initPopupCron(): void {
     Terminal.info('Initializing popup cron job')
+    
     cron.schedule('*/10 * * * *', async () => { // Every 10 min
         try {
             await popupService.computeActive()

@@ -107,13 +107,14 @@ export class PostService {
 
   public async create(data: PostAttributesCreation): Promise<PostAttributes | null> {
     if (!data.slug) data.slug = slugify(data.title)
+    if (!data.published_at && data.status === 'published') data.published_at = new Date()
     delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
 
     const unique = await isUnique(Post, 'slug', data.slug)
-    if (!unique) throw new ValidationException('Erreur sur les champs', [{ field: 'slug', message: 'Une actualité avec ce slug existe déjà' }])
+    if (!unique) throw new ValidationException('Erreur sur les champs', [{ field: 'slug', message: 'Un contenu avec ce slug existe déjà' }])
 
     return sequelize.transaction(async (transaction: Transaction) => {
       return Post.create(data, { transaction, include: POST_INCLUDE_DEFAULTS })
@@ -122,6 +123,7 @@ export class PostService {
 
   public async update(id: number, data: PostAttributesUpdate): Promise<PostAttributes | null> {
     if (!data.slug) data.slug = slugify(data.title)
+    if (!data.published_at && data.status === 'published') data.published_at = new Date()
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)
@@ -178,6 +180,108 @@ export class PostService {
   }
 
   /**
+   * Computes and updates post latitude and longitude based on address.
+   *
+   * Rules:
+   * - If address is not empty, geocode it to get lat/long
+   * - If address is empty, set lat/long to null
+   *
+   * Processes updates in chunks to avoid long-running locks on the DB.
+   */
+  public async computeLocation(): Promise<void> {
+    const CHUNK_SIZE = 50 // lower than status because of external API calls
+    const API_URL = 'https://api-adresse.data.gouv.fr/search'
+
+    Terminal.info('Computing posts locations...')
+
+    let offset = 0
+    let updated = 0
+    let cleared = 0
+    let failed = 0
+
+    // 1. Clear lat/lng for posts with empty address
+    const [clearedCount] = await Post.update(
+      { latitude: null, longitude: null },
+      {
+        where: {
+          [Op.and]: [
+            { [Op.or]: [{ address: null }, { address: '' }] },
+            {
+              [Op.or]: [
+                { latitude: { [Op.ne]: null } },
+                { longitude: { [Op.ne]: null } }
+              ]
+            }
+          ]
+        }
+      }
+    )
+    cleared = clearedCount
+
+    // 2. Geocode posts with address but missing or outdated coordinates
+    let hasMore = true
+
+    while (hasMore) {
+      const batch = await Post.findAll({
+        attributes: ['id', 'address'],
+        where: {
+          address: { [Op.and]: [{ [Op.ne]: null }, { [Op.ne]: '' }] },
+          [Op.or]: [
+            { latitude: null },
+            { longitude: null }
+          ]
+        },
+        limit: CHUNK_SIZE,
+        offset,
+        raw: true
+      })
+
+      if (batch.length === 0) {
+        hasMore = false
+        break
+      }
+
+      for (const post of batch) {
+        try {
+          const res = await fetch(`${API_URL}?q=${encodeURIComponent(post.address!)}&limit=1`)
+          if (!res.ok) {
+            Terminal.warn(`Geocoding API error ${res.status} for post #${post.id}`)
+            failed++
+            continue
+          }
+
+          const data = await res.json()
+          const feature = data.features?.[0]
+
+          if (!feature) {
+            Terminal.warn(`No geocoding result for post #${post.id} (address: "${post.address}")`)
+            failed++
+            continue
+          }
+
+          const [longitude, latitude] = feature.geometry.coordinates
+
+          await Post.update(
+            { latitude, longitude },
+            { where: { id: post.id } }
+          )
+
+          updated++
+        } catch (err) {
+          Terminal.warn(`Geocoding failed for post #${post.id}: ${(err as Error).message}`)
+          failed++
+        }
+      }
+
+      if (batch.length < CHUNK_SIZE) hasMore = false
+      else offset += CHUNK_SIZE
+    }
+
+    Terminal.log(`Locations cleared: ${cleared}, geocoded: ${updated}, failed: ${failed}`)
+    Terminal.success('Posts locations computation done')
+  }
+
+  /**
    * Computes and updates post statuses based on schedule_start and schedule_end dates.
    *
    * Rules:
@@ -187,7 +291,7 @@ export class PostService {
    *
    * Processes updates in chunks to avoid long-running locks on the DB.
    */
-  public async computeStatuses(): Promise<void> {
+  public async computeStatus(): Promise<void> {
     const CHUNK_SIZE = 500
 
     Terminal.info('Computing posts statuses...')

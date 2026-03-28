@@ -1,13 +1,9 @@
 import { Optional } from 'sequelize'
 
-export const CATEGORIZABLE_TYPES_KEYS = ['post', 'event', 'project', 'commerce', 'association'] as const
+export const CATEGORIZABLE_TYPES_KEYS = ['post'] as const
 export type CategorizableType = typeof CATEGORIZABLE_TYPES_KEYS[number]
-export const CATEGORIZABLE_TYPES_OBJECTS: { value: CategorizableType, label: string }[] = [
-    { value: 'post', label: 'Article' },
-    { value: 'event', label: 'Événement' },
-    { value: 'project', label: 'Projet' },
-    { value: 'commerce', label: 'Commerce' },
-    { value: 'association', label: 'Association' },
+export const CATEGORIZABLE_TYPES_OBJECTS: { value: CategorizableType, }[] = [
+    { value: 'post' },
 ]
 
 export interface CategorizableAttributes {

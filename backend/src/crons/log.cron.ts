@@ -5,6 +5,7 @@ import { Log } from '../utils/log.utils'
 
 export function initLogCron(): void {
     Terminal.info('Initializing log cron job')
+
     cron.schedule('0 0 * * *', async () => { // Every day at midnight
         try {
             await logService.clearOlds()

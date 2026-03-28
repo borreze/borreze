@@ -18,18 +18,11 @@ export { isQueryValid } from './utils/global.utils'
 
 // TYPES
 
-export type { AssociationAttributes, AssociationAttributesCreation, AssociationAttributesUpdate } from './types/association.types'
-
 export type { CategoryAttributes, CategoryAttributesCreation, CategoryAttributesUpdate } from './types/category.types'
-
-export type { CommerceAttributes, CommerceAttributesCreation, CommerceAttributesUpdate } from './types/commerce.types'
 
 export type { CouncilorAttributes, CouncilorAttributesCreation, CouncilorAttributesUpdate } from './types/councilor.types'
 
 export type { CouncilReportAttributes, CouncilReportAttributesCreation, CouncilReportAttributesUpdate } from './types/councilReport.types'
-
-export { EVENT_STATUSES_KEYS, EVENT_STATUSES_OBJECTS } from './types/event.types'
-export type { EventStatus, EventAttributes, EventAttributesCreation, EventAttributesUpdate } from './types/event.types'
 
 export type { GalleryAttributes, GalleryAttributesCreation, GalleryAttributesUpdate } from './types/gallery.types'
 
@@ -44,23 +37,17 @@ export type { MediaType, MediaAttributes, MediaAttributesCreation, MediaAttribut
 export { MENU_SCOPES_KEYS, MENU_SCOPES_OBJECTS } from './types/menu.types'
 export type { MenuScope, MenuAttributes, MenuAttributesFrontend, MenuAttributesCreation, MenuAttributesUpdate } from './types/menu.types'
 
-export { PAGE_STATUSES_KEYS, PAGE_STATUSES_OBJECTS } from './types/page.types'
-export type { PageStatus, PageAttributes, PageAttributesCreation, PageAttributesUpdate } from './types/page.types'
-
-export type { PageAttributeAttributes, PageAttributeAttributesCreation, PageAttributeAttributesUpdate } from './types/pageAttribute.types'
+export type { PostAttributeAttributes, PostAttributeAttributesCreation, PostAttributeAttributesUpdate } from './types/postAttribute.types'
 
 export type { PopupAttributesFrontend, PopupAttributes, PopupAttributesCreation, PopupAttributesUpdate } from './types/popup.types'
 
-export { POST_TYPES_KEYS, POST_STATUSES_KEYS, POST_STATUSES_OBJECTS } from './types/post.types'
-export type { PostType, PostStatus, PostAttributes, PostAttributesFrontend, PostAttributesCreation, PostAttributesUpdate } from './types/post.types'
+export { POST_PROGESSIONS_KEYS, POST_PROGESSIONS_OBJECTS, POST_TYPES_KEYS, POST_STATUSES_KEYS, POST_STATUSES_OBJECTS } from './types/post.types'
+export type { PostProgression, PostType, PostStatus, PostAttributes, PostAttributesFrontend, PostAttributesCreation, PostAttributesUpdate } from './types/post.types'
 
 export { CATEGORIZABLE_TYPES_KEYS, CATEGORIZABLE_TYPES_OBJECTS } from './types/categorizable.types'
 export type { CategorizableType, CategorizableAttributes, CategorizableAttributesCreation, CategorizableAttributesUpdate } from './types/categorizable.types'
 
 export type { PracticalInformationAttributes, PracticalInformationAttributesCreation, PracticalInformationAttributesUpdate } from './types/practicalInformation.types'
-
-export { PROJECT_STATUSES_KEYS, PROJECT_STATUSES_OBJECTS } from './types/project.types'
-export type { ProjectStatus, ProjectAttributes, ProjectAttributesCreation, ProjectAttributesUpdate } from './types/project.types'
 
 export type { RoleAttributes, RoleAttributesCreation, RoleAttributesUpdate } from './types/role.types'
 

@@ -24,16 +24,15 @@
                     <h4 class="title-submain mb-6">Informations générales</h4>
                     <div class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
-                            <Field v-model="editingPost.title" required label="Titre"
-                                hint="Titre principale" roundness="md" :error="errors.title"
-                                @blur="touch('title')" />
+                            <Field v-model="editingPost.title" required label="Titre" hint="Titre principale"
+                                roundness="md" :error="errors.title" @blur="touch('title')" />
                             <Field v-model="editingPost.slug" required label="Slug"
-                                hint="Identifiant unique, utilisé pour les URL" roundness="md"
-                                :error="errors.slug" @blur="touch('slug')" />
+                                hint="Identifiant unique, utilisé pour les URL" roundness="md" :error="errors.slug"
+                                @blur="touch('slug')" />
                         </div>
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
-                            hint="Résumé, utilisé lors de l'affichage en liste" roundness="md"
-                            :error="errors.abstract" @blur="touch('abstract')" />
+                            hint="Résumé, utilisé lors de l'affichage en liste" roundness="md" :error="errors.abstract"
+                            @blur="touch('abstract')" />
                         <div>
                             <MediaPicker v-model="editingPost.cover" media-type="image" required label="Couverture"
                                 hint="Sélectionnez une image de couverture" :error="errors.cover"
@@ -91,8 +90,10 @@
                     <WysiwygEditor v-model="editingPost.content" :error="errors.content" @blur="touch('content')" />
                 </section>
                 <section v-if="mode === 'edit'">
-                    <span class="text-sm text-gray-600"><strong>Date de dernière modification:</strong> {{
-                        formatDateTime(editingPost.updated_at) }}</span>
+                    <p class="text-sm text-gray-600"><strong>Date de dernière modification:</strong>
+                        {{ formatDateTime(editingPost.updated_at) }}</p>
+                    <p class="text-sm text-gray-600"><strong>Date de création:</strong>
+                        {{ formatDateTime(editingPost.created_at) }}</p>
                 </section>
             </div>
             <div class="px-auto xl:w-3/12">
