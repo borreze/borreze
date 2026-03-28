@@ -34,8 +34,9 @@
                             hint="Résumé, utilisé lors de l'affichage en liste" roundness="md" :error="errors.abstract"
                             @blur="touch('abstract')" />
                         <div v-if="editingPost.type === 'event'" class="max-w-xs">
-                            <Datepicker v-model="editingPost.date_time" required :with-time="true" label="Date et heure"
-                                roundness="md" :error="errors.date_time" @blur="touch('date_time')" />
+                            <Datepicker v-model="editingPost.date_time" required :with-time="true"
+                                label="Date et heure de l'événement" roundness="md" :error="errors.date_time"
+                                @blur="touch('date_time')" />
                         </div>
                         <div>
                             <MediaPicker v-model="editingPost.cover" media-type="image" required label="Couverture"
@@ -103,8 +104,7 @@
                     <div v-if="!couldHaveErrors" class="max-w-96">
                         <div v-if="!editingPost.type" class="text-gray-400">Prévisualisation non disponible pour ce type
                             de contenu</div>
-                        <EventCard v-else-if="editingPost.type === 'event'" :clickable="false"
-                            :post="editingPost" />
+                        <EventCard v-else-if="editingPost.type === 'event'" :clickable="false" :post="editingPost" />
                         <ProjectCard v-else-if="editingPost.type === 'project'" :clickable="false"
                             :post="editingPost" />
                         <NewCard v-else-if="editingPost.type === 'new'" :clickable="false" :post="editingPost" />
