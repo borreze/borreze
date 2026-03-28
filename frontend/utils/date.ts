@@ -1,5 +1,14 @@
 import type { DateFormat } from "~/types/date"
 
+export const isInFuture = (date: Date | string | null | undefined): boolean => {
+    if (!date) return true
+
+    const d = new Date(date)
+    const now = new Date()
+
+    return d > now
+}
+
 export const formatDateTime = (date: Date | string | null | undefined): string => {
     if (!date) return ''
 

@@ -19,20 +19,11 @@
 
             <div class="space-y-4">
                 <NuxtLink v-for="post in posts" :key="post.id" :to="`/evenements/${post.slug}`"
-                    class="group flex gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 transition hover:shadow-md  sm:gap-6">
-
-                    <div v-if="post.date_time"
-                        class="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-lg bg-primary/10 text-primary sm:h-20 sm:w-20">
-                        <span class="text-2xl font-bold leading-none sm:text-3xl">
-                            {{ dateGetDay(post?.date_time as Date) }}
-                        </span>
-                        <span class="text-xs font-semibold uppercase sm:text-sm">
-                            {{ dateGetMonthShort(post?.date_time as Date) }}
-                        </span>
-                    </div>
+                    class="group flex gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 transition hover:shadow-md sm:gap-6">
+                    <DateSquare :dateTime="post.date_time" />
 
                     <div v-if="post.cover"
-                        class="hidden h-20 w-32 shrink-0 overflow-hidden rounded-lg bg-gray-200 md:block">
+                        class="hidden h-14 w-32 shrink-0 overflow-hidden rounded-lg bg-gray-200 md:block">
                         <NuxtImg :src="mediaUrl(post.cover.file_path)" :alt="post.title"
                             class="h-full w-full object-cover transition group-hover:scale-105" />
                     </div>
@@ -70,6 +61,7 @@
 
 <script setup lang="ts">
 import Pill from '~/components/atoms/Pill.vue';
+import DateSquare from '~/components/molecules/DateSquare.vue';
 import { usePostsFuture } from '~/composables/front-office/usePost';
 import { mediaUrl } from '~/utils/media';
 
