@@ -2,7 +2,7 @@
     <div>
         <Teleport defer to="#page-heading">
             <h1 class="title-main line-clamp-1">
-                {{ editingPost.title || (mode === 'create' ? 'Nouvelle actualité' : '') }}
+                {{ editingPost.title || (mode === 'create' ? 'Nouveau' : '') }}
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
@@ -11,7 +11,7 @@
             <Button v-if="mode === 'edit'" :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'"
                 icon="ic:baseline-publish" variant="outline" size="sm" :loading="loading"
                 :disabled="editingPost.status === 'published'"
-                :title="editingPost.status === 'published' ? 'L\'actualité est déjà publiée' : 'Publier l\'actualité'"
+                :title="editingPost.status === 'published' ? 'Le contenu est déjà publié' : 'Publier le contenu'"
                 @click="handlePublish" />
             <Button v-if="mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
                 :loading="loading" @click="handleDelete" />
@@ -25,14 +25,14 @@
                     <div class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
                             <Field v-model="editingPost.title" required label="Titre"
-                                hint="Titre principale de l'actualité" roundness="md" :error="errors.title"
+                                hint="Titre principale" roundness="md" :error="errors.title"
                                 @blur="touch('title')" />
                             <Field v-model="editingPost.slug" required label="Slug"
-                                hint="Identifiant unique de l'actualité, utilisé pour les URL" roundness="md"
+                                hint="Identifiant unique, utilisé pour les URL" roundness="md"
                                 :error="errors.slug" @blur="touch('slug')" />
                         </div>
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
-                            hint="Résumé de l'actualité, utilisé lors de l'affichage en liste" roundness="md"
+                            hint="Résumé, utilisé lors de l'affichage en liste" roundness="md"
                             :error="errors.abstract" @blur="touch('abstract')" />
                         <div>
                             <MediaPicker v-model="editingPost.cover" media-type="image" required label="Couverture"
@@ -48,12 +48,12 @@
                 <section>
                     <h4 class="title-submain mb-4">Publication</h4>
                     <p class="hint mb-2">
-                        Ne saisissez pas de date de début et de fin si vous souhaitez que l'actualité soit publiée
+                        Ne saisissez pas de date de début et de fin si vous souhaitez que le contenu soit publiée
                         immédiatement et indéfiniment.<br>
-                        Si vous saisissez une date de début dans le futur, l'actualité sera programmée pour être publiée
+                        Si vous saisissez une date de début dans le futur, le contenu sera programmée pour être publiée
                         à cette date.<br>
-                        Si vous saisissez une date de fin, l'actualité sera retirée de la publication à cette date.<br>
-                        Les dates de publications sont prioritaires sur le status : une actualité avec un status
+                        Si vous saisissez une date de fin, le contenu sera retirée de la publication à cette date.<br>
+                        Les dates de publications sont prioritaires sur le status : un contenu avec un status
                         "Publié" mais une date de début dans le futur sera automatiquement passé en "archivé" jusqu'à la
                         date de début.
                     </p>
