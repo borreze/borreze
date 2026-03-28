@@ -37,7 +37,6 @@
                     {{ post?.abstract }}
                 </p>
 
-                <!-- Date discrète en bas -->
                 <div class="mt-3 text-xs text-gray-400">{{ formatDateRelative(post?.published_at) }}</div>
             </div>
         </article>
