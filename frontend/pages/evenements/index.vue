@@ -14,7 +14,7 @@
         </div>
         <Loader v-if="loading" />
         <div v-else-if="posts" class="mt-6">
-            <Grid v-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 2, md: 3, lg: 4 }">
+            <Grid v-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 1, md: 2, lg: 3 }">
                 <template #item="{ item }">
                     <EventCard :post="item" />
                 </template>

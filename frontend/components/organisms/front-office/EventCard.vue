@@ -61,13 +61,8 @@ const props = withDefaults(defineProps<{
 
 const eventDate = computed(() => props.post?.date_time ? new Date(props.post.date_time) : null)
 
-const eventDay = computed(() => eventDate.value?.getDate())
+const eventDay = computed(() => dateGetDay(eventDate.value as Date))
+const eventMonth = computed(() => dateGetMonthShort(eventDate.value as Date))
+const eventTime = computed(() => datetimeGetTime(eventDate.value as Date))
 
-const eventMonth = computed(() =>
-    eventDate.value?.toLocaleDateString('fr-FR', { month: 'short' }).replace('.', '')
-)
-
-const eventTime = computed(() =>
-    eventDate.value?.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
-)
 </script>

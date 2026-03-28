@@ -24,12 +24,10 @@
                     <div v-if="post.date_time"
                         class="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-lg bg-primary/10 text-primary sm:h-20 sm:w-20">
                         <span class="text-2xl font-bold leading-none sm:text-3xl">
-                            {{ new Date(post.date_time as unknown as string).getDate() }}
+                            {{ dateGetDay(post?.date_time as Date) }}
                         </span>
                         <span class="text-xs font-semibold uppercase sm:text-sm">
-                            {{ new Date(post.date_time as unknown as string).toLocaleDateString('fr-FR', {
-                                month: 'short'
-                            }) }}
+                            {{ dateGetMonthShort(post?.date_time as Date) }}
                         </span>
                     </div>
 
