@@ -60,10 +60,7 @@
                     </div>
                 </section>
                 <section v-if="mode === 'edit'">
-                    <p class="text-sm text-gray-600"><strong>Date de dernière modification:</strong>
-                        {{ formatDateTime(editingPopup.updated_at) }}</p>
-                    <p class="text-sm text-gray-600"><strong>Date de création:</strong>
-                        {{ formatDateTime(editingPopup.created_at) }}</p>
+                    <Timestamps :created-at="editingPopup.created_at" :updated-at="editingPopup.updated_at" />
                 </section>
             </div>
         </div>
@@ -79,6 +76,7 @@ import Loader from '~/components/molecules/Loader.vue'
 import Datepicker from '~/components/atoms/Datepicker.vue'
 import { formatDateTime } from '~/utils/date'
 import MediaPicker from './MediaPicker.vue'
+import Timestamps from './Timestamps.vue'
 
 const props = withDefaults(defineProps<{
     initialPopup: PopupAttributesFrontend

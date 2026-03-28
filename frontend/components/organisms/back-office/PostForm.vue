@@ -90,17 +90,18 @@
                     <WysiwygEditor v-model="editingPost.content" :error="errors.content" @blur="touch('content')" />
                 </section>
                 <section v-if="mode === 'edit'">
-                    <p class="text-sm text-gray-600"><strong>Date de dernière modification:</strong>
-                        {{ formatDateTime(editingPost.updated_at) }}</p>
-                    <p class="text-sm text-gray-600"><strong>Date de création:</strong>
-                        {{ formatDateTime(editingPost.created_at) }}</p>
+                    <Timestamps :created-at="editingPost.created_at" :updated-at="editingPost.updated_at" />
                 </section>
             </div>
             <div class="px-auto xl:w-3/12">
                 <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
                     <h4 class="title-submain mb-6">Prévisualisation</h4>
                     <div v-if="!couldHaveErrors" class="max-w-96">
-                        <NewCard v-if="editingPost.type === 'new'" :clickable="false" :post="editingPost" />
+                        <div v-if="!editingPost.type" class="text-gray-400">Prévisualisation non disponible pour ce type
+                            de contenu</div>
+                        <ProjectCard v-else-if="editingPost.type === 'project'" :clickable="false"
+                            :post="editingPost" />
+                        <NewCard v-else-if="editingPost.type === 'new'" :clickable="false" :post="editingPost" />
                         <div v-else class="text-gray-400">Prévisualisation non disponible pour ce type de contenu</div>
                     </div>
                     <div v-else class="text-gray-400">Saisissez les informations manquantes pour prévisualiser</div>
@@ -122,6 +123,8 @@ import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
 import NewCard from '~/components/organisms/front-office/NewCard.vue'
 import { formatDateTime } from '~/utils/date'
 import MediaPicker from './MediaPicker.vue'
+import ProjectCard from '~/components/organisms/front-office/ProjectCard.vue'
+import Timestamps from './Timestamps.vue'
 
 const props = withDefaults(defineProps<{
     initialPost: PostAttributesFrontend

@@ -209,9 +209,9 @@ const getItemLabel = (item: T): string => {
     return String(item)
 }
 
-const getItemValue = (item: T): string => {
+const getItemValue = (item: T): string | number => {
     if (typeof item === 'object' && item !== null && props.valueKey in item) {
-        return String((item as any)[props.valueKey])
+        return (item as any)[props.valueKey]
     }
     return String(item)
 }

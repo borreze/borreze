@@ -56,10 +56,7 @@
                 </div>
             </section>
             <section v-if="mode === 'edit'">
-                <p class="text-sm text-gray-600"><strong>Date de dernière modification:</strong>
-                    {{ formatDateTime(editingUser.updated_at) }}</p>
-                <p class="text-sm text-gray-600"><strong>Date de création:</strong>
-                    {{ formatDateTime(editingUser.created_at) }}</p>
+                <Timestamps :created-at="editingUser.created_at" :updated-at="editingUser.updated_at" />
             </section>
         </div>
     </div>
@@ -74,6 +71,7 @@ import Loader from '~/components/molecules/Loader.vue'
 import Dropdown from '~/components/molecules/Dropdown.vue'
 import { formatDateTime } from '~/utils/date'
 import PasswordStrength from '~/components/molecules/PasswordStrength.vue'
+import Timestamps from './Timestamps.vue'
 
 const props = withDefaults(defineProps<{
     initialUser: UserAttributesFrontendPassword

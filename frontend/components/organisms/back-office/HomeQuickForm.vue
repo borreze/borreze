@@ -49,10 +49,7 @@
                     </div>
                 </section>
                 <section v-if="mode === 'edit'">
-                    <p class="text-sm text-gray-600"><strong>Date de dernière modification:</strong>
-                        {{ formatDateTime(editingHomeQuick.updated_at) }}</p>
-                    <p class="text-sm text-gray-600"><strong>Date de création:</strong>
-                        {{ formatDateTime(editingHomeQuick.created_at) }}</p>
+                    <Timestamps :created-at="editingHomeQuick.created_at" :updated-at="editingHomeQuick.updated_at" />
                 </section>
             </div>
             <div class="px-auto xl:w-3/12">
@@ -75,7 +72,7 @@ import Switch from '~/components/atoms/Switch.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import HomeQuickCard from '~/components/organisms/front-office/HomeQuickCard.vue'
-import { formatDateTime } from '~/utils/date'
+import Timestamps from './Timestamps.vue'
 
 const props = withDefaults(defineProps<{
     initialHomeQuick: HomeQuickAttributes
