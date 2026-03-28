@@ -1,5 +1,5 @@
 <template>
-    <section id="home-summary" class="py-16">
+    <section id="home-summary"  class="py-16 bg-gray-50">
         <div class="mx-auto max-w-6xl px-4 md:px-8">
             <Wip />
         </div>

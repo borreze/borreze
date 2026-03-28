@@ -22,6 +22,18 @@ export class PostController {
     res.status(200).json({ data, message: 'Posts retrieved successfully' } as Return)
   }
 
+  public getFuture: RequestHandler<{ type: string }> = async (req, res) => {
+    const page = 1
+    const limit = 3
+    const type = String(req.params.type || 'page') as PostType
+    const options = { status: 'published' as PostStatus, type, inFutureOnly: true }
+    const order: Order[] = [['date_time', 'ASC'], ['created_at', 'DESC']]
+    const pagination: Pagination = { page, limit, total: Infinity }
+
+    const data = await postService.getAll(options, order, pagination, req?.user)
+    res.status(200).json({ data, message: 'Posts retrieved successfully' } as Return)
+  }
+
   public getAll: RequestHandler<{ type: string }> = async (req, res) => {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 10

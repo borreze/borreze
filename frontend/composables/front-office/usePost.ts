@@ -109,6 +109,28 @@ export const usePostsRecents = async (type: PostType) => {
     }
 }
 
+export const usePostsFuture = async (type: PostType) => {
+    const { data, status, error } = await useAsyncData(
+        `posts-future-${type}`,
+        async () => {
+            try {
+                const res = await useApi().get<{ data: PostAttributesFrontend[] }>(
+                    `/posts/${type}/future`
+                )
+                return res.data ?? null
+            } catch (e) {
+                return null
+            }
+        }
+    )
+
+    return {
+        posts: computed(() => data.value?.data ?? []),
+        loading: computed(() => status.value === 'pending'),
+        error,
+    }
+}
+
 export const usePost = async (type: PostType, slug: string) => {
     const { data, status, error } = await useAsyncData(
         `post-${type}-${slug}`,

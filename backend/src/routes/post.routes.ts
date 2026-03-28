@@ -5,6 +5,7 @@ import { permissionMiddleware } from '../middlewares/auth.middleware'
 const router = Router()
 
 router.get('/posts/:type/recents', postController.getRecents)
+router.get('/posts/:type/future', postController.getFuture)
 router.get('/posts/:type/', postController.getAll)
 router.get('/posts/:type/:slug', postController.getBySlug)
 

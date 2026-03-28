@@ -27,6 +27,15 @@ export class PostService {
     return { type }
   }
 
+  private filterInFutureOnly(inFutureOnly?: boolean | null): WhereOptions {
+    if (!inFutureOnly) return {}
+    return {
+      date_time: {
+        [Op.gt]: new Date()
+      }
+    }
+  }
+
   private filterCategories(categories?: number[] | null): WhereOptions {
     if (!categories || categories.length === 0) return {}
 
@@ -42,13 +51,14 @@ export class PostService {
     }
   }
 
-  public async count(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, categories?: number[] | null }): Promise<number> {
-    const { status, search, categories, type } = options || {}
+  public async count(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, inFutureOnly?: boolean | null, categories?: number[] | null }): Promise<number> {
+    const { status, search, categories, type, inFutureOnly } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
       ...this.filterCategories(categories),
       ...this.filterType(type),
+      ...this.filterInFutureOnly(inFutureOnly),
       ...searchWhere(POST_CONSTRAINTS, search)
     }
 
@@ -56,8 +66,8 @@ export class PostService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
-    const { status, type, search, categories } = options || {}
+  public async getAll(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, inFutureOnly?: boolean | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
+    const { status, type, search, categories, inFutureOnly } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
     if (
@@ -70,6 +80,7 @@ export class PostService {
       ...this.filterStatus(status),
       ...this.filterType(type),
       ...this.filterCategories(categories),
+      ...this.filterInFutureOnly(inFutureOnly),
       ...searchWhere(POST_CONSTRAINTS, search)
     }
 
@@ -77,12 +88,13 @@ export class PostService {
     return posts
   }
 
-  public async getById(id: number, options?: { status?: PostStatus | 'all' | null, type?: PostType | null }): Promise<PostAttributes | null> {
-    const { status, type } = options || {}
+  public async getById(id: number, options?: { status?: PostStatus | 'all' | null, inFutureOnly?: boolean | null, type?: PostType | null }): Promise<PostAttributes | null> {
+    const { status, type, inFutureOnly } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
       ...this.filterType(type),
+      ...this.filterInFutureOnly(inFutureOnly),
       id
     }
 
@@ -91,12 +103,13 @@ export class PostService {
     return post
   }
 
-  public async getBySlug(slug: string, options?: { status?: PostStatus | 'all' | null, type?: PostType | null }): Promise<PostAttributes | null> {
-    const { status, type } = options || {}
+  public async getBySlug(slug: string, options?: { status?: PostStatus | 'all' | null, inFutureOnly?: boolean | null, type?: PostType | null }): Promise<PostAttributes | null> {
+    const { status, type, inFutureOnly } = options || {}
 
     const where: WhereOptions = {
       ...this.filterStatus(status),
       ...this.filterType(type),
+      ...this.filterInFutureOnly(inFutureOnly),
       slug
     }
 

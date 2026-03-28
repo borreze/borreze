@@ -34,7 +34,7 @@
                             hint="Résumé, utilisé lors de l'affichage en liste" roundness="md" :error="errors.abstract"
                             @blur="touch('abstract')" />
                         <div v-if="editingPost.type === 'event'" class="max-w-xs">
-                            <Datepicker v-model="editingPost.date_time" :with-time="true" label="Date et heure"
+                            <Datepicker v-model="editingPost.date_time" required :with-time="true" label="Date et heure"
                                 roundness="md" :error="errors.date_time" @blur="touch('date_time')" />
                         </div>
                         <div>
@@ -103,6 +103,8 @@
                     <div v-if="!couldHaveErrors" class="max-w-96">
                         <div v-if="!editingPost.type" class="text-gray-400">Prévisualisation non disponible pour ce type
                             de contenu</div>
+                        <EventCard v-else-if="editingPost.type === 'event'" :clickable="false"
+                            :post="editingPost" />
                         <ProjectCard v-else-if="editingPost.type === 'project'" :clickable="false"
                             :post="editingPost" />
                         <NewCard v-else-if="editingPost.type === 'new'" :clickable="false" :post="editingPost" />
@@ -124,11 +126,11 @@ import Loader from '~/components/molecules/Loader.vue'
 import Dropdown from '~/components/molecules/Dropdown.vue'
 import Datepicker from '~/components/atoms/Datepicker.vue'
 import WysiwygEditor from '~/components/organisms/back-office/WysiwygEditor.vue'
-import NewCard from '~/components/organisms/front-office/NewCard.vue'
-import { formatDateTime } from '~/utils/date'
-import MediaPicker from './MediaPicker.vue'
-import ProjectCard from '~/components/organisms/front-office/ProjectCard.vue'
 import Timestamps from './Timestamps.vue'
+import MediaPicker from './MediaPicker.vue'
+import NewCard from '~/components/organisms/front-office/NewCard.vue'
+import ProjectCard from '~/components/organisms/front-office/ProjectCard.vue'
+import EventCard from '~/components/organisms/front-office/EventCard.vue'
 
 const props = withDefaults(defineProps<{
     initialPost: PostAttributesFrontend
@@ -166,14 +168,16 @@ const { couldHaveErrors, touch, errors, submit } = useForm(
 )
 
 const handleSave = () => submit(() => {
+    const categoryIds = [...editingPostCategories.value]
+
     if (editingPost.value.cover) { // ensure cover_id is set for backend, but remove cover object to avoid creating a new media
         editingPost.value.cover_id = editingPost.value.cover?.id || null
         delete editingPost.value.cover
     }
-    if (editingPost.value.categories) { // remove categories array to avoid creating new media
+    if (editingPost.value.categories) { // remove categories array to avoid creating new categories
         delete editingPost.value.categories
     }
-    emit('save', editingPost.value, editingPostCategories.value)
+    emit('save', editingPost.value, categoryIds)
 })
 
 const handlePublish = () => {
