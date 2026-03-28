@@ -33,6 +33,10 @@
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
                             hint="Résumé, utilisé lors de l'affichage en liste" roundness="md" :error="errors.abstract"
                             @blur="touch('abstract')" />
+                        <div v-if="editingPost.type === 'event'" class="max-w-xs">
+                            <Datepicker v-model="editingPost.date_time" :with-time="true" label="Date et heure"
+                                roundness="md" :error="errors.date_time" @blur="touch('date_time')" />
+                        </div>
                         <div>
                             <MediaPicker v-model="editingPost.cover" media-type="image" required label="Couverture"
                                 hint="Sélectionnez une image de couverture" :error="errors.cover"
@@ -59,13 +63,13 @@
                     <div class="flex flex-row flex-wrap gap-4">
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPost.schedule_start" :with-time="true"
-                                label="Date de début de publication" type="date" roundness="md"
-                                :error="errors.schedule_start" @blur="touch('schedule_start')" />
+                                label="Date de début de publication" roundness="md" :error="errors.schedule_start"
+                                @blur="touch('schedule_start')" />
                         </div>
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPost.schedule_end" :with-time="true"
-                                label="Date de fin de publication" type="date" roundness="md"
-                                :error="errors.schedule_end" @blur="touch('schedule_end')" />
+                                label="Date de fin de publication" roundness="md" :error="errors.schedule_end"
+                                @blur="touch('schedule_end')" />
                         </div>
                         <div class="max-w-xs">
                             <Dropdown v-model="editingPost.status" variant="light" size="md"
@@ -151,12 +155,13 @@ const editingPostCategories = computed({
 })
 
 const { couldHaveErrors, touch, errors, submit } = useForm(
-    ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content', 'cover'],
+    ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content', 'cover', 'date_time'],
     {
         title: () => editingPost.value.title === '' ? 'Le titre est requis' : null,
         slug: () => editingPost.value.slug === '' ? 'Le slug est requis' : null,
         status: () => !editingPost.value.status ? 'Le status est requis' : null,
         cover: () => !editingPost.value.cover ? 'La couverture est requise' : null,
+        date_time: () => (editingPost.value.type === 'event' && !editingPost.value.date_time) ? 'La date et heure sont requises' : null,
     }
 )
 

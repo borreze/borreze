@@ -44,10 +44,10 @@
                     <div class="flex flex-row flex-wrap gap-4 mb-6">
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPopup.date_from" :with-time="true" label="Date de début"
-                                type="date" roundness="md" :error="errors.date_from" @blur="touch('date_from')" />
+                                 roundness="md" :error="errors.date_from" @blur="touch('date_from')" />
                         </div>
                         <div class="max-w-xs">
-                            <Datepicker v-model="editingPopup.date_to" :with-time="true" label="Date de fin" type="date"
+                            <Datepicker v-model="editingPopup.date_to" :with-time="true" label="Date de fin" 
                                 roundness="md" :error="errors.date_to" @blur="touch('date_to')" />
                         </div>
                     </div>
