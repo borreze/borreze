@@ -8,8 +8,8 @@
         </div>
 
         <div class="flex flex-col space-y-4 m-4">
-            <Button :disabled="couldHaveErrors" label="Se connecter" variant="primary" size="md" :loading="authStore.loading"
-                @click="handleLogin" />
+            <Button :disabled="couldHaveErrors" label="Se connecter" variant="primary" size="md"
+                :loading="authStore.loading" @click="handleLogin" />
             <Button as="link" href="/" icon="ic:baseline-arrow-back" label="Revenir au site web" variant="ghost"
                 size="md" />
         </div>
@@ -37,13 +37,10 @@ const formContent = ref<{
     password: '',
 })
 
-const { couldHaveErrors, touch, errors, submit } = useForm(
-    ['identifier', 'password'],
-    {
-        identifier: () => formContent.value.identifier === '' ? 'Le nom d\'utilisateur ou l\'e-mail est requis' : null,
-        password: () => formContent.value.password === '' ? 'Le mot de passe est requis' : null,
-    }
-)
+const { couldHaveErrors, touch, errors, submit } = useForm([
+    { name: 'identifier', label: 'Identifiant', validation: () => formContent.value.identifier === '' ? 'Le nom d\'utilisateur ou l\'e-mail est requis' : null },
+    { name: 'password', label: 'Mot de passe', validation: () => formContent.value.password === '' ? 'Le mot de passe est requis' : null },
+])
 
 const handleLogin = () => submit(async () => {
     // trim values

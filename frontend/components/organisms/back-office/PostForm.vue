@@ -110,7 +110,10 @@
                         <NewCard v-else-if="editingPost.type === 'new'" :clickable="false" :post="editingPost" />
                         <div v-else class="text-gray-400">Prévisualisation non disponible pour ce type de contenu</div>
                     </div>
-                    <div v-else class="text-gray-400">Saisissez les informations manquantes pour prévisualiser</div>
+                    <div v-else>
+                        <span class="text-gray-400">Saisissez les informations manquantes pour prévisualiser:
+                            {{ errorLabels ? errorLabels.join(', ') : '' }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -156,16 +159,19 @@ const editingPostCategories = computed({
     },
 })
 
-const { couldHaveErrors, touch, errors, submit } = useForm(
-    ['title', 'slug', 'abstract', 'meta_title', 'meta_description', 'schedule_start', 'schedule_end', 'status', 'content', 'cover', 'date_time'],
-    {
-        title: () => editingPost.value.title === '' ? 'Le titre est requis' : null,
-        slug: () => editingPost.value.slug === '' ? 'Le slug est requis' : null,
-        status: () => !editingPost.value.status ? 'Le status est requis' : null,
-        cover: () => !editingPost.value.cover ? 'La couverture est requise' : null,
-        date_time: () => (editingPost.value.type === 'event' && !editingPost.value.date_time) ? 'La date et heure sont requises' : null,
-    }
-)
+const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useForm([
+    { name: 'title', label: 'Titre', validation: () => editingPost.value.title === '' ? 'Le titre est requis' : null },
+    { name: 'slug', label: 'Slug', validation: () => editingPost.value.slug === '' ? 'Le slug est requis' : null },
+    { name: 'abstract', label: 'Résumé' },
+    { name: 'meta_title', label: 'Meta titre' },
+    { name: 'meta_description', label: 'Meta description' },
+    { name: 'schedule_start', label: 'Début de publication' },
+    { name: 'schedule_end', label: 'Fin de publication' },
+    { name: 'status', label: 'Status', validation: () => !editingPost.value.status ? 'Le status est requis' : null },
+    { name: 'content', label: 'Contenu' },
+    { name: 'cover', label: 'Couverture', validation: () => !editingPost.value.cover ? 'La couverture est requise' : null },
+    { name: 'date_time', label: 'Date et heure', validation: () => (editingPost.value.type === 'event' && !editingPost.value.date_time) ? 'La date et heure sont requises' : null },
+])
 
 const handleSave = () => submit(() => {
     const categoryIds = [...editingPostCategories.value]

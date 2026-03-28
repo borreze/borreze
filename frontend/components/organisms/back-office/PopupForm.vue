@@ -93,13 +93,14 @@ const emit = defineEmits<{
 
 const editingPopup = ref<PopupAttributesFrontend>({ ...props.initialPopup })
 
-const { couldHaveErrors, touch, errors, submit } = useForm(
-    ['date_from', 'date_to', 'title', 'content', 'is_active', 'media'],
-    {
-        title: () => editingPopup.value.title === '' ? 'Le titre est requis' : null,
-        is_active: () => editingPopup.value.is_active === null ? 'L\'icône est requise' : null,
-    }
-)
+const { couldHaveErrors, touch, errors, submit } = useForm([
+    { name: 'title', label: 'Titre', validation: () => editingPopup.value.title === '' ? 'Le titre est requis' : null },
+    { name: 'content', label: 'Contenu' },
+    { name: 'date_from', label: 'Date de début' },
+    { name: 'date_to', label: 'Date de fin' },
+    { name: 'is_active', label: 'Actif', validation: () => editingPopup.value.is_active === null ? 'Le statut actif est requis' : null },
+    { name: 'media', label: 'Média' },
+])
 
 const handleSave = () => submit(() => {
     if (editingPopup.value.media) { // ensure media is set for backend, but remove media object to avoid creating a new media

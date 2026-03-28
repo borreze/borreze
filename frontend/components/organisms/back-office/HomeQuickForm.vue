@@ -57,7 +57,10 @@
                     <h4 class="title-submain mb-6">Prévisualisation</h4>
                     <HomeQuickCard v-if="!couldHaveErrors" :clickable="false" :homeQuick="editingHomeQuick"
                         class="max-w-96" />
-                    <div v-else class="text-gray-400">Saisissez les informations manquantes pour prévisualiser</div>
+                    <div v-else>
+                        <span class="text-gray-400">Saisissez les informations manquantes pour prévisualiser:
+                            {{ errorLabels ? errorLabels.join(', ') : '' }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,16 +92,14 @@ const emit = defineEmits<{
 
 const editingHomeQuick = ref<HomeQuickAttributes>({ ...props.initialHomeQuick })
 
-const { couldHaveErrors, touch, errors, submit } = useForm(
-    ['title', 'url', 'description', 'icon', 'order', 'is_visible'],
-    {
-        title: () => editingHomeQuick.value.title === '' ? 'Le titre est requis' : null,
-        icon: () => editingHomeQuick.value.icon === '' ? 'L\'icône est requise' : null,
-        order: () => editingHomeQuick.value.order === null ? 'L\'ordre est requis' : null,
-        url: () => editingHomeQuick.value.url === '' || (!isURL(editingHomeQuick.value.url) && !isURLRelative(editingHomeQuick.value.url)) ? 'L\'URL est requise et doit être valide' : null,
-    }
-)
-
+const { errorLabels, couldHaveErrors, touch, errors, submit } = useForm([
+    { name: 'title', label: 'Titre', validation: () => editingHomeQuick.value.title === '' ? 'Le titre est requis' : null },
+    { name: 'url', label: 'URL', validation: () => editingHomeQuick.value.url === '' || (!isURL(editingHomeQuick.value.url) && !isURLRelative(editingHomeQuick.value.url)) ? 'L\'URL est requise et doit être valide' : null },
+    { name: 'description', label: 'Description' },
+    { name: 'icon', label: 'Icône', validation: () => editingHomeQuick.value.icon === '' ? 'L\'icône est requise' : null },
+    { name: 'order', label: 'Ordre', validation: () => editingHomeQuick.value.order === null ? 'L\'ordre est requis' : null },
+    { name: 'is_visible', label: 'Visibilité' },
+])
 const handleSave = () => submit(() => {
     emit('save', editingHomeQuick.value)
 })

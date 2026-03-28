@@ -72,12 +72,9 @@ const emit = defineEmits<{
 
 const editingMedia = ref<MediaAttributes>({ ...props.initialMedia })
 
-const { couldHaveErrors, touch, errors, submit } = useForm(
-    ['title'],
-    {
-        title: () => editingMedia.value.title === '' ? 'Le nom est requis' : null,
-    }
-)
+const { couldHaveErrors, touch, errors, submit } = useForm([
+    { name: 'title', label: 'Nom', validation: () => editingMedia.value.title === '' ? 'Le nom est requis' : null },
+])
 
 const handleSave = () => submit(() => {
     emit('save', editingMedia.value)

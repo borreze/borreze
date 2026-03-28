@@ -74,15 +74,12 @@ const formContent = ref<ContactRequest>({
     message: ''
 })
 
-const { couldHaveErrors, touch, touched, errors, untouchAll, submit } = useForm(
-    ['firstname', 'lastname', 'email', 'message'],
-    {
-        firstname: () => formContent.value.firstname === '' ? 'Le titre est requis' : null,
-        lastname: () => formContent.value.lastname === '' ? 'Le slug est requis' : null,
-        email: () => formContent.value.email === '' || !isEmail(formContent.value.email) ? 'Le champ e-mail est requis et doit être une adresse e-mail valide' : null,
-        message: () => formContent.value.message === '' || formContent.value.message.length < 100 ? 'Le champ message est requis et doit contenir au moins 100 caractères' : null,
-    }
-)
+const { couldHaveErrors, touch, touched, errors, untouchAll, submit } = useForm([
+    { name: 'firstname', label: 'Prénom', validation: () => formContent.value.firstname === '' ? 'Le prénom est requis' : null },
+    { name: 'lastname', label: 'Nom', validation: () => formContent.value.lastname === '' ? 'Le nom est requis' : null },
+    { name: 'email', label: 'E-mail', validation: () => formContent.value.email === '' || !isEmail(formContent.value.email) ? 'Le champ e-mail est requis et doit être une adresse e-mail valide' : null },
+    { name: 'message', label: 'Message', validation: () => formContent.value.message === '' || formContent.value.message.length < 100 ? 'Le champ message est requis et doit contenir au moins 100 caractères' : null },
+])
 
 const handleClear = () => {
     formContent.value.firstname = ''

@@ -89,19 +89,20 @@ const emit = defineEmits<{
 
 const editingUser = ref<UserAttributesFrontendPassword>({ ...props.initialUser })
 
-const { couldHaveErrors, touch, errors, submit } = useForm(
-    ['username', 'email', 'first_name', 'last_name', 'status', 'role_id', 'password'],
+const { couldHaveErrors, touch, errors, submit } = useForm([
+    { name: 'username', label: 'Nom d\'utilisateur', validation: () => editingUser.value.username === '' ? 'Le nom d\'utilisateur est requis' : null },
+    { name: 'email', label: 'E-mail', validation: () => editingUser.value.email === '' || !isEmail(editingUser.value.email) ? 'L\'e-mail est requis et doit être une adresse e-mail valide' : null },
+    { name: 'first_name', label: 'Prénom' },
+    { name: 'last_name', label: 'Nom' },
+    { name: 'status', label: 'Status', validation: () => !editingUser.value.status ? 'Le status est requis' : null },
+    { name: 'role_id', label: 'Rôle', validation: () => !editingUser.value.role_id ? 'Le rôle est requis' : null },
     {
-        username: () => editingUser.value.username === '' ? 'Le nom d\'utilisateur est requis' : null,
-        email: () => editingUser.value.email === '' || !isEmail(editingUser.value.email) ? 'L\'e-mail est requis et doit être une adresse e-mail valide' : null,
-        status: () => !editingUser.value.status ? 'Le status est requis' : null,
-        role_id: () => !editingUser.value.role_id ? 'Le rôle est requis' : null,
-        password: () => (
-            (props.mode === 'create' && (editingUser.value.password === '' || !isPasswordStrong(editingUser.value.password))) || // In create mode, password is required and must be strong
+        name: 'password', label: 'Mot de passe', validation: () => (
+            (props.mode === 'create' && (editingUser.value.password === '' || !isPasswordStrong(editingUser.value.password))) ||  // In create mode, password is required and must be strong
             (props.mode === 'edit' && (editingUser.value.password !== '' && !isPasswordStrong(editingUser.value.password))) // In edit mode, password is optional but if filled it must be strong
-        ) ? 'Le mot de passe est requis et doit être fort' : null,
-    }
-)
+        ) ? 'Le mot de passe est requis et doit être fort' : null
+    },
+])
 
 const handleSave = () => submit(() => {
     emit('save', editingUser.value)
