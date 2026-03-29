@@ -23,8 +23,8 @@
                 </h4>
 
                 <Loader v-if="loading" />
-                <Grid v-else-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 2, lg: 1, xl: 2, '3xl': 3 }"
-                    class="mt-6">
+                <Grid v-else-if="posts?.length > 0" :items="posts"
+                    :layouts="{ default: 1, sm: 2, lg: 1, xl: 2, '3xl': 3 }" class="mt-6">
                     <template #item="{ item }">
                         <EventCard :post="item" />
                     </template>
@@ -47,13 +47,13 @@ import { useCategoriesByType } from '~/composables/front-office/useCategory';
 import EventsCalendar from '~/components/organisms/front-office/EventsCalendar.vue';
 
 const { posts, loading, removeCategory, addCategory, resetCategories, getCategories, setFrom, setTo } = await usePostsByDate('event', {
-    from: dateFirstDayOf(new Date().getMonth(), new Date().getFullYear()),
-    to: dateLastDayOf(new Date().getMonth(), new Date().getFullYear()),
+    from: dateFirstDayOf(new Date().getMonth() + 1, new Date().getFullYear()), // getMonth() returns 0-11, we want 1-12 for easier handling
+    to: dateLastDayOf(new Date().getMonth() + 1, new Date().getFullYear()), // getMonth() returns 0-11, we want 1-12 for easier handling
 })
 const { categories } = await useCategoriesByType('post')
 
 const currentYear = ref(new Date().getFullYear())
-const currentMonth = ref(new Date().getMonth())
+const currentMonth = ref(new Date().getMonth() + 1) // getMonth() returns 0-11, we want 1-12 for easier handling
 
 const currentNiceMonth = computed(() => niceMonth(currentMonth.value))
 
