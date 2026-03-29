@@ -1,7 +1,7 @@
 import { Optional } from 'sequelize'
 
 export const MEDIA_UPLOAD_DIR = 'storage/medias'
-export const MEDIA_UPLOAD_URL = 'medias'
+export const MEDIA_UPLOAD_URL = 'storage/medias'
 export const MEDIA_UPLOAD_SIZE_LIMIT = 20 * 1024 * 1024 // 20MB
 export const MEDIA_UPLOAD_NB_LIMIT = 5
 export const MEDIA_UPLOAD_ALLOWED: RegExp = /jpeg|jpg|png|gif|webp|svg|pdf|mp4|mp3|ogg|wav|mpeg|avi|mov|mp3|mp4/i
