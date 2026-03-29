@@ -6,15 +6,15 @@
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button v-if="authStore.canIDo('post', 'update')" label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
-                :disabled="couldHaveErrors" @click="handleSave" />
-            <Button v-if="authStore.canIDo('post', 'update') && mode === 'edit'" :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'"
-                icon="ic:baseline-publish" variant="outline" size="sm" :loading="loading"
-                :disabled="editingPost.status === 'published'"
+            <Button v-if="authStore.canIDo('post', 'update')" label="Enregistrer" icon="ic:baseline-save"
+                variant="primary" size="sm" :loading="loading" :disabled="couldHaveErrors" @click="handleSave" />
+            <Button v-if="authStore.canIDo('post', 'update') && mode === 'edit'"
+                :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'" icon="ic:baseline-publish"
+                variant="outline" size="sm" :loading="loading" :disabled="editingPost.status === 'published'"
                 :title="editingPost.status === 'published' ? 'Le contenu est déjà publié' : 'Publier le contenu'"
                 @click="handlePublish" />
-            <Button v-if="authStore.canIDo('post', 'delete') && mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
-                :loading="loading" @click="handleDelete" />
+            <Button v-if="authStore.canIDo('post', 'delete') && mode === 'edit'" label="Supprimer"
+                icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading" @click="handleDelete" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -111,8 +111,8 @@
                         <div v-else class="text-gray-400">Prévisualisation non disponible pour ce type de contenu</div>
                     </div>
                     <div v-else>
-                        <span class="text-gray-400">Saisissez les informations manquantes pour prévisualiser:
-                            {{ errorLabels ? errorLabels.join(', ') : '' }}</span>
+                        <span class="text-gray-400">Saisissez les informations manquantes pour prévisualiser
+                            {{ errorLabels && errorLabels.length ? `: ${errorLabels.join(', ')}` : '' }}</span>
                     </div>
                 </div>
             </div>

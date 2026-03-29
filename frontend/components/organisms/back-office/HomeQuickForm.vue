@@ -8,8 +8,8 @@
         <Teleport defer to="#page-actions">
             <Button v-if="authStore.canIDo('home-quick', 'update')" label="Enregistrer" icon="ic:baseline-save"
                 variant="primary" size="sm" :loading="loading" :disabled="couldHaveErrors" @click="handleSave" />
-            <Button v-if="authStore.canIDo('home-quick', 'delete') && mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
-                :loading="loading" @click="handleDelete" />
+            <Button v-if="authStore.canIDo('home-quick', 'delete') && mode === 'edit'" label="Supprimer"
+                icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading" @click="handleDelete" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -58,8 +58,8 @@
                     <HomeQuickCard v-if="!couldHaveErrors" :clickable="false" :homeQuick="editingHomeQuick"
                         class="max-w-96" />
                     <div v-else>
-                        <span class="text-gray-400">Saisissez les informations manquantes pour prévisualiser:
-                            {{ errorLabels ? errorLabels.join(', ') : '' }}</span>
+                        <span class="text-gray-400">Saisissez les informations manquantes pour prévisualiser
+                            {{ errorLabels && errorLabels.length ? `: ${errorLabels.join(', ')}` : '' }}</span>
                     </div>
                 </div>
             </div>
