@@ -145,7 +145,8 @@
         "content": "<p>This is the content of the eleventh post.</p>",
         "meta_title": "Eleventh Post Meta Title",
         "meta_description": "This is the meta description for the eleventh post.",
-        "address": "51 Grandrue, 24590 Borrèze"
+        "address": "51 Grandrue, 24590 Borrèze",
+        "date_time": "2026-05-01T12:00:00Z"
     },
     {
         "id": 12,

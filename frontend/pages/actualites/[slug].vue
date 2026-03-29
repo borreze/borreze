@@ -6,12 +6,12 @@
                 { name: 'Actualités', url: '/actualites' },
                 ...(post ? [{ name: post.title, url: `/actualites/${post.slug}` }] : [])
             ]" />
-            <div v-if="post?.categories && post.categories.length > 0" class="mt-6 flex items-center flex-wrap gap-2">
+            <div v-if="post?.categories && post.categories.length > 0" class="mt-8 flex items-center flex-wrap gap-2">
                 <Pill v-for="category in post.categories" :key="category.id" :label="category.name" size="md"
                     variant="primary" />
             </div>
             <Loader v-if="loading" />
-            <article v-else-if="post" class="mt-6">
+            <article v-else-if="post" class="mt-8">
                 <p v-if="post.published_at" class="text-sm text-gray-500 mt-2">
                     {{ formatDateRelative(post.published_at) }}
                 </p>

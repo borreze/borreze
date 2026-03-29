@@ -2,7 +2,7 @@
     <div class="safe-area-md">
         <h1 class="title-main pt-2 pb-4">Projets</h1>
         <Breadcrumb :items="[{ name: 'Projets', url: '/projets' }]" />
-        <div class="flex justify-between items-center mt-4 gap-4 flex-wrap">
+        <div class="flex justify-between items-center mt-8 gap-4 flex-wrap">
             <CategorySelector :categories="categories" :selected="getCategories()" @remove="removeCategory"
                 @add="addCategory" @reset="resetCategories" />
             <OrderBy :orders="[

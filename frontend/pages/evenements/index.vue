@@ -2,15 +2,9 @@
     <div class="safe-area-md">
         <h1 class="title-main pt-2 pb-4">Événements</h1>
         <Breadcrumb :items="[{ name: 'Événements', url: '/evenements' }]" />
-        <div class="flex justify-between items-center mt-4 gap-4 flex-wrap">
+        <div class="flex justify-between items-center mt-8 gap-4 flex-wrap">
             <CategorySelector :categories="categories" :selected="getCategories()" @remove="removeCategory"
                 @add="addCategory" @reset="resetCategories" />
-            <!-- <OrderBy :orders="[
-                { label: 'Publiés récemment', value: 'published_at:DESC' },
-                { label: 'Les plus anciens', value: 'published_at:ASC' },
-                { label: 'Mise à jour récemment', value: 'updated_at:DESC' },
-                { label: 'Ordre alphabétique', value: 'title:ASC' },
-            ]" @select="setOrder" @reset="resetOrder" /> -->
         </div>
         <Loader v-if="loading" />
         <div v-else-if="posts" class="mt-6">
@@ -36,7 +30,7 @@ import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
 import { usePosts } from '~/composables/front-office/usePost';
 import { useCategoriesByType } from '~/composables/front-office/useCategory';
 
-const { posts, pagination, loading, setPage, removeCategory, addCategory, resetCategories, getCategories, setOrder, resetOrder } = await usePosts('event')
+const { posts, pagination, loading, setPage, removeCategory, addCategory, resetCategories, getCategories } = await usePosts('event')
 const { categories } = await useCategoriesByType('post')
 
 useAppHead({

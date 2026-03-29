@@ -8,7 +8,7 @@
                 ...(post ? [{ name: post.title, url: `/projets/${post.slug}` }] : [])
             ]" />
             <div v-if="(post?.categories && post.categories.length > 0) || post?.progression"
-                class="mt-6 flex items-center flex-wrap gap-2">
+                class="mt-8 flex items-center flex-wrap gap-2">
                 <Pill v-if="post?.progression"
                     :label="POST_PROGESSIONS_OBJECTS.find(prog => prog.value === post?.progression)?.label || post?.progression"
                     :color="POST_PROGESSIONS_OBJECTS.find(prog => prog.value === post?.progression)?.color" size="sm" />
@@ -16,7 +16,7 @@
                     variant="primary" />
             </div>
             <Loader v-if="loading" />
-            <article v-else-if="post" class="mt-6">
+            <article v-else-if="post" class="mt-8">
                 <p v-if="post.published_at" class="text-sm text-gray-500 mt-2">
                     {{ formatDateRelative(post.published_at) }}
                 </p>
