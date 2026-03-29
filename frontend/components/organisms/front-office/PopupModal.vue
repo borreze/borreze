@@ -5,7 +5,7 @@
             <p v-if="popup?.content" class="text-dark prose max-w-none">{{ popup.content }}</p>
             
             <div v-if="popup?.media" class="mt-4">
-                <Url :to="mediaUrl(popup?.media.file_path)" icon="ic:baseline-download" label="Plus d'informations" />
+                <Url :to="mediaUrl(popup?.media.file_name)" icon="ic:baseline-download" label="Plus d'informations" />
             </div>
         </div>
     </Modal>

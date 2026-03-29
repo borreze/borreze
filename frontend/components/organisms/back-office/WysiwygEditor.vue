@@ -482,7 +482,7 @@ function insertImage() {
     if (!imageMedia.value) return
 
     editor.value!.chain().focus().setImage({
-        src: mediaUrl(imageMedia.value.file_path),
+        src: mediaUrl(imageMedia.value.file_name),
         alt: imageAlt.value || undefined,
         width: imageWidth.value || undefined,
     } as any).run()

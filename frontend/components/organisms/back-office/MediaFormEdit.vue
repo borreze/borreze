@@ -6,7 +6,7 @@
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link" :href="mediaUrl(editingMedia.file_path)"
+            <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link" :href="mediaUrl(editingMedia.file_name)"
                 target="_blank" variant="light" size="sm" />
             <Button v-if="authStore.canIDo('media', 'update')" label="Enregistrer" icon="ic:baseline-save"
                 variant="primary" size="sm" :loading="loading" :disabled="couldHaveErrors" @click="handleSave" />
@@ -42,7 +42,7 @@
                     </div>
                     <div class="flex items-center justify-start gap-4 mt-4">
                         <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link"
-                            :href="mediaUrl(editingMedia.file_path)" target="_blank" variant="light" size="sm" />
+                            :href="mediaUrl(editingMedia.file_name)" target="_blank" variant="light" size="sm" />
                     </div>
                 </div>
             </div>

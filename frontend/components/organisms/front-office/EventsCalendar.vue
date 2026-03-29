@@ -14,7 +14,7 @@
         textConfirm="Voir l'événement" textCancel="Fermer">
         <div v-if="selectedEvent" class="space-y-4 max-w-md">
             <div v-if="selectedEvent.cover" class="aspect-video overflow-hidden rounded-lg bg-gray-200">
-                <NuxtImg :src="mediaUrl(selectedEvent.cover.file_path)" :alt="selectedEvent.title"
+                <NuxtImg :src="mediaUrl(selectedEvent.cover.file_name)" :alt="selectedEvent.title"
                     class="h-full w-full object-cover" />
             </div>
             <EventDatetime v-if="selectedEvent.date_time" :dateTime="selectedEvent.date_time" />

@@ -24,7 +24,7 @@
 
                     <div v-if="post.cover"
                         class="hidden h-14 w-32 shrink-0 overflow-hidden rounded-lg bg-gray-200 md:block">
-                        <NuxtImg :src="mediaUrl(post.cover.file_path)" :alt="post.title"
+                        <NuxtImg :src="mediaUrl(post.cover.file_name)" :alt="post.title"
                             class="h-full w-full object-cover transition group-hover:scale-105" />
                     </div>
 

@@ -1,5 +1,5 @@
 <template>
-    <PageHero v-if="post" :title="post?.title" :image="post?.cover ? mediaUrl(post?.cover.file_path) : MEDIA_URL_DEFAULT_HERO" />
+    <PageHero v-if="post" :title="post?.title" :image="post?.cover ? mediaUrl(post?.cover.file_name) : MEDIA_URL_DEFAULT_HERO" />
     <section class="safe-area-md">
         <div class="mx-auto max-w-6xl">
             <Breadcrumb :items="[

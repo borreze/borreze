@@ -51,14 +51,12 @@ import MediaCard from '~/components/organisms/back-office/MediaCard.vue';
 import Loader from '~/components/molecules/Loader.vue';
 import NoContent from '~/components/molecules/NoContent.vue';
 import Grid from '~/components/molecules/Grid.vue';
-import { isMobile } from '~/utils/responsive';
 import OrderBy from '~/components/organisms/OrderBy.vue';
 import MediaFormCreate from '~/components/organisms/back-office/MediaFormCreate.vue';
 import Modal from '~/components/molecules/Modal.vue';
 import Button from '~/components/atoms/Button.vue';
 import { push } from 'notivue';
 import { useAuthStore } from '~/stores/auth'
-import auth from '~/middleware/auth';
 
 const authStore = useAuthStore()
 

@@ -31,7 +31,7 @@ export type { HomeQuickAttributes, HomeQuickAttributesCreation, HomeQuickAttribu
 export { LOG_RENTENTION_DAYS, LOG_LEVELS_KEYS, LOG_LEVELS_OBJECTS } from './types/log.types'
 export type { LogLevel, LogAttributes, LogAttributesCreation } from './types/log.types'
 
-export { MEDIA_UPLOAD_UNIQUE_ATTEMPTS, MEDIA_UPLOAD_DIR, MEDIA_UPLOAD_SIZE_LIMIT, MEDIA_UPLOAD_NB_LIMIT, MEDIA_UPLOAD_ALLOWED, MEDIA_TYPES_KEYS, MEDIA_TYPES_OBJECTS } from './types/media.types'
+export { MEDIA_UPLOAD_UNIQUE_ATTEMPTS, MEDIA_UPLOAD_DIR, MEDIA_UPLOAD_URL, MEDIA_UPLOAD_SIZE_LIMIT, MEDIA_UPLOAD_NB_LIMIT, MEDIA_UPLOAD_ALLOWED, MEDIA_TYPES_KEYS, MEDIA_TYPES_OBJECTS } from './types/media.types'
 export type { MediaType, MediaAttributes, MediaAttributesCreation, MediaAttributesUpdate } from './types/media.types'
 
 export { MENU_SCOPES_KEYS, MENU_SCOPES_OBJECTS } from './types/menu.types'

@@ -4,7 +4,7 @@
         <article
             :class="['group overflow-hidden rounded-lg bg-white shadow-md transition', clickable ? 'hover:shadow-xl' : '']">
             <div class="relative aspect-[2/1] overflow-hidden bg-gray-200">
-                <NuxtImg :src="post?.cover ? mediaUrl(post?.cover.file_path) : MEDIA_URL_DEFAULT_CARD"
+                <NuxtImg :src="post?.cover ? mediaUrl(post?.cover.file_name) : MEDIA_URL_DEFAULT_CARD"
                     :alt="post?.title || 'Événement'"
                     :class="['h-full w-full object-cover transition', clickable ? 'group-hover:scale-105 group-hover:grayscale-0' : '', !isInFuture(post?.date_time) ? 'grayscale' : '']" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />

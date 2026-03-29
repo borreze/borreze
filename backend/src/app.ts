@@ -25,7 +25,7 @@ import path from 'path'
 import { Terminal } from './utils/terminal.utils'
 import { initSchoolHolidayCron } from './crons/schoolHoliday.cron'
 import { multerErrorHandler } from './middlewares/multer.middleware'
-import { MEDIA_UPLOAD_DIR } from '@brz/shared'
+import { MEDIA_UPLOAD_DIR, MEDIA_UPLOAD_URL } from '@brz/shared'
 import { initPostCron } from './crons/post.cron'
 import { config } from './config/config'
 
@@ -69,7 +69,7 @@ app.use(authRoutes)
 app.use(globalRoutes)
 
 // Serve uploaded media files statically
-app.use(`/${MEDIA_UPLOAD_DIR}`, express.static(MEDIA_UPLOAD_DIR, {
+app.use(`/${MEDIA_UPLOAD_URL}`, express.static(MEDIA_UPLOAD_DIR, {
   maxAge: '1d',
 }))
 

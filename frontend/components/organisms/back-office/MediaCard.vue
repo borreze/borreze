@@ -15,14 +15,15 @@
                     'absolute inset-0 flex flex-col items-center justify-center gap-2 bg-primary/30 bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity p-4']">
             <Button v-if="editButton" :disabled="disabled" as="link" :href="`/back-office/medias/${media.id}`"
                 variant="primary" size="sm" icon="ic:baseline-edit" label="Modifier" class="w-full" />
-            <Button v-if="openButton" :disabled="disabled" as="link" :href="mediaUrl(media.file_path)" target="_blank"
+            <Button v-if="openButton" :disabled="disabled" as="link" :href="mediaUrl(media.file_name)" target="_blank"
                 variant="light" size="sm" icon="ic:baseline-open-in-new" label="Ouvrir" class="w-full mb-2" />
             <Button v-if="deleteButton" :disabled="disabled" variant="warning" size="sm" icon="ic:baseline-delete"
                 label="Supprimer" class="w-full mb-2" @click="$emit('delete')" />
             <Button v-if="removeButton" :disabled="disabled" variant="warning" size="sm" icon="ic:round-close"
                 label="Retirer" class="w-full mb-2" @click="$emit('remove')" />
             <Button v-if="toggleButton" :disabled="disabled" :variant="selected ? 'warning' : 'primary'" size="sm"
-                :icon="selected ? 'ic:round-close' : 'ic:round-check'" :label="selected ? 'Retirer' : 'Sélectionner'" class="w-full mb-2" @click="$emit('toggle')" />
+                :icon="selected ? 'ic:round-close' : 'ic:round-check'" :label="selected ? 'Retirer' : 'Sélectionner'"
+                class="w-full mb-2" @click="$emit('toggle')" />
         </div>
     </div>
 </template>
