@@ -5,7 +5,7 @@
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button as="link" href="/back-office/evenements/ajouter" label="Ajouter" icon="ic:baseline-plus"
+            <Button v-if="authStore.canIDo('post', 'create')" as="link" href="/back-office/evenements/ajouter" label="Ajouter" icon="ic:baseline-plus"
                 variant="primary" size="sm" />
         </Teleport>
 
@@ -34,8 +34,8 @@
             dateTime: (value) => value ? formatDateTime(value as string) : '-',
             date: (value) => value ? formatDateRelative(value as string) : '-'
         }" :actions="[
-            { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost', buildLink: (item) => `/evenements/${item.slug}`, external: true },
-            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/evenements/${item.id}` },
+            { label: 'Voir', icon: 'ic:outline-remove-red-eye', variant: 'ghost' as ComponentVariant, buildLink: (item: PostAttributesFrontend) => `/evenements/${item.slug}`, external: true },
+            ...(authStore.canIDo('post', 'read') ? [{ label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary' as ComponentVariant, buildLink: (item: PostAttributesFrontend) => `/back-office/evenements/${item.id}` }] : []),
         ]">
             <template #cell-categories="{ item }">
                 <div class="flex flex-wrap items-center gap-2">
@@ -64,8 +64,12 @@ import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
 import { limitString } from '~/utils/text';
 import { formatDateRelative } from '~/utils/date';
-import { POST_STATUSES_OBJECTS } from '@brz/shared';
+import { POST_STATUSES_OBJECTS, type PostAttributesFrontend } from '@brz/shared';
 import Button from '~/components/atoms/Button.vue';
+import type { ComponentVariant } from '~/types/component';
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const { posts, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePosts('event')
 

@@ -4,10 +4,6 @@
             <h1 class="title-main line-clamp-1">Journaux d'activité</h1>
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
-        <Teleport defer to="#page-actions">
-            <Button as="link" href="/back-office/journaux-activite/ajouter" label="Ajouter" icon="ic:baseline-plus"
-                variant="primary" size="sm" />
-        </Teleport>
 
         <p class="text-sm text-gray-600">
             Les journaux d'activité ne sont conservés que pendant une durée limitée ({{ LOG_RENTENTION_DAYS }} jours)
@@ -34,7 +30,7 @@
             date: (value) => value ? formatDateTime(value as string) : '-',
             id: (value) => `#${value}`,
         }" :actions="[
-            { label: 'Consulter', icon: 'ic:outline-remove-red-eye', variant: 'primary', buildLink: (item) => `/back-office/journaux-activite/${item.id}` },
+            ...(authStore.canIDo('log', 'read') ? [{ label: 'Consulter', icon: 'ic:outline-remove-red-eye', variant: 'primary' as ComponentVariant, buildLink: (item: LogAttributes) => `/back-office/journaux-activite/${item.id}` }] : []),
         ]">
             <template #cell-level="{ item }">
                 <div class="flex flex-wrap items-center gap-2">
@@ -56,7 +52,11 @@ import Field from '~/components/atoms/Field.vue';
 import Button from '~/components/atoms/Button.vue';
 import { useLogs } from '~/composables/back-office/useLog';
 import { formatDateTime } from '~/utils/date';
-import { LOG_LEVELS_OBJECTS, LOG_RENTENTION_DAYS } from '@brz/shared';
+import { LOG_LEVELS_OBJECTS, LOG_RENTENTION_DAYS, type LogAttributes } from '@brz/shared';
+import type { ComponentVariant } from '~/types/component';
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const { logs, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await useLogs()
 

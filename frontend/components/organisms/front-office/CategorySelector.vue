@@ -30,7 +30,6 @@ function handleCategoryClick(categoryId: number) {
     }
 }
 
-
 function handleReset() {
     emit('reset')
 }

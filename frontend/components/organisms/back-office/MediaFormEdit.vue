@@ -8,10 +8,10 @@
         <Teleport defer to="#page-actions">
             <Button label="Ouvrir" icon="ic:baseline-open-in-new" as="link" :href="mediaUrl(editingMedia.file_path)"
                 target="_blank" variant="light" size="sm" />
-            <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
-                :disabled="couldHaveErrors" @click="handleSave" />
-            <Button label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading"
-                @click="handleDelete" />
+            <Button v-if="authStore.canIDo('media', 'update')" label="Enregistrer" icon="ic:baseline-save"
+                variant="primary" size="sm" :loading="loading" :disabled="couldHaveErrors" @click="handleSave" />
+            <Button v-if="authStore.canIDo('media', 'delete')" label="Supprimer" icon="ic:baseline-delete"
+                variant="warning" size="sm" :loading="loading" @click="handleDelete" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -57,6 +57,9 @@ import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import { mediaUrl } from '~/utils/media'
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const props = withDefaults(defineProps<{
     initialMedia: MediaAttributes

@@ -5,7 +5,7 @@
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button as="link" href="/back-office/utilisateurs/ajouter" label="Ajouter" icon="ic:baseline-plus"
+            <Button v-if="authStore.canIDo('user', 'create')" as="link" href="/back-office/utilisateurs/ajouter" label="Ajouter" icon="ic:baseline-plus"
                 variant="primary" size="sm" />
         </Teleport>
 
@@ -28,7 +28,7 @@
             { key: 'role', label: 'Rôle' },
             { key: 'status', label: 'Statut' },
         ]" :actions="[
-            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/utilisateurs/${item.id}` },
+            ...(authStore.canIDo('user', 'read') ? [{ label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary' as ComponentVariant, buildLink: (item: UserAttributesFrontend) => `/back-office/utilisateurs/${item.id}` }] : []),
         ]">
             <template #cell-role="{ item }">
                 <div class="flex flex-wrap items-center gap-2">
@@ -56,7 +56,11 @@ import Field from '~/components/atoms/Field.vue';
 import Button from '~/components/atoms/Button.vue';
 import { useUsers } from '~/composables/back-office/useUser';
 import { formatDate } from '~/utils/date';
-import { USER_STATUSES_OBJECTS } from '@brz/shared';
+import { USER_STATUSES_OBJECTS, type UserAttributesFrontend } from '@brz/shared';
+import type { ComponentVariant } from '~/types/component';
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const { users, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await useUsers()
 

@@ -6,14 +6,14 @@
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
+            <Button v-if="authStore.canIDo('post', 'update')" label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
                 :disabled="couldHaveErrors" @click="handleSave" />
-            <Button v-if="mode === 'edit'" :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'"
+            <Button v-if="authStore.canIDo('post', 'update') && mode === 'edit'" :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'"
                 icon="ic:baseline-publish" variant="outline" size="sm" :loading="loading"
                 :disabled="editingPost.status === 'published'"
                 :title="editingPost.status === 'published' ? 'Le contenu est déjà publié' : 'Publier le contenu'"
                 @click="handlePublish" />
-            <Button v-if="mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
+            <Button v-if="authStore.canIDo('post', 'delete') && mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
                 :loading="loading" @click="handleDelete" />
         </Teleport>
 
@@ -134,6 +134,9 @@ import MediaPicker from './MediaPicker.vue'
 import NewCard from '~/components/organisms/front-office/NewCard.vue'
 import ProjectCard from '~/components/organisms/front-office/ProjectCard.vue'
 import EventCard from '~/components/organisms/front-office/EventCard.vue'
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const props = withDefaults(defineProps<{
     initialPost: PostAttributesFrontend

@@ -5,7 +5,7 @@
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button as="link" href="/back-office/page-accueil/acces-rapides/ajouter" label="Ajouter"
+            <Button v-if="authStore.canIDo('home-quick', 'create')" as="link" href="/back-office/page-accueil/acces-rapides/ajouter" label="Ajouter"
                 icon="ic:baseline-plus" variant="primary" size="sm" />
         </Teleport>
 
@@ -31,7 +31,7 @@
                 { key: 'order', label: 'Ordre' },
                 { key: 'is_visible', label: 'Visible' },
             ]" :actions="[
-                { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/page-accueil/acces-rapides/${item.id}` },
+                ...(authStore.canIDo('home-quick', 'read') ? [{ label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary' as ComponentVariant, buildLink: (item: HomeQuickAttributes) => `/back-office/page-accueil/acces-rapides/${item.id}` }] : []),
             ]">
             <template #cell-icon="{ item }">
                 <div class="flex flex-wrap items-center gap-2">
@@ -57,6 +57,11 @@ import Pill from '~/components/atoms/Pill.vue';
 import Field from '~/components/atoms/Field.vue';
 import Button from '~/components/atoms/Button.vue';
 import { useHomeQuicks } from '~/composables/back-office/useHomeQuick';
+import type { ComponentVariant } from '~/types/component';
+import type { HomeQuickAttributes } from '@brz/shared';
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const { homeQuicks, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await useHomeQuicks()
 

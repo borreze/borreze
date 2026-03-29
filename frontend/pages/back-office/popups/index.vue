@@ -5,7 +5,7 @@
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button as="link" href="/back-office/popups/ajouter" label="Ajouter" icon="ic:baseline-plus"
+            <Button v-if="authStore.canIDo('popup', 'create')" as="link" href="/back-office/popups/ajouter" label="Ajouter" icon="ic:baseline-plus"
                 variant="primary" size="sm" />
         </Teleport>
 
@@ -30,7 +30,7 @@
         ]" :formatters="{
             date: (value) => value ? formatDate(value as string) : '-',
         }" :actions="[
-            { label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary', buildLink: (item) => `/back-office/popups/${item.id}` },
+            ...(authStore.canIDo('popup', 'read') ? [{ label: 'Modifier', icon: 'ic:baseline-edit', variant: 'primary' as ComponentVariant, buildLink: (item: PopupAttributes) => `/back-office/popups/${item.id}` }] : []),
         ]">
             <template #cell-is_active="{ item }">
                 <div class="flex flex-wrap items-center gap-2">
@@ -52,6 +52,11 @@ import Field from '~/components/atoms/Field.vue';
 import Button from '~/components/atoms/Button.vue';
 import { usePopups } from '~/composables/back-office/usePopup';
 import { formatDate } from '~/utils/date';
+import type { ComponentVariant } from '~/types/component';
+import type { PopupAttributes } from '@brz/shared';
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const { popups, pagination, loading, setPage, setOrder, resetOrder, setSearch } = await usePopups()
 

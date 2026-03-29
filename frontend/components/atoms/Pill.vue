@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<{
 })
 
 const componentType = computed(() => {
-    return props.href ? NuxtLink : 'div'
+    return props.href ? NuxtLink : (props.clickable ? 'button' : 'div')
 })
 
 const componentAttrs = computed(() => {

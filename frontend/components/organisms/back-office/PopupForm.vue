@@ -6,9 +6,9 @@
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
+            <Button v-if="authStore.canIDo('popup', 'update')" label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
                 :disabled="couldHaveErrors" @click="handleSave" />
-            <Button v-if="mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
+            <Button v-if="authStore.canIDo('popup', 'delete') && mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
                 :loading="loading" @click="handleDelete" />
         </Teleport>
 
@@ -77,6 +77,9 @@ import Datepicker from '~/components/atoms/Datepicker.vue'
 import { formatDateTime } from '~/utils/date'
 import MediaPicker from './MediaPicker.vue'
 import Timestamps from './Timestamps.vue'
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const props = withDefaults(defineProps<{
     initialPopup: PopupAttributesFrontend

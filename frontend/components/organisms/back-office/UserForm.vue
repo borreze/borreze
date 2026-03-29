@@ -6,10 +6,11 @@
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
-                :disabled="couldHaveErrors && couldHaveErrors" @click="handleSave" />
-            <Button v-if="mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
-                :loading="loading" @click="handleDelete" />
+            <Button v-if="authStore.canIDo('user', 'update')" label="Enregistrer" icon="ic:baseline-save"
+                variant="primary" size="sm" :loading="loading" :disabled="couldHaveErrors && couldHaveErrors"
+                @click="handleSave" />
+            <Button v-if="authStore.canIDo('user', 'delete') && mode === 'edit'" label="Supprimer"
+                icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading" @click="handleDelete" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -72,6 +73,9 @@ import Dropdown from '~/components/molecules/Dropdown.vue'
 import { formatDateTime } from '~/utils/date'
 import PasswordStrength from '~/components/molecules/PasswordStrength.vue'
 import Timestamps from './Timestamps.vue'
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 
 const props = withDefaults(defineProps<{
     initialUser: UserAttributesFrontendPassword

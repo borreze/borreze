@@ -5,7 +5,7 @@
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button label="Ajouter" icon="ic:outline-file-upload" variant="primary" size="sm" @click="openAddModal" />
+            <Button v-if="authStore.canIDo('media', 'create')" label="Ajouter" icon="ic:outline-file-upload" variant="primary" size="sm" @click="openAddModal" />
         </Teleport>
 
         <div class="mt-4 flex gap-4 items-center justify-end ">
@@ -23,9 +23,10 @@
 
         <Loader v-if="loading" />
         <div v-else-if="medias" class="mt-6">
-            <Grid v-if="medias?.length > 0" :items="medias" :layouts="{ default: 2, sm: 3, md: 3, lg: 4, xl: 5, '2xl': 6 }">
+            <Grid v-if="medias?.length > 0" :items="medias"
+                :layouts="{ default: 2, sm: 3, md: 3, lg: 4, xl: 5, '2xl': 6 }">
                 <template #item="{ item }">
-                    <MediaCard :media="item" />
+                    <MediaCard :media="item" :edit-button="authStore.canIDo('media', 'read')" />
                 </template>
             </Grid>
             <NoContent v-else message="Aucun média trouvé." />
@@ -56,6 +57,10 @@ import MediaFormCreate from '~/components/organisms/back-office/MediaFormCreate.
 import Modal from '~/components/molecules/Modal.vue';
 import Button from '~/components/atoms/Button.vue';
 import { push } from 'notivue';
+import { useAuthStore } from '~/stores/auth'
+import auth from '~/middleware/auth';
+
+const authStore = useAuthStore()
 
 const { loading, medias, pagination, setPage, setType, resetType, setOrder, resetOrder, setSearch, refresh } = await useMedias()
 
