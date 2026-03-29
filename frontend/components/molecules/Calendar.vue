@@ -2,9 +2,9 @@
     <div class="rounded-lg bg-white shadow-md overflow-hidden">
         <!-- Header mois -->
         <div class="flex items-center justify-between bg-gray-50 px-4 py-3 border-b border-gray-200">
-            <Button variant="ghost" icon="ic:baseline-chevron-left" @click="prevMonth" />
+            <Button variant="primary" icon="ic:baseline-chevron-left" @click="prevMonth" />
             <h3 class="text-sm font-semibold text-dark capitalize"> {{ monthLabel }} </h3>
-            <Button variant="ghost" icon="ic:baseline-chevron-right" @click="nextMonth" />
+            <Button variant="primary" icon="ic:baseline-chevron-right" @click="nextMonth" />
         </div>
 
         <!-- Jours de la semaine -->

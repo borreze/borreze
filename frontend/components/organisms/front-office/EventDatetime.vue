@@ -1,5 +1,5 @@
 <template>
-    <div v-if="dateTime" class="flex items-center gap-4 rounded-lg bg-gray-50 px-5 py-4">
+    <div v-if="dateTime" :class="['flex items-center gap-4 rounded-lg px-5 py-4', isInFuture(dateTime) ? 'bg-primary/5' : ' bg-gray-50']">
         <DateSquare :dateTime="dateTime" :color="isInFuture(dateTime) ? 'primary' : 'gray'" />
         <div class="text-sm text-gray-700">
             <div class="font-semibold">{{ formatDateRelative(dateTime, 'long') }}</div>

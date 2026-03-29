@@ -1,9 +1,9 @@
 <template>
     <div class="flex items-center gap-2 flex-wrap">
         <Pill v-for="category in categories" :key="category.id" clickable :label="category.name"
-            :variant="selected?.includes(category.id) ? 'primary' : 'ghost'" size="md"
+            :variant="selected?.includes(category.id) ? 'primary' : 'outline'" size="md"
             @click="handleCategoryClick(category.id)" />
-        <Pill v-if="selected && selected.length > 0" label="Tout" clickable variant="ghost" size="md" @click="handleReset" />
+        <Pill v-if="selected && selected.length > 0" label="Tout" clickable variant="outline" size="md" @click="handleReset" />
     </div>
 </template>
 

@@ -10,7 +10,7 @@ export const usePosts = async (type: PostType) => {
     const limit = ref<number>(paginationDefault().limit)
 
     const { data, status, error } = await useAsyncData(
-        `posts-${page.value}-${limit.value}-${categories.value.join(',')}`,
+        `posts-${type}-${page.value}-${limit.value}-${categories.value.join(',')}`,
         async () => {
             try {
                 const res = await useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(
@@ -95,7 +95,7 @@ export const usePostsByDate = async (type: PostType, options: { from: Date | nul
     const to = ref<Date | null>(options.to)
 
     const { data, status, error } = await useAsyncData(
-        `posts-dates-${categories.value.join(',')}-${from.value?.toISOString() ?? 'null'}-${to.value?.toISOString() ?? 'null'}`,
+        `posts-dates-${type}-${categories.value.join(',')}-${from.value?.toISOString() ?? 'null'}-${to.value?.toISOString() ?? 'null'}`,
         async () => {
             try {
                 const res = await useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(

@@ -23,7 +23,7 @@
                 </h4>
 
                 <Loader v-if="loading" />
-                <Grid v-else-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 2, lg: 1, xl: 2, '2xl': 3 }"
+                <Grid v-else-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 2, lg: 1, xl: 2, '3xl': 3 }"
                     class="mt-6">
                     <template #item="{ item }">
                         <EventCard :post="item" />
