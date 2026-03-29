@@ -17,12 +17,13 @@
                 <h4 class="title-submain">
                     Les événements du mois
                     <span class="text-dark">{{ detMonth(currentNiceMonth) }}</span>
-                    <span :class="[isInFuture(dateLastDayOf(currentMonth, currentYear)) ? 'text-primary' : 'text-gray-400']">{{ currentNiceMonth }}</span>
+                    <span
+                        :class="[isInFuture(dateLastDayOf(currentMonth, currentYear)) ? 'text-primary' : 'text-gray-400']">{{
+                            currentNiceMonth }}</span>
                 </h4>
 
                 <Loader v-if="loading" />
-                <Grid v-else-if="posts?.length > 0" :items="posts"
-                    :layouts="getCategories().length ? { default: 1, sm: 2, md: 3 } : { default: 1, sm: 1, md: 2 }"
+                <Grid v-else-if="posts?.length > 0" :items="posts" :layouts="{ default: 1, sm: 2, lg: 1, xl: 2, '2xl': 3 }"
                     class="mt-6">
                     <template #item="{ item }">
                         <EventCard :post="item" />
@@ -110,7 +111,7 @@ definePageMeta({
     grid-area: list;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
     .events-grid {
         grid-template-areas: "cal list";
         grid-template-columns: 420px 1fr;
@@ -118,7 +119,7 @@ definePageMeta({
     }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 80rem) {
     .events-grid {
         grid-template-columns: 540px 1fr;
     }
