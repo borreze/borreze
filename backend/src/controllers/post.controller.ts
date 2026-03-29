@@ -15,7 +15,7 @@ export class PostController {
     const limit = 3
     const type = String(req.params.type || 'page') as PostType
     const options = { status: 'published' as PostStatus, type }
-    const order: Order[] = [['published_at', 'DESC'], ['created_at', 'DESC']]
+    const order: Order[] = [['published_at', 'DESC'], ['date_time', 'ASC'], ['created_at', 'DESC']]
     const pagination: Pagination = { page, limit, total: Infinity }
 
     const data = await postService.getAll(options, order, pagination, req?.user)
@@ -42,7 +42,7 @@ export class PostController {
     const type = String(req.params.type || 'page') as PostType
     const dateFrom = req.query.dateFrom ? new Date(String(req.query.dateFrom)) : null
     const dateTo = req.query.dateTo ? new Date(String(req.query.dateTo)) : null
-    const order = parseOrder(req, [['created_at', 'DESC'], ['id', 'DESC']])
+    const order = parseOrder(req, [['date_time', 'ASC'], ['created_at', 'DESC'], ['id', 'DESC']])
     const categories = parseArrayInteger(req.query.categories as Array<string>)
 
     const options = { search, status, categories, type, dateFrom, dateTo }

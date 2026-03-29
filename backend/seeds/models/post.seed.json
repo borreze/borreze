@@ -160,6 +160,9 @@
         "meta_title": "Twelfth Post Meta Title",
         "meta_description": "This is the meta description for the twelfth post.",
         "address": "51 Grandrue, 24590 Borrèze",
-        "date_time": "2026-10-24T12:00:00Z"
+        "date_time": "2026-05-24T12:00:00Z",
+        "contact_name": "John Doe",
+        "contact_email": "john.doe@example.com",
+        "contact_phone": "+1234567890"
     }
 ]

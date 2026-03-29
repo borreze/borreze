@@ -17,7 +17,7 @@
                 <NuxtImg :src="mediaUrl(selectedEvent.cover.file_name)" :alt="selectedEvent.title"
                     class="h-full w-full object-cover" />
             </div>
-            <EventDatetime v-if="selectedEvent.date_time" :dateTime="selectedEvent.date_time" />
+            <EventInfosDate v-if="selectedEvent" :post="selectedEvent" />
 
             <div v-if="selectedEvent.categories?.length" class="flex flex-wrap gap-2">
                 <Pill v-for="cat in selectedEvent.categories" :key="cat.id" :label="cat.name" size="sm"
@@ -38,7 +38,7 @@ import Modal from '~/components/molecules/Modal.vue'
 import Pill from '~/components/atoms/Pill.vue'
 import { mediaUrl } from '~/utils/media'
 import { isInFuture } from '~/utils/date'
-import EventDatetime from './EventDatetime.vue'
+import EventInfosDate from './EventInfosDate.vue'
 
 const props = defineProps<{
     posts: PostAttributesFrontend[]

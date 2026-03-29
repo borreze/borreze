@@ -17,7 +17,8 @@
                     {{ formatDateRelative(post.published_at) }}
                 </p>
 
-                <EventDatetime v-if="post.date_time" :dateTime="post.date_time" />
+                <EventInfosDate :post="post" class="mt-4" />
+                <EventInfosContact :post="post" class="mt-4" />
 
                 <p v-if="post.abstract" class="mt-4 text-gray-600 italic">{{ post.abstract }}</p>
                 <WysiwygRenderer v-if="post.content" class="mt-6 prose max-w-none" :html="post.content" />
@@ -35,9 +36,8 @@ import PageHero from '~/components/organisms/front-office/PageHero.vue';
 import { formatDateRelative } from '~/utils/date';
 import { mediaUrl, MEDIA_URL_DEFAULT_HERO } from '~/utils/media';
 import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
-import DateSquare from '~/components/molecules/DateSquare.vue';
-import TimeText from '~/components/molecules/TimeText.vue';
-import EventDatetime from '~/components/organisms/front-office/EventDatetime.vue';
+import EventInfosDate from '~/components/organisms/front-office/EventInfosDate.vue';
+import EventInfosContact from '~/components/organisms/front-office/EventInfosContact.vue';
 
 const route = useRoute()
 const { post, loading } = await usePost('event', route.params.slug as string)

@@ -31,7 +31,19 @@
                             :class="['text-lg font-semibold text-dark transition line-clamp-1', clickable ? 'group-hover:text-primary' : '']">
                             {{ post?.title }}
                         </h3>
-                        <TimeText :dateTime="post.date_time" />
+                        <div class="flex flex-wrap items-center gap-2">
+                            <div v-if="post?.date_time || post?.address"
+                                class="mt-1 flex items-center gap-3 text-sm text-gray-500 flex-nowrap overflow-hidden">
+                                <span v-if="post?.date_time" class="flex items-center gap-1 shrink-0">
+                                    <Icon name="ic:outline-access-time" size="1em" />
+                                    {{ datetimeGetTime(post.date_time) }}
+                                </span>
+                                <span v-if="post?.address" class="flex items-center gap-1 min-w-0">
+                                    <Icon name="ic:outline-location-on" size="1em" class="shrink-0" />
+                                    <span class="truncate">{{ post.address }}</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <p class="mt-1.5 text-sm text-gray-600 line-clamp-2">
@@ -49,7 +61,6 @@ import Pill from '~/components/atoms/Pill.vue';
 import { mediaUrl, MEDIA_URL_DEFAULT_CARD } from '~/utils/media';
 import { computed } from 'vue';
 import DateSquare from '~/components/molecules/DateSquare.vue';
-import TimeText from '~/components/molecules/TimeText.vue';
 
 const props = withDefaults(defineProps<{
     post: PostAttributesFrontend
