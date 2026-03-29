@@ -7,9 +7,10 @@ export const usePosts = async (type: PostType) => {
     const page = ref(1)
     const categories = ref<number[]>([])
     const order = ref<Order | null>(null)
+    const limit = ref<number>(paginationDefault().limit)
 
     const { data, status, error } = await useAsyncData(
-        `posts-${page.value}-${type}-${categories.value.join(',')}`,
+        `posts-${page.value}-${limit.value}-${categories.value.join(',')}`,
         async () => {
             try {
                 const res = await useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(
@@ -17,7 +18,7 @@ export const usePosts = async (type: PostType) => {
                     {
                         params: {
                             page: page.value,
-                            limit: paginationDefault().limit,
+                            limit: limit.value,
                             categories: categories.value,
                             order: order.value ? JSON.stringify([order.value]) : undefined
                         }

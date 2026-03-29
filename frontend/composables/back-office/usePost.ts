@@ -10,15 +10,16 @@ export const usePosts = async (type: PostType) => {
     const page = ref(1)
     const order = ref<Order | null>(null)
     const search = ref<string>('')
+    const limit = ref<number>(paginationDefault().limit)
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `posts-${page.value}-${type}-${search.value}`,
+        `posts-${page.value}-${type}-${search.value}-${limit.value}`,
         () => useApi().get<{ data: PostAttributesFrontend[], pagination: Pagination }>(
             `/back-office/posts/${type}`,
             {
                 params: {
                     page: page.value,
-                    limit: paginationDefault().limit,
+                    limit: limit.value,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value.trim(),
                     status: 'all',

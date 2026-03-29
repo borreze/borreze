@@ -9,15 +9,16 @@ export const useMedias = async (options: { type?: MediaType | 'all' } = {}) => {
     const order = ref<Order | null>(null)
     const search = ref('')
     const type = ref<MediaType | 'all'>(options.type ?? 'all')
+    const limit = ref<number>(paginationDefault().limit)
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `medias-${page.value}`,
+        `medias-${page.value}-${type.value}-${search.value}-${limit.value}`,
         () => useApi().get<{ data: MediaAttributes[], pagination: Pagination }>(
             '/back-office/medias',
             {
                 params: {
                     page: page.value,
-                    limit: paginationDefault().limit,
+                    limit: limit.value,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value.trim(),
                     type: type.value,

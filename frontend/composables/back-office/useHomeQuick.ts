@@ -10,15 +10,16 @@ export const useHomeQuicks = async () => {
     const page = ref(1)
     const order = ref<Order | null>(null)
     const search = ref<string>('')
+    const limit = ref<number>(paginationDefault().limit)
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `home-quicks-${page.value}-${search.value}`,
+        `home-quicks-${page.value}-${search.value}-${limit.value}`,
         () => useApi().get<{ data: HomeQuickAttributes[], pagination: Pagination }>(
             '/back-office/home-quicks',
             {
                 params: {
                     page: page.value,
-                    limit: paginationDefault().limit,
+                    limit: limit.value,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value.trim(),
                     is_visible: 'all',

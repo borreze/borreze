@@ -10,15 +10,16 @@ export const useUsers = async () => {
     const page = ref(1)
     const order = ref<Order | null>(null)
     const search = ref<string>('')
+    const limit = ref<number>(paginationDefault().limit)
 
     const { data, status, error, execute } = useLazyAsyncData(
-        `users-${page.value}-${search.value}`,
+        `users-${page.value}-${limit.value}-${search.value}`,
         () => useApi().get<{ data: UserAttributesFrontend[], pagination: Pagination }>(
             '/back-office/users',
             {
                 params: {
                     page: page.value,
-                    limit: paginationDefault().limit,
+                    limit: limit.value,
                     order: order.value ? JSON.stringify([order.value]) : undefined,
                     search: search.value.trim(),
                     status: 'all',
