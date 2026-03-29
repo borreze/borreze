@@ -1,7 +1,7 @@
 <template>
     <div v-if="post?.contact_name || post?.contact_email || post?.contact_phone"
-        class="flex items-center gap-4 rounded-lg bg-gray-50 px-5 py-4">
-        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-gray-200 text-gray-500">
+        class="flex items-center gap-4 rounded-lg bg-primary/5 px-5 py-4">
+        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Icon name="ic:outline-person" size="1.5em" />
         </div>
         <div class="text-sm text-gray-700 min-w-0">

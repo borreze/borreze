@@ -33,7 +33,9 @@
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
                             hint="Résumé, utilisé lors de l'affichage en liste" roundness="md" :error="errors.abstract"
                             @blur="touch('abstract')" />
-                        <div v-if="editingPost.type === 'event'" class="max-w-xs">
+                        <div v-if="editingPost.type === 'event'" class="grid md:grid-cols-2 gap-4">
+                            <Field v-model="editingPost.address" label="Adresse de l'événement" roundness="md"
+                                :error="errors.address" @blur="touch('address')" />
                             <Datepicker v-model="editingPost.date_time" required :with-time="true"
                                 label="Date et heure de l'événement" roundness="md" :error="errors.date_time"
                                 @blur="touch('date_time')" />
@@ -46,6 +48,22 @@
                         <div class="max-w-xs">
                             <Dropdown v-model="editingPostCategories" variant="light" size="md" label="Catégories"
                                 placeholder="Aucune" label-key="name" value-key="id" multiple :items="categories" />
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="title-submain mb-4">Contact</h4>
+                    <div class="flex flex-col gap-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <Field v-model="editingPost.contact_name" label="Nom et prénom"
+                                hint="Nom et prénom de la personne à contacter pour cet événement" roundness="md"
+                                :error="errors.contact_name" @blur="touch('contact_name')" />
+                            <Field v-model="editingPost.contact_email" label="Email"
+                                hint="Email de la personne à contacter pour cet événement" roundness="md"
+                                :error="errors.contact_email" @blur="touch('contact_email')" />
+                            <Field v-model="editingPost.contact_phone" label="Téléphone"
+                                hint="Téléphone de la personne à contacter pour cet événement" roundness="md"
+                                :error="errors.contact_phone" @blur="touch('contact_phone')" />
                         </div>
                     </div>
                 </section>
@@ -163,6 +181,7 @@ const editingPostCategories = computed({
 })
 
 const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useForm([
+    // Common
     { name: 'title', label: 'Titre', validation: () => editingPost.value.title === '' ? 'Le titre est requis' : null },
     { name: 'slug', label: 'Slug', validation: () => editingPost.value.slug === '' ? 'Le slug est requis' : null },
     { name: 'abstract', label: 'Résumé' },
@@ -173,7 +192,12 @@ const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useFo
     { name: 'status', label: 'Status', validation: () => !editingPost.value.status ? 'Le status est requis' : null },
     { name: 'content', label: 'Contenu' },
     { name: 'cover', label: 'Couverture', validation: () => !editingPost.value.cover ? 'La couverture est requise' : null },
+    // Event
     { name: 'date_time', label: 'Date et heure', validation: () => (editingPost.value.type === 'event' && !editingPost.value.date_time) ? 'La date et heure sont requises' : null },
+    { name: 'address', label: 'Adresse de l\'événement' },
+    { name: 'contact_name', label: 'Nom et prénom du contact' },
+    { name: 'contact_email', label: 'Email du contact' },
+    { name: 'contact_phone', label: 'Téléphone du contact' },
 ])
 
 const handleSave = () => submit(() => {
