@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed -bottom-2 2xl:bottom-1/2 right-4 -translate-y-1/2 z-30">
+    <div class="fixed -bottom-2 right-4 -translate-y-1/2 z-30">
         <NuxtLink to="/back-office/authentification" class="group flex items-center justify-start">
             <div
                 class="p-3 rounded-full flex items-center justify-center cursor-pointer shadow-lg bg-primary border-2 border-primary text-white hover:brightness-90">

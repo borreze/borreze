@@ -6,7 +6,7 @@ import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { PostAttributes, PostAttributesCreation, PostAttributesUpdate, PostStatus } from '@brz/shared'
 import { slugify } from '@brz/shared'
-import { isUnique, searchWhere } from '../utils/model.utils'
+import { isUnique, modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { POST_CONSTRAINTS, POST_INCLUDE_DEFAULTS } from '../models/post.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -20,6 +20,15 @@ export class PostService {
   private filterStatus(status?: PostStatus | 'all' | null): WhereOptions {
     if (status === 'all') return {}
     return { status: status ?? 'published' }
+  }
+
+  private filterDateInBetween(dateFrom?: Date | null, dateTo?: Date | null): WhereOptions {
+    if (!dateFrom && !dateTo) return {}
+    return {
+      date_time: {
+        [Op.between]: [dateFrom, dateTo]
+      }
+    }
   }
 
   private filterType(type?: PostType | null): WhereOptions {
@@ -51,23 +60,24 @@ export class PostService {
     }
   }
 
-  public async count(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, inFutureOnly?: boolean | null, categories?: number[] | null }): Promise<number> {
-    const { status, search, categories, type, inFutureOnly } = options || {}
+  public async count(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, dateFrom?: Date | null, dateTo?: Date | null, inFutureOnly?: boolean | null, categories?: number[] | null }): Promise<number> {
+    const { status, search, categories, type, inFutureOnly, dateFrom, dateTo } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      ...this.filterCategories(categories),
-      ...this.filterType(type),
-      ...this.filterInFutureOnly(inFutureOnly),
-      ...searchWhere(POST_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      this.filterType(type),
+      this.filterCategories(categories),
+      this.filterInFutureOnly(inFutureOnly),
+      this.filterDateInBetween(dateFrom, dateTo),
+      searchWhere(POST_CONSTRAINTS, search),
+    ])
 
     const result = await Post.count({ where })
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, inFutureOnly?: boolean | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
-    const { status, type, search, categories, inFutureOnly } = options || {}
+  public async getAll(options?: { search?: string, type?: PostType | null, status?: PostStatus | 'all' | null, dateFrom?: Date | null, dateTo?: Date | null, inFutureOnly?: boolean | null, categories?: number[] | null }, order: Order[] = [], pagination?: Pagination | null, user?: UserAttributesPublic): Promise<PostAttributes[]> {
+    const { status, type, search, categories, inFutureOnly, dateFrom, dateTo } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
     if (
@@ -76,42 +86,45 @@ export class PostService {
       await permissionCheck(user, 'post', 'read')
     }
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      ...this.filterType(type),
-      ...this.filterCategories(categories),
-      ...this.filterInFutureOnly(inFutureOnly),
-      ...searchWhere(POST_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      this.filterType(type),
+      this.filterCategories(categories),
+      this.filterInFutureOnly(inFutureOnly),
+      this.filterDateInBetween(dateFrom, dateTo),
+      searchWhere(POST_CONSTRAINTS, search),
+    ])
 
     const posts = await Post.findAll({ where, order, offset, limit, include: POST_INCLUDE_DEFAULTS })
     return posts
   }
 
-  public async getById(id: number, options?: { status?: PostStatus | 'all' | null, inFutureOnly?: boolean | null, type?: PostType | null }): Promise<PostAttributes | null> {
-    const { status, type, inFutureOnly } = options || {}
+  public async getById(id: number, options?: { status?: PostStatus | 'all' | null, dateFrom?: Date | null, dateTo?: Date | null, inFutureOnly?: boolean | null, type?: PostType | null }): Promise<PostAttributes | null> {
+    const { status, type, inFutureOnly, dateFrom, dateTo } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      ...this.filterType(type),
-      ...this.filterInFutureOnly(inFutureOnly),
-      id
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      this.filterType(type),
+      this.filterInFutureOnly(inFutureOnly),
+      this.filterDateInBetween(dateFrom, dateTo),
+      { id }
+    ])
 
     const post = await Post.findOne({ where, include: POST_INCLUDE_DEFAULTS })
     if (!post) throw new NotFound('Post not found')
     return post
   }
 
-  public async getBySlug(slug: string, options?: { status?: PostStatus | 'all' | null, inFutureOnly?: boolean | null, type?: PostType | null }): Promise<PostAttributes | null> {
-    const { status, type, inFutureOnly } = options || {}
+  public async getBySlug(slug: string, options?: { status?: PostStatus | 'all' | null, dateFrom?: Date | null, dateTo?: Date | null, inFutureOnly?: boolean | null, type?: PostType | null }): Promise<PostAttributes | null> {
+    const { status, type, inFutureOnly, dateFrom, dateTo } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      ...this.filterType(type),
-      ...this.filterInFutureOnly(inFutureOnly),
-      slug
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      this.filterType(type),
+      this.filterInFutureOnly(inFutureOnly),
+      this.filterDateInBetween(dateFrom, dateTo),
+      { slug }
+    ])
 
     const post = await Post.findOne({ where, include: POST_INCLUDE_DEFAULTS })
     if (!post) throw new NotFound('Post not found')

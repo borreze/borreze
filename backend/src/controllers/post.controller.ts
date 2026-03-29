@@ -40,10 +40,12 @@ export class PostController {
     const search = String(req.query.search || '')
     const status = String(req.query.status || 'published') as PostStatus | 'all'
     const type = String(req.params.type || 'page') as PostType
+    const dateFrom = req.query.dateFrom ? new Date(String(req.query.dateFrom)) : null
+    const dateTo = req.query.dateTo ? new Date(String(req.query.dateTo)) : null
     const order = parseOrder(req, [['created_at', 'DESC'], ['id', 'DESC']])
     const categories = parseArrayInteger(req.query.categories as Array<string>)
 
-    const options = { search, status, categories, type }
+    const options = { search, status, categories, type, dateFrom, dateTo }
 
     const count = await postService.count(options)
     const pagination = paginate(page, limit, count, req?.user)

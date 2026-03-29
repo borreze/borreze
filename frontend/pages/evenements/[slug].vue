@@ -17,13 +17,7 @@
                     {{ formatDateRelative(post.published_at) }}
                 </p>
 
-                <div v-if="post.date_time" class="flex items-center gap-4 rounded-lg bg-gray-50 px-5 py-4">
-                    <DateSquare :dateTime="post.date_time" :color="isInFuture(post.date_time) ? 'primary' : 'gray'" />
-                    <div class="text-sm text-gray-700">
-                        <div class="font-semibold">{{ formatDateRelative(post.date_time, 'long') }}</div>
-                        <TimeText :dateTime="post.date_time" />
-                    </div>
-                </div>
+                <EventDatetime v-if="post.date_time" :dateTime="post.date_time" />
 
                 <p v-if="post.abstract" class="mt-4 text-gray-600 italic">{{ post.abstract }}</p>
                 <WysiwygRenderer v-if="post.content" class="mt-6 prose max-w-none" :html="post.content" />
@@ -43,6 +37,7 @@ import { mediaUrl, MEDIA_URL_DEFAULT_HERO } from '~/utils/media';
 import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
 import DateSquare from '~/components/molecules/DateSquare.vue';
 import TimeText from '~/components/molecules/TimeText.vue';
+import EventDatetime from '~/components/organisms/front-office/EventDatetime.vue';
 
 const route = useRoute()
 const { post, loading } = await usePost('event', route.params.slug as string)

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-3 fixed bottom-18 2xl:bottom-1/2 left-4 translate-y-1/2 z-30">
+    <div class="flex flex-col gap-3 fixed bottom-18 left-4 translate-y-1/2 z-30">
         <a v-for="phone in phones" :key="phone.number" :href="`tel:${phone.number}`" rel="noopener noreferrer"
             class="group flex items-center justify-start">
             <div class="w-12 h-12 rounded-full bg-dark 

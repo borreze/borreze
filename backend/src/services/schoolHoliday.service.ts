@@ -5,7 +5,7 @@ import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { GovApiResponse, SchoolHolidayAttributes, SchoolHolidayAttributesCreation, SchoolYear } from '@brz/shared'
-import { searchWhere } from '../utils/model.utils'
+import { modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { SCHOOL_HOLIDAY_CONSTRAINTS } from '../models/schoolHoliday.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -25,10 +25,10 @@ export class SchoolHolidayService {
   public async count(options?: { search?: string, year?: SchoolYear | null }): Promise<number> {
     const { search, year } = options || {}
 
-    const where: WhereOptions = {
-      ...searchWhere(SCHOOL_HOLIDAY_CONSTRAINTS, search),
-      ...this.filterByYear(year)
-    }
+    const where = modelBuildWhere([
+      searchWhere(SCHOOL_HOLIDAY_CONSTRAINTS, search),
+      this.filterByYear(year)
+    ])
 
     const result = await SchoolHoliday.count({ where })
     return Number(result)
@@ -38,10 +38,10 @@ export class SchoolHolidayService {
     const { search, year } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
-    const where: WhereOptions = {
-      ...searchWhere(SCHOOL_HOLIDAY_CONSTRAINTS, search),
-      ...this.filterByYear(year)
-    }
+    const where = modelBuildWhere([
+      searchWhere(SCHOOL_HOLIDAY_CONSTRAINTS, search),
+      this.filterByYear(year)
+    ])
 
     const schoolHolidays = await SchoolHoliday.findAll({ where, order, offset, limit })
     return schoolHolidays

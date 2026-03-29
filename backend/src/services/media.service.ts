@@ -3,7 +3,7 @@ import { Op, WhereOptions } from 'sequelize'
 import { Pagination, Order, MediaAttributes, MediaAttributesCreation, MediaAttributesUpdate, MediaType, resolveType, MEDIA_UPLOAD_DIR } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
-import { searchWhere } from '../utils/model.utils'
+import { modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { MEDIA_CONSTRAINTS } from '../models/media.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -20,10 +20,10 @@ export class MediaService {
   public async count(options?: { search?: string, type?: MediaType | 'all' | null }): Promise<number> {
     const { search, type } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterType(type),
-      ...searchWhere(MEDIA_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterType(type),
+      searchWhere(MEDIA_CONSTRAINTS, search)
+    ])
 
     const result = await Media.count({ where })
     return Number(result)
@@ -33,10 +33,10 @@ export class MediaService {
     const { search, type } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
-    const where: WhereOptions = {
-      ...this.filterType(type),
-      ...searchWhere(MEDIA_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterType(type),
+      searchWhere(MEDIA_CONSTRAINTS, search)
+    ])
 
     const medias = await Media.findAll({ where, order, offset, limit })
     return medias
@@ -45,10 +45,10 @@ export class MediaService {
   public async getById(id: number, options?: { type?: MediaType | 'all' | null }): Promise<MediaAttributes> {
     const { type } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterType(type),
-      id
-    }
+    const where = modelBuildWhere([
+      this.filterType(type),
+      { id }
+    ])
 
     const media = await Media.findOne({ where })
     if (!media) throw new NotFound('Media not found')

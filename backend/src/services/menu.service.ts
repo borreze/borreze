@@ -5,7 +5,7 @@ import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { MenuAttributes, MenuAttributesCreation, MenuAttributesUpdate } from '@brz/shared'
-import { searchWhere } from '../utils/model.utils'
+import { modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { MENU_CONSTRAINTS, MENU_INCLUDE_DEFAULTS } from '../models/menu.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -32,12 +32,12 @@ export class MenuService {
   public async count(options?: { search?: string, is_visible?: boolean | null, noParent?: boolean | null, scope?: string | null }): Promise<number> {
     const { is_visible, search, noParent, scope } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterIsVisible(is_visible),
-      ...this.filterScope(scope),
-      ...this.filterNoParent(noParent),
-      ...searchWhere(MENU_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterIsVisible(is_visible),
+      this.filterScope(scope),
+      this.filterNoParent(noParent),
+      searchWhere(MENU_CONSTRAINTS, search)
+    ])
 
     const result = await Menu.count({ where })
     return Number(result)
@@ -54,12 +54,12 @@ export class MenuService {
       userCheck(user)
     }
 
-    const where: WhereOptions = {
-      ...this.filterIsVisible(is_visible),
-      ...this.filterScope(scope),
-      ...this.filterNoParent(noParent),
-      ...searchWhere(MENU_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterIsVisible(is_visible),
+      this.filterScope(scope),
+      this.filterNoParent(noParent),
+      searchWhere(MENU_CONSTRAINTS, search)
+    ])
 
     const menus = await Menu.findAll({ where, order, offset, limit, include: MENU_INCLUDE_DEFAULTS })
     return menus
@@ -68,12 +68,12 @@ export class MenuService {
   public async getById(id: number, options?: { is_visible?: boolean | null, noParent?: boolean | null, scope?: string | null }): Promise<MenuAttributes | null> {
     const { is_visible, scope, noParent } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterIsVisible(is_visible),
-      ...this.filterScope(scope),
-      ...this.filterNoParent(noParent),
-      id
-    }
+    const where = modelBuildWhere([
+      this.filterIsVisible(is_visible),
+      this.filterScope(scope),
+      this.filterNoParent(noParent),
+      { id }
+    ])
 
     const menu = await Menu.findOne({ where, include: MENU_INCLUDE_DEFAULTS })
     if (!menu) throw new NotFound('Menu not found')

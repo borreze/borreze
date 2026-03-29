@@ -5,7 +5,7 @@ import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { HomeQuickAttributes, HomeQuickAttributesCreation, HomeQuickAttributesUpdate } from '@brz/shared'
-import { searchWhere } from '../utils/model.utils'
+import { modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { HOME_QUICK_CONSTRAINTS } from '../models/homeQuick.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -22,10 +22,10 @@ export class HomeQuickService {
   public async count(options?: { search?: string, is_visible?: boolean | null }): Promise<number> {
     const { is_visible, search } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterIsVisible(is_visible),
-      ...searchWhere(HOME_QUICK_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterIsVisible(is_visible),
+      searchWhere(HOME_QUICK_CONSTRAINTS, search)
+    ])
 
     const result = await HomeQuick.count({ where })
     return Number(result)
@@ -41,10 +41,10 @@ export class HomeQuickService {
       await permissionCheck(user, 'home-quick', 'read')
     }
 
-    const where: WhereOptions = {
-      ...this.filterIsVisible(is_visible),
-      ...searchWhere(HOME_QUICK_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterIsVisible(is_visible),
+      searchWhere(HOME_QUICK_CONSTRAINTS, search)
+    ])
 
     const homeQuicks = await HomeQuick.findAll({ where, order, offset, limit })
     return homeQuicks
@@ -53,10 +53,10 @@ export class HomeQuickService {
   public async getById(id: number, options?: { is_visible?: boolean | null }): Promise<HomeQuickAttributes | null> {
     const { is_visible } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterIsVisible(is_visible),
-      id
-    }
+    const where = modelBuildWhere([
+      this.filterIsVisible(is_visible),
+      { id }
+    ])
 
     const homequick = await HomeQuick.findOne({ where })
     if (!homequick) throw new NotFound('HomeQuick not found')

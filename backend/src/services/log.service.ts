@@ -1,10 +1,10 @@
 import { Log } from '../models'
 import { LOG_RENTENTION_DAYS, LogAttributes, LogAttributesCreation } from '@brz/shared'
-import { Transaction, WhereOptions } from 'sequelize'
+import { Transaction } from 'sequelize'
 import { Op } from 'sequelize'
 import { Pagination } from '@brz/shared'
 import { Order } from '@brz/shared'
-import { searchWhere } from '../utils/model.utils'
+import { modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { LOG_CONSTRAINTS } from '../models/log.model'
 import { NotFound } from '../exceptions/request.exception'
 import { ValidationException } from '../exceptions/validation.exception'
@@ -16,9 +16,9 @@ export class LogService {
   public async count(options?: { search?: string }): Promise<number> {
     const { search } = options || {}
 
-    const where: WhereOptions = {
-      ...searchWhere(LOG_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      searchWhere(LOG_CONSTRAINTS, search)
+    ])
 
     const result = await Log.count({ where })
     return Number(result)
@@ -28,9 +28,9 @@ export class LogService {
     const { search } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
-    const where: WhereOptions = {
-      ...searchWhere(LOG_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      searchWhere(LOG_CONSTRAINTS, search)
+    ])
 
     const logs = await Log.findAll({ where, order, offset, limit })
     return logs

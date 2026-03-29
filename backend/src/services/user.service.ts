@@ -9,7 +9,7 @@ import { Op } from 'sequelize'
 import { UserAttributesCreation } from '@brz/shared'
 import { UserAttributesUpdate } from '@brz/shared'
 import { UserAttributes } from '@brz/shared'
-import { isUnique, searchWhere } from '../utils/model.utils'
+import { isUnique, modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { USER_CONSTRAINTS, USER_INCLUDE_DEFAULTS } from '../models/user.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -26,10 +26,10 @@ export class UserService {
   public async count(options?: { search?: string, status?: UserStatus | 'all' | null }): Promise<number> {
     const { search, status } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      ...searchWhere(USER_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      searchWhere(USER_CONSTRAINTS, search)
+    ])
 
     const result = await User.count({ where })
     return Number(result)
@@ -39,10 +39,10 @@ export class UserService {
     const { search, status } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      ...searchWhere(USER_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      searchWhere(USER_CONSTRAINTS, search)
+    ])
 
     const users = await User.findAll({ where, order, offset, limit, include: USER_INCLUDE_DEFAULTS })
     return users
@@ -51,9 +51,9 @@ export class UserService {
   public async getByEmailOrUsername(emailOrUsername: string, options?: { status?: UserStatus | 'all' | null, throwError?: boolean }): Promise<UserAttributes | null> {
     const { status, throwError } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+    ])
 
     const user = await User.findOne({
       where: {
@@ -71,10 +71,10 @@ export class UserService {
   public async getByUsername(username: string, options?: { status?: UserStatus | 'all' | null }): Promise<UserAttributes | null> {
     const { status } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      username
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      { username }
+    ])
 
     const user = await User.findOne({ where, include: USER_INCLUDE_DEFAULTS })
     if (!user) throw new NotFound('User not found')
@@ -84,10 +84,10 @@ export class UserService {
   public async getByEmail(email: string, options?: { status?: UserStatus | 'all' | null }): Promise<UserAttributes | null> {
     const { status } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      email
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      { email }
+    ])
 
     const user = await User.findOne({ where, include: USER_INCLUDE_DEFAULTS })
     if (!user) throw new NotFound('User not found')
@@ -97,10 +97,10 @@ export class UserService {
   public async getById(id: number, options?: { status?: UserStatus | 'all' | null }): Promise<UserAttributes | null> {
     const { status } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterStatus(status),
-      id
-    }
+    const where = modelBuildWhere([
+      this.filterStatus(status),
+      { id }
+    ])
 
     const user = await User.findOne({ where, include: USER_INCLUDE_DEFAULTS })
     if (!user) throw new NotFound('User not found')

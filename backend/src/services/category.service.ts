@@ -5,7 +5,7 @@ import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { CategoryAttributes, CategoryAttributesCreation, CategoryAttributesUpdate } from '@brz/shared'
 import { slugify } from '@brz/shared'
-import { isUnique, searchWhere } from '../utils/model.utils'
+import { isUnique, modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { CATEGORY_CONSTRAINTS } from '../models/category.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -31,10 +31,10 @@ export class CategoryService {
   public async count(options?: { search?: string, type?: CategorizableType | string | null }): Promise<number> {
     const { search, type } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterWhereOneFromType(type),
-      ...searchWhere(CATEGORY_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterWhereOneFromType(type),
+      searchWhere(CATEGORY_CONSTRAINTS, search)
+    ])
 
     const result = await Category.count({ where })
     return Number(result)
@@ -44,10 +44,10 @@ export class CategoryService {
     const { search, type } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
-    const where: WhereOptions = {
-      ...this.filterWhereOneFromType(type),
-      ...searchWhere(CATEGORY_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      this.filterWhereOneFromType(type),
+      searchWhere(CATEGORY_CONSTRAINTS, search)
+    ])
 
     const categories = await Category.findAll({ where, order, offset, limit })
     return categories
@@ -56,10 +56,10 @@ export class CategoryService {
   public async getById(id: number, options?: { type?: CategorizableType | string | null }): Promise<CategoryAttributes | null> {
     const { type } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterWhereOneFromType(type),
-      id
-    }
+    const where = modelBuildWhere([
+      this.filterWhereOneFromType(type),
+      { id }
+    ])
 
     const category = await Category.findOne({ where })
     if (!category) throw new NotFound('Category not found')

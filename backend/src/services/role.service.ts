@@ -1,11 +1,10 @@
 import { Role } from '../models'
-import { WhereOptions } from 'sequelize'
 import { Pagination } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
 import { RoleAttributes, RoleAttributesCreation, RoleAttributesUpdate } from '@brz/shared'
-import { searchWhere } from '../utils/model.utils'
+import { modelBuildWhere, searchWhere } from '../utils/model.utils'
 import { ROLE_CONSTRAINTS } from '../models/role.model'
 import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
@@ -16,9 +15,9 @@ export class RoleService {
   public async count(options?: { search?: string }): Promise<number> {
     const { search } = options || {}
 
-    const where: WhereOptions = {
-      ...searchWhere(ROLE_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      searchWhere(ROLE_CONSTRAINTS, search)
+    ])
 
     const result = await Role.count({ where })
     return Number(result)
@@ -29,18 +28,18 @@ export class RoleService {
     const { offset, limit } = pagination || paginationDefault()
 
 
-    const where: WhereOptions = {
-      ...searchWhere(ROLE_CONSTRAINTS, search)
-    }
+    const where = modelBuildWhere([
+      searchWhere(ROLE_CONSTRAINTS, search)
+    ])
 
     const roles = await Role.findAll({ where, order, offset, limit })
     return roles
   }
 
   public async getById(id: number): Promise<RoleAttributes | null> {
-    const where: WhereOptions = {
-      id
-    }
+    const where = modelBuildWhere([
+      { id }
+    ])
 
     const role = await Role.findOne({ where })
     if (!role) throw new NotFound('Role not found')

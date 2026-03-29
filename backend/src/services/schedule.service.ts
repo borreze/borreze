@@ -10,6 +10,7 @@ import { ValidationException } from '../exceptions/validation.exception'
 import { NotFound } from '../exceptions/request.exception'
 import { paginationDefault } from '@brz/shared'
 import { validateAll } from '../utils/validation.utils'
+import { modelBuildWhere } from '../utils/model.utils'
 
 export class ScheduleService {
   private filterType(type?: ScheduleType | null): WhereOptions {
@@ -20,9 +21,9 @@ export class ScheduleService {
   public async count(options?: { type?: ScheduleType | null }): Promise<number> {
     const { type } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterType(type),
-    }
+    const where = modelBuildWhere([
+      this.filterType(type),
+    ])
 
     const result = await Schedule.count({ where })
     return Number(result)
@@ -32,9 +33,9 @@ export class ScheduleService {
     const { type } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
-    const where: WhereOptions = {
-      ...this.filterType(type),
-    }
+    const where = modelBuildWhere([
+      this.filterType(type),
+    ])
 
     const schedules = await Schedule.findAll({ where, order, offset, limit })
     return schedules
@@ -43,10 +44,10 @@ export class ScheduleService {
   public async getById(id: number, options?: { type?: ScheduleType | null }): Promise<ScheduleAttributes | null> {
     const { type } = options || {}
 
-    const where: WhereOptions = {
-      ...this.filterType(type),
-      id
-    }
+    const where = modelBuildWhere([
+      this.filterType(type),
+      { id }
+    ])
 
     const schedule = await Schedule.findOne({ where })
     if (!schedule) throw new NotFound('Schedule not found')

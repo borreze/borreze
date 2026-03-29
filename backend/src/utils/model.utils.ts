@@ -1,6 +1,12 @@
 import { ModelFieldConstraint, ModelConstraints } from '../types/utils/model.types'
 import { Op, WhereOptions, ModelAttributes, ModelAttributeColumnOptions, Model, ModelStatic } from 'sequelize'
 
+// This function merges multiple WhereOptions objects into one, combining them with AND logic
+// Mainly used to avoid having `Expression produces a union type that is too complex to represent.ts(2590)`
+export function modelBuildWhere(parts: WhereOptions[]): WhereOptions { 
+    return Object.assign({}, ...parts) as WhereOptions
+}
+
 export function modelBuild<M extends Model>(constraints: ModelConstraints<M['_attributes']>): ModelAttributes<M, M['_creationAttributes']> {
     return Object.fromEntries(
         Object.entries(constraints).map(([field, constraint]) => {
