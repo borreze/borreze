@@ -13,7 +13,7 @@
                 variant="outline" size="sm" :loading="loading" :disabled="editingPost.status === 'published'"
                 :title="editingPost.status === 'published' ? 'Le contenu est déjà publié' : 'Publier le contenu'"
                 @click="handlePublish" />
-            <Button v-if="authStore.canIDo('post', 'delete') && mode === 'edit'" label="Supprimer"
+            <Button v-if="authStore.canIDo('post', 'delete') && mode === 'edit' && editingPost?.deletable" label="Supprimer"
                 icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading" @click="handleDelete" />
         </Teleport>
 

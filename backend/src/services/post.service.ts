@@ -200,7 +200,11 @@ export class PostService {
   }
 
   public async delete(id: number): Promise<number> {
-    const result = await Post.destroy({ where: { id } })
+    const post = await Post.findByPk(id)
+    if (!post) throw new NotFound('Post not found')
+    if (post.deletable === false) throw new ValidationException('Ce contenu ne peut pas être supprimé')
+
+    const result = await Post.destroy({ where: { id, deletable: true } }) // only delete if deletable is true
     if (!result) throw new NotFound('Post not found')
     return result
   }
