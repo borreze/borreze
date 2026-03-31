@@ -53,7 +53,7 @@ const initMap = () => {
         if (marker.popup) {
             const { label, content } = marker.popup
             const html = [
-                label ? `<h4 class="century-gothic-bold text-lg mb-1">${label}</h4>` : '',
+                label ? `<h4 class="century-gothic-bold text-lg">${label}</h4>` : '',
                 content ?? '',
             ].filter(Boolean).join('<br>')
 
