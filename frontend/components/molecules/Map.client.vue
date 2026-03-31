@@ -3,7 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import type { MapMarker } from '~/types/map'
+export interface MarkerPopup {
+    label?: string
+    content?: string
+    icon?: string
+}
+
+export interface MapMarker {
+    position: [number, number]
+    popup?: MarkerPopup
+}
 
 const props = withDefaults(defineProps<{
     markers?: MapMarker[]
@@ -18,49 +27,18 @@ const mapContainer = ref<HTMLElement | null>(null)
 let map: any
 
 useHead({
-    link: [
-        {
-            rel: 'stylesheet',
-            href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-            integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=',
-            crossorigin: '',
-        }
-    ],
-    script: [
-        {
-            src: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-            integrity: 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=',
-            crossorigin: '',
-        }
-    ]
+    link: [{ rel: 'stylesheet', href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=', crossorigin: '', }],
+    script: [{ src: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', integrity: 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=', crossorigin: '', }]
 })
 
 const buildIcon = (marker: MapMarker): any => {
     const L = (window as any).L
 
-    if (marker.popup?.icon) {
-        return L.icon({
-            iconUrl: marker.popup.icon,
-            iconSize: [36, 36],
-            iconAnchor: [18, 36],
-            popupAnchor: [0, -38],
-        })
-    }
-
-    const color = marker.color ?? '#DB1D12'
-    return L.divIcon({
-        className: '',
-        html: `<div style="
-            width:28px;height:28px;
-            background:${color};
-            border:3px solid white;
-            border-radius:50% 50% 50% 0;
-            transform:rotate(-45deg);
-            box-shadow:0 2px 6px rgba(0,0,0,.4);
-        "></div>`,
-        iconSize: [28, 28],
-        iconAnchor: [14, 28],
-        popupAnchor: [0, -30],
+    return L.icon({
+        iconUrl: marker.popup?.icon ?? 'icons/position.webp',
+        iconSize: [36, 36],
+        iconAnchor: [18, 36],
+        popupAnchor: [0, -38],
     })
 }
 
@@ -91,9 +69,6 @@ const initMap = () => {
             m.bindPopup(html, { maxWidth: 300 })
         }
     }
-
-    const attribution = document.querySelector('.leaflet-bottom.leaflet-right')
-    if (attribution) attribution.setAttribute('hidden', 'true')
 }
 
 onMounted(() => {
