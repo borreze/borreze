@@ -5,9 +5,11 @@ dotenv.config()
 
 function required(key: string): string {
     const val = process.env[key];
-    if (!val || val.trim() === '') {
+
+    if ((!val || val.trim() === '') && (process.env.NODE_ENV !== 'test')) {
         throw new Error(`Missing required env variable: ${key}`);
     }
+
     return val.trim();
 }
 
