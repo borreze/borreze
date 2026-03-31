@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
     "paths": {
       "@brz/shared": ["../shared/src/index.ts"],
     }
