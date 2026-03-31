@@ -75,7 +75,7 @@ const initMap = () => {
     map = L.map(mapContainer.value).setView(defaultCenter, props.zoom)
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map)
 
     for (const marker of props.markers) {
