@@ -12,16 +12,15 @@ import type { MapMarker, MapMarkerPopup } from '~/types/map';
 const props = withDefaults(defineProps<{
     posts?: PostAttributesFrontend[]
     zoom?: number
-    urlPattern?: string
+    urlPattern?: string // as '/pages/<slug>'
 }>(), {
     posts: () => [],
     zoom: 15,
-    urlPattern: () => '/pages/<slug>',
 })
 
 function buildPopup(post: PostAttributesFrontend): MapMarkerPopup {
     const address = post.address ? `<address>${post.address}</address>` : ''
-    const link = props.urlPattern ? `<br><a href="${buildUrl(props.urlPattern, { slug: post.slug })}" class="!text-light !bg-primary !px-3 !py-1 !rounded-full !text-md !font-medium">Voir</a>` : ''
+    const link = props.urlPattern ? `<br><a href="${buildUrl(props.urlPattern, { id: post.id, slug: post.slug })}" class="!text-light !bg-primary !px-3 !py-1 !rounded-full !text-md !font-medium">Voir</a>` : ''
 
     return {
         label: post.title,
