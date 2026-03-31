@@ -1,5 +1,5 @@
 import { authService } from '../src/services/auth.service'
-import { AuthRefreshToken, AuthPasswordResetToken } from '../src/models'
+import { AuthRefreshToken, AuthPasswordResetToken, Role } from '../src/models'
 import { userService } from '../src/services/user.service'
 import { emailService } from '../src/services/email.service'
 import * as jwtUtils from '../src/utils/jwt.utils'
@@ -19,6 +19,7 @@ const mockedJwtUtils = jwtUtils as jest.Mocked<typeof jwtUtils>
 const mockedAuthUtils = authUtils as jest.Mocked<typeof authUtils>
 const mockedAuthRefreshToken = AuthRefreshToken as jest.Mocked<typeof AuthRefreshToken>
 const mockedAuthPasswordResetToken = AuthPasswordResetToken as jest.Mocked<typeof AuthPasswordResetToken>
+const mockedRole = Role as jest.Mocked<typeof Role>
 
 const mockUser = {
     id: 1,
@@ -42,6 +43,8 @@ describe('AuthService', () => {
         it('should login successfully and return tokens', async () => {
             mockedUserService.getByEmail.mockResolvedValue(mockUser)
             mockedUserService.getByEmailOrUsername.mockResolvedValue(mockUser)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            mockedRole.findByPk.mockResolvedValue({ permissions: ['read', 'write'] } as any)
             mockedAuthUtils.comparePassword.mockResolvedValue(true)
             mockedJwtUtils.signAccessToken.mockReturnValue('access_token')
             mockedAuthUtils.randomTokenString.mockReturnValue('refresh_token')
@@ -57,6 +60,8 @@ describe('AuthService', () => {
         it('should throw on invalid password', async () => {
             mockedUserService.getByEmail.mockResolvedValue(mockUser)
             mockedUserService.getByEmailOrUsername.mockResolvedValue(mockUser)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            mockedRole.findByPk.mockResolvedValue({ permissions: ['read', 'write'] } as any)
             mockedAuthUtils.comparePassword.mockResolvedValue(false)
 
             await expect(authService.login(mockUser.email, 'wrongpass')).rejects.toThrow('Invalid credentials')
