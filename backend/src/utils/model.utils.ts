@@ -1,3 +1,4 @@
+import { buildUrl } from '@brz/shared'
 import { ModelFieldConstraint, ModelConstraints } from '../types/utils/model.types'
 import { Op, WhereOptions, ModelAttributes, ModelAttributeColumnOptions, Model, ModelStatic } from 'sequelize'
 
@@ -38,19 +39,9 @@ export function modelBuild<M extends Model>(constraints: ModelConstraints<M['_at
     ) as ModelAttributes<M, M['_creationAttributes']>
 }
 
-export function modelBuildLink(template: string | null, data: Model | Record<string, unknown>): string {
-    if (!template) return '#'
-    if (!template.includes('<') || !template.includes('>')) return template
-
+export function modelBuildUrl(template: string | null, data: Model | Record<string, unknown>): string {
     const plain = data instanceof Model ? data.get({ plain: true }) : data
-
-    return template.replace(/<(\w+)>/g, (_, key) => {
-        const value = (plain as Record<string, unknown>)[key]
-        if (value === undefined || value === null) {
-            throw new Error(`Missing value for URL placeholder: ${key}`)
-        }
-        return encodeURIComponent(String(value))
-    })
+    return buildUrl(template, plain)
 }
 
 export async function isUnique(model: ModelStatic<Model>, field: string, value: unknown, options?: { excludeId?: number | null }): Promise<boolean> {

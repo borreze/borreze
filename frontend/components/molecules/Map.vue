@@ -3,16 +3,7 @@
 </template>
 
 <script setup lang="ts">
-export interface MarkerPopup {
-    label?: string
-    content?: string
-    icon?: string
-}
-
-export interface MapMarker {
-    position: [number, number]
-    popup?: MarkerPopup
-}
+import type { MapMarker } from '~/types/map'
 
 const props = withDefaults(defineProps<{
     markers?: MapMarker[]
@@ -62,7 +53,7 @@ const initMap = () => {
         if (marker.popup) {
             const { label, content } = marker.popup
             const html = [
-                label ? `<strong>${label}</strong>` : '',
+                label ? `<h4 class="century-gothic-bold text-lg mb-1">${label}</h4>` : '',
                 content ?? '',
             ].filter(Boolean).join('<br>')
 

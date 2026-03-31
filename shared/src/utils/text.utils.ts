@@ -23,6 +23,21 @@ export const normalize = (text: string | null | undefined, keepNonWord = false):
         .replace(/-+$/, '')
 }
 
+export function buildUrl(template: string | null, data:  Record<string, unknown>): string {
+    // Take a URL template like '/pages/<slug>' and replace placeholders with actual values from the data object
+
+    if (!template) return '#'
+    if (!template.includes('<') || !template.includes('>')) return template
+
+    return template.replace(/<(\w+)>/g, (_, key) => {
+        const value = data[key]
+        if (value === undefined || value === null) {
+            throw new Error(`Missing value for URL placeholder: ${key}`)
+        }
+        return encodeURIComponent(String(value))
+    })
+}
+
 export function isEmail(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 255 && email.length >= 5 && !email.includes("&") && !email.includes(" ");
 }
