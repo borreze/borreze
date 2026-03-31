@@ -7,9 +7,6 @@ jobs:
   frontend-lint:
     name: 🧹🖥️ Lint Frontend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - uses: actions/checkout@v5
 
@@ -24,13 +21,11 @@ jobs:
 
       - name: Lint
         run: npm run lint
+        working-directory: frontend
 
   frontend-tests:
     name: 🧪🖥️ Test Frontend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - uses: actions/checkout@v5
 
@@ -45,13 +40,11 @@ jobs:
 
       - name: Test
         run: npm run test
+        working-directory: frontend
 
   backend-lint:
     name: 🧹⚙️ Lint Backend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
       - uses: actions/checkout@v5
 
@@ -66,13 +59,11 @@ jobs:
 
       - name: Lint
         run: npm run lint
+        working-directory: backend
 
   backend-tests:
     name: 🧪⚙️ Test Backend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
       - uses: actions/checkout@v5
 
@@ -87,3 +78,4 @@ jobs:
 
       - name: Test
         run: npm run test
+        working-directory: backend
