@@ -1,5 +1,5 @@
 import { Popup } from '../models'
-import { Op, WhereOptions } from 'sequelize'
+import { col, Op, WhereOptions } from 'sequelize'
 import { Pagination, UserAttributesPublic } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
@@ -137,7 +137,7 @@ export class PopupService {
         is_active: true,
         where: {
           date_from: { [Op.lte]: now },
-          date_to: { [Op.gte]: now },
+          date_to: { [Op.gte]: now, [Op.gt]: col('date_from') }, // ensure end is after start
           is_active: { [Op.ne]: true }
         }
       }

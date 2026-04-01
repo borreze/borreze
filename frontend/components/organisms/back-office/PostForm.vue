@@ -10,11 +10,13 @@
                 variant="primary" size="sm" :loading="loading" :disabled="couldHaveErrors" @click="handleSave" />
             <Button v-if="authStore.canIDo('post', 'update') && mode === 'edit'"
                 :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'" icon="ic:baseline-publish"
-                variant="outline" size="sm" :loading="loading" :disabled="editingPost.status === 'published'"
+                variant="outline" size="sm" :loading="loading"
+                :disabled="couldHaveErrors || editingPost.status === 'published' || !scheduled"
                 :title="editingPost.status === 'published' ? 'Le contenu est déjà publié' : 'Publier le contenu'"
                 @click="handlePublish" />
-            <Button v-if="authStore.canIDo('post', 'delete') && mode === 'edit' && editingPost?.deletable" label="Supprimer"
-                icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading" @click="handleDelete" />
+            <Button v-if="authStore.canIDo('post', 'delete') && mode === 'edit' && editingPost?.deletable"
+                label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading"
+                @click="handleDelete" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -90,7 +92,7 @@
                                 label="Date de fin de publication" roundness="md" :error="errors.schedule_end"
                                 @blur="touch('schedule_end')" />
                         </div>
-                        <div class="max-w-xs">
+                        <div v-if="!scheduled" class="max-w-xs">
                             <Dropdown v-model="editingPost.status" variant="light" size="md"
                                 label="Status de publication" placeholder="Status de publication"
                                 :items="POST_STATUSES_OBJECTS" @close="touch('status')" />
@@ -222,6 +224,15 @@ const handlePublish = () => {
 const handleDelete = () => {
     emit('delete')
 }
+
+const scheduled = computed(() => {
+    if (!editingPost.value.schedule_start) return false
+    if (!editingPost.value.schedule_end) return false
+
+    const scheduleStart = new Date(editingPost.value.schedule_start)
+    const scheduleEnd = new Date(editingPost.value.schedule_end)
+    return scheduleStart && scheduleEnd && (scheduleStart <= scheduleEnd)
+})
 
 watch(() => editingPost.value.title, (newTitle) => {
     if (props.mode === 'edit') return // prevent slug from changing in edit so URL doesnt change

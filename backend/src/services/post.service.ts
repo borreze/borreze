@@ -1,5 +1,5 @@
 import { Post } from '../models'
-import { literal, Op, WhereOptions } from 'sequelize'
+import { col, literal, Op, WhereOptions } from 'sequelize'
 import { Pagination, PostType } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
@@ -351,7 +351,7 @@ export class PostService {
         status: 'published',
         where: {
           schedule_start: { [Op.lte]: now },
-          schedule_end: { [Op.gte]: now },
+          schedule_end: { [Op.gte]: now, [Op.gt]: col('schedule_start') }, // ensure end is after start
           status: { [Op.ne]: 'published' }
         }
       }

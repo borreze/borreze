@@ -6,10 +6,10 @@
             </h1>
         </Teleport>
         <Teleport defer to="#page-actions">
-            <Button v-if="authStore.canIDo('popup', 'update')" label="Enregistrer" icon="ic:baseline-save" variant="primary" size="sm" :loading="loading"
-                :disabled="couldHaveErrors" @click="handleSave" />
-            <Button v-if="authStore.canIDo('popup', 'delete') && mode === 'edit'" label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm"
-                :loading="loading" @click="handleDelete" />
+            <Button v-if="authStore.canIDo('popup', 'update')" label="Enregistrer" icon="ic:baseline-save"
+                variant="primary" size="sm" :loading="loading" :disabled="couldHaveErrors" @click="handleSave" />
+            <Button v-if="authStore.canIDo('popup', 'delete') && mode === 'edit'" label="Supprimer"
+                icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading" @click="handleDelete" />
         </Teleport>
 
         <Loader v-if="loading" />
@@ -44,14 +44,14 @@
                     <div class="flex flex-row flex-wrap gap-4 mb-6">
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPopup.date_from" :with-time="true" label="Date de début"
-                                 roundness="md" :error="errors.date_from" @blur="touch('date_from')" />
+                                roundness="md" :error="errors.date_from" @blur="touch('date_from')" />
                         </div>
                         <div class="max-w-xs">
-                            <Datepicker v-model="editingPopup.date_to" :with-time="true" label="Date de fin" 
+                            <Datepicker v-model="editingPopup.date_to" :with-time="true" label="Date de fin"
                                 roundness="md" :error="errors.date_to" @blur="touch('date_to')" />
                         </div>
                     </div>
-                    <div class="flex flex-col gap-4">
+                    <div v-if="!datted" class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
                             <Switch v-model="editingPopup.is_active" label="Actif" required
                                 hint="Une seule popup peut s'afficher à la fois sur le site publique, si plusieurs sont actives, elles s'afficheront une à la fois"
@@ -116,4 +116,14 @@ const handleSave = () => submit(() => {
 const handleDelete = () => {
     emit('delete')
 }
+
+const datted = computed(() => {
+    if (!editingPopup.value.date_from) return false
+    if (!editingPopup.value.date_to) return false
+
+    const dateFrom = new Date(editingPopup.value.date_from)
+    const dateTo = new Date(editingPopup.value.date_to)
+    return dateFrom && dateTo && (dateFrom <= dateTo)
+})
+
 </script>
