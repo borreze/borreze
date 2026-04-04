@@ -1,5 +1,5 @@
 <template>
-    <component :is="componentType" v-bind="componentAttrs" :class="containerClass" :style="color ? colorToPillStyle : undefined">
+    <component :is="componentType" v-bind="componentAttrs" :class="['border-2', containerClass]" :style="color ? colorToPillStyle : undefined">
         <slot name="icon">
             <Icon v-if="icon" :name="icon" :size="sizeToIconSize" :class="['transition-transform', iconClass]" />
         </slot>
@@ -103,28 +103,28 @@ const variantToPillClass = computed(() => {
     if (props.variant && !props.color) {
         switch (props.variant) {
             case 'dark':
-                return 'bg-dark border-2 border-dark text-white'
+                return 'bg-dark border-dark text-white'
             case 'light':
                 return 'bg-primary/20 text-primary'
             case 'primary':
-                return 'bg-primary border-2 border-primary text-white'
+                return 'bg-primary border-primary text-white'
             case 'outline':
-                return 'bg-transparent border-2 border-primary text-primary'
+                return 'bg-transparent border-primary text-primary'
             case 'ghost':
             case 'gray':
-                return 'bg-gray-200 border-2 border-gray-200 text-gray-800'
+                return 'bg-gray-200 border-gray-200 text-gray-800'
             case 'blur':
-                return 'border-2 border-white bg-white/10 backdrop-blur-sm text-white'
+                return 'border-white bg-white/10 backdrop-blur-sm text-white'
             case 'transparent':
-                return 'bg-transparent border-2 border-transparent text-gray-700'
+                return 'bg-transparent border-transparent text-gray-700'
             case 'danger':
-                return 'bg-danger border-2 border-danger text-white'
+                return 'bg-danger border-danger text-white'
             case 'warning':
-                return 'bg-warning border-2 border-warning text-white'
+                return 'bg-warning border-warning text-white'
             case 'success':
-                return 'bg-success border-2 border-success text-white'
+                return 'bg-success border-success text-white'
             default:
-                return 'bg-transparent text-gray-700'
+                return 'bg-transparent text-gray-700 border-transparent'
         }
     }
 })

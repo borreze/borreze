@@ -29,10 +29,6 @@
                     </div>
 
                     <div class="flex min-w-0 flex-1 flex-col justify-center">
-                        <div class="mb-1 flex flex-wrap items-center gap-2">
-                            <Pill v-for="category in post.categories" :key="category.id" :label="category.name"
-                                size="sm" variant="primary" />
-                        </div>
                         <h3
                             class="text-base font-semibold text-dark transition group-hover:text-primary sm:text-lg line-clamp-1">
                             {{ post.title }}
