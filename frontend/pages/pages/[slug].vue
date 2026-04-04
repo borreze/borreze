@@ -9,10 +9,6 @@
 
             <Loader v-if="loading" />
             <article v-else-if="post" class="mt-8">
-                <p v-if="post.published_at" class="text-sm text-gray-500 mt-2">
-                    {{ formatDateRelative(post.published_at) }}
-                </p>
-
                 <div v-if="post?.medias" class="mt-4">
                     <MediaCarousel :medias="post.medias" class="h-[400px] max-w-[800px] mx-auto" />
                 </div>
