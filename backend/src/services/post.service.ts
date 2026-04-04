@@ -178,6 +178,7 @@ export class PostService {
     return sequelize.transaction(async (transaction: Transaction) => {
       const post = await Post.findByPk(id, { transaction })
       if (!post) throw new NotFound('Post not found')
+      if (post.unpublishable && status !== 'published') throw new ValidationException('Ce contenu ne peut pas être dépublié')
 
       await post.update({ status, published_at: status === 'published' ? new Date() : undefined }, { transaction })
       return post
@@ -337,7 +338,8 @@ export class PostService {
         status: 'archived',
         where: {
           schedule_start: { [Op.gt]: now },
-          status: { [Op.ne]: 'archived' }
+          status: { [Op.ne]: 'archived' },
+          unpublishable: { [Op.ne]: true }
         }
       },
       {
@@ -345,7 +347,8 @@ export class PostService {
         status: 'archived',
         where: {
           schedule_end: { [Op.lt]: now },
-          status: { [Op.ne]: 'archived' }
+          status: { [Op.ne]: 'archived' },
+          unpublishable: { [Op.ne]: true }
         }
       },
       {
@@ -354,7 +357,8 @@ export class PostService {
         where: {
           schedule_start: { [Op.lte]: now },
           schedule_end: { [Op.gte]: now, [Op.gt]: col('schedule_start') }, // ensure end is after start
-          status: { [Op.ne]: 'published' }
+          status: { [Op.ne]: 'published' },
+          unpublishable: { [Op.ne]: true }
         }
       }
     ]

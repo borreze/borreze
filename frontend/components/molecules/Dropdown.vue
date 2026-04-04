@@ -15,8 +15,12 @@
                 position="right" :center="false" icon="ic:round-keyboard-arrow-down"
                 :iconClass="isOpen ? 'rotate-180' : ''" @click="toggle">
             </Button>
+
             <p v-if="error" class="text-sm text-danger mt-1">
                 {{ error }}
+            </p>
+            <p v-if="warn" class="text-sm text-warning mt-1">
+                {{ warn }}
             </p>
         </div>
 
@@ -82,6 +86,7 @@ const props = withDefaults(defineProps<{
     label?: string
     hint?: string
     error?: string | null
+    warn?: string | null
 }>(), {
     items: () => [],
     modelValue: null,

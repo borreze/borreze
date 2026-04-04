@@ -5,9 +5,9 @@ import { config } from "../config/config"
 
 export class ContactService {
   public async send(data?: ContactRequest): Promise<boolean> {
-    let { firstname, lastname, email, message } = data || {}
+    let { firstname, lastname, email, message, accept } = data || {}
 
-    if (!firstname || !lastname || !email || !message) {
+    if (!firstname || !lastname || !email || !message || !accept) {
       throw new ContactException('All fields are required')
     }
 
@@ -19,6 +19,7 @@ export class ContactService {
     lastname = lastname.trim()
     email = email.trim()
     message = message.trim()
+    accept = !!accept
 
     await emailService.sendMail({
       to: config.contactMailTo,

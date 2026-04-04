@@ -15,6 +15,8 @@
                         placeholder="jdupont@gmail.com" required :error="errors.email" @blur="touch('email')" />
                     <Field v-model="formContent.message" name="message" type="textarea" label="Message" roundness="lg"
                         placeholder="Votre message..." required :error="errors.message" @blur="touch('message')" />
+                    <Switch v-model="formContent.accept" required text="J'accepte la <a href='/pages/politique-de-confidentialite' target='_blank' class='text-primary underline'>politique de confidentialité</a>"
+                        :error="errors.accept" @change="touch('accept')" />
 
                     <div class="flex flex-row align-items-center justify-end w-full">
                         <Button :disabled="couldHaveErrors" icon="mdi-send" label="Envoyer" position="right"
@@ -63,6 +65,7 @@ import Map from '~/components/molecules/Map.vue';
 import { nl2br, renderSchedules } from '#imports';
 import { useContact } from '~/composables/front-office/useContact';
 import { useSchedulesByType } from '~/composables/front-office/useSchedule';
+import Switch from '~/components/atoms/Switch.vue';
 
 const { schedules } = await useSchedulesByType('town_hall');
 const { sendContact } = useContact()
@@ -71,7 +74,8 @@ const formContent = ref<ContactRequest>({
     firstname: '',
     lastname: '',
     email: '',
-    message: ''
+    message: '',
+    accept: false,
 })
 
 const { couldHaveErrors, touch, touched, errors, untouchAll, submit } = useForm([
@@ -79,6 +83,7 @@ const { couldHaveErrors, touch, touched, errors, untouchAll, submit } = useForm(
     { name: 'lastname', label: 'Nom', validation: () => formContent.value.lastname === '' ? 'Le nom est requis' : null },
     { name: 'email', label: 'E-mail', validation: () => formContent.value.email === '' || !isEmail(formContent.value.email) ? 'Le champ e-mail est requis et doit être une adresse e-mail valide' : null },
     { name: 'message', label: 'Message', validation: () => formContent.value.message === '' || formContent.value.message.length < 100 ? 'Le champ message est requis et doit contenir au moins 100 caractères' : null },
+    { name: 'accept', label: 'Acceptation de la politique de confidentialité', validation: () => !formContent.value.accept ? 'Vous devez accepter la politique de confidentialité pour envoyer votre message' : null },
 ])
 
 const handleClear = () => {
@@ -86,6 +91,7 @@ const handleClear = () => {
     formContent.value.lastname = ''
     formContent.value.email = ''
     formContent.value.message = ''
+    formContent.value.accept = false
     untouchAll()
 }
 

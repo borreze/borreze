@@ -6,7 +6,7 @@ import { Log } from '../utils/log.utils'
 export class ContactController {
   public send: RequestHandler = async (req, res) => {
     await contactService.send(req.body)
-    Log.info(`Une demande de contact a été envoyée par ${req.body.email} avec le sujet "${req.body.subject}"`, req)
+    Log.info(`Une demande de contact a été envoyée par ${req.body.email}`, req)
     res.status(200).json({ message: 'Contact request sent successfully' } as Return)
   }
 }

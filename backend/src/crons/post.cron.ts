@@ -6,7 +6,7 @@ import { Log } from '../utils/log.utils'
 export function initPostCron(): void {
     Terminal.info('Initializing post cron job')
 
-    cron.schedule('0 1 * * *', async () => { // Every day at 1 AM
+    cron.schedule('0 * * * *', async () => { // Every hour
         try {
             await postService.computeLocation()
         } catch (error) {

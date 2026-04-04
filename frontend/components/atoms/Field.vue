@@ -16,8 +16,12 @@
         <input v-else v-bind="$attrs" :id="id" :name="name" :required="required" :placeholder="placeholder"
             :autocomplete="autocomplete" :type="type" v-model="innerValue" :class="inputClass" @blur="emit('blur')"
             @focus="emit('focus')" @input="emit('input')" />
+
         <p v-if="error" class="text-sm text-danger mt-1">
             {{ error }}
+        </p>
+        <p v-if="warn" class="text-sm text-warning mt-1">
+            {{ warn }}
         </p>
     </div>
 </template>
@@ -37,6 +41,7 @@ const props = withDefaults(defineProps<{
     class?: string
     required?: boolean
     error?: string | null
+    warn?: string | null
     size?: ComponentSize
     variant?: 'dark' | 'red'
     roundness?: ComponentRoundness

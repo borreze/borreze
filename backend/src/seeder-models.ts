@@ -66,8 +66,14 @@ const seed = async () => {
       if (!fs.existsSync(filePath)) throw new Error(`Seed file not found: ${filePath}`)
 
       // Read and parse the JSON file
-      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
-      if (!Array.isArray(data)) throw new Error(`Seed file format invalid for ${model.name} — must be an array`)
+      const fileContent = fs.readFileSync(filePath, 'utf-8')
+      let data = null
+      try {
+        data = JSON.parse(fileContent)
+      } catch (error) {
+        throw new Error(`Seed file format invalid for ${model.name}, must be valid JSON: ${error}`)
+      }
+      if (!Array.isArray(data)) throw new Error(`Seed file format invalid for ${model.name}, must be an array`)
 
       // Hash passwords if seeding users
       if (model === User) {

@@ -29,8 +29,12 @@
                 <Icon name="ic:baseline-chevron-right" class="size-5" />
             </button>
         </div>
+        
         <p v-if="error" class="text-sm text-danger mt-1">
             {{ error }}
+        </p>
+        <p v-if="warn" class="text-sm text-warning mt-1">
+            {{ warn }}
         </p>
     </div>
 </template>
@@ -45,6 +49,7 @@ const props = defineProps<{
     class?: string
     required?: boolean
     error?: string | null
+    warn?: string | null
 }>()
 
 const emit = defineEmits<{

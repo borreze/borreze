@@ -31,11 +31,13 @@
                 </button>
             </div>
         </div>
+
         <p v-if="error" class="text-sm text-danger mt-1">
             {{ error }}
         </p>
         <p v-if="warn" class="text-sm text-warning mt-1">
             {{ warn }}
+            {{ hasReachedMax() ? 'Le nombre maximum de médias a été atteint pour ce champ.' : '' }}
         </p>
 
         <!-- Add modal -->
@@ -53,7 +55,8 @@
             <div class="h-[60vh] w-[80vw] md:w-[70vw] overflow-y-auto">
                 <Loader v-if="loading" />
                 <div v-else-if="medias" class="mt-6">
-                    <Grid v-if="medias?.length > 0" :items="medias" :layouts="{ default: 2, sm: 3, md: 3, lg: 4, xl: 5, '2xl': 6 }">
+                    <Grid v-if="medias?.length > 0" :items="medias"
+                        :layouts="{ default: 2, sm: 3, md: 3, lg: 4, xl: 5, '2xl': 6 }">
                         <template #item="{ item }">
                             <MediaCard :media="item" :disabled="disabled && !isSelected(item)" :delete-button="false"
                                 :edit-button="false" :open-button="false" :toggle-button="true"
@@ -65,8 +68,8 @@
             </div>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
             <div class="flex justify-end gap-2">
-                <Button :label="pickLabel" :disabled="!hasReachedMax()" icon="ic:round-check" variant="primary" size="sm"
-                    @click="closePickModal" />
+                <Button :label="pickLabel" :disabled="!hasReachedMax()" icon="ic:round-check" variant="primary"
+                    size="sm" @click="closePickModal" />
             </div>
         </Modal>
     </div>
@@ -97,6 +100,7 @@ const props = withDefaults(defineProps<{
     required?: boolean
     multiple?: TMultiple
     error?: string | null
+    warn?: string | null
     modalZLevel?: ComponentZIndexLevel
 }>(), {
     label: 'Médias',
@@ -111,7 +115,7 @@ const emit = defineEmits<{
     (e: 'update:modelValue', value: PickerModelValue | null): void
 }>()
 
-const { loading, medias, pagination, setPage, setSearch, refresh } = await useMedias({ type: (props.mediaType ?? 'all')})
+const { loading, medias, pagination, setPage, setSearch, refresh } = await useMedias({ type: (props.mediaType ?? 'all') })
 
 const search = ref('')
 const pickModal = ref(false)
@@ -190,14 +194,6 @@ const pickLabel = computed(() => {
     } else {
         return 'Choisir ce média'
     }
-})
-
-const warn = computed(() => {
-    if (hasReachedMax()) {
-        return 'Le nombre maximum de médias a été atteint pour ce champ.'
-    }
-
-    return null
 })
 
 // Watch for changes in modelValue to refresh the media list, so uploaded media can be unselected immediately

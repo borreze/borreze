@@ -24,6 +24,9 @@
         <p v-if="error" class="text-sm text-danger mt-1">
             {{ error }}
         </p>
+        <p v-if="warn" class="text-sm text-warning mt-1">
+            {{ warn }}
+        </p>
     </div>
 </template>
 
@@ -38,6 +41,7 @@ const props = withDefaults(defineProps<{
     hint?: string
     required?: boolean
     error?: string | null
+    warn?: string | null
     size?: ComponentSize
     variant?: 'dark' | 'red'
     roundness?: ComponentRoundness

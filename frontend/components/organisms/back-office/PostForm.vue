@@ -8,11 +8,11 @@
         <Teleport defer to="#page-actions">
             <Button v-if="authStore.canIDo('post', 'update')" label="Enregistrer" icon="ic:baseline-save"
                 variant="primary" size="sm" :loading="loading" :disabled="couldHaveErrors" @click="handleSave" />
-            <Button v-if="authStore.canIDo('post', 'update') && mode === 'edit'"
+            <Button v-if="authStore.canIDo('post', 'update') && mode === 'edit' && editingPost?.unpublishable"
                 :label="editingPost.status === 'published' ? 'Déjà publié' : 'Publier'" icon="ic:baseline-publish"
                 variant="outline" size="sm" :loading="loading"
-                :disabled="couldHaveErrors || editingPost.status === 'published' || !scheduled"
-                :title="editingPost.status === 'published' ? 'Le contenu est déjà publié' : 'Publier le contenu'"
+                :disabled="couldHaveErrors || editingPost.status === 'published' || scheduled"
+                :title="editingPost.status === 'published' || scheduled ? 'Le contenu est déjà publié ou est planifié' : 'Publier le contenu'"
                 @click="handlePublish" />
             <Button v-if="authStore.canIDo('post', 'delete') && mode === 'edit' && editingPost?.deletable"
                 label="Supprimer" icon="ic:baseline-delete" variant="warning" size="sm" :loading="loading"
@@ -29,21 +29,23 @@
                             <Field v-model="editingPost.title" required label="Titre" hint="Titre principale"
                                 roundness="md" :error="errors.title" @blur="touch('title')" />
                             <Field v-model="editingPost.slug" required label="Slug"
-                                hint="Identifiant unique utilisé pour les URL. Attention, changer ce champ va affecter le lien." roundness="md" :error="errors.slug"
-                                @blur="touch('slug')" />
+                                hint="Identifiant unique utilisé pour les URL. Attention, changer ce champ va affecter le lien."
+                                roundness="md" :error="errors.slug" @blur="touch('slug')" />
                         </div>
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
                             hint="Résumé, utilisé lors de l'affichage en liste" roundness="md" :error="errors.abstract"
                             @blur="touch('abstract')" />
                         <div v-if="editingPost.type === 'event'" class="grid md:grid-cols-2 gap-4">
                             <Field v-model="editingPost.address" label="Adresse de l'événement" roundness="md"
-                                :error="errors.address" @blur="touch('address')" />
+                                :error="errors.address"
+                                :warn="mode === 'edit' && (!editingPost?.latitude || !editingPost?.longitude) ? 'Aucune coordonnée géographique n\'a encore été calculée. Le contenu peut ne pas s\'afficher correctement pour l\'instant. Si ce message persiste, veuillez vérifier l\'adresse.' : null"
+                                @blur="touch('address')" />
                             <Datepicker v-model="editingPost.date_time" required :with-time="true"
                                 label="Date et heure de l'événement" roundness="md" :error="errors.date_time"
                                 @blur="touch('date_time')" />
                         </div>
                         <div>
-                            <MediaPicker v-model="editingPost.cover" media-type="image" required label="Couverture"
+                            <MediaPicker v-model="editingPost.cover" media-type="image" label="Couverture"
                                 hint="Sélectionnez une image de couverture" :error="errors.cover"
                                 @update="touch('cover')" />
                         </div>
@@ -70,7 +72,7 @@
                         </div>
                     </div>
                 </section>
-                <section>
+                <section v-if="editingPost?.unpublishable || authStore.amIAdmin()">
                     <h4 class="title-submain mb-4">Publication</h4>
                     <p class="hint mb-2">
                         Ne saisissez pas de date de début et de fin si vous souhaitez que le contenu soit publiée
@@ -83,6 +85,14 @@
                         date de début.
                     </p>
                     <div class="flex flex-row flex-wrap gap-4">
+                        <div v-if="authStore.amIAdmin()" class="grid md:grid-cols-2 gap-4">
+                            <Switch v-model="editingPost.deletable" label="Supprimable"
+                                hint="Si activé, ce contenu pourra être supprimé depuis le back-office"
+                                text="Possible de supprimer ce contenu depuis le le back-office" />
+                            <Switch v-model="editingPost.unpublishable" label="Dépubliable"
+                                hint="Si activé, ce contenu pourra être dépublié depuis le back-office (ex: pour les mentions légales)"
+                                text="Possible de dépublier ce contenu depuis le back-office (ex: pour les mentions légales)" />
+                        </div>
                         <div class="max-w-xs">
                             <Datepicker v-model="editingPost.schedule_start" :with-time="true"
                                 label="Date de début de publication" roundness="md" :error="errors.schedule_start"
@@ -168,6 +178,7 @@ import NewCard from '~/components/organisms/front-office/NewCard.vue'
 import ProjectCard from '~/components/organisms/front-office/ProjectCard.vue'
 import EventCard from '~/components/organisms/front-office/EventCard.vue'
 import { useAuthStore } from '~/stores/auth'
+import Switch from '~/components/atoms/Switch.vue'
 
 const authStore = useAuthStore()
 
@@ -206,7 +217,7 @@ const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useFo
     { name: 'schedule_end', label: 'Fin de publication' },
     { name: 'status', label: 'Status', validation: () => !editingPost.value.status ? 'Le status est requis' : null },
     { name: 'content', label: 'Contenu' },
-    { name: 'cover', label: 'Couverture', validation: () => !editingPost.value.cover ? 'La couverture est requise' : null },
+    { name: 'cover', label: 'Couverture' },
     // Event
     { name: 'date_time', label: 'Date et heure', validation: () => (editingPost.value.type === 'event' && !editingPost.value.date_time) ? 'La date et heure sont requises' : null },
     { name: 'address', label: 'Adresse de l\'événement' },

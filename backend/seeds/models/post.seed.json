@@ -14,9 +14,7 @@
         "address": "Place de la Mairie, 24590 Borrèze",
         "meta_title": "Comité des fêtes de Borrèze",
         "meta_description": "Association du comité des fêtes de Borrèze, organisateur des événements festifs de la commune.",
-        "published_at": "2026-01-15T10:00:00.000Z",
-        "created_at": "2026-01-10T08:00:00.000Z",
-        "updated_at": "2026-01-15T10:00:00.000Z"
+        "published_at": "2026-01-15T10:00:00.000Z"
     },
     {
         "id": 2,
@@ -33,9 +31,7 @@
         "address": "Lieu-dit Le Bourg, 24590 Borrèze",
         "meta_title": "ACCA Borrèze - Chasse communale",
         "meta_description": "Association communale de chasse agréée de Borrèze, gestion du territoire et régulation de la faune.",
-        "published_at": "2026-02-01T09:00:00.000Z",
-        "created_at": "2026-01-20T08:00:00.000Z",
-        "updated_at": "2026-02-01T09:00:00.000Z"
+        "published_at": "2026-02-01T09:00:00.000Z"
     },
     {
         "id": 3,
@@ -53,9 +49,7 @@
         "website": "https://www.boulangerie-dupont-borreze.fr",
         "meta_title": "Boulangerie Dupont - Borrèze",
         "meta_description": "Boulangerie artisanale au centre de Borrèze. Pains au levain, viennoiseries et pâtisseries maison.",
-        "published_at": "2026-01-20T08:00:00.000Z",
-        "created_at": "2026-01-18T08:00:00.000Z",
-        "updated_at": "2026-01-20T08:00:00.000Z"
+        "published_at": "2026-01-20T08:00:00.000Z"
     },
     {
         "id": 4,
@@ -72,9 +66,7 @@
         "address": "Route de Salignac, 24590 Borrèze",
         "meta_title": "Garage Faurie - Mécanique auto à Borrèze",
         "meta_description": "Garage automobile à Borrèze. Entretien, réparation et diagnostic pour tous véhicules.",
-        "published_at": "2026-02-10T08:00:00.000Z",
-        "created_at": "2026-02-05T08:00:00.000Z",
-        "updated_at": "2026-02-10T08:00:00.000Z"
+        "published_at": "2026-02-10T08:00:00.000Z"
     },
     {
         "id": 5,
@@ -94,9 +86,7 @@
         "meta_description": "Vide-greniers annuel de Borrèze le 26 avril 2026. 80 exposants, buvette et restauration.",
         "published_at": "2026-03-01T09:00:00.000Z",
         "schedule_start": "2026-03-01T09:00:00.000Z",
-        "schedule_end": "2026-04-27T00:00:00.000Z",
-        "created_at": "2026-02-25T08:00:00.000Z",
-        "updated_at": "2026-03-01T09:00:00.000Z"
+        "schedule_end": "2026-04-27T00:00:00.000Z"
     },
     {
         "id": 6,
@@ -116,9 +106,7 @@
         "meta_description": "Fête de la musique le 21 juin 2026 à Borrèze. Concerts, scène ouverte et buvette.",
         "published_at": "2026-05-15T08:00:00.000Z",
         "schedule_start": "2026-05-15T08:00:00.000Z",
-        "schedule_end": "2026-06-22T00:00:00.000Z",
-        "created_at": "2026-05-10T08:00:00.000Z",
-        "updated_at": "2026-05-15T08:00:00.000Z"
+        "schedule_end": "2026-06-22T00:00:00.000Z"
     },
     {
         "id": 7,
@@ -138,45 +126,11 @@
         "meta_description": "Randonnée commentée de 8 km à Borrèze le 22 mars 2026. Découverte du patrimoine local.",
         "published_at": "2026-02-20T08:00:00.000Z",
         "schedule_start": "2026-02-20T08:00:00.000Z",
-        "schedule_end": "2026-03-23T00:00:00.000Z",
-        "created_at": "2026-02-15T08:00:00.000Z",
-        "updated_at": "2026-02-20T08:00:00.000Z"
+        "schedule_end": "2026-03-23T00:00:00.000Z"
     },
     {
         "id": 8,
         "cover_id": 8,
-        "slug": "mentions-legales",
-        "type": "page",
-        "status": "published",
-        "title": "Mentions légales",
-        "abstract": "Informations légales relatives au site internet de la commune de Borrèze.",
-        "content": "<h2>Éditeur du site</h2><p>Commune de Borrèze - Mairie, Le Bourg, 24590 Borrèze. Téléphone : 05 53 28 90 00. Email : mairie.borreze@wanadoo.fr.</p><h2>Hébergement</h2><p>OVH SAS - 2 Rue Kellermann, 59100 Roubaix, France.</p><h2>Propriété intellectuelle</h2><p>L'ensemble du contenu du site (textes, images, graphismes) est la propriété de la commune de Borrèze ou de ses partenaires. Toute reproduction est interdite sans autorisation préalable.</p><h2>Données personnelles</h2><p>Conformément au RGPD, vous disposez d'un droit d'accès, de modification et de suppression de vos données. Contact : mairie.borreze@wanadoo.fr.</p>",
-        "deletable": false,
-        "meta_title": "Mentions légales - Commune de Borrèze",
-        "meta_description": "Mentions légales du site internet de la commune de Borrèze, Dordogne.",
-        "published_at": "2026-01-05T08:00:00.000Z",
-        "created_at": "2026-01-05T08:00:00.000Z",
-        "updated_at": "2026-01-05T08:00:00.000Z"
-    },
-    {
-        "id": 9,
-        "cover_id": 9,
-        "slug": "histoire-et-patrimoine",
-        "type": "page",
-        "status": "published",
-        "title": "Histoire et patrimoine de Borrèze",
-        "abstract": "Découvrez l'histoire millénaire de Borrèze et son riche patrimoine architectural et naturel.",
-        "content": "<p>Borrèze est une commune du Périgord Noir située dans le département de la Dordogne. Son histoire remonte à l'époque médiévale, comme en témoignent les vestiges de son église romane du XIIe siècle.</p><p>Le territoire communal est traversé par la Borrèze, un affluent de la Dordogne, qui a façonné le paysage de vallons boisés caractéristique de la région. On y trouve plusieurs moulins à eau restaurés et des pigeonniers typiques du Périgord.</p><p>Le patrimoine naturel comprend des forêts de chênes et de châtaigniers, des prairies calcaires riches en orchidées sauvages, et des falaises abritant une faune cavernicole remarquable.</p>",
-        "deletable": false,
-        "meta_title": "Histoire et patrimoine - Borrèze, Dordogne",
-        "meta_description": "L'histoire de Borrèze, commune du Périgord Noir. Patrimoine médiéval, moulins, pigeonniers et nature préservée.",
-        "published_at": "2026-01-10T08:00:00.000Z",
-        "created_at": "2026-01-08T08:00:00.000Z",
-        "updated_at": "2026-01-10T08:00:00.000Z"
-    },
-    {
-        "id": 10,
-        "cover_id": 10,
         "slug": "travaux-voirie-route-departementale-printemps-2026",
         "type": "new",
         "status": "published",
@@ -185,13 +139,11 @@
         "content": "<p>Le Conseil départemental de la Dordogne entreprend des travaux de réfection de la chaussée sur la route départementale 60 traversant la commune de Borrèze. Les travaux débuteront le 10 mars 2026 pour une durée estimée de 8 semaines.</p><p>Une déviation sera mise en place par la RD 62 via Salignac-Eyvigues. La circulation sera maintenue en alternance sur certains tronçons. Les riverains seront informés par courrier des phases de chantier.</p><p>La mairie reste à votre disposition pour toute question relative à ces travaux.</p>",
         "meta_title": "Travaux RD 60 - Borrèze printemps 2026",
         "meta_description": "Travaux de voirie sur la RD 60 à Borrèze de mars à mai 2026. Informations déviation et circulation.",
-        "published_at": "2026-02-15T09:00:00.000Z",
-        "created_at": "2026-02-10T08:00:00.000Z",
-        "updated_at": "2026-02-15T09:00:00.000Z"
+        "published_at": "2026-02-15T09:00:00.000Z"
     },
     {
-        "id": 11,
-        "cover_id": 11,
+        "id": 9,
+        "cover_id": 9,
         "slug": "nouveau-defibrillateur-salle-des-fetes",
         "type": "new",
         "status": "published",
@@ -200,13 +152,11 @@
         "content": "<p>Dans le cadre du plan communal de prévention des risques cardiaques, un défibrillateur automatique externe (DAE) a été installé le 20 janvier 2026 à l'entrée de la salle des fêtes, accessible 24h/24.</p><p>L'appareil est géolocalisé sur l'application Staying Alive. Une session de formation aux gestes de premiers secours sera proposée aux habitants courant février. Inscription en mairie.</p>",
         "meta_title": "Défibrillateur salle des fêtes - Borrèze",
         "meta_description": "Un nouveau défibrillateur installé à la salle des fêtes de Borrèze, accessible en permanence.",
-        "published_at": "2026-01-25T10:00:00.000Z",
-        "created_at": "2026-01-22T08:00:00.000Z",
-        "updated_at": "2026-01-25T10:00:00.000Z"
+        "published_at": "2026-01-25T10:00:00.000Z"
     },
     {
-        "id": 12,
-        "cover_id": 12,
+        "id": 10,
+        "cover_id": 10,
         "slug": "renovation-salle-des-fetes",
         "type": "project",
         "status": "published",
@@ -216,12 +166,11 @@
         "progression": "ongoing",
         "meta_title": "Rénovation salle des fêtes - Borrèze",
         "meta_description": "Projet de rénovation énergétique de la salle des fêtes de Borrèze. Calendrier et financement.",
-        "published_at": "2026-02-01T08:00:00.000Z",
-        "created_at": "2026-01-15T08:00:00.000Z",
-        "updated_at": "2026-03-10T08:00:00.000Z"
+        "published_at": "2026-02-01T08:00:00.000Z"
     },
     {
-        "id": 13,
+        "id": 11,
+        "cover_id": 11,
         "slug": "amenagement-sentier-pedestre-vallee-borreze",
         "type": "project",
         "status": "published",
@@ -231,8 +180,45 @@
         "progression": "planned",
         "meta_title": "Sentier pédestre vallée de la Borrèze",
         "meta_description": "Projet d'aménagement d'un sentier de randonnée de 12 km dans la vallée de la Borrèze.",
-        "published_at": "2026-01-10T08:00:00.000Z",
-        "created_at": "2026-01-05T08:00:00.000Z",
-        "updated_at": "2026-01-10T08:00:00.000Z"
+        "published_at": "2026-01-10T08:00:00.000Z"
+    },
+    {
+        "id": 13,
+        "slug": "mentions-legales",
+        "type": "page",
+        "status": "published",
+        "title": "Mentions légales",
+        "abstract": "Informations légales relatives au site internet de la commune de Borrèze.",
+        "content": "<h2>Éditeur du site</h2><p>Commune de Borrèze - Mairie, Le Bourg, 24590 Borrèze. Téléphone : 05 53 28 90 00. Email : mairie.borreze@wanadoo.fr.</p><h2>Hébergement</h2><p>OVH SAS - 2 Rue Kellermann, 59100 Roubaix, France.</p><h2>Propriété intellectuelle</h2><p>L'ensemble du contenu du site (textes, images, graphismes) est la propriété de la commune de Borrèze ou de ses partenaires. Toute reproduction est interdite sans autorisation préalable.</p><h2>Données personnelles</h2><p>Conformément au RGPD, vous disposez d'un droit d'accès, de modification et de suppression de vos données. Contact : mairie.borreze@wanadoo.fr.</p>",
+        "meta_title": "Mentions légales - Commune de Borrèze",
+        "meta_description": "Mentions légales du site internet de la commune de Borrèze, Dordogne.",
+        "deletable": false,
+        "unpublishable": false
+    },
+    {
+        "id": 14,
+        "slug": "politique-de-confidentialite",
+        "type": "page",
+        "status": "published",
+        "title": "Politique de confidentialité",
+        "abstract": "Politique de confidentialité du site internet de la commune de Borrèze, conforme au RGPD.",
+        "content": "<h2>Collecte des données</h2><p>Le site de la commune de Borrèze collecte uniquement les données nécessaires à l'envoi de messages via le formulaire de contact (nom, prénom, email, message). Ces données sont utilisées exclusivement pour répondre à vos demandes et ne sont pas partagées avec des tiers.</p><h2>Conservation des données</h2><p>Les données collectées sont conservées pendant une durée maximale de 3 ans à compter du dernier contact. Passé ce délai, elles sont automatiquement supprimées.</p><h2>Vos droits</h2><p>Vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles. Vous pouvez exercer ces droits en contactant la mairie par email à l'adresse mairie.borreze@wanadoo.fr.</p>",
+        "meta_title": "Politique de confidentialité - Commune de Borrèze",
+        "meta_description": "Politique de confidentialité du site internet de la commune de Borrèze, Dordogne.",
+        "deletable": false,
+        "unpublishable": false
+    },
+    {
+        "id": 15,
+        "slug": "histoire-et-patrimoine",
+        "type": "page",
+        "status": "published",
+        "title": "Histoire et patrimoine de Borrèze",
+        "abstract": "Découvrez l'histoire millénaire de Borrèze et son riche patrimoine architectural et naturel.",
+        "content": "<p>Borrèze est une commune du Périgord Noir située dans le département de la Dordogne. Son histoire remonte à l'époque médiévale, comme en témoignent les vestiges de son église romane du XIIe siècle.</p><p>Le territoire communal est traversé par la Borrèze, un affluent de la Dordogne, qui a façonné le paysage de vallons boisés caractéristique de la région. On y trouve plusieurs moulins à eau restaurés et des pigeonniers typiques du Périgord.</p><p>Le patrimoine naturel comprend des forêts de chênes et de châtaigniers, des prairies calcaires riches en orchidées sauvages, et des falaises abritant une faune cavernicole remarquable.</p>",
+        "meta_title": "Histoire et patrimoine - Borrèze, Dordogne",
+        "meta_description": "L'histoire de Borrèze, commune du Périgord Noir. Patrimoine médiéval, moulins, pigeonniers et nature préservée.",
+        "deletable": false,
+        "unpublishable": false
     }
 ]

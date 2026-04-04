@@ -3,4 +3,5 @@ export interface ContactRequest {
     lastname: string;
     email: string;
     message: string;
+    accept: boolean;
 }

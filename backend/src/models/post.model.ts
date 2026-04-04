@@ -161,6 +161,12 @@ export const POST_CONSTRAINTS = {
     required: false,
     defaultValue: true
   },
+  unpublishable: {
+    nicename: 'Dépubliable',
+    type: DataTypes.BOOLEAN,
+    required: false,
+    defaultValue: true
+  },
   created_at: {
     nicename: 'Date de création',
     type: DataTypes.DATE,
@@ -264,6 +270,7 @@ export class Post extends Model<PostAttributes, PostAttributesCreation> implemen
   public longitude?: number
   public website?: string
   public deletable?: boolean
+  public unpublishable?: boolean
   public gallery_id?: number
   public progression?: PostProgression
   public readonly created_at!: Date
