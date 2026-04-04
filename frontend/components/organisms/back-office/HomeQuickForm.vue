@@ -58,7 +58,7 @@
                     <HomeQuickCard v-if="!couldHaveErrors" :clickable="false" :homeQuick="editingHomeQuick"
                         class="max-w-96" />
                     <div v-else>
-                        <span class="text-gray-400">Saisissez les informations manquantes pour prévisualiser
+                        <span class="text-gray-400">Certaines informations sont manquantes ou incorrectes
                             {{ errorLabels && errorLabels.length ? `: ${errorLabels.join(', ')}` : '' }}</span>
                     </div>
                 </div>

@@ -1,6 +1,9 @@
 import { Optional } from 'sequelize'
 import { CategoryAttributes } from './category.types'
 import { MediaAttributes } from './media.types'
+import { PostAttributeAttributes } from './postAttribute.types'
+import { ScheduleAttributes } from './schedule.types'
+import { GalleryAttributes } from './gallery.types'
 
 export const POST_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
 export type PostStatus = typeof POST_STATUSES_KEYS[number]
@@ -65,7 +68,7 @@ export interface PostAttributes {
     progression?: PostProgression | null
 }
 
-export interface PostAttributesFrontend extends PostAttributes { categories?: CategoryAttributes[], cover?: MediaAttributes }
+export interface PostAttributesFrontend extends PostAttributes { categories?: CategoryAttributes[], cover?: MediaAttributes, attributes?: PostAttributeAttributes[], schedules?: ScheduleAttributes[], gallery?: GalleryAttributes }
 
 export type PostAttributesCreation = Optional<PostAttributes,
     'id' | 'cover_id' | 'gallery_id' | 'date_time' | 'contact_name' | 'contact_email' | 'contact_phone' | 'address' | 'website' | 'latitude' | 'longitude' | 'abstract' | 'deletable' | 'progression' | 'content' | 'meta_title' | 'meta_description' |

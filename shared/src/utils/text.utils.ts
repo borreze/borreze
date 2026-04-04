@@ -1,7 +1,7 @@
 import { USER_PASSWORD_SCORE_REQUIRED } from "../types/user.types";
 import { passwordGetScore } from "./password.utils";
 
-export const normalize = (text: string | null | undefined, keepNonWord = false): string => {
+export const normalize = (text: string | null | undefined, keepNonWord: boolean = false): string => {
     if (!text) return ''
 
     let result = text
@@ -21,6 +21,13 @@ export const normalize = (text: string | null | undefined, keepNonWord = false):
         .replace(/--+/g, '-')
         .replace(/^-+/, '')
         .replace(/-+$/, '')
+}
+
+export const isNormalized = (text: string | null | undefined, keepNonWord: boolean = false): boolean => {
+    if (!text) return true
+
+    const normalized = normalize(text, keepNonWord)
+    return normalized === text
 }
 
 export function buildUrl(template: string | null, data:  Record<string, unknown>): string {

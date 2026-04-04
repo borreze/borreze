@@ -8,10 +8,8 @@ export function hello(): string {
     const now = new Date();
     const hour = now.getHours();
 
-    if (hour >= 5 && hour < 12) {
+    if (hour > 4 && hour < 17) {
         return "Bonjour";
-    } else if (hour >= 12 && hour < 17) {
-        return "Bon après-midi";
     } else {
         return "Bonsoir";
     }

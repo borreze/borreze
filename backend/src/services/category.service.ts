@@ -69,6 +69,7 @@ export class CategoryService {
 
   public async create(data: CategoryAttributesCreation): Promise<CategoryAttributes | null> {
     if (!data.slug) data.slug = slugify(data.name)
+    if (data.slug) data.slug = slugify(data.slug)
     delete data.id // ensure id is not set
 
     const { valid, errors } = validateAll(data, CATEGORY_CONSTRAINTS)
@@ -84,6 +85,7 @@ export class CategoryService {
 
   public async update(id: number, data: CategoryAttributesUpdate): Promise<CategoryAttributes | null> {
     if (!data.slug) data.slug = slugify(data.name)
+    if (data.slug) data.slug = slugify(data.slug)
 
     const { valid, errors } = validateAll(data, CATEGORY_CONSTRAINTS)
     if (!valid) throw new ValidationException('Erreur sur les champs', errors)

@@ -236,5 +236,35 @@
         "order": 1,
         "parent_id": 20016,
         "is_visible": true
+    },
+    {
+        "id": 20019,
+        "scope": "back-office",
+        "context": "post",
+        "icon": "ic:outline-insert-drive-file",
+        "label": "Pages",
+        "order": 9,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 20020,
+        "scope": "back-office",
+        "context": "post",
+        "label": "Liste des pages",
+        "url": "/back-office/pages",
+        "order": 0,
+        "parent_id": 20019,
+        "is_visible": true
+    },
+    {
+        "id": 20021,
+        "scope": "back-office",
+        "context": "post",
+        "label": "Créer une page",
+        "url": "/back-office/pages/ajouter",
+        "order": 1,
+        "parent_id": 20019,
+        "is_visible": true
     }
 ]

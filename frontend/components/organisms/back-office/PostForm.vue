@@ -29,7 +29,7 @@
                             <Field v-model="editingPost.title" required label="Titre" hint="Titre principale"
                                 roundness="md" :error="errors.title" @blur="touch('title')" />
                             <Field v-model="editingPost.slug" required label="Slug"
-                                hint="Identifiant unique, utilisé pour les URL" roundness="md" :error="errors.slug"
+                                hint="Identifiant unique utilisé pour les URL. Attention, changer ce champ va affecter le lien." roundness="md" :error="errors.slug"
                                 @blur="touch('slug')" />
                         </div>
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
@@ -47,13 +47,14 @@
                                 hint="Sélectionnez une image de couverture" :error="errors.cover"
                                 @update="touch('cover')" />
                         </div>
-                        <div class="max-w-xs">
+                        <div v-if="editingPost.type !== 'page'" class="max-w-xs">
                             <Dropdown v-model="editingPostCategories" variant="light" size="md" label="Catégories"
                                 placeholder="Aucune" label-key="name" value-key="id" multiple :items="categories" />
                         </div>
                     </div>
                 </section>
-                <section>
+                <section
+                    v-if="editingPost.type === 'event' || editingPost.type === 'commerce' || editingPost.type === 'association'">
                     <h4 class="title-submain mb-4">Contact</h4>
                     <div class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
@@ -100,7 +101,15 @@
                     </div>
                 </section>
                 <section>
-                    <h4 class="title-submain mb-6">SEO</h4>
+                    <h4 class="title-submain mb-4">SEO</h4>
+                    <p class="hint mb-2">
+                        Les moteurs de recherche utilisent le meta titre et la meta description pour référencer votre
+                        contenu. Ils sont également utilisés lors du partage de votre contenu sur les réseaux sociaux.
+                        Remplir correctement ces ces champs permettra aussi au contenu d'être davantage mis en avant
+                        dans la page "Recherche" du site.
+                        Ces champs sont optionnels, mais il est recommandé de les remplir pour améliorer le
+                        référencement de votre contenu.
+                    </p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <Field v-model="editingPost.meta_title" label="Meta titre"
                             hint="Titre de la page pour les moteurs de recherches" roundness="md"
@@ -111,7 +120,12 @@
                     </div>
                 </section>
                 <section>
-                    <h4 class="title-submain mb-6">Contenu</h4>
+                    <h4 class="title-submain mb-4">Contenu</h4>
+                    <p class="hint mb-2">
+                        Saisissez le contenu de votre {{ editingPost.type === 'event' ? 'événement' : 'contenu' }}.
+                        Vous pouvez formater votre contenu à l'aide de l'éditeur de texte enrichi. N'hésitez pas à
+                        ajouter des images, vidéos ou autres médias pour rendre votre contenu plus attractif.
+                    </p>
                     <WysiwygEditor v-model="editingPost.content" :error="errors.content" @blur="touch('content')" />
                 </section>
                 <section v-if="mode === 'edit'">
@@ -122,8 +136,7 @@
                 <div class="w-full mt-6 xl:mt-0 xl:sticky xl:top-5">
                     <h4 class="title-submain mb-6">Prévisualisation</h4>
                     <div v-if="!couldHaveErrors" class="max-w-96">
-                        <div v-if="!editingPost.type" class="text-gray-400">Prévisualisation non disponible pour ce type
-                            de contenu</div>
+                        <div v-if="!editingPost.type" class="text-gray-400">&nbsp;</div>
                         <EventCard v-else-if="editingPost.type === 'event'" :clickable="false" :post="editingPost" />
                         <ProjectCard v-else-if="editingPost.type === 'project'" :clickable="false"
                             :post="editingPost" />
@@ -131,7 +144,7 @@
                         <div v-else class="text-gray-400">Prévisualisation non disponible pour ce type de contenu</div>
                     </div>
                     <div v-else>
-                        <span class="text-gray-400">Saisissez les informations manquantes pour prévisualiser
+                        <span class="text-gray-400">Certaines informations sont manquantes ou incorrectes
                             {{ errorLabels && errorLabels.length ? `: ${errorLabels.join(', ')}` : '' }}</span>
                     </div>
                 </div>
@@ -142,7 +155,7 @@
 
 <script setup lang="ts">
 import type { PostAttributesFrontend, CategoryAttributes } from '@brz/shared'
-import { POST_STATUSES_OBJECTS, slugify } from '@brz/shared'
+import { POST_STATUSES_OBJECTS, slugify, isSlugified } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
@@ -185,7 +198,7 @@ const editingPostCategories = computed({
 const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useForm([
     // Common
     { name: 'title', label: 'Titre', validation: () => editingPost.value.title === '' ? 'Le titre est requis' : null },
-    { name: 'slug', label: 'Slug', validation: () => editingPost.value.slug === '' ? 'Le slug est requis' : null },
+    { name: 'slug', label: 'Slug', validation: () => editingPost.value.slug === '' || !isSlugified(editingPost.value.slug) ? 'Le slug est requis et doit être composé de lettres, chiffres, tirets ou underscores' : null },
     { name: 'abstract', label: 'Résumé' },
     { name: 'meta_title', label: 'Meta titre' },
     { name: 'meta_description', label: 'Meta description' },

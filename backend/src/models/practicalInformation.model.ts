@@ -46,9 +46,9 @@ export const PRACTICAL_INFORMATION_CONSTRAINTS = {
 } as const satisfies ModelConstraints<PracticalInformationAttributes>
 
 export const PROJECT_LINKS: SearchResultLinks = {
-  'self_front': '/informations-pratiques/<slug>',
+  'self_front': '/informations-pratiques/<id>',
   'list_front': '/informations-pratiques',
-  'self_api': '/praticals-informations/<slug>',
+  'self_api': '/praticals-informations/<id>',
   'list_api': '/praticals-informations'
 }
 

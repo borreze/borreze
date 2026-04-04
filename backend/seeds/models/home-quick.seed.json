@@ -13,7 +13,7 @@
         "title": "École",
         "icon": "ic:baseline-school",
         "description": "Informations sur les écoles et inscriptions",
-        "url": "/ecole"
+        "url": "/pages/ecole"
     },
     {
         "order": 2,

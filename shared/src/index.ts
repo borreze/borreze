@@ -1,10 +1,10 @@
 // UTILS
 
-export { slugify } from './utils/model.utils'
+export { slugify, isSlugified } from './utils/model.utils'
 
 export { paginationDefault } from './utils/pagination.utils'
 
-export { buildUrl, normalize, isEmail, isURL, isURLRelative, isPasswordStrong } from './utils/text.utils'
+export { buildUrl, normalize, isNormalized, isEmail, isURL, isURLRelative, isPasswordStrong } from './utils/text.utils'
 
 export { resolveType, sizeToReadable, mediaGetIcon, mediaGetLabel, isTypeAllowed } from './utils/media.utils'
 

@@ -10,7 +10,7 @@ import { useCreatePost } from '~/composables/back-office/usePost'
 import { useCategoriesAll } from '~/composables/back-office/useCategory'
 
 const { categories } = await useCategoriesAll()
-const { createSelf, assignCategories } = useCreatePost('new')
+const { createSelf, assignCategories } = useCreatePost('page')
 
 const defaultPost: PostAttributesFrontend = {
     id: 0, // trick to satisfy types, will be ignored by backend
@@ -19,7 +19,7 @@ const defaultPost: PostAttributesFrontend = {
     abstract: '',
     content: '',
     status: 'draft',
-    type: 'new',
+    type: 'page',
     meta_title: '',
     meta_description: '',
     schedule_start: null,
@@ -33,20 +33,20 @@ const handleSave = async (post: PostAttributesFrontend, categoryIds: number[]) =
         if (created && categoryIds.length) {
             await assignCategories(created.data.id, categoryIds)
         }
-        navigateTo('/back-office/actualites')
-        push.success({ title: 'Créée !', message: 'L\'actualité a été créée avec succès.' })
+        navigateTo('/back-office/pages')
+        push.success({ title: 'Créée !', message: 'La page a été créée avec succès.' })
     } catch (err: any) {
         push.error(parseValidationErrors(err?.data))
     }
 }
 
-useAppHead({ title: 'Nouvelle actualité' })
+useAppHead({ title: 'Nouvelle page' })
 
 definePageMeta({
     layout: 'back-office',
     middleware: ['auth'],
     requiresAuth: false,
-    title: 'Nouvelle actualité',
+    title: 'Nouvelle page',
     private: true,
 })
 </script>

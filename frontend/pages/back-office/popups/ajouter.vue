@@ -23,7 +23,7 @@ const handleSave = async (popup: PopupAttributesFrontend) => {
     try {
         await createSelf(popup)
         navigateTo('/back-office/popups')
-        push.success({ title: 'Créé !', message: 'La popup a été créé avec succès.' })
+        push.success({ title: 'Créée !', message: 'La popup a été créée avec succès.' })
     } catch (err: any) {
         push.error(parseValidationErrors(err?.data))
     }

@@ -65,12 +65,11 @@
 
 <script setup lang="ts">
 import type { RoleAttributes, UserAttributesFrontendPassword } from '@brz/shared'
-import { USER_STATUSES_OBJECTS, isEmail, isPasswordStrong, slugify } from '@brz/shared'
+import { USER_STATUSES_OBJECTS, isEmail, isNormalized, isPasswordStrong } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
 import Dropdown from '~/components/molecules/Dropdown.vue'
-import { formatDateTime } from '~/utils/date'
 import PasswordStrength from '~/components/molecules/PasswordStrength.vue'
 import Timestamps from './Timestamps.vue'
 import { useAuthStore } from '~/stores/auth'
@@ -94,7 +93,7 @@ const emit = defineEmits<{
 const editingUser = ref<UserAttributesFrontendPassword>({ ...props.initialUser })
 
 const { couldHaveErrors, touch, errors, submit } = useForm([
-    { name: 'username', label: 'Nom d\'utilisateur', validation: () => editingUser.value.username === '' ? 'Le nom d\'utilisateur est requis' : null },
+    { name: 'username', label: 'Nom d\'utilisateur', validation: () => editingUser.value.username === '' || !isNormalized(editingUser.value.username, false) ? 'Le nom d\'utilisateur est requis et doit être composé de lettres, chiffres, tirets ou underscores' : null },
     { name: 'email', label: 'E-mail', validation: () => editingUser.value.email === '' || !isEmail(editingUser.value.email) ? 'L\'e-mail est requis et doit être une adresse e-mail valide' : null },
     { name: 'first_name', label: 'Prénom' },
     { name: 'last_name', label: 'Nom' },
@@ -115,15 +114,5 @@ const handleSave = () => submit(() => {
 const handleDelete = () => {
     emit('delete')
 }
-
-watch(() => editingUser.value.first_name, (firstName) => {
-    if (props.mode === 'edit') return
-    editingUser.value.username = slugify(`${firstName}${editingUser.value.last_name || ''}`)
-})
-
-watch(() => editingUser.value.last_name, (lastName) => {
-    if (props.mode === 'edit') return
-    editingUser.value.username = slugify(`${editingUser.value.first_name || ''}${lastName}`)
-})
 
 </script>

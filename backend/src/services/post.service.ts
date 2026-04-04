@@ -133,6 +133,7 @@ export class PostService {
 
   public async create(data: PostAttributesCreation): Promise<PostAttributes | null> {
     if (!data.slug) data.slug = slugify(data.title)
+    if (data.slug) data.slug = slugify(data.slug)
     if (!data.published_at && data.status === 'published') data.published_at = new Date()
     delete data.id // ensure id is not set
 
@@ -149,6 +150,7 @@ export class PostService {
 
   public async update(id: number, data: PostAttributesUpdate): Promise<PostAttributes | null> {
     if (!data.slug) data.slug = slugify(data.title)
+    if (data.slug) data.slug = slugify(data.slug)
     if (!data.published_at && data.status === 'published') data.published_at = new Date()
 
     const { valid, errors } = validateAll(data, POST_CONSTRAINTS)
