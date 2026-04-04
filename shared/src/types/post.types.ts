@@ -3,7 +3,6 @@ import { CategoryAttributes } from './category.types'
 import { MediaAttributes } from './media.types'
 import { PostAttributeAttributes } from './postAttribute.types'
 import { ScheduleAttributes } from './schedule.types'
-import { GalleryAttributes } from './gallery.types'
 
 export const POST_STATUSES_KEYS = ['draft', 'published', 'archived'] as const
 export type PostStatus = typeof POST_STATUSES_KEYS[number]
@@ -63,20 +62,18 @@ export interface PostAttributes {
     // Page 
     deletable?: boolean | null // Useful for preventing deletion of pages that are essential for the site (e.g., homepage, legal notice, etc.)
     unpublishable?: boolean | null // Useful for preventing unpublishing of pages that are essential for the site (e.g., homepage, legal notice, etc.)
-    // Page & project
-    gallery_id?: number | null
     // Project
     progression?: PostProgression | null
 }
 
-export interface PostAttributesFrontend extends PostAttributes { categories?: CategoryAttributes[], cover?: MediaAttributes, attributes?: PostAttributeAttributes[], schedules?: ScheduleAttributes[], gallery?: GalleryAttributes }
+export interface PostAttributesFrontend extends PostAttributes { categories?: CategoryAttributes[], cover?: MediaAttributes, attributes?: PostAttributeAttributes[], schedules?: ScheduleAttributes[], medias?: MediaAttributes[] }
 
 export type PostAttributesCreation = Optional<PostAttributes,
-    'id' | 'cover_id' | 'gallery_id' | 'date_time' | 'contact_name' | 'contact_email' | 'contact_phone' | 'address' | 'website' | 'latitude' | 'longitude' | 'abstract' | 'deletable' | 'unpublishable' | 'progression' | 'content' | 'meta_title' | 'meta_description' |
+    'id' | 'cover_id' | 'date_time' | 'contact_name' | 'contact_email' | 'contact_phone' | 'address' | 'website' | 'latitude' | 'longitude' | 'abstract' | 'deletable' | 'unpublishable' | 'progression' | 'content' | 'meta_title' | 'meta_description' |
     'published_at' | 'schedule_start' | 'schedule_end' | 'created_at' | 'updated_at'
 >
 
 export type PostAttributesUpdate = Optional<PostAttributes,
-    'id' | 'cover_id' | 'gallery_id' | 'date_time' | 'contact_name' | 'contact_email' | 'contact_phone' | 'address' | 'website' | 'latitude' | 'longitude' | 'status' | 'type' | 'title' | 'slug' | 'abstract' | 'deletable' | 'unpublishable' | 'progression' | 'content' | 'meta_title' |
+    'id' | 'cover_id' | 'date_time' | 'contact_name' | 'contact_email' | 'contact_phone' | 'address' | 'website' | 'latitude' | 'longitude' | 'status' | 'type' | 'title' | 'slug' | 'abstract' | 'deletable' | 'unpublishable' | 'progression' | 'content' | 'meta_title' |
     'meta_description' | 'published_at' | 'schedule_start' | 'schedule_end' | 'created_at' | 'updated_at'
 >

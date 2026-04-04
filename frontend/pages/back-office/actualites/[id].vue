@@ -11,7 +11,7 @@ import { useEditPost } from '~/composables/back-office/usePost'
 import { useCategoriesAll } from '~/composables/back-office/useCategory'
 
 const route = useRoute()
-const { post, loading, deleteSelf, updateSelf, updateStatus, updateCategories } = await useEditPost('new', route.params.id as unknown as number)
+const { post, loading, deleteSelf, updateSelf, updateStatus, updateCategories, updateMedias } = await useEditPost('new', route.params.id as unknown as number)
 const { categories } = await useCategoriesAll()
 const { confirm } = useConfirm()
 
@@ -19,10 +19,11 @@ if (!post.value) {
     throw createError({ statusCode: 404, statusMessage: 'Actualité introuvable' })
 }
 
-const handleSave = async (editedPost: PostAttributesFrontend, categoryIds: number[]) => {
+const handleSave = async (editedPost: PostAttributesFrontend, categoryIds: number[], mediaIds: number[]) => {
     try {
         await updateSelf(editedPost)
         await updateCategories(categoryIds)
+        await updateMedias(mediaIds)
         navigateTo('/back-office/actualites')
         push.success({ title: 'Sauvegardé !', message: 'L\'actualité a été sauvegardée avec succès.' })
     } catch (err: any) {

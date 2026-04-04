@@ -202,6 +202,20 @@ export class PostService {
     })
   }
 
+  public async updateMedias(id: number, ids: number[]): Promise<PostAttributes | null> {
+    return sequelize.transaction(async (transaction: Transaction) => {
+      const post = await Post.findByPk(id, { transaction })
+      if (!post) throw new NotFound('Post not found')
+
+      await post.setMedias(ids, { transaction })
+
+      return post
+    }).then(async (post) => {
+      if (!post) return null
+      return post
+    })
+  }
+
   public async delete(id: number): Promise<number> {
     const post = await Post.findByPk(id)
     if (!post) throw new NotFound('Post not found')

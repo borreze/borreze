@@ -125,6 +125,16 @@ export const useEditPost = async (type: PostType, id: number) => {
         return response.data
     }
 
+    const updateMedias = async (ids: number[]) => {
+        const response = await useApi().put<{ data: PostAttributesFrontend }>(
+            `/back-office/posts/${type}/${id}/medias`,
+            { body: { ids } }
+        )
+
+        if (!response.ok) throw response.error
+        return response.data
+    }
+
     return {
         post: computed(() => data.value?.data ?? null),
         loading: computed(() => status.value === 'pending'),
@@ -133,6 +143,7 @@ export const useEditPost = async (type: PostType, id: number) => {
         updateSelf,
         updateStatus,
         updateCategories,
+        updateMedias,
     }
 }
 
@@ -155,8 +166,18 @@ export const useCreatePost = (type: PostType) => {
         return response.data
     }
 
+    const assignMedias = async (postId: number, ids: number[]) => {
+        const response = await useApi().put<{ data: PostAttributesFrontend }>(
+            `/back-office/posts/${type}/${postId}/medias`,
+            { body: { ids } }
+        )
+        if (!response.ok) throw response.error
+        return response.data
+    }
+
     return {
         createSelf,
-        assignCategories
+        assignCategories,
+        assignMedias,
     }
 }

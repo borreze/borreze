@@ -114,6 +114,17 @@ export class PostController {
     res.status(200).json({ data: post, message: 'Post categories updated successfully' } as Return)
   }
 
+  public updateMedias: RequestHandler<{ type: string, id: string }> = async (req, res) => {
+    const id = Number(req.params.id)
+    const type = String(req.params.type || 'page') as PostType
+
+    const { ids } = req.body
+
+    const post = await postService.updateMedias(id, ids)
+    Log.info(`Les médias du post de type ${type} et d'ID #${id} ont été mises à jour`, req)
+    res.status(200).json({ data: post, message: 'Post medias updated successfully' } as Return)
+  }
+
   public delete: RequestHandler<{ type: string, id: string }> = async (req, res) => {
     const id = Number(req.params.id)
     const type = String(req.params.type || 'page') as PostType

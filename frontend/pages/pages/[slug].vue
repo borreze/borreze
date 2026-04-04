@@ -6,12 +6,19 @@
             <Breadcrumb :items="[
                 ...(post ? [{ name: post.title, url: `/pages/${post.slug}` }] : [])
             ]" />
+
             <Loader v-if="loading" />
             <article v-else-if="post" class="mt-8">
                 <p v-if="post.published_at" class="text-sm text-gray-500 mt-2">
                     {{ formatDateRelative(post.published_at) }}
                 </p>
+
+                <div v-if="post?.medias" class="mt-4">
+                    <MediaCarousel :medias="post.medias" class="h-[400px] max-w-[800px] mx-auto" />
+                </div>
+
                 <p v-if="post.abstract" class="mt-4 text-gray-600 italic">{{ post.abstract }}</p>
+
                 <WysiwygRenderer v-if="post.content" class="mt-6 prose max-w-none" :html="post.content" />
             </article>
         </div>
@@ -26,6 +33,7 @@ import PageHero from '~/components/organisms/front-office/PageHero.vue';
 import { formatDateRelative } from '~/utils/date';
 import { mediaUrl, MEDIA_URL_DEFAULT_HERO } from '~/utils/media';
 import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
+import MediaCarousel from '~/components/organisms/front-office/MediaCarousel.vue';
 
 const route = useRoute()
 const { post, loading } = await usePost('page', route.params.slug as string)

@@ -296,5 +296,35 @@
         "order": 1,
         "parent_id": 20022,
         "is_visible": true
+    },
+    {
+        "id": 20025,
+        "scope": "back-office",
+        "context": "gallery",
+        "icon": "ic:baseline-photo-library",
+        "label": "Galeries",
+        "order": 11,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 20026,
+        "scope": "back-office",
+        "context": "gallery",
+        "label": "Liste des galeries",
+        "url": "/back-office/galeries",
+        "order": 0,
+        "parent_id": 20025,
+        "is_visible": true
+    },
+    {
+        "id": 20027,
+        "scope": "back-office",
+        "context": "gallery",
+        "label": "Créer une galerie",
+        "url": "/back-office/galeries/ajouter",
+        "order": 1,
+        "parent_id": 20025,
+        "is_visible": true
     }
 ]

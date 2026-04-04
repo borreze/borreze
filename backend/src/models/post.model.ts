@@ -7,7 +7,6 @@ import { Media } from './media.model'
 import { Category } from './category.model'
 import { POST_TYPES_KEYS, PostType } from '@brz/shared'
 import { PostAttribute } from './postAttribute.model'
-import { Gallery } from './gallery.model'
 import { Schedule } from './schedule.model'
 
 export const POST_CONSTRAINTS = {
@@ -19,11 +18,6 @@ export const POST_CONSTRAINTS = {
   },
   cover_id: {
     nicename: 'Couverture',
-    type: DataTypes.INTEGER,
-    required: false
-  },
-  gallery_id: {
-    nicename: 'Galerie',
     type: DataTypes.INTEGER,
     required: false
   },
@@ -271,19 +265,20 @@ export class Post extends Model<PostAttributes, PostAttributesCreation> implemen
   public website?: string
   public deletable?: boolean
   public unpublishable?: boolean
-  public gallery_id?: number
   public progression?: PostProgression
   public readonly created_at!: Date
   public readonly updated_at!: Date
 
   public categories?: Category[]
+  public medias?: Media[]
   public setCategories!: BelongsToManySetAssociationsMixin<Category, number>
+  public setMedias!: BelongsToManySetAssociationsMixin<Media, number>
 }
 
 export const POST_INCLUDE_DEFAULTS = [
   { model: Media, as: 'cover' },
+  { model: Media, as: 'medias' },
   { model: Category, as: 'categories' },
-  { model: Gallery, as: 'gallery' },
   { model: PostAttribute, as: 'attributes' },
   { model: Schedule, as: 'schedules' },
 ]

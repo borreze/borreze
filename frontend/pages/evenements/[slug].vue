@@ -7,20 +7,27 @@
                 { name: 'Événements', url: '/evenements' },
                 ...(post ? [{ name: post.title, url: `/evenements/${post.slug}` }] : [])
             ]" />
+
             <div v-if="post?.categories && post.categories.length > 0" class="mt-8 flex items-center flex-wrap gap-2">
                 <Pill v-for="category in post.categories" :key="category.id" :label="category.name" size="md"
                     variant="primary" />
             </div>
+
             <Loader v-if="loading" />
             <article v-else-if="post" class="mt-8">
                 <p v-if="post.published_at" class="text-sm text-gray-500 mt-2">
                     {{ formatDateRelative(post.published_at) }}
                 </p>
 
+                <div v-if="post?.medias" class="mt-4">
+                    <MediaCarousel :medias="post.medias" class="h-[400px] max-w-[800px] mx-auto" />
+                </div>
+
                 <EventInfosDate :post="post" class="mt-4" />
                 <EventInfosContact :post="post" class="mt-4" />
 
                 <p v-if="post.abstract" class="mt-4 text-gray-600 italic">{{ post.abstract }}</p>
+
                 <WysiwygRenderer v-if="post.content" class="mt-6 prose max-w-none" :html="post.content" />
             </article>
         </div>
@@ -38,6 +45,7 @@ import { mediaUrl, MEDIA_URL_DEFAULT_HERO } from '~/utils/media';
 import WysiwygRenderer from '~/components/organisms/WysiwygRenderer.vue';
 import EventInfosDate from '~/components/organisms/front-office/EventInfosDate.vue';
 import EventInfosContact from '~/components/organisms/front-office/EventInfosContact.vue';
+import MediaCarousel from '~/components/organisms/front-office/MediaCarousel.vue';
 
 const route = useRoute()
 const { post, loading } = await usePost('event', route.params.slug as string)

@@ -1,5 +1,4 @@
 <template>
-
     <div class="w-full flex flex-col gap-1">
         <div v-if="label || hint" class="flex justify-start flex-wrap items-end gap-2">
             <label v-if="label" class="text-sm font-medium text-dark">
@@ -52,7 +51,7 @@
                     class="flex-1" />
             </div>
             <!-- Picker medias grid -->
-            <div class="h-[60vh] w-[80vw] md:w-[70vw] overflow-y-auto">
+            <div class="h-[60vh] w-[80vw] md:w-[70vw] overflow-y-auto mb-2">
                 <Loader v-if="loading" />
                 <div v-else-if="medias" class="mt-6">
                     <Grid v-if="medias?.length > 0" :items="medias"
@@ -68,7 +67,7 @@
             </div>
             <Paging :total="pagination?.total" :page="pagination?.page" @set-page="setPage" />
             <div class="flex justify-end gap-2">
-                <Button :label="pickLabel" :disabled="!hasReachedMax()" icon="ic:round-check" variant="primary"
+                <Button :label="pickLabel" :disabled="hasReachedMax()" icon="ic:round-check" variant="primary"
                     size="sm" @click="closePickModal" />
             </div>
         </Modal>
@@ -113,6 +112,7 @@ const isMultiple = computed(() => props.multiple ?? false)
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: PickerModelValue | null): void
+    (e: 'change', value: string): void
 }>()
 
 const { loading, medias, pagination, setPage, setSearch, refresh } = await useMedias({ type: (props.mediaType ?? 'all') })
@@ -132,6 +132,7 @@ const innerMedias = computed({
         } else {
             emit('update:modelValue', (val[0] ?? null) as PickerModelValue | null)
         }
+        emit('change', innerMedias.value.map(m => m.id).join(','))
     }
 })
 

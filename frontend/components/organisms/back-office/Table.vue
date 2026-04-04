@@ -45,7 +45,7 @@
             </table>
 
             <!-- Mobile -->
-            <div class="grid xl:hidden grid-cols-1 md:grid-cols-2 gap-6">
+            <div v-if="items.length > 0" class="grid xl:hidden grid-cols-1 md:grid-cols-2 gap-6">
                 <div v-for="(item, index) in items" :key="getItemKey(item, index)"
                     class="bg-white rounded-lg p-4 shadow-[2px_2px_10px_2px_#0000001a]">
                     <div>
@@ -75,8 +75,8 @@
                         </div>
                     </div>
                 </div>
-                <NoContent v-if="items.length === 0" />
             </div>
+            <NoContent v-else />
         </div>
     </div>
 </template>

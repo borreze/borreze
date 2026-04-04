@@ -24,7 +24,7 @@ export type { CouncilorAttributes, CouncilorAttributesCreation, CouncilorAttribu
 
 export type { CouncilReportAttributes, CouncilReportAttributesCreation, CouncilReportAttributesUpdate } from './types/councilReport.types'
 
-export type { GalleryAttributes, GalleryAttributesCreation, GalleryAttributesUpdate } from './types/gallery.types'
+export type { GalleryAttributes, GalleryAttributesFrontend, GalleryAttributesCreation, GalleryAttributesUpdate } from './types/gallery.types'
 
 export type { HomeQuickAttributes, HomeQuickAttributesCreation, HomeQuickAttributesUpdate } from './types/homeQuick.types'
 

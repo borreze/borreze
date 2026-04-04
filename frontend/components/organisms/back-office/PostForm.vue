@@ -44,10 +44,16 @@
                                 label="Date et heure de l'événement" roundness="md" :error="errors.date_time"
                                 @blur="touch('date_time')" />
                         </div>
+                        <div v-if="editingPost.type === 'page' || editingPost.type === 'event'">
+                            <MediaPicker v-model="editingPostMedias" :multiple="true"
+                                :media-type="editingPost.type === 'page' || editingPost.type === 'event' ? 'image' : null"
+                                label="Galerie photos" hint="Sélectionnez les médias à inclure" :error="errors.medias"
+                                @change="touch('medias')" />
+                        </div>
                         <div>
                             <MediaPicker v-model="editingPost.cover" media-type="image" label="Couverture"
                                 hint="Sélectionnez une image de couverture" :error="errors.cover"
-                                @update="touch('cover')" />
+                                @change="touch('cover')" />
                         </div>
                         <div v-if="editingPost.type !== 'page'" class="max-w-xs">
                             <Dropdown v-model="editingPostCategories" variant="light" size="md" label="Catégories"
@@ -61,13 +67,13 @@
                     <div class="flex flex-col gap-4">
                         <div class="grid md:grid-cols-2 gap-4">
                             <Field v-model="editingPost.contact_name" label="Nom et prénom"
-                                hint="Nom et prénom de la personne à contacter pour cet événement" roundness="md"
+                                hint="Nom et prénom de la personne physique à contacter" roundness="md"
                                 :error="errors.contact_name" @blur="touch('contact_name')" />
                             <Field v-model="editingPost.contact_email" label="Email"
-                                hint="Email de la personne à contacter pour cet événement" roundness="md"
+                                hint="Email de la personne physique à contacter" roundness="md"
                                 :error="errors.contact_email" @blur="touch('contact_email')" />
                             <Field v-model="editingPost.contact_phone" label="Téléphone"
-                                hint="Téléphone de la personne à contacter pour cet événement" roundness="md"
+                                hint="Téléphone de la personne physique à contacter" roundness="md"
                                 :error="errors.contact_phone" @blur="touch('contact_phone')" />
                         </div>
                     </div>
@@ -164,7 +170,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PostAttributesFrontend, CategoryAttributes } from '@brz/shared'
+import type { PostAttributesFrontend, CategoryAttributes, MediaAttributes } from '@brz/shared'
 import { POST_STATUSES_OBJECTS, slugify, isSlugified } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
@@ -192,7 +198,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-    save: [post: PostAttributesFrontend, categoryIds: number[]]
+    save: [post: PostAttributesFrontend, categoryIds: number[], mediaIds: number[]]
     publish: []
     delete: []
 }>()
@@ -204,6 +210,11 @@ const editingPostCategories = computed({
     set: (newValue: number[]) => {
         editingPost.value.categories = props.categories.filter(c => newValue.includes(c.id))
     },
+})
+
+const editingPostMedias = computed({
+    get: () => editingPost.value.medias ?? [],
+    set: (newValue: MediaAttributes[]) => { editingPost.value.medias = newValue },
 })
 
 const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useForm([
@@ -218,6 +229,7 @@ const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useFo
     { name: 'status', label: 'Status', validation: () => !editingPost.value.status ? 'Le status est requis' : null },
     { name: 'content', label: 'Contenu' },
     { name: 'cover', label: 'Couverture' },
+    { name: 'medias', label: 'Médias' },
     // Event
     { name: 'date_time', label: 'Date et heure', validation: () => (editingPost.value.type === 'event' && !editingPost.value.date_time) ? 'La date et heure sont requises' : null },
     { name: 'address', label: 'Adresse de l\'événement' },
@@ -228,6 +240,7 @@ const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useFo
 
 const handleSave = () => submit(() => {
     const categoryIds = [...editingPostCategories.value]
+    const mediaIds = editingPostMedias.value.map(m => m.id)
 
     if (editingPost.value.cover) { // ensure cover_id is set for backend, but remove cover object to avoid creating a new media
         editingPost.value.cover_id = editingPost.value.cover?.id || null
@@ -236,7 +249,7 @@ const handleSave = () => submit(() => {
     if (editingPost.value.categories) { // remove categories array to avoid creating new categories
         delete editingPost.value.categories
     }
-    emit('save', editingPost.value, categoryIds)
+    emit('save', editingPost.value, categoryIds, mediaIds)
 })
 
 const handlePublish = () => {

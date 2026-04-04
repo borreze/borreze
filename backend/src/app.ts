@@ -2,20 +2,6 @@ import express, { Express, Request, Response } from 'express'
 import { Return } from './types/utils/api.types'
 import swaggerUi from "swagger-ui-express"
 import swaggerDocument from "./swagger.json"
-import postRoutes from './routes/post.routes'
-import roleRoutes from './routes/role.routes'
-import scheduleRoutes from './routes/schedule.routes'
-import categoryRoutes from './routes/category.routes'
-import homeQuickRoutes from './routes/homeQuick.routes'
-import userRoutes from './routes/user.routes'
-import popupRoutes from './routes/popup.routes'
-import menuRoutes from './routes/menu.routes'
-import contactRoutes from './routes/contact.routes'
-import mediaRoutes from './routes/media.routes'
-import logRoutes from './routes/log.routes'
-import schoolHolidayRoutes from './routes/schoolHoliday.routes'
-import authRoutes from './routes/auth.routes'
-import globalRoutes from './routes/global.routes'
 import { NotFound } from './exceptions/request.exception'
 import { NextFunction } from 'express-serve-static-core'
 import { errorMiddleware } from './middlewares/error.middleware'
@@ -28,6 +14,21 @@ import { multerErrorHandler } from './middlewares/multer.middleware'
 import { MEDIA_UPLOAD_DIR, MEDIA_UPLOAD_URL } from '@brz/shared'
 import { initPostCron } from './crons/post.cron'
 import { config } from './config/config'
+import postRoutes from './routes/post.routes'
+import roleRoutes from './routes/role.routes'
+import scheduleRoutes from './routes/schedule.routes'
+import categoryRoutes from './routes/category.routes'
+import homeQuickRoutes from './routes/homeQuick.routes'
+import userRoutes from './routes/user.routes'
+import popupRoutes from './routes/popup.routes'
+import menuRoutes from './routes/menu.routes'
+import contactRoutes from './routes/contact.routes'
+import mediaRoutes from './routes/media.routes'
+import logRoutes from './routes/log.routes'
+import galleryRoutes from './routes/gallery.routes'
+import schoolHolidayRoutes from './routes/schoolHoliday.routes'
+import authRoutes from './routes/auth.routes'
+import globalRoutes from './routes/global.routes'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -59,6 +60,7 @@ app.use(scheduleRoutes)
 app.use(categoryRoutes)
 app.use(homeQuickRoutes)
 app.use(logRoutes)
+app.use(galleryRoutes)
 app.use(schoolHolidayRoutes)
 app.use(userRoutes)
 app.use(popupRoutes)

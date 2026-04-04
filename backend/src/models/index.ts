@@ -22,6 +22,7 @@ import { initCategorizableModel, Categorizable } from './categorizable.model'
 import { initGalleryModel, Gallery } from './gallery.model'
 import { initScheduleModel, Schedule } from './schedule.model'
 import { initGalleryMediaModel, GalleryMedia } from './galleryMedia.model'
+import { initPostMediaModel, PostMedia } from './postMedia.model'
 
 initLogModel(sequelize)
 initSchoolHolidayModel(sequelize)
@@ -45,6 +46,7 @@ initCategorizableModel(sequelize)
 initPopupModel(sequelize)
 initGalleryModel(sequelize)
 initGalleryMediaModel(sequelize)
+initPostMediaModel(sequelize)
 initScheduleModel(sequelize)
 
 Media.belongsTo(User, { foreignKey: 'uploaded_by', as: 'uploader' })
@@ -54,7 +56,7 @@ Role.hasMany(User, { foreignKey: 'role_id', as: 'users' })
 User.belongsTo(Role, { foreignKey: 'role_id', as: 'role' })
 
 Post.belongsTo(Media, { foreignKey: 'cover_id', as: 'cover' })
-Media.hasMany(Post, { foreignKey: 'cover_id', as: 'posts' })
+Media.hasMany(Post, { foreignKey: 'cover_id', as: 'posts_cover' })
 Popup.belongsTo(Media, { foreignKey: 'media_id', as: 'media' })
 Media.hasMany(Popup, { foreignKey: 'media_id', as: 'popups' })
 CouncilReport.belongsTo(Media, { foreignKey: 'pdf_id', as: 'pdf' })
@@ -76,6 +78,9 @@ Gallery.hasMany(Post, { foreignKey: 'gallery_id', as: 'posts' })
 
 Gallery.belongsToMany(Media, { through: GalleryMedia, foreignKey: 'gallery_id', otherKey: 'media_id', as: 'photos' })
 Media.belongsToMany(Gallery, { through: GalleryMedia, foreignKey: 'media_id', otherKey: 'gallery_id', as: 'galleries' })
+
+Post.belongsToMany(Media, { through: PostMedia, foreignKey: 'post_id', otherKey: 'media_id', as: 'medias' })
+Media.belongsToMany(Post, { through: PostMedia, foreignKey: 'media_id', otherKey: 'post_id', as: 'posts' })
 
 SchoolMeal.belongsTo(Media, { foreignKey: 'pdf_id', as: 'pdf' })
 Media.hasMany(SchoolMeal, { foreignKey: 'pdf_id', as: 'school_meals' })
@@ -106,4 +111,5 @@ export {
     Gallery,
     Schedule,
     GalleryMedia,
+    PostMedia,
 }

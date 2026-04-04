@@ -10,7 +10,7 @@ import { useCreatePost } from '~/composables/back-office/usePost'
 import { useCategoriesAll } from '~/composables/back-office/useCategory'
 
 const { categories } = await useCategoriesAll()
-const { createSelf, assignCategories } = useCreatePost('event')
+const { createSelf, assignCategories, assignMedias } = useCreatePost('event')
 
 const defaultPost: PostAttributesFrontend = {
     id: 0, // trick to satisfy types, will be ignored by backend
@@ -25,13 +25,17 @@ const defaultPost: PostAttributesFrontend = {
     schedule_start: null,
     schedule_end: null,
     categories: [],
+    medias: [],
 }
 
-const handleSave = async (post: PostAttributesFrontend, categoryIds: number[]) => {
+const handleSave = async (post: PostAttributesFrontend, categoryIds: number[], mediaIds: number[]) => {
     try {
         const created = await createSelf(post)
         if (created && categoryIds.length) {
             await assignCategories(created.data.id, categoryIds)
+        }
+        if (created && mediaIds.length) {
+            await assignMedias(created.data.id, mediaIds)
         }
         navigateTo('/back-office/evenements')
         push.success({ title: 'Créé !', message: 'L\'événement a été créée avec succès.' })

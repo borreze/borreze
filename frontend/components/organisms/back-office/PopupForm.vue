@@ -25,7 +25,7 @@
                         <div>
                             <MediaPicker v-model="editingPopup.media" required label="Média"
                                 hint="Sélectionnez une média à mettre en avant" :error="errors.media"
-                                @update="touch('media')" />
+                                @change="touch('media')" />
                         </div>
                     </div>
                 </section>
