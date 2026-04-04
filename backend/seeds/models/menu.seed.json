@@ -48,7 +48,7 @@
         "id": 1007,
         "scope": "front-office",
         "label": "Vie municipale",
-        "url": "/vie-municipale",
+        "url": "/contact",
         "order": 0,
         "parent_id": 1006,
         "is_visible": true
