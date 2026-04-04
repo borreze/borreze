@@ -38,7 +38,7 @@
                         <div v-if="editingPost.type === 'event'" class="grid md:grid-cols-2 gap-4">
                             <Field v-model="editingPost.address" label="Adresse de l'événement" roundness="md"
                                 :error="errors.address"
-                                :warn="mode === 'edit' && (!editingPost?.latitude || !editingPost?.longitude) ? 'Aucune coordonnée géographique n\'a encore été calculée. Le contenu peut ne pas s\'afficher correctement pour l\'instant. Si ce message persiste, veuillez vérifier l\'adresse.' : null"
+                                :warn="mode === 'edit' && (!editingPost?.latitude || !editingPost?.longitude) ? 'Aucune coordonnée GPS n\'a encore été calculée. Le contenu peut ne pas s\'afficher correctement pour l\'instant. Si ce message persiste plus d\'une heure, veuillez vérifier l\'adresse.' : null"
                                 @blur="touch('address')" />
                             <Datepicker v-model="editingPost.date_time" required :with-time="true"
                                 label="Date et heure de l'événement" roundness="md" :error="errors.date_time"
