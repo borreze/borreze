@@ -18,7 +18,7 @@
     {
         "order": 2,
         "is_visible": true,
-        "title": "Projets",
+        "title": "Projets communaux",
         "icon": "ic:baseline-construction",
         "description": "Développement et aménagements",
         "url": "/projets"

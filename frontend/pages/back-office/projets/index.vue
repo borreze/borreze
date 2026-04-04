@@ -1,7 +1,7 @@
 <template>
     <div>
         <Teleport defer to="#page-heading">
-            <h1 class="title-main line-clamp-1">Projets</h1>
+            <h1 class="title-main line-clamp-1">Projets communaux</h1>
             <Pill v-if="pagination?.count" :label="pagination?.count" variant="light" size="md" />
         </Teleport>
         <Teleport defer to="#page-actions">

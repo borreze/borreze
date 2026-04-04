@@ -4,7 +4,7 @@
     <section class="safe-area-md">
         <div class="mx-auto max-w-6xl">
             <Breadcrumb :items="[
-                { name: 'Projets', url: '/projets' },
+                { name: 'Projets communaux', url: '/projets' },
                 ...(post ? [{ name: post.title, url: `/projets/${post.slug}` }] : [])
             ]" />
 
@@ -56,7 +56,7 @@ useAppHead({
 })
 
 definePageMeta({
-    title: 'Projets',
+    title: 'Projets communaux',
     layout: 'front-office',
 })
 
