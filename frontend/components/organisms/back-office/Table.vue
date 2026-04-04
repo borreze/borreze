@@ -26,7 +26,7 @@
                             </slot>
                         </td>
                         <td v-if="actions && actions.length > 0" class="py-1 xl:py-2 px-5 xl:px-7">
-                            <div class="flex items-center gap-2">
+                            <div class="flex items-center justify-end gap-2">
                                 <Button v-for="(action, aIndex) in actions" :key="aIndex" as="link"
                                     :href="action.buildLink(item)" :external="action.external"
                                     :variant="action.variant || 'light'" :icon="action.icon" :label="action.label"

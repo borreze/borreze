@@ -266,5 +266,35 @@
         "order": 1,
         "parent_id": 20019,
         "is_visible": true
+    },
+    {
+        "id": 20022,
+        "scope": "back-office",
+        "context": "category",
+        "icon": "ic:outline-category",
+        "label": "Categories",
+        "order": 10,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 20023,
+        "scope": "back-office",
+        "context": "category",
+        "label": "Liste des catégories",
+        "url": "/back-office/categories",
+        "order": 0,
+        "parent_id": 20022,
+        "is_visible": true
+    },
+    {
+        "id": 20024,
+        "scope": "back-office",
+        "context": "category",
+        "label": "Créer une catégorie",
+        "url": "/back-office/categories/ajouter",
+        "order": 1,
+        "parent_id": 20022,
+        "is_visible": true
     }
 ]

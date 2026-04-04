@@ -25,7 +25,7 @@ export class CategoryController {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 10
     const search = String(req.query.search || '')
-    const order = parseOrder(req, [['name', 'DESC'], ['id', 'DESC']])
+    const order = parseOrder(req, [['name', 'ASC'], ['id', 'DESC']])
     const type = String(req.params.type)
 
     const options = { search, type }
