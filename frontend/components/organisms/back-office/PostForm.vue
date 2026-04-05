@@ -242,11 +242,12 @@ const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useFo
     { name: 'medias', label: 'Médias' },
     // Event
     { name: 'date_time', label: 'Date et heure', validation: () => (editingPost.value.type === 'event' && !editingPost.value.date_time) ? 'La date et heure sont requises' : null },
-    // Commerce & Event
-    { name: 'address', label: 'Adresse de l\'événement' },
+    // Commerce & Event & Association
     { name: 'contact_name', label: 'Nom et prénom du contact' },
     { name: 'contact_email', label: 'Email du contact' },
     { name: 'contact_phone', label: 'Téléphone du contact' },
+    // Commerce & Event
+    { name: 'address', label: 'Adresse de l\'événement' },
     // Commerce
     { name: 'website', label: 'Site web', validation: () => (editingPost.value.type === 'commerce' && editingPost.value.website && !isURL(editingPost.value.website)) ? 'Si le site web est renseigné, il doit être valide' : null },
     // Page

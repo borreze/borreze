@@ -50,10 +50,11 @@ export interface PostAttributes {
     updated_at?: Date | null
     // Event
     date_time?: Date | null
-    // Commerce & event
+    // Commerce & Event & Association
     contact_name?: string | null
     contact_email?: string | null
     contact_phone?: string | null
+    // Commerce & Event 
     address?: string | null
     latitude?: number | null
     longitude?: number | null
