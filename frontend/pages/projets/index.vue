@@ -38,7 +38,7 @@ import { usePosts } from '~/composables/front-office/usePost';
 import { useCategoriesByType } from '~/composables/front-office/useCategory';
 
 const { posts, pagination, loading, setPage, removeCategory, addCategory, resetCategories, getCategories, setOrder, resetOrder } = await usePosts('project')
-const { categories } = await useCategoriesByType('post')
+const { categories } = await useCategoriesByType('post', 'project')
 
 useAppHead({
     title: 'Liste des projets de la commune de Borrèze',

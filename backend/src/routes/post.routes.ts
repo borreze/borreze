@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import { postController } from '../controllers/post.controller'
 import { permissionMiddleware } from '../middlewares/auth.middleware'
+import { cacheControl } from '../middlewares/cache.middleware'
 
 const router = Router()
 
-router.get('/posts/:type/recents', postController.getRecents)
+router.get('/posts/:type/recents', cacheControl('ONE_HOUR'), postController.getRecents)
 router.get('/posts/:type/future', postController.getFuture)
 router.get('/posts/:type/', postController.getAll)
 router.get('/posts/:type/:slug', postController.getBySlug)

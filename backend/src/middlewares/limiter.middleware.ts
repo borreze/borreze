@@ -18,10 +18,7 @@ export type TimeSpanKey = keyof typeof TimeSpans;
  * @param max Maximum number of requests allowed per window.
  * @param span Time span key from the TimeSpans enum. Defaults to FIFTEEN_MINUTES.
  */
-export const createRateLimiter = (
-    max: number = 50,
-    span: TimeSpanKey = "FIFTEEN_MINUTES"
-) => {
+export const createRateLimiter = (max: number = 50, span: TimeSpanKey = "FIFTEEN_MINUTES") => {
     if (config.env === 'development') { // ! THERE IS NO RATE LIMIT IN DEV MODE TO AVOID HINDERING TESTS
         return (req: Request, res: Response, next: NextFunction) => next();
     }

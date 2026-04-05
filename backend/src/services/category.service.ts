@@ -1,5 +1,5 @@
 import { Category } from '../models'
-import { CategorizableType, Pagination } from '@brz/shared'
+import { CategorizableType, Pagination, PostType } from '@brz/shared'
 import { Transaction } from 'sequelize'
 import { sequelize } from '../config/database'
 import { Order } from '@brz/shared'
@@ -28,11 +28,28 @@ export class CategoryService {
     }
   }
 
-  public async count(options?: { search?: string, type?: CategorizableType | string | null }): Promise<number> {
-    const { search, type } = options || {}
+  private filterWhereOneFromPostType(type: PostType | string | null = null): WhereOptions {
+    if (!type) return {}
+
+    return {
+      id: {
+        [Op.in]: literal(`(
+        SELECT DISTINCT c.category_id
+        FROM categorizable c
+        INNER JOIN post p ON p.id = c.categorizable_id
+        WHERE c.type = 'post'
+        AND p.type = '${type}'
+      )`)
+      }
+    }
+  }
+
+  public async count(options?: { search?: string, type?: CategorizableType | string | null, post?: PostType | null }): Promise<number> {
+    const { search, type, post } = options || {}
 
     const where = modelBuildWhere([
       this.filterWhereOneFromType(type),
+      this.filterWhereOneFromPostType(post),
       searchWhere(CATEGORY_CONSTRAINTS, search)
     ])
 
@@ -40,12 +57,13 @@ export class CategoryService {
     return Number(result)
   }
 
-  public async getAll(options?: { search?: string, type?: CategorizableType | string | null }, order: Order[] = [], pagination?: Pagination | null): Promise<CategoryAttributes[]> {
-    const { search, type } = options || {}
+  public async getAll(options?: { search?: string, type?: CategorizableType | string | null, post?: PostType | null }, order: Order[] = [], pagination?: Pagination | null): Promise<CategoryAttributes[]> {
+    const { search, type, post } = options || {}
     const { offset, limit } = pagination || paginationDefault()
 
     const where = modelBuildWhere([
       this.filterWhereOneFromType(type),
+      this.filterWhereOneFromPostType(post),
       searchWhere(CATEGORY_CONSTRAINTS, search)
     ])
 
@@ -53,11 +71,12 @@ export class CategoryService {
     return categories
   }
 
-  public async getById(id: number, options?: { type?: CategorizableType | string | null }): Promise<CategoryAttributes | null> {
-    const { type } = options || {}
+  public async getById(id: number, options?: { type?: CategorizableType | string | null, post?: PostType | null }): Promise<CategoryAttributes | null> {
+    const { type, post } = options || {}
 
     const where = modelBuildWhere([
       this.filterWhereOneFromType(type),
+      this.filterWhereOneFromPostType(post),
       { id }
     ])
 

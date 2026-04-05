@@ -4,6 +4,7 @@ import { Return } from '../types/utils/api.types'
 import { parseOrder } from '../utils/request.utils'
 import { paginate } from '../utils/pagination.utils'
 import { Log } from '../utils/log.utils'
+import { PostType } from '@brz/shared'
 
 export class CategoryController {
   public getAll: RequestHandler = async (req, res) => {
@@ -27,8 +28,9 @@ export class CategoryController {
     const search = String(req.query.search || '')
     const order = parseOrder(req, [['name', 'ASC'], ['id', 'DESC']])
     const type = String(req.params.type)
+    const post = String(req.query.post || '') as PostType
 
-    const options = { search, type }
+    const options = { search, type, post }
 
     const count = await categoryService.count(options)
     const pagination = paginate(page, limit, count, req?.user)

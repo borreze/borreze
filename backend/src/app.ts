@@ -29,6 +29,7 @@ import galleryRoutes from './routes/gallery.routes'
 import schoolHolidayRoutes from './routes/schoolHoliday.routes'
 import authRoutes from './routes/auth.routes'
 import globalRoutes from './routes/global.routes'
+import { cacheControl } from './middlewares/cache.middleware'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
@@ -71,15 +72,10 @@ app.use(authRoutes)
 app.use(globalRoutes)
 
 // Serve uploaded media files statically
-app.use(`/${MEDIA_UPLOAD_URL}`, express.static(MEDIA_UPLOAD_DIR, {
-  maxAge: '1d',
-}))
+app.use(`/${MEDIA_UPLOAD_URL}`, cacheControl('ONE_HOUR'), express.static(MEDIA_UPLOAD_DIR))
 
 // Serve favicon
-app.use('/favicon.ico', express.static(path.resolve('public/favicon.ico'), {
-  maxAge: '365d',
-  immutable: true, // Tell browsers to cache the favicon for a loooong time
-}))
+app.use('/favicon.ico', cacheControl('ONE_YEAR'), express.static(path.resolve('public/favicon.ico')))
 
 // Health check
 app.get('/health', (req: Request, res: Response) => {

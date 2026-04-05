@@ -39,7 +39,7 @@ import { useCategoriesByType } from '~/composables/front-office/useCategory';
 import PostsMap from '~/components/organisms/front-office/PostsMap.vue';
 
 const { posts, loading, removeCategory, addCategory, resetCategories, getCategories } = await usePosts('commerce', { page: 1, limit: 99 }) // assume that there is not more than 99 commerces
-const { categories } = await useCategoriesByType('post')
+const { categories } = await useCategoriesByType('post', 'commerce')
 
 useAppHead({
     title: 'Liste des commerces de la commune de Borrèze',

@@ -1,12 +1,17 @@
-import { type CategorizableType, type CategoryAttributes } from '@brz/shared';
+import { type CategorizableType, type CategoryAttributes, type PostType } from '@brz/shared';
 import useApi from '~/composables/useApi'
 
-export const useCategoriesByType = async (type: CategorizableType) => {
+export const useCategoriesByType = async (type: CategorizableType, post?: PostType | null) => {
     const { data, status, error } = await useAsyncData(
-        `categories-${type}`,
+        `categories-${type}${post ? `-${post}` : ''}`,
         async () => {
             try {
-                const res = await useApi().get<{ data: CategoryAttributes[] }>(`/categories/${type}`)
+                const res = await useApi().get<{ data: CategoryAttributes[] }>(`/categories/${type}`,
+                    {
+                        params: {
+                            post: post || undefined,
+                        }
+                    })
                 return res.data ?? null
             } catch (e) {
                 return null

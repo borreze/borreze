@@ -50,7 +50,7 @@ const { posts, loading, removeCategory, addCategory, resetCategories, getCategor
     from: dateFirstDayOf(new Date().getMonth() + 1, new Date().getFullYear()), // getMonth() returns 0-11, we want 1-12 for easier handling
     to: dateLastDayOf(new Date().getMonth() + 1, new Date().getFullYear()), // getMonth() returns 0-11, we want 1-12 for easier handling
 })
-const { categories } = await useCategoriesByType('post')
+const { categories } = await useCategoriesByType('post', 'event')
 
 const currentYear = ref(new Date().getFullYear())
 const currentMonth = ref(new Date().getMonth() + 1) // getMonth() returns 0-11, we want 1-12 for easier handling

@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import { scheduleController } from '../controllers/schedule.controller'
 import { permissionMiddleware } from '../middlewares/auth.middleware'
+import { cacheControl } from '../middlewares/cache.middleware'
 
 const router = Router()
 
-router.get('/schedules/:type', scheduleController.getByType)
+router.get('/schedules/:type', cacheControl('ONE_DAY'), scheduleController.getByType)
 
 router.get('/back-office/schedules/', permissionMiddleware('schedule', 'read'), scheduleController.getAll)
 router.get('/back-office/schedules/:id', permissionMiddleware('schedule', 'read'), scheduleController.getById)
