@@ -6,6 +6,7 @@ import { Model, ModelStatic } from 'sequelize'
 import { hashPassword, isHash } from './utils/auth.utils'
 import { Terminal } from './utils/terminal.utils'
 import { Categorizable } from './models/categorizable.model'
+import { isSlugified, slugify } from '@brz/shared'
 
 const seed = async () => {
   const models: { model: ModelStatic<Model>, file: string }[] = [
@@ -80,6 +81,15 @@ const seed = async () => {
         for (const user of data) {
           if (!isHash(user.password)) {
             user.password = await hashPassword(user.password)
+          }
+        }
+      }
+
+      // If model has a "slug" field, ensure all slugs are slugified
+      if (model.getAttributes().slug) {
+        for (const item of data) {
+          if (item.slug && !isSlugified(item.slug)) {
+            item.slug = slugify(item.slug)
           }
         }
       }

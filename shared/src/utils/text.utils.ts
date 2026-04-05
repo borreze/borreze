@@ -30,7 +30,7 @@ export const isNormalized = (text: string | null | undefined, keepNonWord: boole
     return normalized === text
 }
 
-export function buildUrl(template: string | null, data:  Record<string, unknown>): string {
+export function buildUrl(template: string | null, data: Record<string, unknown>): string {
     // Take a URL template like '/pages/<slug>' and replace placeholders with actual values from the data object
 
     if (!template) return '#'
@@ -53,7 +53,9 @@ export function isPasswordStrong(password: string): boolean {
     return passwordGetScore(password) >= USER_PASSWORD_SCORE_REQUIRED
 }
 
-export function isURLRelative(url: string): boolean {
+export function isURLRelative(url: string | null | undefined): boolean {
+    if (!url) return false
+
     return url.startsWith("/") &&
         !url.includes("://") &&
         !url.startsWith("http") &&
@@ -62,7 +64,9 @@ export function isURLRelative(url: string): boolean {
         !/[<>"'`|\\^{}[\]();:@&=+$,?#[\]~]/.test(url);
 }
 
-export function isURL(url: string): boolean {
+export function isURL(url: string | null | undefined): boolean {
+    if (!url) return false
+
     try {
         new URL(url);
         return true;

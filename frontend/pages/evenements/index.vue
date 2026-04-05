@@ -9,7 +9,7 @@
         <div class="mt-8 events-grid">
             <aside class="events-calendar">
                 <div class="lg:sticky lg:top-5">
-                    <EventsCalendar :posts="posts" @month-change="(year, month) => setRange(year, month)" />
+                    <PostsCalendar :posts="posts" @month-change="(year, month) => setRange(year, month)" />
                 </div>
             </aside>
 
@@ -44,7 +44,7 @@ import Loader from '~/components/molecules/Loader.vue';
 import Breadcrumb from '~/components/molecules/Breadcrumb.vue';
 import { usePostsByDate } from '~/composables/front-office/usePost';
 import { useCategoriesByType } from '~/composables/front-office/useCategory';
-import EventsCalendar from '~/components/organisms/front-office/EventsCalendar.vue';
+import PostsCalendar from '~/components/organisms/front-office/PostsCalendar.vue';
 
 const { posts, loading, removeCategory, addCategory, resetCategories, getCategories, setFrom, setTo } = await usePostsByDate('event', {
     from: dateFirstDayOf(new Date().getMonth() + 1, new Date().getFullYear()), // getMonth() returns 0-11, we want 1-12 for easier handling

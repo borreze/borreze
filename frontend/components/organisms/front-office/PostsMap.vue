@@ -1,6 +1,6 @@
 <template>
     <ClientOnly>
-        <Map :zoom="zoom" :markers="markers" class="rounded-xl" />
+        <Map :markers="markers" class="rounded-xl" />
     </ClientOnly>
 </template>
 
@@ -11,11 +11,9 @@ import type { MapMarker, MapMarkerPopup } from '~/types/map';
 
 const props = withDefaults(defineProps<{
     posts?: PostAttributesFrontend[]
-    zoom?: number
     urlPattern?: string // as '/pages/<slug>'
 }>(), {
     posts: () => [],
-    zoom: 15,
 })
 
 function buildPopup(post: PostAttributesFrontend): MapMarkerPopup {

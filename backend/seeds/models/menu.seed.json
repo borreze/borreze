@@ -36,21 +36,12 @@
         "is_visible": true
     },
     {
-        "id": 1006,
+        "id": 1005,
         "scope": "front-office",
-        "label": "Mairie",
-        "url": null,
+        "label": "Commerces",
+        "url": "/commerces",
         "order": 4,
         "parent_id": null,
-        "is_visible": true
-    },
-    {
-        "id": 1007,
-        "scope": "front-office",
-        "label": "Vie municipale",
-        "url": "/contact",
-        "order": 0,
-        "parent_id": 1006,
         "is_visible": true
     },
     {
@@ -270,9 +261,9 @@
     {
         "id": 20022,
         "scope": "back-office",
-        "context": "category",
-        "icon": "ic:outline-category",
-        "label": "Categories",
+        "context": "post",
+        "icon": "ic:outline-store",
+        "label": "Commerces",
         "order": 10,
         "parent_id": null,
         "is_visible": true
@@ -280,9 +271,9 @@
     {
         "id": 20023,
         "scope": "back-office",
-        "context": "category",
-        "label": "Liste des catégories",
-        "url": "/back-office/categories",
+        "context": "post",
+        "label": "Liste des commerces",
+        "url": "/back-office/commerces",
         "order": 0,
         "parent_id": 20022,
         "is_visible": true
@@ -290,9 +281,9 @@
     {
         "id": 20024,
         "scope": "back-office",
-        "context": "category",
-        "label": "Créer une catégorie",
-        "url": "/back-office/categories/ajouter",
+        "context": "post",
+        "label": "Créer un commerce",
+        "url": "/back-office/commerces/ajouter",
         "order": 1,
         "parent_id": 20022,
         "is_visible": true
@@ -300,9 +291,9 @@
     {
         "id": 20025,
         "scope": "back-office",
-        "context": "gallery",
-        "icon": "ic:baseline-photo-library",
-        "label": "Galeries",
+        "context": "post",
+        "icon": "ic:outline-nature-people",
+        "label": "Associations",
         "order": 11,
         "parent_id": null,
         "is_visible": true
@@ -310,9 +301,9 @@
     {
         "id": 20026,
         "scope": "back-office",
-        "context": "gallery",
-        "label": "Liste des galeries",
-        "url": "/back-office/galeries",
+        "context": "post",
+        "label": "Liste des associations",
+        "url": "/back-office/associations",
         "order": 0,
         "parent_id": 20025,
         "is_visible": true
@@ -320,11 +311,71 @@
     {
         "id": 20027,
         "scope": "back-office",
+        "context": "post",
+        "label": "Créer une association",
+        "url": "/back-office/associations/ajouter",
+        "order": 1,
+        "parent_id": 20025,
+        "is_visible": true
+    },
+    {
+        "id": 20028,
+        "scope": "back-office",
+        "context": "category",
+        "icon": "ic:outline-category",
+        "label": "Categories",
+        "order": 12,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 20029,
+        "scope": "back-office",
+        "context": "category",
+        "label": "Liste des catégories",
+        "url": "/back-office/categories",
+        "order": 0,
+        "parent_id": 20028,
+        "is_visible": true
+    },
+    {
+        "id": 20030,
+        "scope": "back-office",
+        "context": "category",
+        "label": "Créer une catégorie",
+        "url": "/back-office/categories/ajouter",
+        "order": 1,
+        "parent_id": 20028,
+        "is_visible": true
+    },
+    {
+        "id": 20031,
+        "scope": "back-office",
+        "context": "gallery",
+        "icon": "ic:baseline-photo-library",
+        "label": "Galeries",
+        "order": 13,
+        "parent_id": null,
+        "is_visible": true
+    },
+    {
+        "id": 20032,
+        "scope": "back-office",
+        "context": "gallery",
+        "label": "Liste des galeries",
+        "url": "/back-office/galeries",
+        "order": 0,
+        "parent_id": 20031,
+        "is_visible": true
+    },
+    {
+        "id": 20033,
+        "scope": "back-office",
         "context": "gallery",
         "label": "Créer une galerie",
         "url": "/back-office/galeries/ajouter",
         "order": 1,
-        "parent_id": 20025,
+        "parent_id": 20031,
         "is_visible": true
     }
 ]

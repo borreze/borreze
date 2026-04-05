@@ -3,11 +3,11 @@ import type { Order, PostType } from '@brz/shared'
 import type { Pagination } from '@brz/shared'
 import useApi from '~/composables/useApi'
 
-export const usePosts = async (type: PostType) => {
-    const page = ref(1)
+export const usePosts = async (type: PostType, options: {page?: number, limit?: number} = {}) => {
+    const page = ref(options.page ?? 1)
     const categories = ref<number[]>([])
     const order = ref<Order | null>(null)
-    const limit = ref<number>(paginationDefault().limit)
+    const limit = ref<number>(options.limit ?? paginationDefault().limit)
 
     const { data, status, error } = await useAsyncData(
         `posts-${type}-${page.value}-${limit.value}-${categories.value.join(',')}`,

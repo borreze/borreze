@@ -35,14 +35,15 @@
                         <Field v-model="editingPost.abstract" type="textarea" label="Résumé"
                             hint="Résumé, utilisé lors de l'affichage en liste" roundness="md" :error="errors.abstract"
                             @blur="touch('abstract')" />
-                        <div v-if="editingPost.type === 'event'" class="grid md:grid-cols-2 gap-4">
-                            <Field v-model="editingPost.address" label="Adresse de l'événement" roundness="md"
-                                :error="errors.address"
+                        <div v-if="editingPost.type === 'event' || editingPost.type === 'commerce'"
+                            class="grid md:grid-cols-2 gap-4">
+                            <Field v-if="editingPost.type === 'event' || editingPost.type === 'commerce'"
+                                v-model="editingPost.address" label="Adresse" roundness="md" :error="errors.address"
                                 :warn="mode === 'edit' && (!editingPost?.latitude || !editingPost?.longitude) ? 'Aucune coordonnée GPS n\'a encore été calculée. Le contenu peut ne pas s\'afficher correctement pour l\'instant. Si ce message persiste plus d\'une heure, veuillez vérifier l\'adresse.' : null"
                                 @blur="touch('address')" />
-                            <Datepicker v-model="editingPost.date_time" required :with-time="true"
-                                label="Date et heure de l'événement" roundness="md" :error="errors.date_time"
-                                @blur="touch('date_time')" />
+                            <Datepicker v-if="editingPost.type === 'event'" v-model="editingPost.date_time" required
+                                :with-time="true" label="Date et heure de l'événement" roundness="md"
+                                :error="errors.date_time" @blur="touch('date_time')" />
                         </div>
                         <div v-if="editingPost.type === 'page' || editingPost.type === 'event'">
                             <MediaPicker v-model="editingPostMedias" :multiple="true"
@@ -58,6 +59,10 @@
                         <div v-if="editingPost.type !== 'page'" class="max-w-xs">
                             <Dropdown v-model="editingPostCategories" variant="light" size="md" label="Catégories"
                                 placeholder="Aucune" label-key="name" value-key="id" multiple :items="categories" />
+                        </div>
+                        <div v-if="editingPost.type === 'project'" class="max-w-xs">
+                            <Dropdown v-model="editingPost.progression" variant="light" size="md" label="Avancement"
+                                placeholder="Aucun" :items="POST_PROGESSIONS_OBJECTS" />
                         </div>
                     </div>
                 </section>
@@ -75,6 +80,9 @@
                             <Field v-model="editingPost.contact_phone" label="Téléphone"
                                 hint="Téléphone de la personne physique à contacter" roundness="md"
                                 :error="errors.contact_phone" @blur="touch('contact_phone')" />
+                            <Field v-if="editingPost.type === 'commerce'" v-model="editingPost.website" label="Site web"
+                                hint="example:&nbsp;&nbsp;https://www.exemple.com" roundness="md"
+                                :error="errors.website" @blur="touch('website')" />
                         </div>
                     </div>
                 </section>
@@ -138,7 +146,6 @@
                 <section>
                     <h4 class="title-submain mb-4">Contenu</h4>
                     <p class="hint mb-2">
-                        Saisissez le contenu de votre {{ editingPost.type === 'event' ? 'événement' : 'contenu' }}.
                         Vous pouvez formater votre contenu à l'aide de l'éditeur de texte enrichi. N'hésitez pas à
                         ajouter des images, vidéos ou autres médias pour rendre votre contenu plus attractif.
                     </p>
@@ -154,6 +161,8 @@
                     <div v-if="!couldHaveErrors" class="max-w-96">
                         <div v-if="!editingPost.type" class="text-gray-400">&nbsp;</div>
                         <EventCard v-else-if="editingPost.type === 'event'" :clickable="false" :post="editingPost" />
+                        <CommerceCard v-else-if="editingPost.type === 'commerce'" :clickable="false"
+                            :post="editingPost" />
                         <ProjectCard v-else-if="editingPost.type === 'project'" :clickable="false"
                             :post="editingPost" />
                         <NewCard v-else-if="editingPost.type === 'new'" :clickable="false" :post="editingPost" />
@@ -171,7 +180,7 @@
 
 <script setup lang="ts">
 import type { PostAttributesFrontend, CategoryAttributes, MediaAttributes } from '@brz/shared'
-import { POST_STATUSES_OBJECTS, slugify, isSlugified } from '@brz/shared'
+import { POST_STATUSES_OBJECTS, slugify, isSlugified, POST_PROGESSIONS_OBJECTS, isURL } from '@brz/shared'
 import Field from '~/components/atoms/Field.vue'
 import Button from '~/components/atoms/Button.vue'
 import Loader from '~/components/molecules/Loader.vue'
@@ -183,6 +192,7 @@ import MediaPicker from './MediaPicker.vue'
 import NewCard from '~/components/organisms/front-office/NewCard.vue'
 import ProjectCard from '~/components/organisms/front-office/ProjectCard.vue'
 import EventCard from '~/components/organisms/front-office/EventCard.vue'
+import CommerceCard from '~/components/organisms/front-office/CommerceCard.vue'
 import { useAuthStore } from '~/stores/auth'
 import Switch from '~/components/atoms/Switch.vue'
 
@@ -232,10 +242,18 @@ const { errorLabels, hasErrors, couldHaveErrors, touch, errors, submit } = useFo
     { name: 'medias', label: 'Médias' },
     // Event
     { name: 'date_time', label: 'Date et heure', validation: () => (editingPost.value.type === 'event' && !editingPost.value.date_time) ? 'La date et heure sont requises' : null },
+    // Commerce & Event
     { name: 'address', label: 'Adresse de l\'événement' },
     { name: 'contact_name', label: 'Nom et prénom du contact' },
     { name: 'contact_email', label: 'Email du contact' },
     { name: 'contact_phone', label: 'Téléphone du contact' },
+    // Commerce
+    { name: 'website', label: 'Site web', validation: () => (editingPost.value.type === 'commerce' && editingPost.value.website && !isURL(editingPost.value.website)) ? 'Si le site web est renseigné, il doit être valide' : null },
+    // Page
+    { name: 'deletable', label: 'Supprimable' },
+    { name: 'unpublishable', label: 'Dépubliable' },
+    // Project
+    { name: 'progression', label: 'Avancement' },
 ])
 
 const handleSave = () => submit(() => {
