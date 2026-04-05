@@ -17,12 +17,13 @@ const props = withDefaults(defineProps<{
 })
 
 function buildPopup(post: PostAttributesFrontend): MapMarkerPopup {
-    const address = post.address ? `<address>${post.address}</address>` : ''
+    const address = post?.address ? `<address>${post.address}</address>` : ''
+    const abstract = post?.abstract ? `<p class="italic text-gray-600">${post.abstract}</p>` : ''
     const link = props.urlPattern ? `<br><a href="${buildUrl(props.urlPattern, { id: post.id, slug: post.slug })}" class="!text-light !bg-primary !px-3 !py-1 !rounded-full !text-md !font-medium">Voir</a>` : ''
 
     return {
         label: post.title,
-        content: `${address}${link}`,
+        content: `${address}${abstract}${link}`,
     }
 }
 
